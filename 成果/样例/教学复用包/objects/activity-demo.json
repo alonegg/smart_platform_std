@@ -1,0 +1,31 @@
+{
+  "object_id": "activity-demo",
+  "object_type": "ActivityVersion",
+  "version_id": "v1",
+  "schema_version": "0.1.0",
+  "source_system": "synthetic-author",
+  "source_id": "activity-demo",
+  "created_at": "2026-10-23T09:00:00+08:00",
+  "created_by": "synthetic-author",
+  "rights_ref": "rights-demo",
+  "access_policy_ref": "policy-teaching",
+  "classification_ref": "classification-demo",
+  "lifecycle_status": "published",
+  "review_status": "not_applicable",
+  "supersedes": null,
+  "title": "解释任务",
+  "prompt": "用自己的语言解释两种量的差异，并给出例子。",
+  "target_refs": [
+    {
+      "object_id": "target-demo",
+      "version_id": "v1"
+    }
+  ],
+  "resource_refs": [
+    {
+      "object_id": "resource-demo",
+      "version_id": "v1"
+    }
+  ],
+  "ai_help_policy": "hints_allowed_and_recorded"
+}

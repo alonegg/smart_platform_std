@@ -1,0 +1,9 @@
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+BAAAAA+ArialUnicodeMS                TrueType          WinAnsi          yes yes yes   4231  0
+CAAAAA+ArialMT                       TrueType          WinAnsi          yes yes yes   4221  0
+DAAAAA+ArialUnicodeMS                TrueType          WinAnsi          yes yes yes   4236  0
+EAAAAA+ArialUnicodeMS                TrueType          WinAnsi          yes yes yes   4241  0
+FAAAAA+Symbol                        TrueType          WinAnsi          yes yes yes   4251  0
+GAAAAA+Arial-BoldMT                  TrueType          WinAnsi          yes yes yes   4226  0
+HAAAAA+ArialUnicodeMS                TrueType          WinAnsi          yes yes yes   4246  0

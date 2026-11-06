@@ -1,0 +1,15 @@
+[
+  {
+    "from": {
+      "object_id": "activity-demo",
+      "version_id": "v1"
+    },
+    "type": "assesses",
+    "to": {
+      "object_id": "target-demo",
+      "version_id": "v1"
+    },
+    "review_status": "not_applicable",
+    "synthetic": true
+  }
+]

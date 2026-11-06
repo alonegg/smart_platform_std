@@ -1,0 +1,449 @@
+{
+  "synthetic": true,
+  "status": "illustrative_not_production_schema",
+  "authority_context": {
+    "offering_id": "offering-demo",
+    "enrollment_id": "enrollment-demo",
+    "learner_ref": "learner-synthetic-001",
+    "access_policies": [
+      "policy-teaching",
+      "policy-private"
+    ]
+  },
+  "objects": [
+    {
+      "object_id": "course-demo",
+      "object_type": "CourseVersion",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "course-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "合成课程",
+      "unit_refs": [
+        {
+          "object_id": "unit-demo",
+          "version_id": "v1"
+        }
+      ],
+      "target_refs": [
+        {
+          "object_id": "target-demo",
+          "version_id": "v1"
+        }
+      ],
+      "scope_note": "仅演示一个单元，非真实完整学分课程"
+    },
+    {
+      "object_id": "unit-demo",
+      "object_type": "LearningUnit",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "unit-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "概念区分",
+      "activity_refs": [
+        {
+          "object_id": "activity-demo",
+          "version_id": "v1"
+        }
+      ],
+      "resource_refs": [
+        {
+          "object_id": "resource-demo",
+          "version_id": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "target-demo",
+      "object_type": "LearningObjective",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "target-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "能够解释边际量与平均量的区别"
+    },
+    {
+      "object_id": "resource-demo",
+      "object_type": "ResourceVersion",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "resource-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "边际与平均量说明",
+      "resource_type": "handout",
+      "language": "zh-CN",
+      "representation_kind": "editable_source",
+      "media_type": "text/markdown",
+      "byte_length": 146,
+      "content_hash": "c8e9eb82cc0b8e0925d6e6bf98b8d5f592a4d510d18da6cba8027f0f5fe71466",
+      "storage_ref": "assets/讲义.md",
+      "target_refs": [
+        {
+          "object_id": "target-demo",
+          "version_id": "v1"
+        }
+      ],
+      "derived_from": []
+    },
+    {
+      "object_id": "activity-demo",
+      "object_type": "ActivityVersion",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "activity-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "解释任务",
+      "prompt": "用自己的语言解释两种量的差异，并给出例子。",
+      "target_refs": [
+        {
+          "object_id": "target-demo",
+          "version_id": "v1"
+        }
+      ],
+      "resource_refs": [
+        {
+          "object_id": "resource-demo",
+          "version_id": "v1"
+        }
+      ],
+      "ai_help_policy": "hints_allowed_and_recorded"
+    },
+    {
+      "object_id": "evidence-demo",
+      "object_type": "ProcessArtifact",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "evidence-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "content": "合成作答：将平均量的变动直接解释为边际量。",
+      "learner_ref": "learner-synthetic-001",
+      "enrollment_id": "enrollment-demo",
+      "activity_ref": {
+        "object_id": "activity-demo",
+        "version_id": "v1"
+      },
+      "help_level": "hint",
+      "synthetic": true
+    },
+    {
+      "object_id": "help-demo",
+      "object_type": "HelpRecord",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "help-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "help_level": "hint",
+      "text": "请先分别给出两个概念的定义。",
+      "synthetic": true
+    },
+    {
+      "object_id": "submission-demo",
+      "object_type": "Submission",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "submission-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "attempt_id": "attempt-demo",
+      "enrollment_id": "enrollment-demo",
+      "activity_ref": {
+        "object_id": "activity-demo",
+        "version_id": "v1"
+      },
+      "artifact_refs": [
+        {
+          "object_id": "evidence-demo",
+          "version_id": "v1"
+        }
+      ],
+      "submission_status": "submitted",
+      "receipt_id": "receipt-synthetic",
+      "help_refs": [
+        {
+          "object_id": "help-demo",
+          "version_id": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "method-demo",
+      "object_type": "AssessmentMethod",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "method-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "title": "人工示例判断规程",
+      "limitations": "仅展示字段；没有测量校准与效果验证。"
+    },
+    {
+      "object_id": "scale-demo",
+      "object_type": "AssessmentScale",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "scale-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-teaching",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "values": [
+        "needs_clarification",
+        "can_explain",
+        "can_transfer"
+      ],
+      "note": "说明性量尺；非经验证的跨课程能力等级。"
+    },
+    {
+      "object_id": "state-demo",
+      "object_type": "CognitiveState",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "state-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "state_id": "state-demo",
+      "learner_ref": "learner-synthetic-001",
+      "enrollment_id": "enrollment-demo",
+      "target_ref": {
+        "object_id": "target-demo",
+        "version_id": "v1"
+      },
+      "dimension": "conceptual_understanding",
+      "origin_type": "teacher_judgment",
+      "status": "reviewed",
+      "value": "needs_clarification",
+      "scale_ref": {
+        "object_id": "scale-demo",
+        "version_id": "v1"
+      },
+      "uncertainty": {
+        "type": "not_estimated",
+        "explanation": "无统计概率估计；单次提示条件下的作答不能代表稳定掌握。"
+      },
+      "evidence_refs": [
+        {
+          "object_ref": {
+            "object_id": "evidence-demo",
+            "version_id": "v1"
+          },
+          "role": "supports",
+          "note": "仅支持安排进一步解释任务"
+        }
+      ],
+      "method_ref": {
+        "object_id": "method-demo",
+        "version_id": "v1"
+      },
+      "context": {
+        "help_level": "hint",
+        "independent_performance": false,
+        "synthetic": true
+      },
+      "evidence_window": {
+        "start": "2026-10-23T09:00:00+08:00",
+        "end": "2026-10-23T09:20:00+08:00"
+      },
+      "as_of": "2026-10-23T09:21:00+08:00",
+      "valid_until": "2026-10-30T09:21:00+08:00",
+      "review": {
+        "reviewer_ref": "teacher-synthetic",
+        "reviewed_at": "2026-10-23T09:21:00+08:00",
+        "synthetic": true
+      },
+      "purpose": "learning_support"
+    },
+    {
+      "object_id": "state-unknown",
+      "object_type": "CognitiveState",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "state-unknown",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "state_id": "state-unknown",
+      "learner_ref": "learner-synthetic-001",
+      "enrollment_id": "enrollment-demo",
+      "target_ref": {
+        "object_id": "target-demo",
+        "version_id": "v1"
+      },
+      "dimension": "conceptual_understanding",
+      "origin_type": "model_inference",
+      "status": "insufficient_evidence",
+      "value": null,
+      "scale_ref": null,
+      "uncertainty": {
+        "type": "not_estimated",
+        "explanation": "无统计概率估计；单次提示条件下的作答不能代表稳定掌握。"
+      },
+      "evidence_refs": [],
+      "method_ref": null,
+      "context": {
+        "help_level": "hint",
+        "independent_performance": false,
+        "synthetic": true
+      },
+      "evidence_window": {
+        "start": "2026-10-23T09:00:00+08:00",
+        "end": "2026-10-23T09:20:00+08:00"
+      },
+      "as_of": "2026-10-23T09:21:00+08:00",
+      "valid_until": "2026-10-30T09:21:00+08:00",
+      "review": null,
+      "purpose": "learning_support"
+    },
+    {
+      "object_id": "recommendation-demo",
+      "object_type": "LearningRecommendation",
+      "version_id": "v1",
+      "schema_version": "0.1.0",
+      "source_system": "synthetic-author",
+      "source_id": "recommendation-demo",
+      "created_at": "2026-10-23T09:00:00+08:00",
+      "created_by": "synthetic-author",
+      "rights_ref": "rights-demo",
+      "access_policy_ref": "policy-private",
+      "classification_ref": "classification-demo",
+      "lifecycle_status": "published",
+      "review_status": "not_applicable",
+      "supersedes": null,
+      "learner_ref": "learner-synthetic-001",
+      "target_ref": {
+        "object_id": "target-demo",
+        "version_id": "v1"
+      },
+      "state_ref": {
+        "object_id": "state-demo",
+        "version_id": "v1"
+      },
+      "action_type": "explain",
+      "activity_ref": {
+        "object_id": "activity-demo",
+        "version_id": "v1"
+      },
+      "rationale": "再次独立解释，补足现有单次提示作答的证据。",
+      "expires_at": "2026-10-30T09:21:00+08:00",
+      "feedback_ref": null
+    }
+  ],
+  "events": [
+    {
+      "event_id": "event-demo",
+      "schema_version": "0.1.0",
+      "profile_version": "0.1.0",
+      "source_system": "synthetic-app",
+      "source_event_id": "source-event-demo",
+      "actor_ref": "learner-synthetic-001",
+      "offering_id": "offering-demo",
+      "enrollment_id": "enrollment-demo",
+      "action": "submission.submitted",
+      "object_ref": {
+        "object_id": "submission-demo",
+        "version_id": "v1"
+      },
+      "occurred_at": "2026-10-23T09:20:00+08:00",
+      "context": {
+        "synthetic": true
+      },
+      "artifact_refs": [
+        {
+          "object_id": "evidence-demo",
+          "version_id": "v1"
+        }
+      ],
+      "received_at": "2026-10-23T09:20:01+08:00",
+      "payload_hash": "cc450ba3925ec18dbfff3982edcec24b43aaf1ba4b4c7f7210203126db5b3b07"
+    }
+  ],
+  "notice": "合成记录，非真实评分、认知模型或教学效果证据。"
+}

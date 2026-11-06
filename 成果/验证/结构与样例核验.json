@@ -1,0 +1,240 @@
+{
+  "scope": "document_and_synthetic_sample_checks_only",
+  "real_interoperability_tests_run": false,
+  "cognition_validity_tested": false,
+  "checks": [
+    {
+      "name": "synthetic_reference_chain",
+      "passed": true,
+      "detail": 13
+    },
+    {
+      "name": "negative_missing_ref",
+      "passed": true,
+      "detail": "missing_reference"
+    },
+    {
+      "name": "negative_unknown_value",
+      "passed": true,
+      "detail": "unknown_has_value"
+    },
+    {
+      "name": "negative_no_evidence",
+      "passed": true,
+      "detail": "estimate_without_evidence"
+    },
+    {
+      "name": "negative_duplicate",
+      "passed": true,
+      "detail": "duplicate_object"
+    },
+    {
+      "name": "manifest_unique_paths",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_assets/讲义.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_objects/activity-demo.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_objects/course-demo.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_objects/resource-demo.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_objects/target-demo.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_objects/unit-demo.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_relations/relations.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "package_file_rights/rights.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "teaching_sample_no_personal_history",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "event_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_unchanged_.docx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_unchanged_.pdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "originals_match_initial_snapshot",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "neutral_scope",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "unique_clause_ids",
+      "passed": true,
+      "detail": 59
+    },
+    {
+      "name": "eight_standard_groups",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "csv_国内标准采用矩阵.csv",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "csv_核心字段字典.csv",
+      "passed": true,
+      "detail": 75
+    },
+    {
+      "name": "csv_国际标准采用矩阵.csv",
+      "passed": true,
+      "detail": 17
+    },
+    {
+      "name": "csv_官方来源索引.csv",
+      "passed": true,
+      "detail": 30
+    },
+    {
+      "name": "csv_最小事件词表.csv",
+      "passed": true,
+      "detail": 21
+    },
+    {
+      "name": "pdf_nonempty_未来智慧教学平台_架构与标准体系_v0.1.pdf",
+      "passed": true,
+      "detail": 35
+    },
+    {
+      "name": "pdf_no_forbidden_context_未来智慧教学平台_架构与标准体系_v0.1.pdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pdf_nonempty_三层架构具体描述_v0.1.pdf",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "pdf_no_forbidden_context_三层架构具体描述_v0.1.pdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "docx_zip_未来智慧教学平台_架构与标准体系_v0.1.docx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "docx_has_image_未来智慧教学平台_架构与标准体系_v0.1.docx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "docx_zip_三层架构具体描述_v0.1.docx",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "docx_has_image_三层架构具体描述_v0.1.docx",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "all_passed": true,
+  "pdfs": [
+    {
+      "file": "未来智慧教学平台_架构与标准体系_v0.1.pdf",
+      "pages": 35,
+      "page_text_lengths": [
+        421,
+        546,
+        419,
+        729,
+        908,
+        979,
+        760,
+        888,
+        938,
+        705,
+        904,
+        1114,
+        968,
+        986,
+        1052,
+        973,
+        1038,
+        922,
+        891,
+        913,
+        1013,
+        821,
+        840,
+        856,
+        1026,
+        151,
+        1040,
+        1506,
+        1164,
+        1406,
+        975,
+        1080,
+        662,
+        1003,
+        735
+      ]
+    },
+    {
+      "file": "三层架构具体描述_v0.1.pdf",
+      "pages": 8,
+      "page_text_lengths": [
+        549,
+        419,
+        729,
+        908,
+        979,
+        760,
+        888,
+        938
+      ]
+    }
+  ]
+}

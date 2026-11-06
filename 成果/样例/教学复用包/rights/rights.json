@@ -1,0 +1,11 @@
+{
+  "rights_id": "rights-demo",
+  "classification_id": "classification-demo",
+  "policy_id": "policy-teaching",
+  "synthetic": true,
+  "rights_statement": "本样例为合成说明材料；不包含真实学生记录。",
+  "allowed_use": [
+    "review",
+    "local_validation"
+  ]
+}

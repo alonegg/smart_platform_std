@@ -1,0 +1,76 @@
+﻿对象,字段,类型,必填性,含义,约束与空值语义,对应条款
+CommonObject,object_id,string,必填,稳定对象标识,不按名称合并；不得重复,S0-01—S0-06
+CommonObject,object_type,string,必填,对象类型,注册词表,S0-01—S0-06
+CommonObject,version_id,string,必填,对象内容版本,被引用的发布版本不可静默覆盖,S0-01—S0-06
+CommonObject,schema_version,string,必填,结构版本,与内容版本分开,S0-01—S0-06
+CommonObject,source_system,string,必填,产生记录的系统,登记的来源身份,S0-01—S0-06
+CommonObject,source_id,string,必填,来源系统标识,与来源系统组合唯一,S0-01—S0-06
+CommonObject,created_at,date-time,必填,创建时间,RFC3339 带时区,S0-01—S0-06
+CommonObject,created_by,string,必填,创建主体,按服务身份或人员权限核验,S0-01—S0-06
+CommonObject,rights_ref,string,必填,内容权利引用,可解析权利档案,S0-01—S0-06
+CommonObject,access_policy_ref,string,必填,访问策略引用,对象范围和用途明确,S0-01—S0-06
+CommonObject,classification_ref,string,必填,分类分级记录引用,不得以资产域代替安全等级,S0-01—S0-06
+CommonObject,lifecycle_status,enum,必填,生命周期状态,draft/published/withdrawn/archived,S0-01—S0-06
+CommonObject,review_status,enum,必填,审核状态,pending/approved/not_applicable,S0-01—S0-06
+CommonObject,supersedes,object_ref/null,条件,被修订对象版本,新对象可为空；更正需关联,S0-01—S0-06
+ResourceVersion,title,string,必填,资源名称,显示名称不充当标识,S1-02—S1-03
+ResourceVersion,resource_type,string,必填,资源类型,对齐校内词表及分类代码,S1-02—S1-03
+ResourceVersion,language,string,必填,内容语言,语言代码,S1-02—S1-03
+ResourceVersion,representation_kind,enum,必填,内容表示形式,editable_source/reading_copy/runtime_package/media_derivative,S1-02—S1-03
+ResourceVersion,media_type,string,必填,文件媒体类型,与实际字节匹配,S1-02—S1-03
+ResourceVersion,byte_length,integer,文件必填,文件字节长度,非负整数,S1-02—S1-03
+ResourceVersion,content_hash,string,文件必填,SHA-256,64 位十六进制；只证明字节一致,S1-02—S1-03
+ResourceVersion,storage_ref,string,文件必填,受控存储引用,临时 URL 不作唯一长期引用,S1-02—S1-03
+ResourceVersion,target_refs,array<object_ref>,适用时,目标或知识点,引用目标版本,S1-02—S1-03
+ResourceVersion,derived_from,array<object_ref>,派生时,来源资源,不可只指向 latest,S1-02—S1-03
+TeachingEvent,event_id,string,必填,校内事件标识,唯一,S2-02—S2-06
+TeachingEvent,schema_version,string,必填,事件结构版本,校内信封非 xAPI 原始 Statement,S2-02—S2-06
+TeachingEvent,profile_version,string,必填,事件语义版本,与词表一起冻结,S2-02—S2-06
+TeachingEvent,source_system,string,必填,事件来源,服务端鉴别,S2-02—S2-06
+TeachingEvent,source_event_id,string,必填,源事件标识,与 source_system 组成幂等键,S2-02—S2-06
+TeachingEvent,actor_ref,string,必填,事件行为主体,去标识引用；角色不自报授权,S2-02—S2-06
+TeachingEvent,offering_id,string,必填,开课场景,课程发布等非开课事件在对应 Profile 另定,S2-02—S2-06
+TeachingEvent,enrollment_id,string/null,学习者事件必填,修读关联,不得跨修读混合,S2-02—S2-06
+TeachingEvent,action,string,必填,校内动作词表,映射到标准 verb 时保留语义,S2-02—S2-06
+TeachingEvent,object_ref,object_ref,必填,事件对象,object_id 与 version_id,S2-02—S2-06
+TeachingEvent,occurred_at,date-time,必填,源端发生时间,带时区,S2-02—S2-06
+TeachingEvent,received_at,date-time,接收后必填,接收时间,接收端生成,S2-02—S2-06
+TeachingEvent,context,object,必填,场景与帮助条件,按活动 Profile,S2-02—S2-06
+TeachingEvent,payload_hash,string,必填,源业务载荷 hash,不含 received_at；相同键不同 hash 为冲突,S2-02—S2-06
+TeachingEvent,artifact_refs,array<object_ref>,作品事件必填,过程作品,按授权可解析,S2-02—S2-06
+Submission,attempt_id,string,必填,任务尝试,与修读和任务关联,S2-01、S2-05
+Submission,enrollment_id,string,必填,修读标识,不得只存学生编号,S2-01、S2-05
+Submission,activity_ref,object_ref,必填,任务及版本,锁定当时内容与规则,S2-01、S2-05
+Submission,artifact_refs,array<object_ref>,必填,作答作品,正式提交至少一个有效作品,S2-01、S2-05
+Submission,submission_status,enum,必填,提交状态,draft/submitted/withdrawn/corrected,S2-01、S2-05
+Submission,receipt_id,string,提交后必填,持久化回执,说明可靠保存边界,S2-01、S2-05
+Submission,help_refs,array<object_ref>,必填,帮助记录,已知无帮助用空数组；缺失另说明,S2-01、S2-05
+CognitiveState,state_id,string,必填,认知记录标识,与 object_id 对应,S5-03—S5-12
+CognitiveState,version_id,string,必填,认知版本,追加修订,S5-03—S5-12
+CognitiveState,learner_ref,string,必填,学习者引用,受控去标识标识,S5-03—S5-12
+CognitiveState,enrollment_id,string,必填,修读范围,跨课聚合需显式规则,S5-03—S5-12
+CognitiveState,target_ref,object_ref,必填,学习目标或能力,包括版本及可选 CASE 映射,S5-03—S5-12
+CognitiveState,dimension,enum,必填,评价维度,conceptual_understanding/procedural_skill/transfer/misconception 等,S5-03—S5-12
+CognitiveState,origin_type,enum,必填,状态来源,observation/model_inference/teacher_judgment/self_report,S5-03—S5-12
+CognitiveState,status,enum,必填,证据和有效状态,unknown/insufficient_evidence/estimated/reviewed/stale/invalidated,S5-03—S5-12
+CognitiveState,value,number/string/null,条件,状态值,未知或证据不足必须为空,S5-03—S5-12
+CognitiveState,scale_ref,object_ref/null,有值必填,量尺,不可混同正确率和概率,S5-03—S5-12
+CognitiveState,uncertainty,object,必填,不确定性,无可靠估计使用 not_estimated,S5-03—S5-12
+CognitiveState,evidence_refs,array<object>,必填,证据与作用,估计或复核必须有依据；unknown 可空,S5-03—S5-12
+CognitiveState,method_ref,object_ref/null,实际推断或判断有值时必填,方法版本,算法、规则或人工规程,S5-03—S5-12
+CognitiveState,context,object,必填,任务条件,帮助、独立性及相关限制,S5-03—S5-12
+CognitiveState,evidence_window,object,必填,证据覆盖时间,start/end 带时区,S5-03—S5-12
+CognitiveState,as_of,date-time,必填,状态形成时间,不等于证据发生时间,S5-03—S5-12
+CognitiveState,valid_until,date-time,必填,需重新确认时间,到期标记 stale,S5-03—S5-12
+CognitiveState,review,object/null,复核时必填,人工复核记录,主体、时间、意见,S5-03—S5-12
+CognitiveState,supersedes,object_ref/null,更正时必填,前一状态,保留历史关系,S5-03—S5-12
+CognitiveState,purpose,string,必填,允许用途,不自动用于正式成绩或资格决定,S5-03—S5-12
+CognitiveState,access_policy_ref,string,必填,访问策略,本人及获授权教师等,S5-03—S5-12
+LearningRecommendation,learner_ref,string,必填,建议接收者,授权范围内,S5-10
+LearningRecommendation,target_ref,object_ref,必填,学习目标,可解析目标版本,S5-10
+LearningRecommendation,state_ref,object_ref,必填,依据状态,保留形成建议时版本,S5-10
+LearningRecommendation,action_type,string,必填,学习行动,复习/解释/练习/指导等,S5-10
+LearningRecommendation,activity_ref,object_ref,必填,建议活动,任务可运行或人工可执行,S5-10
+LearningRecommendation,rationale,string,必填,可理解的理由,说明证据和局限,S5-10
+LearningRecommendation,expires_at,date-time,必填,建议有效期,过期重审,S5-10
+LearningRecommendation,feedback_ref,object_ref/null,反馈后,学生或教师反馈,不把接受建议当作有效学习,S5-10

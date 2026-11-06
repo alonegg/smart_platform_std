@@ -1,0 +1,22 @@
+未来智慧教学平台：架构与数据资产标准体系（研究设计稿 v0.1）
+Future Smart Teaching Platform: Architecture and Teaching Data Asset Standards
+
+Copyright 2026 the contributors of this repository.
+
+授权范围
+--------
+- 文档（成果目录下的 Markdown、Word、PDF、CSV 及图件）：CC BY 4.0，见 LICENSE-DOCS。
+- 代码与机器可读构件（编制工具 Python 脚本、JSON Schema、JSON 样例、JSON 核验记录）：
+  Apache License 2.0，见 LICENSE。
+
+第三方材料
+----------
+- 本仓库引用的国际标准（xAPI、cmi5、Common Cartridge、QTI、CASE、LTI、SCORM、IEEE 9274.1.1 等）
+  仅作引用、比较与一致性设计之用，不复制其正文。各标准的版权与使用条件归各自标准组织所有。
+- 政策对照目录下的教育部文件正文属国家机关公开发布的公文，按《中华人民共和国著作权法》
+  第五条的规定不属于著作权保护对象；本仓库保留其原始出处与核验记录。
+
+说明
+----
+本仓库为研究设计稿，不是已发布的校级标准，也不构成任何产品的一致性认证。
+标准中的"应"表示拟建系统的设计要求，不表示已实施或已通过验收。

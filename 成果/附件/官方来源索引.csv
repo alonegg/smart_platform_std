@@ -1,0 +1,31 @@
+﻿ID,来源与链接,核验深度或限制
+R01,[IEEE 9274.1.1—2023](https://standards.ieee.org/ieee/9274.1.1/7321/),官方条目、状态、范围与日期；付费正文未逐条审查
+R02,[ISO/IEC/IEEE 39274-1-1:2025](https://www.iso.org/standard/91131.html),官方目录与摘要；无完整付费全文
+R03,[ADL xAPI Spec](https://github.com/adlnet/xAPI-Spec)；[术语说明](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-About.md),官方仓库版本指向与 Tin Can 定义；旧正文为 1.0.3
+R04,[ADL xAPI Profiles](https://github.com/adlnet/xapi-profiles),官方项目入口；精确 Profile 实现版本待冻结
+R05,[AICC cmi5 Quartz](https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md),Scope、References 和运行对象相关内容
+R06,[ADL SCORM/xAPI 映射](https://github.com/adlnet/xAPI-SCORM-Profile/blob/master/xapi-scorm-profile.md)；[ADL SCORM 2004 文档入口](https://adlnet.gov/assets/uploads/SCORM_2004_4ED_v1_1_TR_20090814.pdf),映射文档有官方依据；旧站 PDF 本次无法访问，完整运行时核验待补
+R07,[Common Cartridge 已发布规范目录](https://www.imsglobal.org/cc/index.html),已发布 1.3 与 Thin CC 说明
+R08,[Common Cartridge 官方技术概览](https://www.1edtech.org/standards/cc),1.4 的 Candidate Final 状态与新增范围；部分规范入口受限
+R09,[QTI 官方规范目录](https://www.1edtech.org/standards/qti/index),3.0、3.0.1 模型/XSD及结果报告子规范状态
+R10,[CASE 1.1](https://www.imsglobal.org/spec/case/v1p1),Final 状态、信息模型及当前文本日期；保留历史日期差异
+R11,[Caliper Analytics 1.2](https://www.imsglobal.org/spec/caliper/v1p2),Final 状态、模型和事件 Profile 目录
+R12,[LTI 官方技术说明](https://www.1edtech.org/standards/lti),1.3、Advantage 服务与候选可选服务状态
+R13,[OneRoster 官方实施选择指南](https://www.1edtech.org/standards/oneroster/OneRoster-Procurement-Guide),1.2、CSV/REST 及可选服务范围
+R14,[Edu-API 官方说明](https://www.1edtech.org/standards/edu-api),Candidate Final Public 状态；部分技术入口需登录
+R15a,[JY/T 0641—2022 官方 PDF](https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214586595915018.pdf),已下载，核封面、适用范围与功能部分
+R15b,[JY/T 0650—2022 官方 PDF](https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214586595943733.pdf),已下载，核封面、适用范围与资源技术部分
+R15c,[JY/T 0644—2022 官方 PDF](https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214589106063444.pdf),已下载，核封面、分类结构及适用范围
+R16,[JY/T 0643—2025 官方 PDF](https://www.moe.gov.cn/srcsite/A16/s3342/202507/W020250902563098499971.pdf),已下载，核封面、第 4—5 章
+R17,[JY/T 0661—2025 官方 PDF](https://www.moe.gov.cn/srcsite/A16/s3342/202601/W020260107510856466340.pdf)；[发布通知](https://www.moe.gov.cn/srcsite/A16/s3342/202601/t20260107_1425902.html),已下载，核封面、第 4—7 章；保留实施日期表述差异
+R18,[资源内容审核规范](https://www.moe.gov.cn/srcsite/A16/s3342/202407/t20240703_1139248.html),官方公开正文
+R19,[资源入库出库管理规范](https://hudong.moe.gov.cn/srcsite/A16/s3342/202407/t20240703_1139249.html),官方公开正文
+R20a,[EPUB 3.3](https://www.w3.org/TR/epub-33/),当前 Recommendation 日期与格式范围
+R20b,[H5P 文件规范](https://h5p.org/documentation/developers/h5p-specification),包结构及依赖要求；不作为 ISO/IEEE 认证标准
+R20c,[WCAG 2.2](https://www.w3.org/TR/WCAG22/),当前 Recommendation 与适用范围
+R20d,[DCMI Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/),官方术语与版本入口
+R21,[CLR 官方说明](https://www.1edtech.org/standards/clr)；[CLR/Open Badges FAQ](https://www.1edtech.org/clr/faq),成果记录与可验证凭证用途；不核验具体凭证实现
+R22,[OpenAPI 3.1.1](https://spec.openapis.org/oas/v3.1.1.html),所选候选工程基线；官网同时列有后续版本
+R23,[JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12),元模式与 format annotation/assertion 的区分
+R24,[“人工智能＋教育”行动计划](https://www.moe.gov.cn/srcsite/A16/s3342/202604/t20260410_1433240.html),官方公开正文；方向性政策
+R25,[Scrum Guide](https://scrumguides.org/scrum-guide.html),用于术语澄清，不纳入交换标准

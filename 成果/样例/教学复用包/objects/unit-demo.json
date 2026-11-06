@@ -1,0 +1,29 @@
+{
+  "object_id": "unit-demo",
+  "object_type": "LearningUnit",
+  "version_id": "v1",
+  "schema_version": "0.1.0",
+  "source_system": "synthetic-author",
+  "source_id": "unit-demo",
+  "created_at": "2026-10-23T09:00:00+08:00",
+  "created_by": "synthetic-author",
+  "rights_ref": "rights-demo",
+  "access_policy_ref": "policy-teaching",
+  "classification_ref": "classification-demo",
+  "lifecycle_status": "published",
+  "review_status": "not_applicable",
+  "supersedes": null,
+  "title": "概念区分",
+  "activity_refs": [
+    {
+      "object_id": "activity-demo",
+      "version_id": "v1"
+    }
+  ],
+  "resource_refs": [
+    {
+      "object_id": "resource-demo",
+      "version_id": "v1"
+    }
+  ]
+}

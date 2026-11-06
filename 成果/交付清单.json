@@ -1,0 +1,195 @@
+{
+  "title": "未来智慧教学平台：架构与数据资产标准体系",
+  "version": "0.1",
+  "date": "2026-10-23",
+  "status": "research_design_draft",
+  "scope": "documents_and_synthetic_examples",
+  "file_count_excluding_this_manifest": 37,
+  "files": [
+    {
+      "path": "01_三层架构具体描述.md",
+      "byte_length": 16224,
+      "sha256": "b9c4fae840085a8eaac374e3366495d0b513f0e176a9d48d01eb4f0bc3f36682"
+    },
+    {
+      "path": "02_数据资产层标准体系草案.md",
+      "byte_length": 34453,
+      "sha256": "4d65a682dff3d1f03c3e81860260ac8fb58aca2ef107def665c5f752d982ec52"
+    },
+    {
+      "path": "03_标准研究与采用说明.md",
+      "byte_length": 18695,
+      "sha256": "1e84da6ea3e4aa45c03b8956c1d642fe7b3ebace5a6393681a3fbb49b319284b"
+    },
+    {
+      "path": "04_原始材料提取追踪与编制边界.md",
+      "byte_length": 3825,
+      "sha256": "a362e63977ef4542f991ed071719543e6af68cf1b95dc419e0e55f835083217e"
+    },
+    {
+      "path": "README_阅读与使用说明.md",
+      "byte_length": 6110,
+      "sha256": "c38163ca1ade308c1adb4ba7375a51deecdd3a896975d165ac44e7baa528e8c6"
+    },
+    {
+      "path": "三层架构具体描述_v0.1.docx",
+      "byte_length": 311133,
+      "sha256": "b0eb5b82f5ccbb308cb7298ed41573346970905891bbe0a150fad83588d59b1e"
+    },
+    {
+      "path": "三层架构具体描述_v0.1.pdf",
+      "byte_length": 606257,
+      "sha256": "f6e37c0c0f6b7d723db6d1b773d7f01c6f2a0a2a1b3962113d291ebb14657326"
+    },
+    {
+      "path": "图件/三层架构.png",
+      "byte_length": 301334,
+      "sha256": "2e663617846f8ccdf7e782e98553b681f0a1234792ee04965839963fa4d4f212"
+    },
+    {
+      "path": "未来智慧教学平台_架构与标准体系_v0.1.docx",
+      "byte_length": 353153,
+      "sha256": "fff5b507ec782e3926c1d3dd827bd6fb76a6375fc874e3b4eb6d42b99d0e5156"
+    },
+    {
+      "path": "未来智慧教学平台_架构与标准体系_v0.1.pdf",
+      "byte_length": 1358343,
+      "sha256": "e0fc4d3b0ed5ccafd3f8e672e3d1b4d53a746c54f4e739f82f66581ddf4440e6"
+    },
+    {
+      "path": "样例/三类数据关联示例.json",
+      "byte_length": 14270,
+      "sha256": "33333e3caee6dd80ac3279e751add66a147b5875824fc7100237c69e5a521ccc"
+    },
+    {
+      "path": "样例/教学复用包/assets/讲义.md",
+      "byte_length": 146,
+      "sha256": "c8e9eb82cc0b8e0925d6e6bf98b8d5f592a4d510d18da6cba8027f0f5fe71466"
+    },
+    {
+      "path": "样例/教学复用包/manifest.json",
+      "byte_length": 2123,
+      "sha256": "e0b44a93bc69bdc2a4dc591aea47544abc153a0b9f776ae6d3d79862230d77b8"
+    },
+    {
+      "path": "样例/教学复用包/objects/activity-demo.json",
+      "byte_length": 838,
+      "sha256": "466ea4e1c9c5793940225acf1ecd388e178561875a2be12a8d121d34d5b6efa1"
+    },
+    {
+      "path": "样例/教学复用包/objects/course-demo.json",
+      "byte_length": 766,
+      "sha256": "8ac219e55b0319119d9370c0fc6a5fa06507225d2e8ab53d4382366a0a6efa8f"
+    },
+    {
+      "path": "样例/教学复用包/objects/resource-demo.json",
+      "byte_length": 919,
+      "sha256": "3892c66c5746f8b249b89b302689de0b1c7b3eef839096edbc62092e3a73c603"
+    },
+    {
+      "path": "样例/教学复用包/objects/target-demo.json",
+      "byte_length": 543,
+      "sha256": "ccfba1b54c1a19d787d990898523aaeb100470849c0132ceebe1e898a55d90c6"
+    },
+    {
+      "path": "样例/教学复用包/objects/unit-demo.json",
+      "byte_length": 702,
+      "sha256": "90c4ac4ab84adf14c2c3e1d5bd864de471232130ce489e25819fbfecd7b6695b"
+    },
+    {
+      "path": "样例/教学复用包/relations/relations.json",
+      "byte_length": 257,
+      "sha256": "7e33e5bb8702f0c489f265511ec0079c6e4ef0b79b071053f92f6200169421ef"
+    },
+    {
+      "path": "样例/教学复用包/rights/rights.json",
+      "byte_length": 284,
+      "sha256": "fd57999b94970f76820bd56528c5c45c3e27c9cfba9f33f5118b8abfb92e1d25"
+    },
+    {
+      "path": "编制工具/生成文档.py",
+      "byte_length": 7864,
+      "sha256": "95257be767c543d3d7d399bcb55e4e4cf24807b82b860af00f4a94ccb5462935"
+    },
+    {
+      "path": "编制工具/生成附件.py",
+      "byte_length": 20161,
+      "sha256": "c59b3a2b5ede9a5dfa36ec68f2e8497295608524e3dd59cd709afcd05067fe64"
+    },
+    {
+      "path": "编制工具/验证附件.py",
+      "byte_length": 6857,
+      "sha256": "a87c70992fd3656584cd0ec71068998cab5144fcadf38b0b31297e7bd017a7d5"
+    },
+    {
+      "path": "附件/原始文件核验.json",
+      "byte_length": 402,
+      "sha256": "997f118293a6b2f3ea750b3ddff9c2ed0ca557dfddc475f466613b36ee73da77"
+    },
+    {
+      "path": "附件/国内标准采用矩阵.csv",
+      "byte_length": 1650,
+      "sha256": "240ea38eb3fef004d1421cbdb740cedca06641fa029b5be7ec42180636ce10f5"
+    },
+    {
+      "path": "附件/国际标准采用矩阵.csv",
+      "byte_length": 3187,
+      "sha256": "e4b4aa52d5d16e6520eefc5e203574d2e2ad97948b51d5811fcce5367e6d16b8"
+    },
+    {
+      "path": "附件/官方来源索引.csv",
+      "byte_length": 4450,
+      "sha256": "71ba822dad7e9dc0dc4db6f6975b10a7a2c5fb0dec4bf882adf9787078d0865c"
+    },
+    {
+      "path": "附件/官方标准下载核验.json",
+      "byte_length": 1493,
+      "sha256": "62683f5c62b484b633e6945ed2d312253b526813dade008d375cd2df612f59b0"
+    },
+    {
+      "path": "附件/最小事件词表.csv",
+      "byte_length": 1994,
+      "sha256": "99b63bed48198720b7b272db1ca7fecfd9d60d7d650be4d10bbd21ce1214fb84"
+    },
+    {
+      "path": "附件/核心字段字典.csv",
+      "byte_length": 7938,
+      "sha256": "09f9984bb4a227bdc62392aa47111fd089bb416da4b7f6103569039fe205d942"
+    },
+    {
+      "path": "验证/PDF字体核验.txt",
+      "byte_length": 846,
+      "sha256": "a8cf0d9bd86002a7b1bf31ddc3c5de4d2d2aa75974992e46017fff268b360f49"
+    },
+    {
+      "path": "验证/渲染总览_1.jpg",
+      "byte_length": 419142,
+      "sha256": "1fbcb64fe31fcd2c5e578d8d0163e445e8ca6182fe8937f6416db5a868ea42a8"
+    },
+    {
+      "path": "验证/渲染总览_2.jpg",
+      "byte_length": 442378,
+      "sha256": "306eba3e540c1bf816dff86c592357f98b6b9f6e681015536d3ea148e5922224"
+    },
+    {
+      "path": "验证/渲染总览_3.jpg",
+      "byte_length": 424091,
+      "sha256": "d90b8a78a63db5ea362cdb5b57e7e6de6022cb06b6c22a37fa3d0f353ee624e6"
+    },
+    {
+      "path": "验证/渲染总览_4.jpg",
+      "byte_length": 407702,
+      "sha256": "e5d53ce7ba215c3d4d7dafe101845c15ed07840bfee92e586b094e3eb1ae4821"
+    },
+    {
+      "path": "验证/结构与样例核验.json",
+      "byte_length": 4868,
+      "sha256": "6af7e6c542e6dbf8bd40909a9a8b3cca566a1285e1567b5f95574d4e5077a491"
+    },
+    {
+      "path": "验证/验证说明.md",
+      "byte_length": 2661,
+      "sha256": "78ab9c25c77b8b22749db0be32323439ccd3fb0741464f89738ab199fccfee82"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "JYT0641_2022.pdf",
+    "source_url": "https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214586595915018.pdf",
+    "retrieved_date": "2026-10-23",
+    "pages": 17,
+    "byte_length": 489197,
+    "sha256": "d2502a76cab536cfd68eaac52cdbfcfd855dc0122c2345e35136a72261f24d61"
+  },
+  {
+    "file": "JYT0650_2022.pdf",
+    "source_url": "https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214586595943733.pdf",
+    "retrieved_date": "2026-10-23",
+    "pages": 10,
+    "byte_length": 255907,
+    "sha256": "d0b796335874f34a634da53f213661d502cea034d3b5b50ec1ee95f81d9ec07f"
+  },
+  {
+    "file": "JYT0644_2022.pdf",
+    "source_url": "https://www.moe.gov.cn/srcsite/A16/s3342/202302/W020230214589106063444.pdf",
+    "retrieved_date": "2026-10-23",
+    "pages": 21,
+    "byte_length": 345741,
+    "sha256": "fa5fcd758e434353c1d9625968f125d9d1b2a69820a0e364ee48cd4e03d95aa5"
+  },
+  {
+    "file": "JYT0643_2025.pdf",
+    "source_url": "https://www.moe.gov.cn/srcsite/A16/s3342/202507/W020250902563098499971.pdf",
+    "retrieved_date": "2026-10-23",
+    "pages": 11,
+    "byte_length": 267791,
+    "sha256": "9dd25b285437b45caf01b98f6503f3069ae267e654b2a2099593396da2006c9a"
+  },
+  {
+    "file": "JYT0661_2025.pdf",
+    "source_url": "https://www.moe.gov.cn/srcsite/A16/s3342/202601/W020260107510856466340.pdf",
+    "retrieved_date": "2026-10-23",
+    "pages": 13,
+    "byte_length": 284364,
+    "sha256": "0c185086ebbd7f3dba752e300e3b6b691e3ecfcc765a81eb4bd008276ab5dbdf"
+  }
+]

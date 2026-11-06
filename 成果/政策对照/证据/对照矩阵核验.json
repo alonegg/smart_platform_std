@@ -1,0 +1,11 @@
+{
+  "matrix_rows": 16,
+  "unique_policy_numbers": 16,
+  "standard_groups": 8,
+  "all_policy_task_titles_verified": true,
+  "all_referenced_standard_clause_ids_verified": true,
+  "official_paragraphs_present_in_pdf": "33/33",
+  "download_hashes_rechecked": true,
+  "scope": "文档与正文核对；非政策任务完成认定、生产验证、国际认证或教学效果验证",
+  "pdf_visual_check": "首末页已渲染检查，文字清楚、未见页面截断；全文章节与内容另以33/33段文本匹配核验"
+}

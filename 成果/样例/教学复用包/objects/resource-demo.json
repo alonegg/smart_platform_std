@@ -1,0 +1,31 @@
+{
+  "object_id": "resource-demo",
+  "object_type": "ResourceVersion",
+  "version_id": "v1",
+  "schema_version": "0.1.0",
+  "source_system": "synthetic-author",
+  "source_id": "resource-demo",
+  "created_at": "2026-10-23T09:00:00+08:00",
+  "created_by": "synthetic-author",
+  "rights_ref": "rights-demo",
+  "access_policy_ref": "policy-teaching",
+  "classification_ref": "classification-demo",
+  "lifecycle_status": "published",
+  "review_status": "not_applicable",
+  "supersedes": null,
+  "title": "边际与平均量说明",
+  "resource_type": "handout",
+  "language": "zh-CN",
+  "representation_kind": "editable_source",
+  "media_type": "text/markdown",
+  "byte_length": 146,
+  "content_hash": "c8e9eb82cc0b8e0925d6e6bf98b8d5f592a4d510d18da6cba8027f0f5fe71466",
+  "storage_ref": "assets/讲义.md",
+  "target_refs": [
+    {
+      "object_id": "target-demo",
+      "version_id": "v1"
+    }
+  ],
+  "derived_from": []
+}

@@ -1,0 +1,77 @@
+{
+  "package_id": "synthetic-teaching-demo",
+  "schema_version": "0.1.0",
+  "profile": "teaching",
+  "profile_version": "0.1.0",
+  "synthetic": true,
+  "export_scope": "one_synthetic_unit",
+  "exported_at": "2026-10-23T09:00:00+08:00",
+  "portability_level": "content_available",
+  "objects": [
+    {
+      "object_id": "course-demo",
+      "version_id": "v1"
+    },
+    {
+      "object_id": "unit-demo",
+      "version_id": "v1"
+    },
+    {
+      "object_id": "target-demo",
+      "version_id": "v1"
+    },
+    {
+      "object_id": "resource-demo",
+      "version_id": "v1"
+    },
+    {
+      "object_id": "activity-demo",
+      "version_id": "v1"
+    }
+  ],
+  "files": [
+    {
+      "path": "assets/讲义.md",
+      "byte_length": 146,
+      "sha256": "c8e9eb82cc0b8e0925d6e6bf98b8d5f592a4d510d18da6cba8027f0f5fe71466"
+    },
+    {
+      "path": "objects/activity-demo.json",
+      "byte_length": 838,
+      "sha256": "466ea4e1c9c5793940225acf1ecd388e178561875a2be12a8d121d34d5b6efa1"
+    },
+    {
+      "path": "objects/course-demo.json",
+      "byte_length": 766,
+      "sha256": "8ac219e55b0319119d9370c0fc6a5fa06507225d2e8ab53d4382366a0a6efa8f"
+    },
+    {
+      "path": "objects/resource-demo.json",
+      "byte_length": 919,
+      "sha256": "3892c66c5746f8b249b89b302689de0b1c7b3eef839096edbc62092e3a73c603"
+    },
+    {
+      "path": "objects/target-demo.json",
+      "byte_length": 543,
+      "sha256": "ccfba1b54c1a19d787d990898523aaeb100470849c0132ceebe1e898a55d90c6"
+    },
+    {
+      "path": "objects/unit-demo.json",
+      "byte_length": 702,
+      "sha256": "90c4ac4ab84adf14c2c3e1d5bd864de471232130ce489e25819fbfecd7b6695b"
+    },
+    {
+      "path": "relations/relations.json",
+      "byte_length": 257,
+      "sha256": "7e33e5bb8702f0c489f265511ec0079c6e4ef0b79b071053f92f6200169421ef"
+    },
+    {
+      "path": "rights/rights.json",
+      "byte_length": 284,
+      "sha256": "fd57999b94970f76820bd56528c5c45c3e27c9cfba9f33f5118b8abfb92e1d25"
+    }
+  ],
+  "dependencies": [],
+  "mapping_losses": [],
+  "note": "学校说明性包，不是 Common Cartridge 包；未做独立应用运行认证。"
+}

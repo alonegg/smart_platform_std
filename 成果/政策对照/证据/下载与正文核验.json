@@ -1,0 +1,235 @@
+{
+  "verified_at": "2026-10-24T08:47:13.522552+08:00",
+  "official_source": "https://hudong.moe.gov.cn/srcsite/A16/s3342/202604/t20260410_1433240.html",
+  "canonical_source": "https://www.moe.gov.cn/srcsite/A16/s3342/202604/t20260410_1433240.html",
+  "official_qa_source": "https://hudong.moe.gov.cn/jyb_xwfb/s271/202604/t20260410_1433232.html",
+  "pdf_mirror_source": "https://ihe.qdbhu.edu.cn/__local/E/B8/E7/675F5C1031BD829E5E545B1777F_3A1866D4_60387.pdf",
+  "pdf_source_status": "高校重新排版存档；不是教育部盖章扫描件；已按官网正文逐段核对",
+  "official_pdf_attempt": "官网按钮使用HTML转PDF服务；本次HTTPS请求返回HTTP 550，未将响应冒充PDF",
+  "signed_date": "2026-04-02",
+  "metadata_generation_date": "2026-04-08",
+  "web_publication_date": "2026-04-10",
+  "policy_number": "教科信〔2026〕1号",
+  "sections": [
+    "一、总体要求",
+    "二、推动人工智能人才培养与素养提升",
+    "三、促进人工智能与教育深度广泛融合",
+    "四、建强“人工智能+教育”基础环境",
+    "五、优化“人工智能+教育”发展生态",
+    "六、组织实施"
+  ],
+  "tasks": [
+    "（一）加快普及中小学生的人工智能教育。",
+    "（二）培育面向智能时代的高层次人才。",
+    "（三）推动职业教育传统专业的升级转型。",
+    "（四）促进全社会的人工智能通识教育。",
+    "（五）提高广大教师的智能素养与技能。",
+    "（六）利用人工智能赋能学生学习。",
+    "（七）利用人工智能赋能教师教学。",
+    "（八）利用人工智能赋能教育治理。",
+    "（九）利用人工智能赋能科学研究。",
+    "（十）构筑集约高效的智能教育基座。",
+    "（十一）培育共创共享的智能应用体系。",
+    "（十二）打造虚实融合的未来教育空间。",
+    "（十三）开展“人工智能+教育”的研究创新。",
+    "（十四）加强“人工智能+教育”的条件保障。",
+    "（十五）促进“人工智能+教育”国际合作。",
+    "（十六）筑牢“人工智能+教育”安全屏障。"
+  ],
+  "pdf_pages": 9,
+  "paragraph_comparison": [
+    {
+      "paragraph": 1,
+      "prefix": "教育部等五部门关于印发\n《“人工智能+教育”行动计划》的通知",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 2,
+      "prefix": "教科信〔2026〕1号",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 3,
+      "prefix": "现将《“人工智能+教育”行动计划》印发给你们，请认真贯彻落实。",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 4,
+      "prefix": "教 育 部  国家发展改革委  工业和信息化部",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 5,
+      "prefix": "科技部  国家数据局",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 6,
+      "prefix": "2026年4月2日",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 7,
+      "prefix": "“人工智能+教育”行动计划",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 8,
+      "prefix": "根据《教育强国建设规划纲要（2024—2035年）》战略部署，按照《国务院关于深入实施“人工",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 9,
+      "prefix": "一、总体要求",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 10,
+      "prefix": "以习近平新时代中国特色社会主义思想为指导，深入贯彻党的二十大和二十届历次全会、全国教育大会精",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 11,
+      "prefix": "到2030年，人工智能与教育深度融合格局基本形成，构建起纵向贯通、横向联通的人工智能全学段教",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 12,
+      "prefix": "二、推动人工智能人才培养与素养提升",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 13,
+      "prefix": "（一）加快普及中小学生的人工智能教育。持续完善《中小学人工智能通识教育指南》，开齐开足开好人",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 14,
+      "prefix": "（二）培育面向智能时代的高层次人才。推动人工智能成为高校公共基础课，按学科专业分类编写课程教",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 15,
+      "prefix": "（三）推动职业教育传统专业的升级转型。及时研判人工智能对职业教育的结构性影响，调整优化技能型",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 16,
+      "prefix": "（四）促进全社会的人工智能通识教育。持续丰富国家平台的数字资源，汇聚开发人工智能通识教育资源",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 17,
+      "prefix": "（五）提高广大教师的智能素养与技能。制定教师智能素养标准，明确教师应具备的人工智能素养能力。",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 18,
+      "prefix": "三、促进人工智能与教育深度广泛融合",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 19,
+      "prefix": "（六）利用人工智能赋能学生学习。立足促进德智体美劳全面发展，研发智能学伴。研发思政大模型，丰",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 20,
+      "prefix": "（七）利用人工智能赋能教师教学。围绕课前、课中、课后教育教学全过程，加强智能教学系统应用，为",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 21,
+      "prefix": "（八）利用人工智能赋能教育治理。围绕便捷服务、精准管理、科学决策，打造教育智能大脑。建设国家",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 22,
+      "prefix": "（九）利用人工智能赋能科学研究。围绕自然科学、工程科学和哲学社会科学，探索以揭榜挂帅等形式，",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 23,
+      "prefix": "四、建强“人工智能+教育”基础环境",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 24,
+      "prefix": "（十）构筑集约高效的智能教育基座。建设国家教育智能算力服务平台，有效汇聚算力、数据、模型、工",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 25,
+      "prefix": "（十一）培育共创共享的智能应用体系。深入推动国家平台智能升级，实现资源个性推送、服务智能办理",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 26,
+      "prefix": "（十二）打造虚实融合的未来教育空间。打造未来课堂、未来学校、未来学习中心和未来实训中心，打通",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 27,
+      "prefix": "五、优化“人工智能+教育”发展生态",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 28,
+      "prefix": "（十三）开展“人工智能+教育”的研究创新。推动人工智能与认知科学、脑科学、心理学、教育学等多",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 29,
+      "prefix": "（十四）加强“人工智能+教育”的条件保障。加强人工智能教育培训、应用创新、技术研发、安全保障",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 30,
+      "prefix": "（十五）促进“人工智能+教育”国际合作。持续举办世界数字教育大会、世界慕课与在线教育大会、国",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 31,
+      "prefix": "（十六）筑牢“人工智能+教育”安全屏障。建立人工智能教育应用的安全防护体系，分类分级确定安全",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 32,
+      "prefix": "六、组织实施",
+      "exact_after_whitespace_removal": true
+    },
+    {
+      "paragraph": 33,
+      "prefix": "坚持把党的领导贯彻到“人工智能+教育”全过程，强化组织领导、统筹谋划、指导监督和条件保障。教",
+      "exact_after_whitespace_removal": true
+    }
+  ],
+  "comparison_note": "仅去空白逐段匹配；未匹配项必须另行检查，不能以hash替代正文一致性",
+  "files": [
+    {
+      "path": "原文/人工智能+教育行动计划_官网正文.txt",
+      "bytes": 15496,
+      "sha256": "50a277efe312b269e641820b139ed6148c7efb654ab6e48f379f60164a6b463b"
+    },
+    {
+      "path": "原文/人工智能+教育行动计划_高校存档版.pdf",
+      "bytes": 394119,
+      "sha256": "bae14cd3511a3813be965635478e6d74b6a798f9cadc9d603af0770b6499857f"
+    },
+    {
+      "path": "原文/人工智能+教育行动计划_高校存档版_提取文本.txt",
+      "bytes": 16445,
+      "sha256": "5b1bf42db943342732d72b11984a6f83a2c5f58922735f8ed6234b00220028e8"
+    },
+    {
+      "path": "原文/教育部_人工智能+教育行动计划_官方网页.html",
+      "bytes": 28803,
+      "sha256": "43a66c61a1a2dcad585ab2f6167a00e5bda2e423ff804d433ddd7784f184ce22"
+    },
+    {
+      "path": "原文/教育部_行动计划答记者问_官方网页.html",
+      "bytes": 16468,
+      "sha256": "2742fc1632acdd3f0ceb9e6a384987de7497789f56b54d716a74241aeae8fb67"
+    }
+  ]
+}

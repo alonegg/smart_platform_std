@@ -1,0 +1,17 @@
+{
+  "object_id": "target-demo",
+  "object_type": "LearningObjective",
+  "version_id": "v1",
+  "schema_version": "0.1.0",
+  "source_system": "synthetic-author",
+  "source_id": "target-demo",
+  "created_at": "2026-10-23T09:00:00+08:00",
+  "created_by": "synthetic-author",
+  "rights_ref": "rights-demo",
+  "access_policy_ref": "policy-teaching",
+  "classification_ref": "classification-demo",
+  "lifecycle_status": "published",
+  "review_status": "not_applicable",
+  "supersedes": null,
+  "title": "能够解释边际量与平均量的区别"
+}
