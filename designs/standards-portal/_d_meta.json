@@ -1,0 +1,23 @@
+{
+  "type": "design",
+  "designSystems": [],
+  "primaryDesignSystem": null,
+  "assets": {
+    "智慧教学标准阅读室": {
+      "versions": [
+        {
+          "path": "dist/index.html",
+          "createdAt": "2026-11-07T15:59:12.287Z",
+          "status": "needs-review",
+          "subtitle": "chunlin@1106 征求意见稿 · 学术编辑式阅读网站",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        }
+      ]
+    }
+  },
+  "createdAt": "2026-11-07T15:59:12.287Z",
+  "updatedAt": "2026-11-07T15:59:12.287Z"
+}
