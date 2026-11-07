@@ -1,0 +1,256 @@
+import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+import { marked } from "marked";
+
+export const project = fileURLToPath(new URL("../", import.meta.url));
+export const root = path.resolve(project, "../..");
+export const sourcePath =
+  "标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md";
+export const sourceCommit = "6cf3410bfd9249f2a5c3eed707ab69527a21420e";
+export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
+const digest = (text) => createHash("sha256").update(text).digest("hex");
+const plain = (text) =>
+  text
+    .replace(/<[^>]*>/g, "")
+    .replace(/[*`]/g, "")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+const headingId = (text) => {
+  const number = plain(text).match(
+    /^(\d+(?:\.\d+)*|[A-E]\.\d+(?:\.\d+)*)(?:\s|　|$)/,
+  )?.[1];
+  return number
+    ? `clause-${number.replaceAll(".", "-")}`
+    : `heading-${digest(text).slice(0, 10)}`;
+};
+
+export function parseSections(markdown) {
+  const parts = markdown.split(/^## /m).slice(1);
+  return parts
+    .filter((part) => !part.startsWith("目次"))
+    .map((part) => {
+      const [title, ...rest] = part.split("\n");
+      const body = rest.join("\n").trim();
+      const key =
+        title.match(/^(\d+) /)?.[1] ??
+        title.match(/^附录 ([A-E])/)?.[1]?.toLowerCase() ??
+        (title === "前言" ? "foreword" : "introduction");
+      const headings = [];
+      const renderer = new marked.Renderer();
+      renderer.heading = ({ tokens, depth, text }) => {
+        const id = headingId(text);
+        headings.push({ id, title: plain(text), depth });
+        return `<h${depth - 1} id="${id}">${marked.parseInline(text)}</h${depth - 1}>\n`;
+      };
+      const html = marked
+        .parse(body, { renderer, gfm: true })
+        .replace(
+          /<table>/g,
+          '<div class="table-wrap" tabindex="0" role="region" aria-label="标准原文表格（可横向滚动）"><table>',
+        )
+        .replace(/<\/table>/g, "</table></div>");
+      const blocks = body.split(/(?=^#{3,4} )/m).map((block) => {
+        const title = block.match(/^#{3,4} (.+)/)?.[1];
+        return {
+          title: title ? plain(title) : plain(part.split("\n")[0]),
+          anchor: title ? headingId(title) : "",
+          text: plain(block),
+        };
+      });
+      return { key, title, body, html, headings, blocks };
+    });
+}
+
+function tableRows(body, heading) {
+  const segment = body.split(heading)[1]?.split(/^### /m)[0] ?? "";
+  return segment
+    .split("\n")
+    .filter((line) => /^\|/.test(line))
+    .map((line) =>
+      line
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => cell.trim()),
+    )
+    .filter((row) => !row.every((cell) => /^[-:]+$/.test(cell)))
+    .slice(1);
+}
+
+export async function generateContent() {
+  const markdown = await readFile(path.join(root, sourcePath), "utf8");
+  const controlled = execFileSync(
+    "git",
+    ["show", `${sourceCommit}:${sourcePath}`],
+    { cwd: root, encoding: "utf8" },
+  );
+  if (markdown !== controlled)
+    throw new Error(
+      "Source differs from the merged PR #26 baseline. Review and update the baseline explicitly.",
+    );
+  const sections = parseSections(markdown);
+  const appendixA = sections.find((s) => s.key === "a");
+  const profiles = tableRows(appendixA.body, "### A.2 能力 Profile 定义").map(
+    ([code, name, scope, boundary]) => ({ code, name, scope, boundary }),
+  );
+  const groups = tableRows(appendixA.body, "### A.3 条款组定义");
+  const pending = tableRows(
+    sections.find((s) => s.key === "e").body,
+    "E.1 下列事项",
+  ).map(([code, title, treatment, owner, clause, stage]) => ({
+    code,
+    title,
+    treatment,
+    owner,
+    clause,
+    stage,
+  }));
+  const phases = tableRows(
+    sections.find((s) => s.key === "d").body,
+    "### D.1 阶段与放行条件",
+  ).map(([name, output, gate, issues]) => ({ name, output, gate, issues }));
+  const matrixTables = [
+    ...appendixA.body
+      .split("### A.4 适用矩阵")[1]
+      .split("### A.5")[0]
+      .matchAll(/^\| Profile \|[^\n]*\n(?:\|[^\n]*(?:\n|$))+/gm),
+  ].map((match) => {
+    const rows = match[0]
+      .split("\n")
+      .map((line) =>
+        line
+          .split("|")
+          .slice(1, -1)
+          .map((cell) => cell.trim()),
+      )
+      .filter((row) => !row.every((cell) => /^[-:]+$/.test(cell)));
+    return { columns: rows[0].slice(1), rows: rows.slice(1) };
+  });
+  const data = {
+    version: "chunlin@1106",
+    date: "2026-11-06",
+    synced: "2026-11-08",
+    sourceCommit,
+    frontMatterHtml: marked.parse(
+      markdown
+        .split("## 目次")[0]
+        .split("\n")
+        .slice(1)
+        .join("\n")
+        .replace(/---\s*$/, ""),
+    ),
+    sourcePath,
+    sourceUrl:
+      sourceBase + sourcePath.split("/").map(encodeURIComponent).join("/"),
+    sourceSha256: digest(markdown),
+    sections: sections.map(({ body, blocks, ...section }) => section),
+    profiles,
+    groups,
+    matrixTables,
+    pending,
+    phases,
+    downloads: [
+      {
+        title: "数据资产层标准",
+        description: "chunlin@1106 · 征求意见稿 · 可批注 Word",
+        file: "standard-chunlin-1106.docx",
+        from: sourcePath.replace(/\.md$/, ".docx"),
+        type: "DOCX",
+        current: true,
+      },
+      {
+        title: "标准 Markdown 原文",
+        description: "chunlin@1106 · 与在线全文使用同一来源",
+        file: "standard-chunlin-1106.md",
+        from: sourcePath,
+        type: "MD",
+        current: true,
+      },
+      {
+        title: "三层架构具体描述",
+        description: "v0.1 · 背景资料 · PDF",
+        file: "architecture-v0.1.pdf",
+        from: "成果/三层架构具体描述_v0.1.pdf",
+        type: "PDF",
+      },
+      {
+        title: "核心字段字典",
+        description: "v0.1 · 资料性附件 · 待按 E12 冻结",
+        file: "field-dictionary-v0.1.csv",
+        from: "成果/附件/核心字段字典.csv",
+        type: "CSV",
+      },
+      {
+        title: "最小事件词表",
+        description: "v0.1 · 资料性附件 · 配合新版第 7 章阅读",
+        file: "event-vocabulary-v0.1.csv",
+        from: "成果/附件/最小事件词表.csv",
+        type: "CSV",
+      },
+    ],
+  };
+  if (
+    sections.length !== 19 ||
+    profiles.length !== 9 ||
+    pending.length !== 30 ||
+    phases.length !== 6 ||
+    matrixTables.length !== 4 ||
+    matrixTables.some((table) => table.rows.length !== 9)
+  ) {
+    throw new Error(
+      `Incomplete source extraction: ${JSON.stringify({ sections: sections.length, profiles: profiles.length, pending: pending.length, phases: phases.length, matrices: matrixTables.length })}`,
+    );
+  }
+  await mkdir(path.join(project, "src"), { recursive: true });
+  await mkdir(path.join(project, "public/downloads"), { recursive: true });
+  for (const item of data.downloads) {
+    const bytes = await readFile(path.join(root, item.from));
+    item.sha256 = digest(bytes);
+    item.bytes = bytes.length;
+    await copyFile(
+      path.join(root, item.from),
+      path.join(project, "public/downloads", item.file),
+    );
+  }
+  await writeFile(
+    path.join(project, "src/generated.json"),
+    JSON.stringify(data),
+  );
+  await writeFile(
+    path.join(project, "src/search-index.json"),
+    JSON.stringify(
+      sections.flatMap((section) =>
+        section.blocks.map((block) => ({
+          ...block,
+          section: { key: section.key, title: section.title },
+        })),
+      ),
+    ),
+  );
+  await writeFile(
+    path.join(project, "public/version.json"),
+    JSON.stringify(
+      {
+        version: data.version,
+        sourceCommit,
+        sourceSha256: data.sourceSha256,
+        sourcePr: 26,
+        documentStatus: "征求意见稿",
+        siteCommit: execFileSync("git", ["rev-parse", "HEAD"], {
+          cwd: root,
+          encoding: "utf8",
+        }).trim(),
+        downloads: data.downloads.map(({ file, sha256, bytes }) => ({
+          file,
+          sha256,
+          bytes,
+        })),
+      },
+      null,
+      2,
+    ),
+  );
+  return data;
+}

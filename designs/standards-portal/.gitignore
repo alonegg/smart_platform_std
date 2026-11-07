@@ -1,0 +1,9 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.wrangler/
+src/generated.json
+src/search-index.json
+public/downloads/
+public/version.json

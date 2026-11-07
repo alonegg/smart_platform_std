@@ -1,0 +1,13 @@
+{
+  "name": "smart-platform-stds",
+  "account_id": "8937d4abe2c393f4227393a216b3c647",
+  "compatibility_date": "2026-11-07",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  "routes": [{ "pattern": "stds.chunlin.ch", "custom_domain": true }],
+}
