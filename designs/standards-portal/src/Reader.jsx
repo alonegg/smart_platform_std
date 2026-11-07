@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, sourceRepo } from "./shared.jsx";
+import { AppLink, reviewHref } from "./shared.jsx";
 export function Reader({ section, navigate }) {
   const articleRef = useRef(null);
   const [active, setActive] = useState("");
@@ -35,7 +35,7 @@ export function Reader({ section, navigate }) {
           <span>
             标准全文 / {section.key.match(/^[a-e]$/) ? "附录" : "正文"}
           </span>
-          <span>{data.version}</span>
+          <span>征求意见稿</span>
         </div>
         <h1>{section.title}</h1>
         <div className="reader-tools">
@@ -50,8 +50,8 @@ export function Reader({ section, navigate }) {
                   ? "编制与阅读说明"
                   : "拟议条文"}
           </span>
-          <a href={data.sourceUrl} target="_blank" rel="noreferrer">
-            GitHub 原文 <ExternalLink size={13} />
+          <a href={reviewHref(section)} target="_blank" rel="noreferrer">
+            提出意见 <ExternalLink size={13} />
           </a>
           <button
             onClick={async () => {
@@ -71,12 +71,12 @@ export function Reader({ section, navigate }) {
           <button onClick={() => window.print()}>打印</button>
         </div>
         <div className="reader-status">
-          征求意见稿 · 本页按原文呈现，条文采纳不等于实现或验收已完成。
+          征求意见稿 · 欢迎按条款提出问题、建议及依据。
         </div>
         <>
           {section.key === "foreword" && (
             <details className="document-metadata">
-              <summary>文件标识与编制信息（原文）</summary>
+              <summary>文件信息</summary>
               <div
                 dangerouslySetInnerHTML={{ __html: data.frontMatterHtml }}
               ></div>
@@ -139,16 +139,11 @@ export function Reader({ section, navigate }) {
             </AppLink>
           ))}
         <div className="toc-source">
-          来源 PR #26
+          提出评议时，请注明条款位置、具体问题、建议文字及依据。
           <br />
-          <a
-            href={`${sourceRepo}/commit/${data.sourceCommit}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {data.sourceCommit.slice(0, 7)} <ExternalLink size={11} />
-          </a>
-          <span>版本用于追溯，正式基线仍需学校审定。</span>
+          <AppLink to="/read/c/" navigate={navigate}>
+            查看评议格式 <ExternalLink size={11} />
+          </AppLink>
         </div>
       </aside>
     </div>

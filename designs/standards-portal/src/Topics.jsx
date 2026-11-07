@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, sourceRepo } from "./shared.jsx";
+import { AppLink, reviewHref } from "./shared.jsx";
 export function Profiles({ navigate }) {
   const [selected, setSelected] = useState("P-RES");
   const profile = data.profiles.find((p) => p.code === selected);
@@ -160,7 +160,6 @@ export function Roadmap({ navigate }) {
                   <p>{phase.gate}</p>
                 </div>
               </div>
-              <span className="small-muted">前置意见 {phase.issues}</span>
             </div>
           </section>
         ))}
@@ -191,26 +190,25 @@ export function Decisions({ navigate }) {
   return (
     <div
       className="topic-page wide-topic page-enter"
-      data-screen-label="修订与待决"
+      data-screen-label="待决事项"
     >
-      <p className="eyebrow">DECISIONS & TRACEABILITY</p>
-      <h1>区分条文落实与学校决定。</h1>
+      <p className="eyebrow">OPEN QUESTIONS FOR REVIEW</p>
+      <h1>聚焦尚需明确的条件与职责。</h1>
       <p className="page-lead">
-        两轮 15
-        项专家意见形成此次修订。部分条文明确了程序，具体取值、岗位与评估结论仍需决定；附录
-        E 共列出 30 项待决事项。
+        下列 30
+        项事项涉及具体取值、适用范围、岗位与评估结论，尚需学校决定。欢迎应用厂商与标准专家结合条文提出建议及技术、业务依据。
       </p>
       <div className="revision-links">
-        <AppLink to="/read/foreword/" navigate={navigate}>
+        <AppLink to="/read/c/" navigate={navigate}>
           <FileText size={21} />
-          <strong>与 v0.1 的主要差异</strong>
-          <span>12 项主要技术修订</span>
+          <strong>评议指引与意见格式</strong>
+          <span>按条款组织具体建议</span>
           <ArrowUpRight size={18} />
         </AppLink>
-        <AppLink to="/read/c/" navigate={navigate}>
+        <AppLink to="/read/4/" navigate={navigate}>
           <GitBranch size={21} />
-          <strong>专家意见—条款对照</strong>
-          <span>#11—#25 逐项追溯</span>
+          <strong>适用范围与责任</strong>
+          <span>先核对当前要求和决定主体</span>
           <ArrowUpRight size={18} />
         </AppLink>
       </div>
@@ -289,10 +287,10 @@ export function Downloads({ navigate }) {
   return (
     <div className="topic-page page-enter" data-screen-label="资料下载">
       <p className="eyebrow">DOCUMENTS & SOURCES</p>
-      <h1>带着版本引用，带着依据讨论。</h1>
+      <h1>阅读、批注，并提出具体建议。</h1>
       <p className="page-lead">
-        在线正文与当前版本的 Markdown 使用同一源文件；Word 便于批注。v0.1
-        背景资料保留原版本标识，尚未冻结为新版规范性附件。
+        下载完整征求意见稿或评议意见表。Word 便于批注，Markdown
+        便于引用条款和填写建议；在线全文与下载稿使用同一正文。
       </p>
       <div className="download-list">
         {data.downloads.map((file) => (
@@ -303,46 +301,37 @@ export function Downloads({ navigate }) {
             <div>
               <h2>{file.title}</h2>
               <p>{file.description}</p>
-              <small>
-                {(file.bytes / 1024).toFixed(1)} KB · SHA-256{" "}
-                {file.sha256.slice(0, 12)}…
-              </small>
+              <small>{(file.bytes / 1024).toFixed(1)} KB</small>
             </div>
             <Download size={21} />
           </a>
         ))}
       </div>
       <div className="source-card">
-        <GitBranch size={22} />
+        <FileText size={22} />
         <div>
-          <h2>公开源码与修订记录</h2>
+          <h2>按条款组织评议</h2>
           <p>
-            内容基线 PR #26 · {data.sourceCommit.slice(0, 7)} · 文稿日期{" "}
-            {data.date}
+            请说明条款位置、实际场景、具体问题、建议文字及依据，便于标准组织方研究处理。
           </p>
-          <a
-            className="text-link"
-            href={sourceRepo}
-            target="_blank"
-            rel="noreferrer"
-          >
-            在 GitHub 查看仓库 <ArrowUpRight size={15} />
-          </a>
+          <AppLink className="text-link" to="/read/c/" navigate={navigate}>
+            查看评议指引 <ArrowUpRight size={15} />
+          </AppLink>
           <a
             className="text-link source-manifest"
-            href="/version.json"
+            href={reviewHref()}
             target="_blank"
             rel="noreferrer"
           >
-            版本与文件校验值 <ArrowUpRight size={15} />
+            提出意见 <ArrowUpRight size={15} />
           </a>
         </div>
       </div>
       <div className="callout">
         <strong>引用与使用</strong>
         <p>
-          引用时写明标准名称、版本和适用能力 Profile。许可与第三方材料边界见仓库
-          LICENSE、LICENSE-DOCS 与
+          评议时注明标准名称、文稿日期、条款位置和适用能力
+          Profile。许可与第三方材料边界见仓库 LICENSE、LICENSE-DOCS 与
           NOTICE；本网站按授权呈现仓库内文稿，不分发外部标准正文。
         </p>
         <AppLink
