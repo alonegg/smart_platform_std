@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, rm } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
@@ -7,9 +7,8 @@ import { marked } from "marked";
 
 export const project = fileURLToPath(new URL("../", import.meta.url));
 export const root = path.resolve(project, "../..");
-export const sourcePath =
-  "标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md";
-export const sourceCommit = "6cf3410bfd9249f2a5c3eed707ab69527a21420e";
+export const sourcePath = "标准/评审稿/未来智慧教学平台数据资产层标准.md";
+export const sourceCommit = "943141b5ed4fc229e8cfba7b6b2e0d025e95fc17";
 export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
 const digest = (text) => createHash("sha256").update(text).digest("hex");
 const plain = (text) =>
@@ -88,7 +87,7 @@ export async function generateContent() {
   );
   if (markdown !== controlled)
     throw new Error(
-      "Source differs from the merged PR #26 baseline. Review and update the baseline explicitly.",
+      "Source differs from the controlled review draft. Review and update the baseline explicitly.",
     );
   const sections = parseSections(markdown);
   const appendixA = sections.find((s) => s.key === "a");
@@ -110,7 +109,7 @@ export async function generateContent() {
   const phases = tableRows(
     sections.find((s) => s.key === "d").body,
     "### D.1 阶段与放行条件",
-  ).map(([name, output, gate, issues]) => ({ name, output, gate, issues }));
+  ).map(([name, output, gate]) => ({ name, output, gate }));
   const matrixTables = [
     ...appendixA.body
       .split("### A.4 适用矩阵")[1]
@@ -129,8 +128,8 @@ export async function generateContent() {
     return { columns: rows[0].slice(1), rows: rows.slice(1) };
   });
   const data = {
-    version: "chunlin@1106",
-    date: "2026-11-06",
+    version: "征求意见稿",
+    date: "2026-11-08",
     synced: "2026-11-08",
     sourceCommit,
     frontMatterHtml: marked.parse(
@@ -153,41 +152,36 @@ export async function generateContent() {
     phases,
     downloads: [
       {
-        title: "数据资产层标准",
-        description: "chunlin@1106 · 征求意见稿 · 可批注 Word",
-        file: "standard-chunlin-1106.docx",
+        title: "数据资产层标准 · Word",
+        description: "完整征求意见稿，便于批注与评议",
+        file: "standard-review.docx",
         from: sourcePath.replace(/\.md$/, ".docx"),
         type: "DOCX",
         current: true,
       },
       {
-        title: "标准 Markdown 原文",
-        description: "chunlin@1106 · 与在线全文使用同一来源",
-        file: "standard-chunlin-1106.md",
+        title: "数据资产层标准 · Markdown",
+        description: "与在线标准全文一致",
+        file: "standard-review.md",
         from: sourcePath,
         type: "MD",
         current: true,
       },
       {
-        title: "三层架构具体描述",
-        description: "v0.1 · 背景资料 · PDF",
-        file: "architecture-v0.1.pdf",
-        from: "成果/三层架构具体描述_v0.1.pdf",
-        type: "PDF",
+        title: "评议意见表 · Word",
+        description: "按条款填写问题、建议及依据",
+        file: "review-comments.docx",
+        from: "标准/评审稿/评议意见表.docx",
+        type: "DOCX",
+        current: true,
       },
       {
-        title: "核心字段字典",
-        description: "v0.1 · 资料性附件 · 待按 E12 冻结",
-        file: "field-dictionary-v0.1.csv",
-        from: "成果/附件/核心字段字典.csv",
-        type: "CSV",
-      },
-      {
-        title: "最小事件词表",
-        description: "v0.1 · 资料性附件 · 配合新版第 7 章阅读",
-        file: "event-vocabulary-v0.1.csv",
-        from: "成果/附件/最小事件词表.csv",
-        type: "CSV",
+        title: "评议意见表 · Markdown",
+        description: "可复制的评议格式",
+        file: "review-comments.md",
+        from: "标准/评审稿/评议意见表.md",
+        type: "MD",
+        current: true,
       },
     ],
   };
@@ -204,6 +198,10 @@ export async function generateContent() {
     );
   }
   await mkdir(path.join(project, "src"), { recursive: true });
+  await rm(path.join(project, "public/downloads"), {
+    recursive: true,
+    force: true,
+  });
   await mkdir(path.join(project, "public/downloads"), { recursive: true });
   for (const item of data.downloads) {
     const bytes = await readFile(path.join(root, item.from));
@@ -236,7 +234,6 @@ export async function generateContent() {
         version: data.version,
         sourceCommit,
         sourceSha256: data.sourceSha256,
-        sourcePr: 26,
         documentStatus: "征求意见稿",
         siteCommit: execFileSync("git", ["rev-parse", "HEAD"], {
           cwd: root,

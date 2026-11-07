@@ -7,7 +7,7 @@ const data = JSON.parse(
 );
 const source = await readFile(
   new URL(
-    "../../../标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
+    "../../../标准/评审稿/未来智慧教学平台数据资产层标准.md",
     import.meta.url,
   ),
   "utf8",
@@ -19,9 +19,9 @@ test("role paths, search, stable subsection URL and browser history", async ({
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
-  await page.getByRole("tab", { name: "建设与接入方" }).click();
+  await page.getByRole("tab", { name: "应用厂商" }).click();
   await expect(page.getByRole("tabpanel")).toContainText(
-    "从能力声明走向实现与验证",
+    "从能力范围，核对接入与实现要求",
   );
   await page.getByRole("button", { name: "搜索标准", exact: true }).click();
   await page.getByRole("textbox", { name: "搜索标准全文" }).fill("人工责任");
@@ -188,4 +188,32 @@ test("semantic and contrast accessibility checks on every page type", async ({
       route,
     ).toEqual([]);
   }
+});
+
+test("vendor and expert review paths and prefilled clause feedback", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByRole("tab", { name: "应用厂商" })).toBeVisible();
+  await page.getByRole("tab", { name: "标准专家" }).click();
+  await expect(page.getByRole("tabpanel")).toContainText("技术一致性");
+  await page.getByRole("tab", { name: "标准专家" }).press("ArrowRight");
+  await expect(page.getByRole("tab", { name: "应用厂商" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await page.goto("/read/5/");
+  const feedback = page
+    .locator(".reader-tools")
+    .getByRole("link", { name: "提出意见" });
+  const target = new URL(await feedback.getAttribute("href"));
+  expect(target.origin).toBe("https://github.com");
+  expect(target.pathname).toBe("/alonegg/smart_platform_std/issues/new");
+  expect(target.searchParams.get("title")).toContain("5 公共数据模型");
+  expect(target.searchParams.get("body")).toContain("具体问题与场景");
+  await page.goto("/read/c/");
+  await expect(page.locator(".prose")).toContainText("应用厂商审阅重点");
+  await expect(page.locator(".prose")).toContainText("标准专家审阅重点");
+  await page.goto("/downloads/");
+  await expect(page.locator(".download-list>a")).toHaveCount(4);
 });

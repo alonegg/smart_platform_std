@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, cleanTitle, sourceRepo } from "./shared.jsx";
+import { AppLink, cleanTitle, sourceRepo, reviewHref } from "./shared.jsx";
 import { Home, Architecture } from "./Overview.jsx";
 import { Reader } from "./Reader.jsx";
 import { Profiles, Roadmap, Decisions, Downloads } from "./Topics.jsx";
@@ -33,7 +33,7 @@ export default function App({ initialPath = "/" }) {
     ["/architecture/", "三层架构", Layers3],
     ["/profiles/", "能力适用矩阵", SlidersHorizontal],
     ["/roadmap/", "实施路线", ArrowRight],
-    ["/decisions/", "修订与待决", GitBranch],
+    ["/decisions/", "待决事项", GitBranch],
     ["/downloads/", "资料下载", Download],
   ];
   const label =
@@ -120,11 +120,11 @@ export default function App({ initialPath = "/" }) {
           </button>
           <a
             className="github-link"
-            href={sourceRepo}
+            href={reviewHref()}
             target="_blank"
             rel="noreferrer"
           >
-            GitHub
+            提出意见
             <ArrowUpRight size={14} />
           </a>
           <button
@@ -150,9 +150,9 @@ export default function App({ initialPath = "/" }) {
           aria-label="网站目录"
         >
           <div className="sidebar-edition">
-            <span className="eyebrow">当前阅读版本</span>
+            <span className="eyebrow">评审材料</span>
             <strong>
-              {data.version}
+              数据资产层标准
               <span>征求意见稿</span>
             </strong>
           </div>
@@ -215,11 +215,11 @@ export default function App({ initialPath = "/" }) {
             </nav>
           </div>
           <div className="sidebar-bottom">
-            <span className="status-dot"></span>基于已合并文稿{" "}
-            <a href={`${sourceRepo}/pull/26`} target="_blank" rel="noreferrer">
-              PR #26 ↗
+            <span className="status-dot"></span>欢迎按条款提出意见{" "}
+            <a href={reviewHref()} target="_blank" rel="noreferrer">
+              评议入口 ↗
             </a>
-            <small>文稿日期 {data.date}</small>
+            <small>面向应用厂商与标准专家</small>
           </div>
         </aside>
         <div className={`workspace ${section ? "reading-workspace" : ""}`}>
@@ -227,7 +227,7 @@ export default function App({ initialPath = "/" }) {
             <span>标准阅读室</span>
             <ChevronRight size={13} />
             <span>{label}</span>
-            <span className="breadcrumb-right">公开阅读 · 版本可追溯</span>
+            <span className="breadcrumb-right">审阅 · 评议 · 提出意见</span>
           </div>
           <main id="main-content" tabIndex={-1}>
             {basePath === "/" ? (
@@ -257,7 +257,7 @@ export default function App({ initialPath = "/" }) {
           <footer className="footer">
             <span>未来智慧教学平台 · 架构与数据资产标准体系</span>
             <span>
-              征求意见稿 / {data.version}
+              供应用厂商与标准专家评议
               <a
                 href={`${sourceRepo}/blob/main/NOTICE`}
                 target="_blank"

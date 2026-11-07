@@ -26,10 +26,10 @@ export function Home({ navigate }) {
         <span className="status-dot"></span>
         <span>征求意见稿</span>
         <span className="edition-divider"></span>
-        <span>{data.version}</span>
-        <span className="edition-date">2026 年 11 月 06 日</span>
-        <AppLink to="/read/foreword/" navigate={navigate}>
-          本次修订 <ArrowUpRight size={14} />
+        <span>面向厂商与专家评议</span>
+        <span className="edition-date">2026 年 11 月 08 日</span>
+        <AppLink to="/read/c/" navigate={navigate}>
+          评议指引 <ArrowUpRight size={14} />
         </AppLink>
       </div>
       <section className="hero">
@@ -43,7 +43,7 @@ export function Home({ navigate }) {
           <p className="hero-description">
             未来智慧教学平台架构与数据资产标准体系。
             <br className="desktop-break" />
-            为学校、教师与建设方，建立共同的理解与协作依据。
+            供应用厂商与标准专家审阅、评议和提出意见。
           </p>
           <div className="hero-actions">
             <AppLink
@@ -69,7 +69,7 @@ export function Home({ navigate }) {
       <div className="document-scope">
         <CircleHelp size={17} />
         <p>
-          本文为校级标准征求意见稿。条文中的“应”表示拟议要求；正式审定、系统实现与验证验收，分别需要相应程序和证据。
+          本文为征求意见稿。欢迎就适用范围、技术语义、实现可行性和验证条件提出具体意见；条文中的“应”表示拟议要求。
         </p>
         <AppLink to="/read/1/#clause-1-4" navigate={navigate}>
           文件性质 <ArrowUpRight size={14} />
@@ -79,7 +79,9 @@ export function Home({ navigate }) {
         <SectionHeading
           eyebrow="READING PATHS"
           title="从你的角色，找到阅读起点"
-          aside={<span className="small-muted">一份标准，多方协同</span>}
+          aside={
+            <span className="small-muted">聚焦具体条款，提出专业意见</span>
+          }
         />
         <div
           className="role-tabs"
@@ -97,7 +99,10 @@ export function Home({ navigate }) {
               onKeyDown={(e) => {
                 if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
                   e.preventDefault();
-                  const next = (role + (e.key === "ArrowRight" ? 1 : 3)) % 4;
+                  const next =
+                    (role +
+                      (e.key === "ArrowRight" ? 1 : roleGuides.length - 1)) %
+                    roleGuides.length;
                   setRole(next);
                   document.getElementById(`role-${next}`)?.focus();
                 }
@@ -150,7 +155,7 @@ export function Home({ navigate }) {
               navigate={navigate}
             >
               <div className="card-top">
-                <span className="mono">S{i}</span>
+                <span className="mono">{s.key.padStart(2, "0")}</span>
                 <span>第 {s.key} 章</span>
               </div>
               <h3>{cleanTitle(s.title)}</h3>
@@ -159,9 +164,6 @@ export function Home({ navigate }) {
             </AppLink>
           ))}
         </div>
-        <p className="mapping-note">
-          S0—S7 为前序版本编号，现分别对应第 5—12 章，便于跨版本对照。
-        </p>
       </section>
       <section className="bottom-grid">
         <div className="roadmap-summary">
@@ -189,27 +191,27 @@ export function Home({ navigate }) {
           </AppLink>
         </div>
         <div className="revision-card">
-          <span className="eyebrow">REVISION / {data.version}</span>
+          <span className="eyebrow">REVIEW & DISCUSSION</span>
           <h2>
-            让讨论有据，
+            聚焦具体问题，
             <br />
-            让决定可追溯。
+            提出可讨论的建议。
           </h2>
           <p>
-            综合两轮公开专家意见，保留修订依据、意见落实位置与学校待决事项。
+            按条款说明业务场景、技术依据与建议文字。对尚需明确的参数、职责和条件，可结合待决事项参与评议。
           </p>
           <div className="revision-numbers">
             <div>
-              <strong>15</strong>
-              <span>专家意见 #11—#25</span>
+              <strong>{data.profiles.length}</strong>
+              <span>类能力 Profile</span>
             </div>
             <div>
               <strong>{data.pending.length}</strong>
-              <span>学校待决事项</span>
+              <span>项待决事项</span>
             </div>
           </div>
-          <AppLink to="/decisions/" navigate={navigate}>
-            查阅修订与待决事项
+          <AppLink to="/read/c/" navigate={navigate}>
+            查看评议指引与意见格式
             <ArrowUpRight size={17} />
           </AppLink>
         </div>
@@ -274,7 +276,7 @@ export function Architecture({ navigate }) {
         <strong>正式评价与认知推断分别治理</strong>
         <p>
           AI
-          提议、教师确认、教务归档承担不同责任；认知记录与诊断方法的准入、用途和复核分别管理。架构介绍依据新版引言
+          提议、教师确认、教务归档承担不同责任；认知记录与诊断方法的准入、用途和复核分别管理。架构介绍依据引言
           0.2、0.3 编制。
         </p>
       </div>

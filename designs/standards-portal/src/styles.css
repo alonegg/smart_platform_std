@@ -3019,3 +3019,13 @@ main:focus {
   font-size: 11px;
   color: var(--muted);
 }
+
+/* The review audience has two distinct reading paths. */
+.role-tabs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.sidebar-bottom a,
+.toc-source a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

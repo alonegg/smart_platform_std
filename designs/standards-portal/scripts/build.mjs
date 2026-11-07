@@ -33,7 +33,7 @@ try {
     "/architecture/": "三层架构",
     "/profiles/": "能力适用矩阵",
     "/roadmap/": "实施路线",
-    "/decisions/": "修订与待决",
+    "/decisions/": "待决事项",
     "/downloads/": "资料下载",
   };
   for (const route of [...routes, "/404/"]) {

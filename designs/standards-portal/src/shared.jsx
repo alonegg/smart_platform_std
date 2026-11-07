@@ -27,46 +27,46 @@ export const subtitles = [
 export const cleanTitle = (title) =>
   title.replace(/^\d+\s+/, "").replace(/^附录 [A-E]（[^）]+）/, "");
 export const sourceRepo = "https://github.com/alonegg/smart_platform_std";
+export const reviewHref = (section) => {
+  const title = section
+    ? `[标准评议] ${section.title}`
+    : "[标准评议] 数据资产层标准";
+  const body = `## 条款位置
+${section ? section.title : "请填写条款号、字段或 Profile"}
+
+## 应用类型与能力 Profile / 专家方向
+
+## 具体问题与场景
+
+## 建议条文或方案
+
+## 技术或业务依据与影响范围
+
+## 提议方与联系渠道（自愿）
+`;
+  return `${sourceRepo}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+};
 export const roleGuides = [
   {
-    label: "学校管理者",
-    caption: "从治理与放行条件理解全局",
-    text: "先明确学校掌握什么、谁来决定，再确定试行范围、责任岗位与阶段性放行条件。",
-    links: [
-      ["4", "总则与责任"],
-      ["d", "实施阶段"],
-      ["e", "待决事项"],
-    ],
-  },
-  {
-    label: "业务部门与教师",
-    caption: "从课程、作品和评价理解标准",
-    text: "沿着课程资源、学习证据和评分责任阅读，理解教学资产如何组织、复用与持续积累。",
-    links: [
-      ["6", "课程资源"],
-      ["7", "学习证据"],
-      ["10", "学习诊断"],
-    ],
-  },
-  {
-    label: "建设与接入方",
-    caption: "从能力声明走向实现与验证",
-    text: "先按实际业务声明 Profile，再核对公共模型、数据契约和对应测试；一个应用可声明多种能力。",
+    label: "应用厂商",
+    caption: "从能力范围，核对接入与实现要求",
+    text: "结合产品承担的业务声明 Profile，检查数据语义、接口、授权和验证条件，按具体条款提出可实现性、互操作与责任边界方面的意见。",
     links: [
       ["a", "能力 Profile"],
       ["5", "公共模型"],
       ["8", "交换接口"],
-      ["12", "验证与验收"],
+      ["c", "提出评议"],
     ],
   },
   {
-    label: "评审与验收方",
-    caption: "从受控版本追溯到验证证据",
-    text: "围绕适用范围、外部规范版本与可复验的测试记录审阅，分别判断条文采纳、实现和真实验证。",
+    label: "标准专家",
+    caption: "从技术一致性，审阅条文与验证条件",
+    text: "围绕适用范围、术语、外部标准采用、技术一致性和可验证性进行审阅，说明问题、建议文字及依据；尚需明确的事项可结合附录 E 评议。",
     links: [
+      ["4", "总则与适用范围"],
       ["b", "标准采用登记"],
-      ["12", "验收与运行"],
-      ["c", "意见落实对照"],
+      ["12", "验证条件"],
+      ["c", "评议指引"],
     ],
   },
 ];

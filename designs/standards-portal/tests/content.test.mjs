@@ -110,11 +110,72 @@ test("25 canonical pages are indexed, with a separate 404", async () => {
   );
 });
 
-test("search preserves field names, expert issue references and unknown", async () => {
+test("search preserves technical field names and unknown", async () => {
   const index = JSON.parse(
     await readFile(path.join(project, "src/search-index.json")),
   );
   const full = index.map((item) => item.text).join("\n");
-  for (const term of ["source_event_id", "payload_hash", "#11", "unknown"])
+  for (const term of ["source_event_id", "payload_hash", "unknown"])
     assert.ok(full.includes(term), term);
+});
+
+test("review publication contains no editorial history in pages or search", async () => {
+  const forbidden =
+    /v0\.1|chunlin@1106|原 S[0-7]|S[0-7]-\d|S0—S7|前序版本|跨版本对照|修订依据|本次修订|专家意见—条款对照|PR #26|#11—#25/;
+  assert.ok(!forbidden.test(source));
+  for (const section of data.sections) {
+    assert.ok(!forbidden.test(section.html), section.key);
+    const page = await readFile(
+      path.join(project, "dist/read", section.key, "index.html"),
+      "utf8",
+    );
+    assert.ok(!forbidden.test(page), section.key);
+  }
+  for (const route of [
+    "index.html",
+    "decisions/index.html",
+    "downloads/index.html",
+  ]) {
+    assert.ok(
+      !forbidden.test(
+        await readFile(path.join(project, "dist", route), "utf8"),
+      ),
+      route,
+    );
+  }
+  assert.ok(
+    !forbidden.test(
+      await readFile(path.join(project, "src/search-index.json"), "utf8"),
+    ),
+  );
+  assert.ok(
+    data.sections
+      .find((section) => section.key === "c")
+      .title.includes("评议指引"),
+  );
+  assert.deepEqual(
+    (await readdir(path.join(project, "dist/downloads"))).sort(),
+    ["index.html", ...data.downloads.map((file) => file.file)].sort(),
+  );
+});
+
+test("all 288 applicability values remain identical to the technical source", async () => {
+  const technical = await readFile(
+    path.join(
+      root,
+      "标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
+    ),
+    "utf8",
+  );
+  const rows = technical
+    .split("### A.4 适用矩阵")[1]
+    .split("### A.5")[0]
+    .split("\n")
+    .filter((line) => line.startsWith("| P-"));
+  assert.deepEqual(
+    data.matrixTables.flatMap((table) =>
+      table.rows.map((row) => `| ${row.join(" | ")} |`),
+    ),
+    rows,
+  );
 });
