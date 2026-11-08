@@ -8,7 +8,7 @@ import { marked } from "marked";
 export const project = fileURLToPath(new URL("../", import.meta.url));
 export const root = path.resolve(project, "../..");
 export const sourcePath = "标准/评审稿/智慧教学-数据模型标准.md";
-export const sourceCommit = "c7c9cd3fa3a27a89b6d952065992be3c6f5f8bc8";
+export const sourceCommit = "6ed7a33baa99e1872f5fe75482051579a8645efb";
 export const standardTitle = "智慧教学-数据模型标准";
 export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
 const digest = (text) => createHash("sha256").update(text).digest("hex");
