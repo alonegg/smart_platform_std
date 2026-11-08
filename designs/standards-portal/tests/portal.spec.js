@@ -10,6 +10,11 @@ const source = await readFile(
   "utf8",
 );
 
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "暂不登记，继续浏览" }).click();
+});
+
 test("role paths, search, stable subsection URL and browser history", async ({
   page,
 }) => {
