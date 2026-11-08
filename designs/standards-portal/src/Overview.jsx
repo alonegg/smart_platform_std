@@ -27,7 +27,7 @@ export function Home({ navigate }) {
         <span>征求意见稿</span>
         <span className="edition-divider"></span>
         <span>面向厂商与专家评议</span>
-        <span className="edition-date">2026 年 11 月 08 日</span>
+        <span className="edition-date">{data.date.replaceAll("-", "/")}</span>
         <AppLink to="/read/c/" navigate={navigate}>
           评议指引 <ArrowUpRight size={14} />
         </AppLink>
