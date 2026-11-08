@@ -41,7 +41,7 @@ export function Home({ navigate }) {
             让应用持续演进<span>。</span>
           </h1>
           <p className="hero-description">
-            未来智慧教学平台架构与数据资产标准体系。
+            {data.title}。
             <br className="desktop-break" />
             供应用厂商与标准专家审阅、评议和提出意见。
           </p>

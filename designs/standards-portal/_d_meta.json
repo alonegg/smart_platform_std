@@ -3,7 +3,7 @@
   "designSystems": [],
   "primaryDesignSystem": null,
   "assets": {
-    "智慧教学标准阅读室": {
+    "智慧教学-数据模型标准": {
       "versions": [
         {
           "path": "dist/index.html",

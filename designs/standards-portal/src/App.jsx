@@ -79,7 +79,7 @@ export default function App({ initialPath = "/" }) {
     };
   }, []);
   useEffect(() => {
-    document.title = `${label} · 智慧教学标准阅读室`;
+    document.title = `${label} · ${data.title}`;
   }, [label]);
   useEffect(() => {
     if (location.hash)
@@ -102,12 +102,12 @@ export default function App({ initialPath = "/" }) {
             <Layers3 size={23} strokeWidth={1.6} />
           </span>
           <span>
-            <strong>智慧教学 · 标准阅读室</strong>
-            <small>SMART TEACHING STANDARDS</small>
+            <strong>{data.title}</strong>
+            <small>SMART TEACHING DATA MODEL STANDARD</small>
           </span>
         </AppLink>
         <span className="topbar-divider"></span>
-        <span className="topbar-caption">架构与数据资产标准体系</span>
+        <span className="topbar-caption">征求意见稿 · 厂商与专家评议</span>
         <div className="topbar-actions">
           <button
             className="search-trigger"
@@ -152,7 +152,7 @@ export default function App({ initialPath = "/" }) {
           <div className="sidebar-edition">
             <span className="eyebrow">评审材料</span>
             <strong>
-              数据资产层标准
+              {data.title}
               <span>征求意见稿</span>
             </strong>
           </div>
@@ -224,7 +224,7 @@ export default function App({ initialPath = "/" }) {
         </aside>
         <div className={`workspace ${section ? "reading-workspace" : ""}`}>
           <div className="breadcrumb">
-            <span>标准阅读室</span>
+            <span>{data.title}</span>
             <ChevronRight size={13} />
             <span>{label}</span>
             <span className="breadcrumb-right">审阅 · 评议 · 提出意见</span>
@@ -255,7 +255,7 @@ export default function App({ initialPath = "/" }) {
             )}
           </main>
           <footer className="footer">
-            <span>未来智慧教学平台 · 架构与数据资产标准体系</span>
+            <span>{data.title}</span>
             <span>
               供应用厂商与标准专家评议
               <a
