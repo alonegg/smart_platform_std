@@ -159,7 +159,7 @@ test("review publication contains no editorial history in pages or search", asyn
   );
 });
 
-test("all 288 applicability values remain identical to the technical source", async () => {
+test("only the three approved C-to-M clarifications differ from the technical source", async () => {
   const technical = await readFile(
     path.join(
       root,
@@ -167,15 +167,45 @@ test("all 288 applicability values remain identical to the technical source", as
     ),
     "utf8",
   );
-  const rows = technical
-    .split("### A.4 适用矩阵")[1]
-    .split("### A.5")[0]
-    .split("\n")
-    .filter((line) => line.startsWith("| P-"));
-  assert.deepEqual(
-    data.matrixTables.flatMap((table) =>
-      table.rows.map((row) => `| ${row.join(" | ")} |`),
-    ),
-    rows,
-  );
+  const baseline = new Map();
+  let groups = [];
+  for (const line of technical.split("### A.4 适用矩阵")[1].split("### A.5")[0].split("\n")) {
+    if (!line.startsWith("| ")) continue;
+    const row = line.split("|").slice(1, -1).map((cell) => cell.trim());
+    if (row[0] === "Profile") groups = row.slice(1);
+    if (!row[0].startsWith("P-")) continue;
+    assert.equal(row.length - 1, groups.length);
+    for (let i = 0; i < groups.length; i++) {
+      const key = `${row[0].split(" ")[0]}/${groups[i]}`;
+      assert.ok(!baseline.has(key), key);
+      baseline.set(key, row[i + 1]);
+    }
+  }
+  const current = new Map();
+  for (const table of data.matrixTables) {
+    for (const row of table.rows) {
+      assert.equal(row.length - 1, table.columns.length);
+      for (let i = 0; i < table.columns.length; i++) {
+        const key = `${row[0].split(" ")[0]}/${table.columns[i]}`;
+        assert.ok(!current.has(key), key);
+        current.set(key, row[i + 1]);
+      }
+    }
+  }
+  assert.equal(baseline.size, 288);
+  assert.equal(current.size, 288);
+  assert.deepEqual([...current.keys()], [...baseline.keys()]);
+  const changes = [];
+  let unchanged = 0;
+  for (const [cell, before] of baseline) {
+    const after = current.get(cell);
+    if (before === after) unchanged++;
+    else changes.push({ cell, before, after });
+  }
+  assert.deepEqual(changes, [
+    { cell: "P-RES/11-C", before: "C", after: "M" },
+    { cell: "P-RSB/12-A", before: "C", after: "M" },
+    { cell: "P-RSB/12-B", before: "C", after: "M" },
+  ]);
+  assert.equal(unchanged, 285);
 });
