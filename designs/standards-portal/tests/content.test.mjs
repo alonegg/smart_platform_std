@@ -97,12 +97,12 @@ test("download bytes match original controlled files and manifest", async () => 
   }
 });
 
-test("25 canonical pages are indexed, with a separate 404", async () => {
+test("26 canonical pages are indexed, with a separate 404", async () => {
   const sitemap = await readFile(
     path.join(project, "dist/sitemap.xml"),
     "utf8",
   );
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 25);
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 26);
   assert.ok(
     (await readFile(path.join(project, "dist/404.html"), "utf8")).includes(
       "页面未找到",

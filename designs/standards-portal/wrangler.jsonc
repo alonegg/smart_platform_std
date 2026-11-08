@@ -8,6 +8,43 @@
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/admin", "/admin/*"],
   },
-  "routes": [{ "pattern": "stds.chunlin.ch", "custom_domain": true }],
+  "routes": [
+    {
+      "pattern": "stds.chunlin.ch",
+      "custom_domain": true,
+    },
+  ],
+  "main": "server/worker.mjs",
+  "d1_databases": [
+    {
+      "binding": "READERS_DB",
+      "database_name": "smart-platform-stds-readers",
+      "database_id": "b6534aba-ba46-4ec7-9d1a-d127b660c9a2",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "ratelimits": [
+    {
+      "name": "REGISTRATION_LIMITER",
+      "namespace_id": "2026110801",
+      "simple": {
+        "limit": 10,
+        "period": 60,
+      },
+    },
+  ],
+  "vars": {
+    "ADMIN_EMAIL": "alone@swufe.edu.cn",
+    "ACCESS_TEAM_DOMAIN": "paperdaily.cloudflareaccess.com",
+    "ACCESS_AUD": "3032fc2149100501eb85b2dad0d02997618a64e9c06845ccf374b44eb7409679",
+  },
+  "triggers": {
+    "crons": ["15 2 * * *"],
+  },
+  "observability": {
+    "enabled": false,
+  },
 }

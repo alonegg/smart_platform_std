@@ -5,6 +5,10 @@ import { build } from "esbuild";
 import { pathToFileURL } from "node:url";
 import { generateContent, project, root } from "./content.mjs";
 const data = await generateContent();
+await writeFile(
+  path.join(project, "server/document-info.json"),
+  JSON.stringify({ sourceSha: data.sourceSha256 }),
+);
 execFileSync(path.join(project, "node_modules/.bin/vite"), ["build"], {
   cwd: project,
   stdio: "inherit",
@@ -35,8 +39,10 @@ try {
     "/roadmap/": "实施路线",
     "/decisions/": "待决事项",
     "/downloads/": "资料下载",
+    "/privacy/": "阅读登记隐私说明",
+    "/admin/": "阅读者登记管理",
   };
-  for (const route of [...routes, "/404/"]) {
+  for (const route of [...routes, "/admin/", "/404/"]) {
     const section = data.sections.find((s) => route === `/read/${s.key}/`);
     const title = `${section?.title ?? titles[route] ?? "页面未找到"} · ${data.title}`;
     const html = template

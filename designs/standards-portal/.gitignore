@@ -7,3 +7,4 @@ src/generated.json
 src/search-index.json
 public/downloads/
 public/version.json
+server/document-info.json

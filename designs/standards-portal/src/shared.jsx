@@ -9,6 +9,7 @@ export const routes = [
   "/roadmap/",
   "/decisions/",
   "/downloads/",
+  "/privacy/",
   ...data.sections.map((s) => `/read/${s.key}/`),
 ];
 export const standards = data.sections.filter(
