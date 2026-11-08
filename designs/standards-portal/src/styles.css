@@ -3029,3 +3029,9 @@ main:focus {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* Keep the standard name and draft badge readable at narrow sidebar widths. */
+.sidebar-edition strong {
+  flex-wrap: wrap;
+  row-gap: 7px;
+}

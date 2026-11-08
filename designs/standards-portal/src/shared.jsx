@@ -30,7 +30,7 @@ export const sourceRepo = "https://github.com/alonegg/smart_platform_std";
 export const reviewHref = (section) => {
   const title = section
     ? `[标准评议] ${section.title}`
-    : "[标准评议] 数据资产层标准";
+    : `[标准评议] ${data.title}`;
   const body = `## 条款位置
 ${section ? section.title : "请填写条款号、字段或 Profile"}
 

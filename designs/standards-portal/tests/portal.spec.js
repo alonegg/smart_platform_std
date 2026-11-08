@@ -6,10 +6,7 @@ const data = JSON.parse(
   await readFile(new URL("../src/generated.json", import.meta.url)),
 );
 const source = await readFile(
-  new URL(
-    "../../../标准/评审稿/未来智慧教学平台数据资产层标准.md",
-    import.meta.url,
-  ),
+  new URL("../../../标准/评审稿/智慧教学-数据模型标准.md", import.meta.url),
   "utf8",
 );
 

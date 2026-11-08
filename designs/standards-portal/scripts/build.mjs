@@ -38,7 +38,7 @@ try {
   };
   for (const route of [...routes, "/404/"]) {
     const section = data.sections.find((s) => route === `/read/${s.key}/`);
-    const title = `${section?.title ?? titles[route] ?? "页面未找到"} · 智慧教学标准阅读室`;
+    const title = `${section?.title ?? titles[route] ?? "页面未找到"} · ${data.title}`;
     const html = template
       .replace('<div id="root"></div>', `<div id="root">${render(route)}</div>`)
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)

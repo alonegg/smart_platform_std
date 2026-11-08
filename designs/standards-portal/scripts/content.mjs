@@ -7,8 +7,9 @@ import { marked } from "marked";
 
 export const project = fileURLToPath(new URL("../", import.meta.url));
 export const root = path.resolve(project, "../..");
-export const sourcePath = "标准/评审稿/未来智慧教学平台数据资产层标准.md";
-export const sourceCommit = "943141b5ed4fc229e8cfba7b6b2e0d025e95fc17";
+export const sourcePath = "标准/评审稿/智慧教学-数据模型标准.md";
+export const sourceCommit = "59dd9bfc2b43360681104ca2061a417f7c084b59";
+export const standardTitle = "智慧教学-数据模型标准";
 export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
 const digest = (text) => createHash("sha256").update(text).digest("hex");
 const plain = (text) =>
@@ -128,6 +129,7 @@ export async function generateContent() {
     return { columns: rows[0].slice(1), rows: rows.slice(1) };
   });
   const data = {
+    title: standardTitle,
     version: "征求意见稿",
     date: "2026-11-08",
     synced: "2026-11-08",
@@ -152,7 +154,7 @@ export async function generateContent() {
     phases,
     downloads: [
       {
-        title: "数据资产层标准 · Word",
+        title: `${standardTitle} · Word`,
         description: "完整征求意见稿，便于批注与评议",
         file: "standard-review.docx",
         from: sourcePath.replace(/\.md$/, ".docx"),
@@ -160,7 +162,7 @@ export async function generateContent() {
         current: true,
       },
       {
-        title: "数据资产层标准 · Markdown",
+        title: `${standardTitle} · Markdown`,
         description: "与在线标准全文一致",
         file: "standard-review.md",
         from: sourcePath,
