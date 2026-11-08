@@ -24,7 +24,8 @@ export function Profiles({ navigate }) {
       <h1>按实际业务能力，确定适用要求。</h1>
       <p className="page-lead">
         所有接入应用均应满足 P-COM。一个应用可声明多个
-        Profile，各条款组取最严格者；以下按单个 Profile
+        Profile，先核定 C 项触发条件及 O 项声明，再合并适用要求。
+        验证按实际操作、角色和子用例分工；以下按单个 Profile
         查阅原表，不代替适用声明与审核。
       </p>
       <div className="profile-selector" aria-label="选择能力 Profile">
