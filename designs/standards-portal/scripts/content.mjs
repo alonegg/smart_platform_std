@@ -215,7 +215,7 @@ export async function generateContent() {
   if (
     sections.length !== 19 ||
     profiles.length !== 9 ||
-    triggers.length !== 15 ||
+    triggers.length !== 17 ||
     pending.length !== 30 ||
     phases.length !== 6 ||
     matrixTables.length !== 4 ||

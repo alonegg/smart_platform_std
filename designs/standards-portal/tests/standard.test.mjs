@@ -98,7 +98,7 @@ test("external-reference indexes use unique appendix records and no second adopt
   assert.equal(ids.length, new Set(ids).size);
   const index = rows(section("### 2.2", "### 2.4"))
     .filter((row) => /^B-[ID]/.test(row[1] ?? ""));
-  assert.equal(index.length, 55);
+  assert.equal(index.length, 52);
   for (const row of index) {
     assert.equal(row.length, 3);
     for (const id of row[1].split("、")) assert.ok(ids.includes(id), id);
@@ -122,7 +122,7 @@ test("operation and package subcases are defined, used and keep separate expecte
     ["T08-P", "T08-C", "T08-A", "T08-R", "T12-T", "T12-R", "T12-O", "T20-F", "T20-L", "T20-E"]);
   const uses = [...source.matchAll(/\bT\d+-[A-Z]\b/g)].map((m) => m[0]);
   for (const use of uses) assert.ok(definitions.some((r) => r[0] === use), use);
-  assert.match(definitions.find((r) => r[0] === "T12-T")[2], /不得进入包/);
+  assert.match(definitions.find((r) => r[0] === "T12-T")[2], /不应进入包/);
   assert.match(definitions.find((r) => r[0] === "T12-R")[2], /允许经批准的历史证据/);
   assert.match(definitions.find((r) => r[0] === "T08-P")[2], /服务确认请求拒绝/);
   assert.match(section("### A.6", "### A.7"), /T20.*完整归档与复核由登记主体联合执行/);

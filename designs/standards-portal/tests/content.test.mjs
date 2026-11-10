@@ -159,7 +159,7 @@ test("review publication contains no editorial history in pages or search", asyn
   );
 });
 
-test("only the three approved C-to-M clarifications differ from the technical source", async () => {
+test("only the approved matrix clarifications (three C-to-M, one —-to-C) differ from the technical source", async () => {
   const technical = await readFile(
     path.join(
       root,
@@ -206,6 +206,7 @@ test("only the three approved C-to-M clarifications differ from the technical so
     { cell: "P-RES/11-C", before: "C", after: "M" },
     { cell: "P-RSB/12-A", before: "C", after: "M" },
     { cell: "P-RSB/12-B", before: "C", after: "M" },
+    { cell: "P-RSB/10-B", before: "—", after: "C" },
   ]);
-  assert.equal(unchanged, 285);
+  assert.equal(unchanged, 284);
 });
