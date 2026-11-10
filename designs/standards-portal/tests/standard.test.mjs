@@ -52,7 +52,8 @@ test("internal clause references resolve independently of the publication render
     // These references explicitly belong to an external standard, not this document.
     if (line.startsWith("11.6.3 JY/T 0643")) continue;
     for (const match of line.matchAll(
-      /(?<![\w/.\-])([4-9]\.\d+\.\d+(?:\.\d+)*|1[0-2]\.\d+\.\d+(?:\.\d+)*|[A-E]\.\d+(?:\.\d+)*)(?![\w/.\-])/g,
+      // "表 A.9" etc. are appendix table numbers (GB/T 1.1 style), not clause references.
+      /(?<![\w/.\-])(?<!表 )([4-9]\.\d+\.\d+(?:\.\d+)*|1[0-2]\.\d+\.\d+(?:\.\d+)*|[A-E]\.\d+(?:\.\d+)*)(?![\w/.\-])/g,
     )) {
       if (!definitions.has(match[1])) unresolved.push(`${i + 1}: ${match[1]}`);
     }
@@ -65,7 +66,7 @@ test("chapter 4 and appendix A declare the same nine capability codes", () => {
   const codes = (s) => rows(s).filter((row) => row[0].startsWith("P-"))
     .map((row) => row[0].split(" ")[0]);
   assert.deepEqual(
-    codes(section("**表 5 能力 Profile**", "4.2.1.3")),
+    codes(section("表 4-3 能力 Profile", "4.2.1.3")),
     codes(section("### A.2 能力 Profile 定义", "### A.3")),
   );
   assert.equal(codes(section("### A.2", "### A.3")).length, 9);
