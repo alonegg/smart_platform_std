@@ -5,6 +5,7 @@ import {
   Check,
   ExternalLink,
   GitBranch,
+  MessageSquareText,
 } from "lucide-react";
 import data from "./generated.json";
 
@@ -50,9 +51,9 @@ export function Reader({ section, navigate }) {
                   ? "编制与阅读说明"
                   : "拟议条文"}
           </span>
-          <a href={reviewHref(section)} target="_blank" rel="noreferrer">
-            提出意见 <ExternalLink size={13} />
-          </a>
+          <AppLink to={reviewHref(section)} navigate={navigate}>
+            提出意见 <MessageSquareText size={13} />
+          </AppLink>
           <button
             onClick={async () => {
               try {
@@ -71,7 +72,7 @@ export function Reader({ section, navigate }) {
           <button onClick={() => window.print()}>打印</button>
         </div>
         <div className="reader-status">
-          征求意见稿 · 欢迎按条款提出问题、建议及依据。
+          征求意见稿 · 将鼠标移到编号条文上，点击右侧“意见”即可针对该条提交意见。
         </div>
         <>
           {section.key === "foreword" && (
@@ -88,7 +89,17 @@ export function Reader({ section, navigate }) {
           className="prose"
           onClick={(event) => {
             const anchor = event.target.closest("a");
-            if (anchor?.getAttribute("href")?.startsWith("#")) {
+            const href = anchor?.getAttribute("href");
+            if (
+              href?.startsWith("/comment/") &&
+              !event.metaKey &&
+              !event.ctrlKey
+            ) {
+              event.preventDefault();
+              navigate(href);
+              return;
+            }
+            if (href?.startsWith("#")) {
               event.preventDefault();
               navigate(`/read/${section.key}/${anchor.getAttribute("href")}`);
             }

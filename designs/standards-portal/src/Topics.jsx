@@ -290,8 +290,8 @@ export function Downloads({ navigate }) {
       <p className="eyebrow">DOCUMENTS & SOURCES</p>
       <h1>阅读、批注，并提出具体建议。</h1>
       <p className="page-lead">
-        下载完整征求意见稿或评议意见表。Word 便于批注，Markdown
-        便于引用条款和填写建议；在线全文与下载稿使用同一正文。
+        下载完整征求意见稿或评议意见汇总表。PDF 便于阅读打印，Word 便于批注，Markdown
+        便于引用条款；在线全文与下载稿使用同一正文。
       </p>
       <div className="download-list">
         {data.downloads.map((file) => (
@@ -318,14 +318,13 @@ export function Downloads({ navigate }) {
           <AppLink className="text-link" to="/read/c/" navigate={navigate}>
             查看评议指引 <ArrowUpRight size={15} />
           </AppLink>
-          <a
+          <AppLink
             className="text-link source-manifest"
-            href={reviewHref()}
-            target="_blank"
-            rel="noreferrer"
+            to={reviewHref()}
+            navigate={navigate}
           >
-            提出意见 <ArrowUpRight size={15} />
-          </a>
+            在线提交意见 <ArrowUpRight size={15} />
+          </AppLink>
         </div>
       </div>
       <div className="callout">

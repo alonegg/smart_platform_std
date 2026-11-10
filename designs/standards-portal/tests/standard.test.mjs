@@ -52,7 +52,8 @@ test("internal clause references resolve independently of the publication render
     // These references explicitly belong to an external standard, not this document.
     if (line.startsWith("11.6.3 JY/T 0643")) continue;
     for (const match of line.matchAll(
-      /(?<![\w/.\-])([4-9]\.\d+\.\d+(?:\.\d+)*|1[0-2]\.\d+\.\d+(?:\.\d+)*|[A-E]\.\d+(?:\.\d+)*)(?![\w/.\-])/g,
+      // "表 A.9" etc. are appendix table numbers (GB/T 1.1 style), not clause references.
+      /(?<![\w/.\-])(?<!表 )([4-9]\.\d+\.\d+(?:\.\d+)*|1[0-2]\.\d+\.\d+(?:\.\d+)*|[A-E]\.\d+(?:\.\d+)*)(?![\w/.\-])/g,
     )) {
       if (!definitions.has(match[1])) unresolved.push(`${i + 1}: ${match[1]}`);
     }
@@ -65,7 +66,7 @@ test("chapter 4 and appendix A declare the same nine capability codes", () => {
   const codes = (s) => rows(s).filter((row) => row[0].startsWith("P-"))
     .map((row) => row[0].split(" ")[0]);
   assert.deepEqual(
-    codes(section("**表 5 能力 Profile**", "4.2.1.3")),
+    codes(section("表 4-3 能力 Profile", "4.2.1.3")),
     codes(section("### A.2 能力 Profile 定义", "### A.3")),
   );
   assert.equal(codes(section("### A.2", "### A.3")).length, 9);
@@ -93,19 +94,21 @@ test("common mandatory requirements do not mask specialized conditional cells", 
 
 test("external-reference indexes use unique appendix records and no second adoption level", () => {
   const registry = rows(section("### B.2", "### B.4"))
-    .filter((row) => /^B-[ID]\d+$/.test(row[0]));
+    .filter((row) => /^B-[ID]\d+[a-z]?$/.test(row[0]));
   const ids = registry.map((row) => row[0]);
   assert.equal(ids.length, new Set(ids).size);
   const index = rows(section("### 2.2", "### 2.4"))
     .filter((row) => /^B-[ID]/.test(row[1] ?? ""));
-  assert.equal(index.length, 55);
+  assert.equal(index.length, 54);
   for (const row of index) {
     assert.equal(row.length, 3);
     for (const id of row[1].split("、")) assert.ok(ids.includes(id), id);
   }
   const levels = Object.fromEntries(registry.map((r) => [r[0], r[5].split(/[（；]/)[0]]));
-  for (const id of ["B-D01", "B-D10", "B-D11", "B-D13", "B-D14", "B-D15", "B-D16", "B-I32"])
+  for (const id of ["B-D01", "B-D10", "B-D11", "B-D13", "B-D14", "B-D15", "B-D16b", "B-I32"])
     assert.equal(levels[id], "条件强制", id);
+  for (const id of ["B-D16a", "B-D20b"]) assert.equal(levels[id], "参照", id);
+  assert.equal(levels["B-D20a"], "强制");
   assert.equal(levels["B-I10"], "跟踪");
   assert.equal(levels["B-I34"], "强制");
   assert.equal(levels["B-I36"], "参照");
@@ -122,7 +125,7 @@ test("operation and package subcases are defined, used and keep separate expecte
     ["T08-P", "T08-C", "T08-A", "T08-R", "T12-T", "T12-R", "T12-O", "T20-F", "T20-L", "T20-E"]);
   const uses = [...source.matchAll(/\bT\d+-[A-Z]\b/g)].map((m) => m[0]);
   for (const use of uses) assert.ok(definitions.some((r) => r[0] === use), use);
-  assert.match(definitions.find((r) => r[0] === "T12-T")[2], /不得进入包/);
+  assert.match(definitions.find((r) => r[0] === "T12-T")[2], /不应进入包/);
   assert.match(definitions.find((r) => r[0] === "T12-R")[2], /允许经批准的历史证据/);
   assert.match(definitions.find((r) => r[0] === "T08-P")[2], /服务确认请求拒绝/);
   assert.match(section("### A.6", "### A.7"), /T20.*完整归档与复核由登记主体联合执行/);

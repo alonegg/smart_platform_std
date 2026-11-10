@@ -18,13 +18,17 @@ const validInput = {
   email: "reader@example.invalid",
   allowContact: false,
   consent: true,
-  internationalConsent: true,
   consentVersion: policy.version,
 };
-const migration = await readFile(
-  new URL("../migrations/0001_readers.sql", import.meta.url),
-  "utf8",
-);
+const migration =
+  (await readFile(
+    new URL("../migrations/0001_readers.sql", import.meta.url),
+    "utf8",
+  )) +
+  (await readFile(
+    new URL("../migrations/0002_comments.sql", import.meta.url),
+    "utf8",
+  ));
 class LocalD1 {
   constructor() {
     this.db = new DatabaseSync(":memory:");
@@ -117,11 +121,10 @@ async function signedToken(changes = {}) {
   return `${header}.${payload}.${Buffer.from(signature).toString("base64url")}`;
 }
 
-test("validation requires explicit purpose and international consent and bounds every field", () => {
+test("validation requires explicit purpose consent and bounds every field", () => {
   assert.equal(validateRegistration(validInput).name, validInput.name);
   for (const change of [
     { consent: false },
-    { internationalConsent: false },
     { consentVersion: "stale" },
     { role: "administrator" },
     { name: "" },
@@ -380,4 +383,155 @@ test("rate limit returns 429 before inserting a registration", async () => {
   );
   assert.equal(response.status, 429);
   assert.equal(env.READERS_DB.count(), 0);
+});
+
+const validComment = {
+  clause: "5.1.3",
+  sectionKey: "5",
+  category: "技术语义",
+  role: "vendor",
+  profile: "P-SUB",
+  problem: "合成样例：无版本对象无法使用 ObjectRef。\n第二行说明。",
+  proposal: "建议区分 ObjectRef 与 VersionRef。",
+  rationale: "",
+  submitter: "合成提议人",
+  organization: "自动测试厂商",
+  email: "vendor@example.invalid",
+  allowPublic: false,
+};
+const commentCount = (env) =>
+  env.READERS_DB.db.prepare("SELECT COUNT(*) AS n FROM review_comments").get()
+    .n;
+
+test("comments need no registration, get sequential refs and stay private until resolved", async (t) => {
+  const env = envFor();
+  const cookie = await sessionCookie(env);
+  const first = await worker.fetch(
+    request("/api/comments", "POST", validComment, cookie),
+    env,
+  );
+  assert.equal(first.status, 201);
+  assert.equal((await first.json()).comment.ref, "R1-0001");
+  const second = await worker.fetch(
+    request("/api/comments", "POST", { ...validComment, allowPublic: true }, ""),
+    env,
+  );
+  assert.equal((await second.json()).comment.ref, "R1-0002");
+  const mine = await (
+    await worker.fetch(request("/api/comments/mine", "GET", undefined, cookie), env)
+  ).json();
+  assert.deepEqual(
+    mine.comments.map((c) => c.ref),
+    ["R1-0001"],
+  );
+  const stats = await (
+    await worker.fetch(request("/api/comments/stats"), env)
+  ).json();
+  assert.equal(stats.total, 2);
+  assert.equal(stats.byDisposition.pending, 2);
+  let pub = await (await worker.fetch(request("/api/comments/public"), env)).json();
+  assert.equal(pub.comments.length, 0);
+
+  assert.equal(
+    (await worker.fetch(request("/admin/api/comments"), env)).status,
+    401,
+  );
+  t.mock.method(globalThis, "fetch", async () => Response.json(jwks));
+  const auth = { "Cf-Access-Jwt-Assertion": await signedToken() };
+  const list = await (
+    await worker.fetch(request("/admin/api/comments", "GET", undefined, "", auth), env)
+  ).json();
+  assert.equal(list.total, 2);
+  const [newest, oldest] = list.comments;
+  const missingReason = await worker.fetch(
+    request(`/admin/api/comments/${oldest.id}`, "PUT", { disposition: "accepted" }, "", auth),
+    env,
+  );
+  assert.equal(missingReason.status, 400);
+  for (const [row, summary] of [
+    [oldest, "编制组摘要：引用类型需区分"],
+    [newest, ""],
+  ]) {
+    const res = await worker.fetch(
+      request(
+        `/admin/api/comments/${row.id}`,
+        "PUT",
+        { disposition: "partial", response: "已在 5.1 增加 VersionRef。", publicSummary: summary },
+        "",
+        auth,
+      ),
+      env,
+    );
+    assert.equal(res.status, 200);
+  }
+  const publicText = await (
+    await worker.fetch(request("/api/comments/public"), env)
+  ).text();
+  pub = JSON.parse(publicText);
+  assert.equal(pub.comments.length, 2);
+  for (const secret of ["合成提议人", "自动测试厂商", "vendor@example.invalid", "session"])
+    assert.ok(!publicText.includes(secret), secret);
+  const privateOne = pub.comments.find((c) => c.ref === "R1-0001");
+  assert.equal(privateOne.summary, "编制组摘要：引用类型需区分");
+  assert.equal(privateOne.proposal, "");
+  const publicOne = pub.comments.find((c) => c.ref === "R1-0002");
+  assert.ok(publicOne.summary.includes("合成样例"));
+  const csv = await worker.fetch(
+    request("/admin/api/comments.csv", "GET", undefined, "", auth),
+    env,
+  );
+  assert.ok((await csv.text()).includes("R1-0002"));
+  const del = await worker.fetch(
+    request(`/admin/api/comments/${newest.id}`, "DELETE", undefined, "", auth),
+    env,
+  );
+  assert.equal(del.status, 200);
+  const third = await worker.fetch(
+    request("/api/comments", "POST", validComment, ""),
+    env,
+  );
+  assert.equal((await third.json()).comment.ref, "R1-0002");
+});
+
+test("comment validation, origin check, size cap and rate limit fail without writes", async () => {
+  const env = envFor();
+  for (const change of [
+    { clause: "" },
+    { problem: "" },
+    { category: "随便" },
+    { role: "admin" },
+    { sectionKey: "../x" },
+    { email: "bad" },
+    { clause: "a\nb" },
+    { problem: "x".repeat(4001) },
+    { website: "spam" },
+    { allowPublic: "yes" },
+  ]) {
+    const res = await worker.fetch(
+      request("/api/comments", "POST", { ...validComment, ...change }),
+      env,
+    );
+    assert.equal(res.status, 400, JSON.stringify(change));
+  }
+  const crossSite = await worker.fetch(
+    new Request(origin + "/api/comments", {
+      method: "POST",
+      headers: { Origin: "https://evil.example", "Content-Type": "application/json" },
+      body: JSON.stringify(validComment),
+    }),
+    env,
+  );
+  assert.equal(crossSite.status, 403);
+  const huge = await worker.fetch(
+    request("/api/comments", "POST", { ...validComment, rationale: "长".repeat(17000) }),
+    env,
+  );
+  assert.equal(huge.status, 400);
+  env.REGISTRATION_LIMITER = { limit: async () => ({ success: false }) };
+  const limited = await worker.fetch(
+    request("/api/comments", "POST", validComment),
+    env,
+  );
+  assert.equal(limited.status, 429);
+  assert.equal(commentCount(env), 0);
 });

@@ -1,11 +1,11 @@
-未来智慧教学平台：架构与数据资产标准体系（研究设计稿 v0.1）
-Future Smart Teaching Platform: Architecture and Teaching Data Asset Standards
+智慧教学-数据模型标准（征求意见稿）
+Smart Teaching Data Model Standard (Draft for Comments)
 
 Copyright 2026 the contributors of this repository.
 
 授权范围
 --------
-- 文档（成果目录下的 Markdown、Word、PDF、CSV 及图件）：CC BY 4.0，见 LICENSE-DOCS。
+- 文档（标准/评审稿 及 archive 目录下的 Markdown、Word、PDF、CSV 及图件）：CC BY 4.0，见 LICENSE-DOCS。
 - 代码与机器可读构件（编制工具 Python 脚本、JSON Schema、JSON 样例、JSON 核验记录）：
   Apache License 2.0，见 LICENSE。
 
@@ -18,5 +18,6 @@ Copyright 2026 the contributors of this repository.
 
 说明
 ----
-本仓库为研究设计稿，不是已发布的校级标准，也不构成任何产品的一致性认证。
+本仓库的当前文稿为征求意见稿，不是已发布的校级标准，也不构成任何产品的一致性认证。
+archive/ 目录保存编制过程中的研究设计稿与起草稿，仅供追溯。
 标准中的"应"表示拟建系统的设计要求，不表示已实施或已通过验收。

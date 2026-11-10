@@ -38,7 +38,7 @@
     },
   ],
   "vars": {
-    "PUBLICATION_PAUSED": "true",
+    "PUBLICATION_PAUSED": "false",
     "ADMIN_EMAIL": "alone@swufe.edu.cn",
     "ACCESS_TEAM_DOMAIN": "paperdaily.cloudflareaccess.com",
     "ACCESS_AUD": "3032fc2149100501eb85b2dad0d02997618a64e9c06845ccf374b44eb7409679",

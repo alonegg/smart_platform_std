@@ -1,0 +1,63 @@
+name: 标准评议意见（公开）
+description: 针对《智慧教学-数据模型标准》征求意见稿的具体条款提出公开意见
+title: "[标准评议] "
+labels: ["评议意见", "status/待处理"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本表单提交的内容**公开可见**。如意见涉及产品实现细节或不便公开，请改用[站内意见表单](https://stds.chunlin.ch/comment/)（默认不公开）。
+        每个 issue 宜只讨论一个问题。请使用合成或脱敏样例。
+  - type: input
+    id: clause
+    attributes:
+      label: 条款位置
+      description: 章、条、表格、字段、Profile 代码或待决事项编号，如 5.1.3、表 A.1、E07
+      placeholder: "5.1.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 评议类别
+      options:
+        - 编辑表述
+        - 适用范围
+        - 技术语义
+        - 互操作
+        - 实现可行性
+        - 安全与权利
+        - 验证条件
+        - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: 参与身份
+      options:
+        - 应用厂商
+        - 标准专家
+        - 学校部门
+        - 其他参与者
+    validations:
+      required: true
+  - type: input
+    id: profile
+    attributes:
+      label: 应用类型与能力 Profile，或专业方向
+      placeholder: "P-SUB、P-GRD / 数据治理"
+  - type: textarea
+    id: problem
+    attributes:
+      label: 具体问题与场景
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议条文或方案
+  - type: textarea
+    id: rationale
+    attributes:
+      label: 技术或业务依据与影响范围

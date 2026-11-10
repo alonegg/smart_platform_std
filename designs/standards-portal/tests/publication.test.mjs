@@ -46,7 +46,8 @@ test("pause responses support HEAD and stop indexing without loading site resour
 test("deployment routes all assets through the pause gate and can explicitly resume", async () => {
   const config = await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8");
   assert.match(config, /"run_worker_first": true/);
-  assert.match(config, /"PUBLICATION_PAUSED": "true"/);
+  // The switch must be declared explicitly; resuming sets it to "false".
+  assert.match(config, /"PUBLICATION_PAUSED": "(true|false)"/);
   let assetCalls = 0;
   const response = await worker.fetch(new Request(origin), {
     PUBLICATION_PAUSED: "false",

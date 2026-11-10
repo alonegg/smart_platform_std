@@ -97,12 +97,12 @@ test("download bytes match original controlled files and manifest", async () => 
   }
 });
 
-test("26 canonical pages are indexed, with a separate 404", async () => {
+test("29 canonical pages are indexed, with a separate 404", async () => {
   const sitemap = await readFile(
     path.join(project, "dist/sitemap.xml"),
     "utf8",
   );
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 26);
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 29);
   assert.ok(
     (await readFile(path.join(project, "dist/404.html"), "utf8")).includes(
       "页面未找到",
@@ -159,11 +159,11 @@ test("review publication contains no editorial history in pages or search", asyn
   );
 });
 
-test("only the three approved C-to-M clarifications differ from the technical source", async () => {
+test("only the approved matrix clarifications (three C-to-M, one —-to-C) differ from the technical source", async () => {
   const technical = await readFile(
     path.join(
       root,
-      "标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
+      "archive/起草稿_chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
     ),
     "utf8",
   );
@@ -202,10 +202,12 @@ test("only the three approved C-to-M clarifications differ from the technical so
     if (before === after) unchanged++;
     else changes.push({ cell, before, after });
   }
-  assert.deepEqual(changes, [
+  const byCell = (a, b) => a.cell.localeCompare(b.cell);
+  assert.deepEqual(changes.sort(byCell), [
     { cell: "P-RES/11-C", before: "C", after: "M" },
+    { cell: "P-RSB/10-B", before: "—", after: "C" },
     { cell: "P-RSB/12-A", before: "C", after: "M" },
     { cell: "P-RSB/12-B", before: "C", after: "M" },
   ]);
-  assert.equal(unchanged, 285);
+  assert.equal(unchanged, 284);
 });

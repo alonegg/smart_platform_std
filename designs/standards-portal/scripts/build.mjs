@@ -39,7 +39,10 @@ try {
     "/roadmap/": "实施路线",
     "/decisions/": "待决事项",
     "/downloads/": "资料下载",
-    "/privacy/": "阅读登记隐私说明",
+    "/quickstart/": "厂商速读",
+    "/comment/": "提交意见",
+    "/responses/": "意见处理情况",
+    "/privacy/": "登记与意见信息处理说明",
     "/admin/": "阅读者登记管理",
   };
   for (const route of [...routes, "/admin/", "/404/"]) {

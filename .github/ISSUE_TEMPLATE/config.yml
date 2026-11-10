@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 在线提交意见（无需 GitHub 账号，默认不公开）
+    url: https://stds.chunlin.ch/comment/
+    about: 推荐方式。按条款提交，获得意见编号，处理结论在“意见处理情况”页公布。
+  - name: 邮件提交（评议意见汇总表）
+    url: https://stds.chunlin.ch/downloads/
+    about: 下载评议意见汇总表填写后发送至 alone@swufe.edu.cn（联系人：陈春林）。

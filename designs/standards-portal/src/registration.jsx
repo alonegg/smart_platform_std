@@ -35,6 +35,7 @@ export async function registrationApi(path, options = {}) {
 }
 export function useRegistration(exempt = false) {
   const [open, setOpen] = useState(false);
+  const [prompt, setPrompt] = useState(false);
   const [ready, setReady] = useState(false);
   const [record, setRecord] = useState(null);
   const [error, setError] = useState("");
@@ -51,9 +52,12 @@ export function useRegistration(exempt = false) {
       setReady(true);
     }
   };
+  // Registration never interrupts reading: a dismissible banner invites it,
+  // and the dialog opens only when the reader asks for it.
   useEffect(() => {
     if (exempt) {
       setOpen(false);
+      setPrompt(false);
       return;
     }
     let active = true;
@@ -67,16 +71,13 @@ export function useRegistration(exempt = false) {
       .then((result) => {
         if (!active) return;
         setRecord(result.registration);
-        setOpen(
+        setPrompt(
           result.registration?.requiresConsent ||
             (!result.registration && !deferred),
         );
       })
       .catch((failure) => {
-        if (active) {
-          setError(failure.message);
-          setOpen(!deferred);
-        }
+        if (active) setError(failure.message);
       })
       .finally(() => {
         if (active) setReady(true);
@@ -92,11 +93,13 @@ export function useRegistration(exempt = false) {
       /* Declining never depends on browser storage. */
     }
     setOpen(false);
+    setPrompt(false);
   };
   const saved = (value) => {
     setRecord(value);
     setError("");
     setOpen(false);
+    setPrompt(false);
     try {
       sessionStorage.removeItem(DEFER_KEY);
     } catch {
@@ -106,6 +109,7 @@ export function useRegistration(exempt = false) {
   return {
     open,
     setOpen,
+    prompt,
     ready,
     record,
     setRecord,
@@ -114,6 +118,39 @@ export function useRegistration(exempt = false) {
     defer,
     saved,
   };
+}
+
+export function RegistrationBanner({ state }) {
+  if (!state.prompt || state.open) return null;
+  const update = state.record?.requiresConsent;
+  return (
+    <div className="registration-banner" role="region" aria-label="阅读登记提示">
+      <UserRound size={16} />
+      <p>
+        {update
+          ? "登记说明已更新，请确认后继续保留你的阅读登记。"
+          : "参与评议的厂商与专家可自愿登记，便于编制组反馈意见处理情况。阅读与提交意见均不要求登记。"}
+      </p>
+      <button
+        type="button"
+        className="button small"
+        onClick={() => {
+          state.refresh();
+          state.setOpen(true);
+        }}
+      >
+        {update ? "查看并确认" : "登记"}
+      </button>
+      <button
+        type="button"
+        className="banner-close"
+        aria-label="关闭登记提示"
+        onClick={state.defer}
+      >
+        <X size={16} />
+      </button>
+    </div>
+  );
 }
 
 function PolicySummary() {
@@ -134,11 +171,7 @@ function PolicySummary() {
           天，到期从名单移除并由每日任务清理。可从“阅读登记”撤回，也可联系组织方申请更正、查阅或删除。
         </p>
         <p>
-          {policy.storageNotice}服务方：{policy.processor}；
-          <a href={policy.processorContact} target="_blank" rel="noreferrer">
-            服务方隐私联系方式
-          </a>
-          。你可通过组织方邮箱行使相关权利。
+          {policy.storageNotice}你可通过组织方邮箱行使相关权利。
         </p>
         <a href="/privacy/" target="_blank" rel="noreferrer">
           查看完整隐私说明
@@ -161,7 +194,6 @@ export function RegistrationDialog({ state }) {
     allowContact: false,
   });
   const [consent, setConsent] = useState(false);
-  const [internationalConsent, setInternationalConsent] = useState(false);
   const [withdraw, setWithdraw] = useState(false);
   const [actionNotice, setActionNotice] = useState("");
   useEffect(() => {
@@ -186,7 +218,6 @@ export function RegistrationDialog({ state }) {
           },
     );
     setConsent(false);
-    setInternationalConsent(false);
     setFailure("");
     setActionNotice("");
     setWithdraw(false);
@@ -222,7 +253,6 @@ export function RegistrationDialog({ state }) {
         body: JSON.stringify({
           ...fields,
           consent,
-          internationalConsent,
           consentVersion: policy.version,
         }),
       });
@@ -400,17 +430,6 @@ export function RegistrationDialog({ state }) {
                 />
                 我已阅读登记说明，同意为本次评议保存上述信息。
               </label>
-              <label className="registration-check">
-                <input
-                  type="checkbox"
-                  required
-                  checked={internationalConsent}
-                  onChange={(event) =>
-                    setInternationalConsent(event.target.checked)
-                  }
-                />
-                同意由隐私说明中列明的境外服务处理登记信息。
-              </label>
               {(failure || state.error) && (
                 <div className="registration-error" role="alert">
                   {failure || state.error}
@@ -522,11 +541,11 @@ export function RegistrationDialog({ state }) {
 export function PrivacyPage() {
   return (
     <div className="topic-page page-enter" data-screen-label="阅读登记隐私说明">
-      <p className="eyebrow">READER REGISTRATION PRIVACY</p>
-      <h1>阅读登记隐私说明</h1>
+      <p className="eyebrow">REGISTRATION & COMMENT PRIVACY</p>
+      <h1>登记与意见信息处理说明</h1>
       <p className="page-lead">
-        适用于“智慧教学-数据模型标准”的阅读者登记，说明版本 {policy.version}
-        。阅读标准本身可选择暂不登记。
+        适用于“智慧教学-数据模型标准”的阅读者登记和站内意见提交，说明版本{" "}
+        {policy.version}。阅读标准和提交意见均不要求登记。
       </p>
       <div className="privacy-prose">
         <h2>谁管理登记信息</h2>
@@ -540,6 +559,9 @@ export function PrivacyPage() {
           登记包含姓名、单位或身份、参与角色，以及自愿填写的专业方向、邮箱和允许联系的选择。系统记录登记/更新时间、初始阅读入口、同意说明版本和期限；本人点击“确认已阅”后才记录该状态及时间。
         </p>
         <p>
+          站内提交意见时，条款位置、类别、参与身份和意见内容为必填；提议人、单位和邮箱选填，仅供编制组澄清意见使用。意见原文默认不公开；仅在提交时勾选同意后，问题与建议原文才会出现在“意见处理情况”页，且不显示提议人、单位和邮箱。意见作为标准编制记录保存至本标准正式发布后一年，可通过联系邮箱申请删除本人提交的意见。
+        </p>
+        <p>
           登记信息不在公开页面、搜索索引或 GitHub Issue
           中展示。不将页面打开、浏览时长或滚动位置作为完成审阅的证明；不建立浏览指纹和完整阅读轨迹。为防滥用，网络地址仅用于短时限流，不写入登记名单。
         </p>
@@ -550,7 +572,7 @@ export function PrivacyPage() {
           <a href={policy.processorContact} target="_blank" rel="noreferrer">
             隐私政策
           </a>
-          。组织方负责登记用途、访问管理和权利请求。跨境处理采用单独确认；不确认可继续浏览标准。
+          。组织方负责登记与意见的用途、访问管理和权利请求。
         </p>
         <p>
           主记录在每次登记或更新后有效期为 {policy.retentionDays}{" "}
@@ -559,7 +581,7 @@ export function PrivacyPage() {
         </p>
         <h2>谁可以查看</h2>
         <p>
-          只有获授权的编制组管理人员可以查看或导出名单，用于本次评议组织。公开署名或其他用途需另行征求意愿。管理端使用邮箱登录和独立的访问控制。
+          只有获授权的编制组管理人员可以查看或导出名单和意见，用于本次评议组织与意见处理。公开署名或其他用途需另行征求意愿。管理端使用邮箱登录和独立的访问控制。
         </p>
         <h2>查阅、更正与撤回</h2>
         <p>

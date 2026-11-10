@@ -1,0 +1,34 @@
+{
+  "round": 1,
+  "roundLabel": "第 1 轮征求意见",
+  "opensOn": "2026-11-09",
+  "deadline": "2026-12-12",
+  "deadlineNote": "暂定",
+  "draftingUnit": "西南财经大学教务处",
+  "drafters": ["陈春林"],
+  "contactName": "陈春林",
+  "contactEmail": "alone@swufe.edu.cn",
+  "categories": [
+    "编辑表述",
+    "适用范围",
+    "技术语义",
+    "互操作",
+    "实现可行性",
+    "安全与权利",
+    "验证条件",
+    "其他"
+  ],
+  "roles": {
+    "vendor": "应用厂商",
+    "expert": "标准专家",
+    "school": "学校部门",
+    "other": "其他参与者"
+  },
+  "dispositions": {
+    "pending": "待处理",
+    "accepted": "采纳",
+    "partial": "部分采纳",
+    "rejected": "不采纳",
+    "deferred": "留待后续版本"
+  }
+}
