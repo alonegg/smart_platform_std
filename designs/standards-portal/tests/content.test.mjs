@@ -202,11 +202,12 @@ test("only the approved matrix clarifications (three C-to-M, one —-to-C) diffe
     if (before === after) unchanged++;
     else changes.push({ cell, before, after });
   }
-  assert.deepEqual(changes, [
+  const byCell = (a, b) => a.cell.localeCompare(b.cell);
+  assert.deepEqual(changes.sort(byCell), [
     { cell: "P-RES/11-C", before: "C", after: "M" },
+    { cell: "P-RSB/10-B", before: "—", after: "C" },
     { cell: "P-RSB/12-A", before: "C", after: "M" },
     { cell: "P-RSB/12-B", before: "C", after: "M" },
-    { cell: "P-RSB/10-B", before: "—", after: "C" },
   ]);
   assert.equal(unchanged, 284);
 });

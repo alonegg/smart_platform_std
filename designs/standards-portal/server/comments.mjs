@@ -113,7 +113,7 @@ export async function commentApi(request, env, url) {
       return json({ error: "请求方式不支持。" }, 405, { Allow: "GET" });
     if (!hash) return json({ comments: [] });
     const rows = await env.READERS_DB.prepare(
-      "SELECT * FROM review_comments WHERE session_hash = ? ORDER BY created_at DESC LIMIT 200",
+      "SELECT * FROM review_comments WHERE session_hash = ? ORDER BY created_at DESC, round DESC, ref DESC LIMIT 200",
     )
       .bind(hash)
       .all();
@@ -342,7 +342,7 @@ export async function adminCommentApi(request, env, url) {
     .bind(...args)
     .first();
   const rows = await env.READERS_DB.prepare(
-    `SELECT * FROM review_comments WHERE ${where} ORDER BY created_at DESC, id DESC LIMIT 50 OFFSET ?`,
+    `SELECT * FROM review_comments WHERE ${where} ORDER BY created_at DESC, round DESC, ref DESC LIMIT 50 OFFSET ?`,
   )
     .bind(...args, offset)
     .all();
