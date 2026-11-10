@@ -2,6 +2,10 @@
 
 公开站点：<https://stds.chunlin.ch>。用于应用厂商、标准专家审阅、评议和提出意见。
 
+发布开关：`wrangler.jsonc` 的 `PUBLICATION_PAUSED` 设为 `"true"` 时，Worker 统一返回暂停说明；当前为 `"false"`（正常发布），正文、附件、搜索数据、前端资源、阅读登记和管理页面均经过该入口，避免从深链接继续读取已暂停的内容。普通请求返回 HTTP 503、`Retry-After` 和 `no-store`；`robots.txt` 返回全站暂停抓取规则。暂停页面无需 JavaScript，也不加载原站点资源。受控文稿与既有登记数据保留，原有到期清理任务继续运行。
+
+恢复发布须明确将 `wrangler.jsonc` 的 `PUBLICATION_PAUSED` 改为 `"false"`，核对选定的受控评审稿，执行构建、测试和部署，再验收公网阅读、检索、下载及登记功能。`run_worker_first: true` 保证所有静态资源也受发布开关控制；不应通过跳过 Worker 恢复访问。
+
 ## 编辑原则与内容来源
 
 项目根目录 `AGENTS.md` 定义读者与编辑原则。页面应使首次阅读者独立理解当前条文、适用范围、技术依据、验证条件和待决事项。

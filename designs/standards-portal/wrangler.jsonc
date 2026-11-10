@@ -9,7 +9,8 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/admin", "/admin/*"],
+    // All static paths must pass through the publication gate.
+    "run_worker_first": true,
   },
   "routes": [
     {
@@ -37,6 +38,7 @@
     },
   ],
   "vars": {
+    "PUBLICATION_PAUSED": "false",
     "ADMIN_EMAIL": "alone@swufe.edu.cn",
     "ACCESS_TEAM_DOMAIN": "paperdaily.cloudflareaccess.com",
     "ACCESS_AUD": "3032fc2149100501eb85b2dad0d02997618a64e9c06845ccf374b44eb7409679",

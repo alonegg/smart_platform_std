@@ -6,6 +6,7 @@ import {
   adminCommentApi,
   publicCommentApi,
 } from "./comments.mjs";
+import { publicationPausedResponse } from "./publication.mjs";
 
 const cookieName = (request) =>
   new URL(request.url).protocol === "https:"
@@ -274,6 +275,8 @@ export async function handleRequest(request, env) {
       new URL(url.pathname + url.search, "https://" + url.host).href,
       308,
     );
+  if (env.PUBLICATION_PAUSED === "true")
+    return publicationPausedResponse(request);
   if (url.pathname.startsWith("/admin/api/comments"))
     return adminCommentApi(request, env, url);
   if (url.pathname.startsWith("/admin/api/"))
