@@ -93,19 +93,21 @@ test("common mandatory requirements do not mask specialized conditional cells", 
 
 test("external-reference indexes use unique appendix records and no second adoption level", () => {
   const registry = rows(section("### B.2", "### B.4"))
-    .filter((row) => /^B-[ID]\d+$/.test(row[0]));
+    .filter((row) => /^B-[ID]\d+[a-z]?$/.test(row[0]));
   const ids = registry.map((row) => row[0]);
   assert.equal(ids.length, new Set(ids).size);
   const index = rows(section("### 2.2", "### 2.4"))
     .filter((row) => /^B-[ID]/.test(row[1] ?? ""));
-  assert.equal(index.length, 52);
+  assert.equal(index.length, 54);
   for (const row of index) {
     assert.equal(row.length, 3);
     for (const id of row[1].split("、")) assert.ok(ids.includes(id), id);
   }
   const levels = Object.fromEntries(registry.map((r) => [r[0], r[5].split(/[（；]/)[0]]));
-  for (const id of ["B-D01", "B-D10", "B-D11", "B-D13", "B-D14", "B-D15", "B-D16", "B-I32"])
+  for (const id of ["B-D01", "B-D10", "B-D11", "B-D13", "B-D14", "B-D15", "B-D16b", "B-I32"])
     assert.equal(levels[id], "条件强制", id);
+  for (const id of ["B-D16a", "B-D20b"]) assert.equal(levels[id], "参照", id);
+  assert.equal(levels["B-D20a"], "强制");
   assert.equal(levels["B-I10"], "跟踪");
   assert.equal(levels["B-I34"], "强制");
   assert.equal(levels["B-I36"], "参照");
