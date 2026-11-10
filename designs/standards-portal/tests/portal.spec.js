@@ -12,7 +12,7 @@ const source = await readFile(
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "暂不登记，继续浏览" }).click();
+  await page.getByRole("button", { name: "关闭登记提示" }).click();
 });
 
 test("role paths, search, stable subsection URL and browser history", async ({
@@ -112,9 +112,10 @@ test("all original sections retain their full readable text after rendering", as
     const fidelity = await page.evaluate((html) => {
       const doc = new DOMParser().parseFromString(html, "text/html");
       const normalize = (text) => text.replace(/\s+/g, "");
+      const rendered = document.querySelector(".prose").cloneNode(true);
+      rendered.querySelectorAll(".clause-comment").forEach((a) => a.remove());
       return (
-        normalize(doc.body.textContent) ===
-        normalize(document.querySelector(".prose").textContent)
+        normalize(doc.body.textContent) === normalize(rendered.textContent)
       );
     }, original);
     expect(fidelity, `text changed in ${data.sections[i].title}`).toBe(true);
@@ -171,6 +172,9 @@ test("semantic and contrast accessibility checks on every page type", async ({
     "/roadmap/",
     "/decisions/",
     "/downloads/",
+    "/quickstart/",
+    "/comment/",
+    "/responses/",
     "/read/5/",
     "/read/a/",
   ]) {
@@ -208,14 +212,17 @@ test("vendor and expert review paths and prefilled clause feedback", async ({
   const feedback = page
     .locator(".reader-tools")
     .getByRole("link", { name: "提出意见" });
-  const target = new URL(await feedback.getAttribute("href"));
-  expect(target.origin).toBe("https://github.com");
-  expect(target.pathname).toBe("/alonegg/smart_platform_std/issues/new");
-  expect(target.searchParams.get("title")).toContain("5 公共数据模型");
-  expect(target.searchParams.get("body")).toContain("具体问题与场景");
+  expect(await feedback.getAttribute("href")).toBe("/comment/?section=5");
+  await feedback.click();
+  await expect(page.getByLabel(/^条款位置/)).toHaveValue("5 公共数据模型");
+  const github = new URL(
+    await page.getByRole("link", { name: "GitHub 上公开提交" }).getAttribute("href"),
+  );
+  expect(github.pathname).toBe("/alonegg/smart_platform_std/issues/new");
+  expect(github.searchParams.get("template")).toBe("review-comment.yml");
   await page.goto("/read/c/");
   await expect(page.locator(".prose")).toContainText("应用厂商审阅重点");
   await expect(page.locator(".prose")).toContainText("标准专家审阅重点");
   await page.goto("/downloads/");
-  await expect(page.locator(".download-list>a")).toHaveCount(4);
+  await expect(page.locator(".download-list>a")).toHaveCount(5);
 });

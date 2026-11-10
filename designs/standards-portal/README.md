@@ -9,9 +9,16 @@
 页面不展示本文件与前序稿的对应关系、旧编号、修订沿革或历轮意见采纳记录。编制历史保留在 Git 和维护记录。
 资源内容版本、历史引用、兼容策略、外部标准规格版本及标准发布治理属于技术要求，应按条文保留。
 
-网站采用 baoyu-design 方法形成的学术编辑式界面，预渲染 26 个公开页面及 1 个受保护管理页面，正文含 19 个分节。
-首页分别提供应用厂商与标准专家阅读路径。章节页的“提出意见”链接打开带条款与意见格式的 GitHub Issue 草稿，意见由访问者自行提交。
-4 个下载文件为标准 Word/Markdown 和评议意见表 Word/Markdown；构建器清理其专用生成目录，防止未列入当前清单的文件残留。
+网站采用 baoyu-design 方法形成的学术编辑式界面，预渲染 29 个公开页面及 1 个受保护管理页面，正文含 19 个分节。
+首页分别提供应用厂商与标准专家阅读路径；“厂商速读”（/quickstart/）按所选 Profile 合并附录 A 矩阵，列出 M/C/O 条款组。
+征求意见程序信息（轮次、截止日期、起草单位、联系人、评议类别、处理结论）集中在 `src/consultation.json`，顶部状态条、意见表单和管理端均读取该文件。
+
+意见渠道：
+- 站内表单 `/comment/`：每条编号条文（如 5.1.3）带锚点 `#clause-5-1-3` 与“意见”入口，自动带入条款和章节；不需要账号或登记，默认不公开，提交后返回意见编号（如 R1-0001），本浏览器可查看已提交意见及其处理结论。
+- “意见处理情况” `/responses/`：只列出已给出处理结论的意见；从不公开提议人、单位和邮箱，提议方未勾选公开时只显示编制组撰写的摘要。
+- GitHub Issue 表单（`.github/ISSUE_TEMPLATE/review-comment.yml`）和邮件为辅助渠道。
+
+5 个下载文件为标准 Word/PDF/Markdown 和评议意见汇总表 Word/Markdown；构建器清理其专用生成目录，防止未列入当前清单的文件残留。
 不读取或发布校内材料、私有归档和未选定附件。
 
 ## 本地运行与验证
@@ -23,14 +30,14 @@ cd designs/standards-portal
 npm ci
 npm run build
 npm test
-npm exec -- wrangler d1 migrations apply smart-platform-stds-readers --local --persist-to ../../temp/registration-local
+npm exec -- wrangler d1 migrations apply smart-platform-stds-readers --local --persist-to ../../temp/registration-local  # 含 0002_comments
 npm run dev:worker
 npm run test:browser
 ```
 
 浏览器检查使用独立 headless Chrome，默认访问 `http://127.0.0.1:4320`；可设置 `PORTAL_TEST_URL=https://stds.chunlin.ch` 检查公网。
 构建验证受控源文件，生成正文、全文索引、下载和校验清单，再用 Vite 与 React SSR 生成静态页面。
-阅读和下载支持无 JavaScript 访问；搜索、角色切换和筛选在浏览器执行。普通阅读不要求登录。首次访问主动显示登记弹窗，读者可选择暂不登记；登记成功后使用 HttpOnly 不透明会话 Cookie 关联本人记录，不在浏览器持久保存姓名或邮箱。
+阅读和下载支持无 JavaScript 访问；搜索、角色切换和筛选在浏览器执行。普通阅读和提交意见均不要求登录或登记。首次访问只在页面顶部显示可关闭的登记提示，不弹窗打断阅读；登记成功后使用 HttpOnly 不透明会话 Cookie 关联本人记录，不在浏览器持久保存姓名或邮箱。
 
 内容检查覆盖：受控 hash、章节、锚点、288 个矩阵值、下载字节、技术字段搜索、页面/索引的沿革清理、旧下载残留，以及条款引用、真实 Markdown 表格、统一能力代码、外部登记索引、操作子用例和待决前置节点。
 矩阵核验明确列出三处受控 C→M 调整，并要求其余 285 格不变；文稿检查还覆盖重复回执状态、T20-F/L/E 与九组联合场景的用例引用。静态条文检查不表示这些业务场景已经执行通过。
@@ -47,6 +54,11 @@ npm run test:browser
 pandoc 标准/评审稿/智慧教学-数据模型标准.md --reference-doc=标准/评审稿/智慧教学-数据模型标准.docx -o temp/standard-review.docx
 cp temp/standard-review.docx 标准/评审稿/智慧教学-数据模型标准.docx
 pandoc 标准/评审稿/评议意见表.md -o 标准/评审稿/评议意见表.docx
+# PDF：LibreOffice 无界面模式在 macOS 上不会回退到系统中文字体，需把 Noto CJK 放入独立用户配置的 fonts 目录
+mkdir -p /tmp/lo-profile/user/fonts && cp ~/Library/Fonts/NotoSerifCJKsc-{Regular,Bold}.otf /tmp/lo-profile/user/fonts/
+soffice -env:UserInstallation=file:///tmp/lo-profile --headless --convert-to pdf --outdir temp 标准/评审稿/智慧教学-数据模型标准.docx
+cp temp/智慧教学-数据模型标准.pdf 标准/评审稿/
+pdffonts 标准/评审稿/智慧教学-数据模型标准.pdf | grep NotoSerifCJK   # 必须命中，否则中文缺字
 ```
 
 正式标准的发布和修订按正文治理要求执行。网页编辑不改变征求意见稿性质或代表学校已经完成审定、实现与验收。
@@ -68,13 +80,15 @@ npm exec -- wrangler deploy
 控制面 hash 保存在机器清单中，评审界面不显示 Git/PR 沿革。
 生成目录、依赖和临时 SSR 构建包不提交。代码按仓库 Apache-2.0 使用；文稿与第三方材料遵循仓库授权说明。
 
-## 阅读登记与管理端
+## 阅读登记、意见与管理端
 
-首次访问（含章节深链接）会主动弹出“阅读者登记”；已登记浏览器不重复弹出表单，可从顶部“阅读登记”管理。姓名、单位或身份、参与角色为基本项，专业方向和邮箱选填。登记说明确认、境外处理确认和允许联系均默认不勾选。
+首次访问在页面顶部显示可关闭的登记提示（本会话内关闭后不再出现）；读者点击后才打开“阅读者登记”，也可从顶部“阅读登记”管理。姓名、单位或身份、参与角色为基本项，专业方向和邮箱选填。登记说明确认和允许联系均默认不勾选。
 
 登记通过同源 Worker API 写入独立 D1 `smart-platform-stds-readers`。不透明 Cookie 的 SHA-256 用于关联记录；API 校验 Origin、字段长度、角色、邮箱与说明版本，并限流。数据库写入成功后再精确回读；失败不返回成功状态。重复创建幂等，修改和撤回限于本人会话。
 
-信息处理说明在 `/privacy/`；组织方和联系方式配置在 `src/registration-policy.json`。登记有效期 180 天，到期从可用名单立即移除，每日任务在 24 小时内删除主记录。已阅状态必须由本人明确确认，与页面访问分开；不建立指纹或完整浏览轨迹。此处不验证登记者真实身份，也不把 GitHub 意见自动认定为该人的提交。
+意见写入同一 D1 的 `review_comments` 表（迁移 `0002_comments.sql`），使用同一限流与 Origin 校验；会话 Cookie 仅用于“本浏览器提交的意见”列表。管理端“评议意见”页签支持按结论、身份、类别筛选，填写处理结论、理由和公开摘要，并导出意见汇总表 CSV。
+
+信息处理说明在 `/privacy/`（登记与意见信息处理说明）；组织方和联系方式配置在 `src/registration-policy.json`。登记有效期 180 天，到期从可用名单立即移除，每日任务在 24 小时内删除主记录。已阅状态必须由本人明确确认，与页面访问分开；不建立指纹或完整浏览轨迹。此处不验证登记者真实身份，也不把 GitHub 意见自动认定为该人的提交。
 
 管理页：<https://stds.chunlin.ch/admin/>。Cloudflare Access 使用现有邮箱 OTP，并仅允许 `alone@swufe.edu.cn`；Worker 另外验证 Access JWT 的签名、issuer、audience、有效期与允许邮箱。名单支持搜索、分页、CSV 导出及按请求删除。CSV 导出防止公式注入。管理响应和本人会话响应均不缓存。
 

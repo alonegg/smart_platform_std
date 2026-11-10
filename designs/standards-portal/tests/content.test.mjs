@@ -97,12 +97,12 @@ test("download bytes match original controlled files and manifest", async () => 
   }
 });
 
-test("26 canonical pages are indexed, with a separate 404", async () => {
+test("29 canonical pages are indexed, with a separate 404", async () => {
   const sitemap = await readFile(
     path.join(project, "dist/sitemap.xml"),
     "utf8",
   );
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 26);
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 29);
   assert.ok(
     (await readFile(path.join(project, "dist/404.html"), "utf8")).includes(
       "页面未找到",
@@ -163,7 +163,7 @@ test("only the three approved C-to-M clarifications differ from the technical so
   const technical = await readFile(
     path.join(
       root,
-      "标准/chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
+      "archive/起草稿_chunlin@1106/未来智慧教学平台数据资产层标准_chunlin@1106.md",
     ),
     "utf8",
   );

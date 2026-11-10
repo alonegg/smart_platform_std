@@ -127,7 +127,7 @@ export function Home({ navigate }) {
           </div>
           <div className="reading-steps">
             {roleGuides[role].links.map(([key, title], i) => (
-              <AppLink key={key} to={`/read/${key}/`} navigate={navigate}>
+              <AppLink key={key} to={key.startsWith("/") ? key : `/read/${key}/`} navigate={navigate}>
                 <span>0{i + 1}</span>
                 {title}
                 <ChevronRight size={15} />

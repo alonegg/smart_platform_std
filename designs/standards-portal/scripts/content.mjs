@@ -8,7 +8,7 @@ import { marked } from "marked";
 export const project = fileURLToPath(new URL("../", import.meta.url));
 export const root = path.resolve(project, "../..");
 export const sourcePath = "标准/评审稿/智慧教学-数据模型标准.md";
-export const sourceCommit = "6ed7a33baa99e1872f5fe75482051579a8645efb";
+export const sourceCommit = "c96d7d46ae0007196bef5871de04181474b45402";
 export const standardTitle = "智慧教学-数据模型标准";
 export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
 const digest = (text) => createHash("sha256").update(text).digest("hex");
@@ -44,6 +44,19 @@ export function parseSections(markdown) {
         const id = headingId(text);
         headings.push({ id, title: plain(text), depth });
         return `<h${depth - 1} id="${id}">${marked.parseInline(text)}</h${depth - 1}>\n`;
+      };
+      const paragraphIds = new Set();
+      renderer.paragraph = function ({ tokens, text }) {
+        const inner = this.parser.parseInline(tokens);
+        const number = plain(text).match(
+          /^((?:\d+|[A-E])(?:\.\d+){2,})(?:\s|　)/,
+        )?.[1];
+        if (!number) return `<p>${inner}</p>\n`;
+        const id = `clause-${number.replaceAll(".", "-")}`;
+        if (paragraphIds.has(id) || headings.some((h) => h.id === id))
+          return `<p>${inner}</p>\n`;
+        paragraphIds.add(id);
+        return `<p id="${id}" class="clause" data-clause="${number}">${inner}<a class="clause-comment" href="/comment/?clause=${encodeURIComponent(number)}&amp;section=${key}" aria-label="对 ${number} 提出意见">意见</a></p>\n`;
       };
       const html = marked
         .parse(body, { renderer, gfm: true })
@@ -96,6 +109,9 @@ export async function generateContent() {
     ([code, name, scope, boundary]) => ({ code, name, scope, boundary }),
   );
   const groups = tableRows(appendixA.body, "### A.3 条款组定义");
+  const triggers = tableRows(appendixA.body, "### A.5 条件适用触发条件").map(
+    ([group, condition]) => ({ group, condition }),
+  );
   const pending = tableRows(
     sections.find((s) => s.key === "e").body,
     "E.1 下列事项",
@@ -149,6 +165,7 @@ export async function generateContent() {
     sections: sections.map(({ body, blocks, ...section }) => section),
     profiles,
     groups,
+    triggers,
     matrixTables,
     pending,
     phases,
@@ -162,6 +179,14 @@ export async function generateContent() {
         current: true,
       },
       {
+        title: `${standardTitle} · PDF`,
+        description: "便于阅读与打印，内容与 Word 稿一致",
+        file: "standard-review.pdf",
+        from: sourcePath.replace(/\.md$/, ".pdf"),
+        type: "PDF",
+        current: true,
+      },
+      {
         title: `${standardTitle} · Markdown`,
         description: "与在线标准全文一致",
         file: "standard-review.md",
@@ -170,15 +195,15 @@ export async function generateContent() {
         current: true,
       },
       {
-        title: "评议意见表 · Word",
-        description: "按条款填写问题、建议及依据",
+        title: "评议意见汇总表 · Word",
+        description: "多行汇总格式，每行一条意见，填写后发送至编制组",
         file: "review-comments.docx",
         from: "标准/评审稿/评议意见表.docx",
         type: "DOCX",
         current: true,
       },
       {
-        title: "评议意见表 · Markdown",
+        title: "评议意见汇总表 · Markdown",
         description: "可复制的评议格式",
         file: "review-comments.md",
         from: "标准/评审稿/评议意见表.md",
@@ -190,6 +215,7 @@ export async function generateContent() {
   if (
     sections.length !== 19 ||
     profiles.length !== 9 ||
+    triggers.length !== 15 ||
     pending.length !== 30 ||
     phases.length !== 6 ||
     matrixTables.length !== 4 ||

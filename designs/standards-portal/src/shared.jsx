@@ -9,6 +9,9 @@ export const routes = [
   "/roadmap/",
   "/decisions/",
   "/downloads/",
+  "/quickstart/",
+  "/comment/",
+  "/responses/",
   "/privacy/",
   ...data.sections.map((s) => `/read/${s.key}/`),
 ];
@@ -28,24 +31,15 @@ export const subtitles = [
 export const cleanTitle = (title) =>
   title.replace(/^\d+\s+/, "").replace(/^附录 [A-E]（[^）]+）/, "");
 export const sourceRepo = "https://github.com/alonegg/smart_platform_std";
-export const reviewHref = (section) => {
-  const title = section
-    ? `[标准评议] ${section.title}`
-    : `[标准评议] ${data.title}`;
-  const body = `## 条款位置
-${section ? section.title : "请填写条款号、字段或 Profile"}
-
-## 应用类型与能力 Profile / 专家方向
-
-## 具体问题与场景
-
-## 建议条文或方案
-
-## 技术或业务依据与影响范围
-
-## 提议方与联系渠道（自愿）
-`;
-  return `${sourceRepo}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+export const reviewHref = (section) =>
+  section ? `/comment/?section=${section.key}` : "/comment/";
+export const githubIssueHref = (section) => {
+  const params = new URLSearchParams({
+    template: "review-comment.yml",
+    title: `[标准评议] ${section ? section.title : ""}`,
+  });
+  if (section) params.set("clause", section.title);
+  return `${sourceRepo}/issues/new?${params}`;
 };
 export const roleGuides = [
   {
@@ -53,10 +47,10 @@ export const roleGuides = [
     caption: "从能力范围，核对接入与实现要求",
     text: "结合产品承担的业务声明 Profile，检查数据语义、接口、授权和验证条件，按具体条款提出可实现性、互操作与责任边界方面的意见。",
     links: [
+      ["/quickstart/", "厂商速读"],
       ["a", "能力 Profile"],
       ["5", "公共模型"],
       ["8", "交换接口"],
-      ["c", "提出评议"],
     ],
   },
   {

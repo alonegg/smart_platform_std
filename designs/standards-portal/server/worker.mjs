@@ -1,13 +1,18 @@
 import policy from "../src/registration-policy.json" with { type: "json" };
 import documentInfo from "./document-info.json" with { type: "json" };
 import { verifyAccess } from "./access.mjs";
+import {
+  commentApi,
+  adminCommentApi,
+  publicCommentApi,
+} from "./comments.mjs";
 
 const cookieName = (request) =>
   new URL(request.url).protocol === "https:"
     ? "__Host-stds_reader"
     : "stds_reader_dev";
 const roles = new Set(["expert", "vendor", "other"]);
-const sha256 = async (value) =>
+export const sha256 = async (value) =>
   [
     ...new Uint8Array(
       await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)),
@@ -15,7 +20,7 @@ const sha256 = async (value) =>
   ]
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
-const token = () =>
+export const token = () =>
   [...crypto.getRandomValues(new Uint8Array(32))]
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
@@ -26,26 +31,26 @@ const headers = {
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "same-origin",
 };
-const json = (value, status = 200, extra = {}) =>
+export const json = (value, status = 200, extra = {}) =>
   new Response(JSON.stringify(value), {
     status,
     headers: { ...headers, ...extra },
   });
-const cookie = (value, request, maxAge = policy.retentionDays * 86400) =>
+export const cookie = (value, request, maxAge = policy.retentionDays * 86400) =>
   `${cookieName(request)}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${new URL(request.url).protocol === "https:" ? "; Secure" : ""}`;
-const readToken = (request) =>
+export const readToken = (request) =>
   request.headers
     .get("Cookie")
     ?.split(";")
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${cookieName(request)}=`))
     ?.slice(cookieName(request).length + 1);
-const validToken = (value) =>
+export const validToken = (value) =>
   typeof value === "string" && /^[a-f0-9]{64}$/.test(value);
-const nowIso = () => new Date().toISOString();
+export const nowIso = () => new Date().toISOString();
 const expiresIso = () =>
   new Date(Date.now() + policy.retentionDays * 86400000).toISOString();
-const message = (error) => json({ error }, 400);
+export const message = (error) => json({ error }, 400);
 
 export function validateRegistration(input) {
   if (!input || typeof input !== "object" || Array.isArray(input))
@@ -78,7 +83,6 @@ export function validateRegistration(input) {
     throw new Error("允许后续联系时请填写邮箱。");
   if (
     input.consent !== true ||
-    input.internationalConsent !== true ||
     input.consentVersion !== policy.version
   )
     throw new Error("请阅读并确认登记说明。");
@@ -86,27 +90,27 @@ export function validateRegistration(input) {
   return { ...fields, allowContact: input.allowContact === true };
 }
 
-async function bodyJson(request) {
+export async function bodyJson(request, limit = 4096) {
   if (
     !request.headers
       .get("Content-Type")
       ?.toLowerCase()
       .startsWith("application/json")
   )
-    throw new Error("请使用 JSON 提交登记。");
-  if (Number(request.headers.get("Content-Length") ?? 0) > 4096)
-    throw new Error("登记内容过长。");
+    throw new Error("请使用 JSON 提交。");
+  if (Number(request.headers.get("Content-Length") ?? 0) > limit)
+    throw new Error("提交内容过长，请精简后重试。");
   const reader = request.body?.getReader();
-  if (!reader) throw new Error("登记内容为空。");
+  if (!reader) throw new Error("提交内容为空，请填写后重试。");
   let total = 0;
   const chunks = [];
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
     total += value.byteLength;
-    if (total > 4096) {
+    if (total > limit) {
       await reader.cancel();
-      throw new Error("登记内容过长。");
+      throw new Error("提交内容过长，请精简后重试。");
     }
     chunks.push(value);
   }
@@ -119,7 +123,7 @@ async function bodyJson(request) {
   try {
     return JSON.parse(new TextDecoder().decode(bytes));
   } catch {
-    throw new Error("登记内容格式不正确。");
+    throw new Error("提交内容格式不正确，请刷新后重试。");
   }
 }
 
@@ -152,7 +156,7 @@ async function readerRow(request, env) {
     .bind(await sha256(value), nowIso())
     .first();
 }
-const sameOrigin = (request) =>
+export const sameOrigin = (request) =>
   request.headers.get("Origin") === new URL(request.url).origin;
 const methodAllowed = (request, allowed) => allowed.includes(request.method);
 const protectedResponse = (response) => {
@@ -270,6 +274,8 @@ export async function handleRequest(request, env) {
       new URL(url.pathname + url.search, "https://" + url.host).href,
       308,
     );
+  if (url.pathname.startsWith("/admin/api/comments"))
+    return adminCommentApi(request, env, url);
   if (url.pathname.startsWith("/admin/api/"))
     return adminApi(request, env, url);
   if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
@@ -290,6 +296,10 @@ export async function handleRequest(request, env) {
       : json({ error: "请求方式不支持。" }, 405);
   if (!env.READERS_DB)
     return json({ error: "登记服务暂不可用，请稍后重试。" }, 503);
+  if (url.pathname.startsWith("/api/comments/public") || url.pathname === "/api/comments/stats")
+    return publicCommentApi(request, env, url);
+  if (url.pathname.startsWith("/api/comments"))
+    return commentApi(request, env, url);
   if (
     url.pathname === "/api/registration/session" &&
     request.method === "GET"
@@ -455,10 +465,10 @@ export default {
         DOCUMENT_SHA: documentInfo.sourceSha,
       });
     } catch (error) {
-      if (error instanceof Error && /请|登记字段|登记内容/.test(error.message))
+      if (error instanceof Error && /请|登记字段|登记内容|提交内容|意见/.test(error.message))
         return message(error.message);
       return json(
-        { error: "登记服务暂时不可用，信息尚未确认保存。请稍后重试。" },
+        { error: "服务暂时不可用，信息尚未确认保存。请稍后重试。" },
         503,
       );
     }

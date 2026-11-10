@@ -8,6 +8,8 @@ import {
   GitBranch,
   Layers3,
   Menu,
+  MessageSquareText,
+  Rocket,
   Search,
   SlidersHorizontal,
   UserRound,
@@ -20,11 +22,20 @@ import { Home, Architecture } from "./Overview.jsx";
 import { Reader } from "./Reader.jsx";
 import { Profiles, Roadmap, Decisions, Downloads } from "./Topics.jsx";
 import {
+  RegistrationBanner,
   RegistrationDialog,
   PrivacyPage,
   useRegistration,
 } from "./registration.jsx";
+import {
+  CommentPage,
+  ConsultationStrip,
+  QuickStart,
+  ResponsesPage,
+} from "./Consultation.jsx";
 import { AdminPage } from "./Admin.jsx";
+import { deadlineText } from "./Consultation.jsx";
+import consultation from "./consultation.json";
 import { SearchDialog } from "./SearchDialog.jsx";
 export { routes } from "./shared.jsx";
 
@@ -32,29 +43,32 @@ export default function App({ initialPath = "/" }) {
   const [path, setPath] = useState(initialPath);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const basePath = path.split("#")[0];
+  const basePath = path.split("#")[0].split("?")[0];
   const key = basePath.match(/^\/read\/([^/]+)\/?$/)?.[1];
   const isAdmin = basePath === "/admin/" || basePath === "/admin";
   const registration = useRegistration(isAdmin || basePath === "/privacy/");
   const section = data.sections.find((s) => s.key === key);
   const navItems = [
     ["/", "阅读指南", BookOpen],
+    ["/quickstart/", "厂商速读", Rocket],
     ["/architecture/", "三层架构", Layers3],
     ["/profiles/", "能力适用矩阵", SlidersHorizontal],
     ["/roadmap/", "实施路线", ArrowRight],
     ["/decisions/", "待决事项", GitBranch],
     ["/downloads/", "资料下载", Download],
+    ["/comment/", "提交意见", MessageSquareText],
+    ["/responses/", "意见处理情况", GitBranch],
   ];
   const label =
     section?.title ??
     navItems.find(([to]) => to === basePath)?.[1] ??
     (basePath === "/privacy/"
-      ? "阅读登记隐私说明"
+      ? "登记与意见信息处理说明"
       : isAdmin
         ? "阅读者登记管理"
         : "页面未找到");
   const navigate = (target) => {
-    const next = target.split("#")[0];
+    const next = target.split("#")[0].split("?")[0];
     history.pushState(null, "", target);
     setPath(target);
     setMobileMenu(false);
@@ -71,7 +85,7 @@ export default function App({ initialPath = "/" }) {
   };
   useEffect(() => {
     const onPop = () => {
-      setPath(location.pathname + location.hash);
+      setPath(location.pathname + location.search + location.hash);
       setMobileMenu(false);
     };
     const onKey = (e) => {
@@ -152,15 +166,14 @@ export default function App({ initialPath = "/" }) {
               <span>搜索标准</span>
               <kbd>⌘ K</kbd>
             </button>
-            <a
+            <AppLink
               className="github-link"
-              href={reviewHref()}
-              target="_blank"
-              rel="noreferrer"
+              to={reviewHref(section)}
+              navigate={navigate}
             >
               提出意见
-              <ArrowUpRight size={14} />
-            </a>
+              <MessageSquareText size={14} />
+            </AppLink>
             <button
               className="mobile-menu-button"
               onClick={() => setMobileMenu(!mobileMenu)}
@@ -249,11 +262,11 @@ export default function App({ initialPath = "/" }) {
               </nav>
             </div>
             <div className="sidebar-bottom">
-              <span className="status-dot"></span>欢迎按条款提出意见{" "}
-              <a href={reviewHref()} target="_blank" rel="noreferrer">
-                评议入口 ↗
-              </a>
-              <small>面向应用厂商与标准专家</small>
+              <span className="status-dot"></span>意见截止 {deadlineText}{" "}
+              <AppLink to="/comment/" navigate={navigate}>
+                提交意见 →
+              </AppLink>
+              <small>起草单位：{consultation.draftingUnit}</small>
             </div>
           </aside>
           <div className={`workspace ${section ? "reading-workspace" : ""}`}>
@@ -263,9 +276,17 @@ export default function App({ initialPath = "/" }) {
               <span>{label}</span>
               <span className="breadcrumb-right">审阅 · 评议 · 提出意见</span>
             </div>
+            <RegistrationBanner state={registration} />
+            <ConsultationStrip navigate={navigate} />
             <main id="main-content" tabIndex={-1}>
               {basePath === "/privacy/" ? (
                 <PrivacyPage />
+              ) : basePath === "/comment/" ? (
+                <CommentPage navigate={navigate} registration={registration} />
+              ) : basePath === "/responses/" ? (
+                <ResponsesPage navigate={navigate} />
+              ) : basePath === "/quickstart/" ? (
+                <QuickStart navigate={navigate} />
               ) : basePath === "/" ? (
                 <Home navigate={navigate} />
               ) : section ? (
@@ -299,7 +320,7 @@ export default function App({ initialPath = "/" }) {
               <span>
                 供应用厂商与标准专家评议
                 <AppLink to="/privacy/" navigate={navigate}>
-                  登记隐私说明
+                  信息处理说明
                 </AppLink>
                 <a
                   href={`${sourceRepo}/blob/main/NOTICE`}
