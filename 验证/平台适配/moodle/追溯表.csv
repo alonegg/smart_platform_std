@@ -1,0 +1,9 @@
+要素编号,产出文件,证据范围
+OBJ-004,samples/upstream-subsections-no-users.mbz,官方合成课程备份；非标准对象转换
+OBJ-005,README.md,未执行版本场景
+OBJ-006,README.md,未执行两个开课
+OBJ-007,README.md,未执行选退课
+OBJ-009,README.md,未执行作业重开与测验
+OBJ-012,README.md,未执行小组场景
+EVT-013,README.md,未执行提交事件
+FLD-EVT-014,README.md,未执行小组成员事件

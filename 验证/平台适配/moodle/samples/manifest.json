@@ -1,0 +1,36 @@
+{
+  "evidence_level": "official_example_only_not_local_platform_data",
+  "deployed": false,
+  "source_snapshot_commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+  "source_snapshot_release": "6.0dev (Build: 20261117)",
+  "files": [
+    {
+      "file": "upstream-subsections-no-users.mbz",
+      "bytes": 8177,
+      "sha256": "50cf0f82b38a07a13b23a1beb5c27e7c72b4a6988ee5d6084d26394d7ce6eaac",
+      "source_url": "https://raw.githubusercontent.com/moodle/moodle/2d4bafe8548a6d6c01494c862ec3d9749ba6ea84/public/mod/subsection/tests/fixtures/subsections_with_descriptions.mbz",
+      "source_command": "python3 export.py --update-samples",
+      "collected_at": "2026-11-20T01:58:05.241301+00:00",
+      "platform_version": {
+        "moodle_version": "2026010900",
+        "moodle_release": "5.2dev (Build: 20260109)",
+        "backup_date": "1768413472"
+      },
+      "platform_commit": null,
+      "coverage": [
+        "official synthetic course backup without users"
+      ],
+      "not_covered": [
+        "local deployment",
+        "two offerings",
+        "enrolment",
+        "video views",
+        "quiz attempts",
+        "assignment reopen",
+        "grade changes",
+        "groups",
+        "database exports"
+      ]
+    }
+  ]
+}

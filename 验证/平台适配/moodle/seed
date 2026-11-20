@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '%s\n' 'Not executed: Docker deployment blocked. No synthetic platform records have been generated. See README.md.' >&2
+exit 2
