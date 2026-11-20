@@ -93,7 +93,8 @@ def apply(baseline: str, revisions: list[Revision]) -> str:
         new: list[str] = []
         for r in group:  # 同一锚点按清单顺序依次追加
             for para in r.paragraphs:
-                if new or r.op == "insert_after":
+                in_table = bool(new) and new[-1].startswith("|") and para.startswith("|")
+                if (new or r.op == "insert_after") and not in_table:  # 表格各行之间不插空行
                     new.append("")
                 new.append(para)
         if group[0].op == "replace":

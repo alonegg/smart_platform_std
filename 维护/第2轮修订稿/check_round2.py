@@ -4,6 +4,7 @@
 用法（仓库根目录，Python 3.11+，仅标准库）：
     python3 -B 维护/第2轮修订稿/check_round2.py            # 离线检查
     python3 -B 维护/第2轮修订稿/check_round2.py --online   # 另用 gh 核对 Issue 存在且标题一致
+    MARKED_DIR=<marked 安装目录> python3 -B 维护/第2轮修订稿/check_round2.py --marked   # 用网站锁定版本的 Marked 实际解析表格
     python3 -B 维护/第2轮修订稿/check_round2.py --no-git   # 无 git 历史时跳过受保护目录检查
 只读运行，不改写任何文件；任何一项失败时退出码为 1。
 """
@@ -11,7 +12,9 @@ from __future__ import annotations
 
 import difflib
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -33,6 +36,8 @@ REWRITTEN = {
     "R02": ("独立版本化目标还应包含非空字符串 `version_id`", "随所属版本固定的目标还应包含 `owner_ref`",
             "指向所属对象具体版本的 ObjectRef", "`object_id` 均取目标在所属对象内的局部标识，不携带目标自身的 `version_id`",
             "不可变记录目标只需 `object_id`，携带 `version_id` 时应与 `object_id` 相同", "非版本化目标不应携带 `version_id`"),
+    "R27": ("`not_sent`（未送）、`sent`（已送待回执）、`accepted`（教务已接收）、`rejected`（教务拒收）、`quarantined`（教务隔离待处置）",
+            "教务归档回执确定", "属于 5.6.9 的派生状态，按 5.6.9 承载，不写入 GradeDecision 记录"),
     "R07": ("随所属 Resource 版本固定（见 5.1.8）", "`start_ms`、`end_ms`", "0 ≤ start_ms < end_ms ≤ 源时长",
             "关联字幕及目标", "按 5.1.3 a) 以 `owner_ref` 指向所属资源版本"),
 }
@@ -321,6 +326,62 @@ def check_issue_coverage(rev: Doc, ledger) -> None:
     notes.append("Issue 处理统计：" + "；".join(f"{d} {len(counts[d])}" for d in DISPOSITIONS))
 
 
+def table_blocks(lines: list[str]) -> list[list[str]]:
+    blocks: list[list[str]] = []
+    previous = False
+    for line in lines:
+        current = line.startswith("|")
+        if current:
+            if previous:
+                blocks[-1].append(line)
+            else:
+                blocks.append([line])
+        previous = current
+    return blocks
+
+
+MARKED_JS = """
+const { marked } = require(process.argv[1]);
+const count = (tokens) => { let t = 0, p = 0; for (const k of tokens) {
+  if (k.type === 'table') t++; else if (k.type === 'paragraph' && k.raw.startsWith('|')) p++;
+  if (k.tokens && k.type !== 'table') { const c = count(k.tokens); t += c[0]; p += c[1]; } } return [t, p]; };
+const out = process.argv.slice(2).map((f) => count(marked.lexer(require('fs').readFileSync(f, 'utf8'))));
+console.log(JSON.stringify(out));
+"""
+
+
+def check_tables(base: Doc, rev: Doc, ledger) -> None:
+    """表格语法：结构检查始终执行；找到网站锁定版本的 Marked 时再实际解析（--marked 时找不到即失败）。"""
+    delimiter = re.compile(r"^\|(\s*:?-+:?\s*\|)+\s*$")
+    for block in table_blocks(rev.lines):
+        ok = len(block) >= 2 and delimiter.match(block[1]) is not None
+        check(ok, f"表格缺少紧随表头的分隔行或被空行拆开：{block[0][:30]}")
+    added = sum(1 for r in ledger for i, p in enumerate(r.paragraphs)
+                if p.startswith("|") and (i == 0 or not r.paragraphs[i - 1].startswith("|")))
+    check(len(table_blocks(rev.lines)) == len(table_blocks(base.lines)) + added,
+          "修订稿的表格数不等于当前正文表格数加清单新增表格数")
+    portal = ROOT / "designs" / "standards-portal"
+    locked = json.loads((portal / "package.json").read_text(encoding="utf-8"))
+    locked = {**locked.get("devDependencies", {}), **locked.get("dependencies", {})}.get("marked", "")
+    candidates = [Path(os.environ["MARKED_DIR"])] if os.environ.get("MARKED_DIR") else []
+    candidates.append(portal / "node_modules" / "marked")
+    found = next((c for c in candidates if (c / "package.json").exists()), None)
+    if found is None or shutil.which("node") is None:
+        check("--marked" not in sys.argv, "未找到 Marked 或 node，无法按 --marked 实际解析表格")
+        notes.append(f"表格只做了结构检查；未找到 Marked {locked}（可设 MARKED_DIR 指向其安装目录）")
+        return
+    version = json.loads((found / "package.json").read_text(encoding="utf-8"))["version"]
+    check(version == locked, f"Marked 版本 {version} 与网站锁定的 {locked} 不一致")
+    got = subprocess.run(["node", "-e", MARKED_JS, str(found), str(BASELINE), str(REVISED)], capture_output=True, text=True)
+    if got.returncode != 0:
+        check(False, f"Marked 解析失败：{got.stderr.strip()[:120]}")
+        return
+    (base_tables, base_stray), (rev_tables, rev_stray) = json.loads(got.stdout)
+    check(rev_tables == base_tables + added, f"Marked 解析出表格 {rev_tables} 个，应为 {base_tables} + {added}")
+    check(rev_stray <= base_stray, f"修订稿有 {rev_stray} 个以竖线开头却未解析为表格的段落（当前正文 {base_stray} 个）")
+    notes.append(f"Marked {version} 解析：当前正文表格 {base_tables} 个，修订稿 {rev_tables} 个（新增 {added} 个）；未解析为表格的竖线段落 {rev_stray} 个")
+
+
 def main() -> int:
     ledger = load_ledger()
     base = Doc(BASELINE.read_text(encoding="utf-8"))
@@ -334,6 +395,7 @@ def main() -> int:
         ("新增条款归入条款组", lambda: check_clause_groups(rev)),
         ("交叉引用可解析", lambda: check_references(base, rev, ledger)),
         ("正文体例与待决性质", lambda: check_content_rules(base, rev, ledger)),
+        ("表格可解析", lambda: check_tables(base, rev, ledger)),
         ("Issue 全覆盖", lambda: check_issue_coverage(rev, ledger)),
     )
     for name, step in steps:
