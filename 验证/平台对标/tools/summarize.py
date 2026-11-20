@@ -11,7 +11,7 @@ from pathlib import Path
 import re
 
 from validate_governance import AI_RELATIONS, CATEGORIES, OWNERS, SUFFICIENCIES
-from validate_openedx import STATUSES
+from validate_openedx import PLATFORMS, STATUSES, validate_coverage
 
 
 BASE = Path(__file__).resolve().parents[1]
@@ -31,7 +31,8 @@ def read_matrix(path):
         rows = list(reader)
     required = {"要素编号", "要素名", "数据类别", "标准条款", "补齐路径(标准条款)",
                 "缺失时补齐方", "AI应用接入关系", "标准定义充分性", "意见建议",
-                "OpenEdX状态", "Moodle状态"}
+                "OpenEdX状态", "Moodle状态", "OpenEdX对应", "Moodle对应",
+                "OpenEdX覆盖度", "Moodle覆盖度"}
     if not rows or not required.issubset(reader.fieldnames or []):
         raise ValueError("矩阵为空或缺少汇总所需列")
     ids = set()
@@ -41,6 +42,8 @@ def read_matrix(path):
                 or not element or element in ids or element.rsplit("-", 1)[0] not in TABLES):
             raise ValueError("矩阵行结构、编号或来源表无效")
         ids.add(element)
+        for platform in PLATFORMS:
+            validate_coverage(row, platform)
         if (row["数据类别"] not in CATEGORIES or row["标准定义充分性"] not in SUFFICIENCIES
                 or any(row[p + "状态"] not in STATUSES for p in ("OpenEdX", "Moodle"))):
             raise ValueError(f"{element}：统计枚举非法")
@@ -66,6 +69,34 @@ def named(row):
     return f"`{row['要素编号']}` {row['要素名']}"
 
 
+def coverage_summary(rows):
+    distribution = []
+    representatives = []
+    for category in (*CATEGORIES, "全部类别"):
+        subset = rows if category == "全部类别" else [r for r in rows if r["数据类别"] == category]
+        for platform in PLATFORMS:
+            counts = Counter(r[platform + "覆盖度"] for r in subset)
+            mean = f"{sum(int(score) * n for score, n in counts.items()) / len(subset):.2f}" if subset else "—"
+            distribution.append((category, platform, *(counts[str(i)] for i in range(4)), len(subset), mean))
+            if category != "全部类别":
+                for score in ("2", "0", "1"):
+                    candidates = [r for r in subset if r[platform + "覆盖度"] == score]
+                    selected = "、".join(named(r) for r in candidates[:3]) or "无"
+                    if len(candidates) < 3:
+                        selected += f"（仅{len(candidates)}项，全部列出）"
+                    representatives.append((category, platform, score, selected))
+    return "\n\n".join([
+        "### 覆盖度细分（源码静态对标，不是符合率）",
+        "均值按各行等权的0–3分算术平均计算，保留两位小数；合并字段不拆分，不按业务重要性加权。"
+        "覆盖度2表示适配所需的核心事实已存在，不表示已经实现适配、获准接入或通过T用例。",
+        table(["数据类别", "平台", "0 缺失", "1 弱对应", "2 可适配", "3 原生", "合计", "平均覆盖度"], distribution),
+        "#### 代表要素",
+        "每个类别、平台、分值按CSV行序列举至多三个要素；不足时如实列出全部，不跨类别凑数。"
+        "分值2的逐项适配理由及分值1的关键缺口见CSV对应列末尾；分值0的搜索范围见依据列。",
+        table(["数据类别", "平台", "覆盖度", "代表要素"], representatives),
+    ])
+
+
 def generate(rows):
     sources = Counter(row["要素编号"].rsplit("-", 1)[0] for row in rows)
     scope = f"矩阵取自正文 **{len(sources)} 张表、{len(rows)} 行要素**，保留原表合并字段，不擅自拆行。\n\n"
@@ -86,7 +117,7 @@ def generate(rows):
     def examples(*ids):
         return "、".join(named(index[key]) for key in ids if key in index)
 
-    result = ["### 两平台状态交叉统计", "行轴为Open edX，列轴为Moodle；单元格表示同一要素的状态组合。边际合计可用于读取各平台状态分布。"]
+    result = [coverage_summary(rows), "### 两平台状态交叉统计", "行轴为Open edX，列轴为Moodle；单元格表示同一要素的状态组合。边际合计可用于读取各平台状态分布。"]
     for category in (*CATEGORIES, "全部类别"):
         subset = rows if category == "全部类别" else [r for r in rows if r["数据类别"] == category]
         cross = Counter((r["OpenEdX状态"], r["Moodle状态"]) for r in subset)

@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from validate_openedx import main, read_csv, validate
+from validate_openedx import coverage_headers, main, read_csv, validate, validate_coverage
 
 
 class MatrixValidationTests(unittest.TestCase):
@@ -151,6 +151,61 @@ class MatrixValidationTests(unittest.TestCase):
         self.assertEqual(read_csv(path), (None, []))
         with self.assertRaisesRegex(ValueError, "166 行"):
             validate(*read_csv(path), self.headers, self.old, self.root, "Moodle", "Moodle")
+
+    def prepare_coverage(self):
+        baseline = deepcopy(self.rows)
+        headers = coverage_headers(self.headers)
+        for row in self.rows:
+            for platform in ("OpenEdX", "Moodle"):
+                row[platform + "覆盖度"] = "1"
+                row[platform + "对应"] += "〔覆盖度1：缺标准关键属性〕"
+        return headers, baseline
+
+    def test_coverage_added_columns_and_each_status(self):
+        headers, baseline = self.prepare_coverage()
+        for platform in ("OpenEdX", "Moodle"):
+            for i, (status, score) in enumerate((("原生", "3"), ("可派生", "2"),
+                                               ("缺失", "0"), ("部分", "2"))):
+                row, old = self.rows[i], baseline[i]
+                row[platform + "状态"] = old[platform + "状态"] = status
+                row[platform + "覆盖度"] = score
+                row[platform + "对应"] = old[platform + "对应"]
+                if status == "部分":
+                    row[platform + "对应"] += "〔覆盖度2：已有核心事实，只需转换〕"
+                if status == "缺失":
+                    row[platform + "依据"] = old[platform + "依据"] = old[platform + "依据"] + "；已搜索：missing"
+            self.assertEqual(validate(headers, self.rows, self.headers, baseline,
+                                      self.root, platform, "覆盖度")[2], 166)
+
+    def test_coverage_rejects_empty_illegal_and_mismatched_values(self):
+        for status, valid in (("原生", "3"), ("可派生", "2"), ("缺失", "0"), ("部分", "1")):
+            for score in ("", "-1", "4", "2.0", *set("0123") - ({"1", "2"} if status == "部分" else {valid})):
+                row = {"要素编号": "OBJ-001", "Moodle状态": status, "Moodle覆盖度": score,
+                       "Moodle对应": "近似物〔覆盖度1：缺属性〕"}
+                with self.subTest(status=status, score=score), self.assertRaisesRegex(ValueError, "不一致"):
+                    validate_coverage(row, "Moodle")
+
+    def test_partial_coverage_requires_matching_nonempty_suffix(self):
+        for score, description in (("1", "未说明"), ("2", "近似物〔覆盖度1：缺属性〕"),
+                                   ("2", "近似物〔覆盖度2： 〕"), ("1", "近似物〔覆盖度1：近似〕"),
+                                   ("1", "近似物〔覆盖度1：缺属性〕尾随内容")):
+            row = {"要素编号": "OBJ-001", "Moodle状态": "部分", "Moodle覆盖度": score, "Moodle对应": description}
+            with self.subTest(description=description), self.assertRaisesRegex(ValueError, "说明"):
+                validate_coverage(row, "Moodle")
+
+    def test_coverage_preserves_existing_content_and_column_positions(self):
+        headers, baseline = self.prepare_coverage()
+        for column in ("标准定义摘要", "OpenEdX对应", "OpenEdX依据", "Moodle状态", "意见建议"):
+            original = self.rows[0][column]
+            self.rows[0][column] = "篡改" + original
+            with self.subTest(column=column), self.assertRaises(ValueError):
+                validate(headers, self.rows, self.headers, baseline, self.root, "Moodle", "覆盖度")
+            self.rows[0][column] = original
+        wrong = [h for h in headers if h != "Moodle覆盖度"] + ["Moodle覆盖度"]
+        with self.assertRaisesRegex(ValueError, "表头"):
+            validate(wrong, self.rows, self.headers, baseline, self.root, "Moodle", "覆盖度")
+        with self.assertRaisesRegex(ValueError, "表头"):
+            validate(self.headers, baseline, self.headers, baseline, self.root, "Moodle", "覆盖度")
 
 
 if __name__ == "__main__":

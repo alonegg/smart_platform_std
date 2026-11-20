@@ -53,6 +53,7 @@
 | OpenEdX对应、Moodle对应 | 具体模型、表字段、事件、API或转换器，并说明与标准的差异。 |
 | OpenEdX状态、Moodle状态 | **原生**：模型/字段/事件存在且语义一致；**可派生**：数据已存在，需组合、计算或适配转换；**部分**：有近似物但语义不同或缺关键属性；**缺失**：在核查源码范围内不存储也不产生。不能确定时保守判部分。 |
 | OpenEdX依据、Moodle依据 | Open edX路径相对于 `~/ref/`，Moodle路径相对于 `~/ref/moodle/`；必须是真实存在的相对源码文件。缺失项同样给出实际搜索位置和关键词，不将“未找到”解释为整个生态永远没有。 |
+| OpenEdX覆盖度、Moodle覆盖度 | 各置于相应依据列之后。**3 原生**对应原生；**2 可适配**：核心事实和关键属性已存在，仅需转换、组合、派生或适配器补元数据，不需新增业务事实或改平台模型（可派生一律为2）；**1 弱对应**：缺关键属性、语义不一致或仅覆盖部分活动类型，需扩展或应用新增事实；**0 缺失**对应缺失。部分项逐条判1或2，不确定判1，对应列末尾以 `〔覆盖度2：理由〕` 或 `〔覆盖度1：缺…〕` 记录。 |
 | 缺失时补齐方 | 两平台均原生时为**无需补齐**；否则从**平台适配器**（已有数据转换/派生）、**平台扩展开发**（改平台或插件产生新数据）、**校级公共服务**（A.3/A.8规定的权威公共职责）、**接入应用**（含AI，按Profile产生）、**学校管理**（人工登记、审定、批准）选择；多选用中文分号。多个角色是协作责任，不是任意择一即可替代。 |
 | 补齐路径(标准条款) | 写明事件、接口服务组、交换包类型、能力登记、AI任务契约、认知写入等具体路径及条款；待D2事项在此标记，不降低正文业务条件。 |
 | AI应用接入关系 | **AI读取输入**：限任务获准输入；**AI写入提议**：拟入正式记录者仅为待确认提议；**AI写入认知记录**：P-DIA及方法准入限制；**AI禁止写入**：括号限定的确认、发布、归档、授权或伪造等操作；**不直接涉及**：本要素没有直接AI任务关系。可多选并附条款。即时帮助等直接输出由括号说明，不能误当作认知写入或正式发布。 |
@@ -60,6 +61,8 @@
 | 意见建议 | 充分时必须为空；其余按 `【条款号】问题：…；建议：…` 填写，可作为按条款评议的草案。 |
 
 充分性和治理五列仅依据正文与已经填写的平台列判断。证据路径存在只验证了引用可定位，不证明功能实际运行、完整覆盖或标准符合性。校验脚本检查格式、枚举、一致性和关键权限边界，不能代替专家的实质判断。
+
+覆盖度仅细分静态适配距离，不改原四值状态及治理结论。已有内容的确定快照、标准身份映射、Schema版本等可由适配器补元数据；已经丢失的历史、审批决定、目标关联、授权及证据作用不能补造。仅字段判为可适配，不表示其所属完整对象也可适配。覆盖度与补齐方不是一一映射：治理列还涵盖目标契约的公共登记及人工审批责任。本步仅完成细分与描述统计，分层假设的详细研究报告另行开展。
 
 ### 复现命令
 
@@ -75,19 +78,67 @@ python3 -B 验证/平台对标/tools/summarize.py
 python3 -B 验证/平台对标/tools/summarize.py --write
 python3 -B 验证/平台对标/tools/summarize.py --check
 
-# 行数、BOM、编号、平台状态/真实路径、治理枚举与非目标列不变：
+# 行数、BOM、编号、平台状态/覆盖度/真实路径、治理枚举与非目标列不变：
 python3 -B 验证/平台对标/tools/validate_openedx.py
 # 本目录全部单元测试（含汇总、治理及原双平台校验）：
 python3 -B -m unittest discover -s 验证/平台对标/tools -p 'test_*.py' -v
 ```
 
-矩阵校验依赖上述源码快照及仓库外的治理填写前备份 `~/backup/数据要素对照矩阵.治理填写前.csv`。其他机器须提供对应文件，或用 `--ref-root`、`--baseline` 指定位置；不能随意用当前CSV充作历史基线。历史填写步骤可通过 `--changed-platform OpenEdX` 或 `Moodle` 配合对应的历史矩阵与基线复验。汇总本身只依赖当前CSV，不依赖源码目录和外部备份。
+矩阵默认校验使用 `--changed-platform 覆盖度`，依赖上述源码快照及仓库外覆盖度填写前备份 `~/backup/数据要素对照矩阵.覆盖度填写前.csv`。其他机器须提供对应文件，或用 `--ref-root`、`--baseline` 指定位置；不能随意用当前CSV充作历史基线。历史填写步骤可通过 `--changed-platform OpenEdX`、`Moodle` 或 `治理` 配合对应的历史矩阵与基线复验，保留对未添加覆盖度列的历史快照支持。汇总本身只依赖当前CSV，不依赖源码目录和外部备份。
 
 README统计由 `summarize.py` 维护下列标记区及第5节。标记区外只写方法和计划，不手抄统计数字；`--check` 会拒绝过期、缺失或重复的统计段落。
 
 ## 4. 结果
 
 <!-- summarize:results:start -->
+### 覆盖度细分（源码静态对标，不是符合率）
+
+均值按各行等权的0–3分算术平均计算，保留两位小数；合并字段不拆分，不按业务重要性加权。覆盖度2表示适配所需的核心事实已存在，不表示已经实现适配、获准接入或通过T用例。
+
+| 数据类别 | 平台 | 0 缺失 | 1 弱对应 | 2 可适配 | 3 原生 | 合计 | 平均覆盖度 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 课程资源 | OpenEdX | 12 | 23 | 7 | 2 | 44 | 0.98 |
+| 课程资源 | Moodle | 6 | 29 | 7 | 2 | 44 | 1.11 |
+| 教学过程与学习证据 | OpenEdX | 14 | 38 | 6 | 0 | 58 | 0.86 |
+| 教学过程与学习证据 | Moodle | 6 | 48 | 4 | 0 | 58 | 0.97 |
+| 认知诊断 | OpenEdX | 27 | 7 | 1 | 0 | 35 | 0.26 |
+| 认知诊断 | Moodle | 4 | 30 | 1 | 0 | 35 | 0.91 |
+| 公共与交换 | OpenEdX | 9 | 17 | 3 | 0 | 29 | 0.79 |
+| 公共与交换 | Moodle | 3 | 22 | 4 | 0 | 29 | 1.03 |
+| 全部类别 | OpenEdX | 62 | 85 | 17 | 2 | 166 | 0.75 |
+| 全部类别 | Moodle | 19 | 129 | 16 | 2 | 166 | 1.01 |
+
+#### 代表要素
+
+每个类别、平台、分值按CSV行序列举至多三个要素；不足时如实列出全部，不跨类别凑数。分值2的逐项适配理由及分值1的关键缺口见CSV对应列末尾；分值0的搜索范围见依据列。
+
+| 数据类别 | 平台 | 覆盖度 | 代表要素 |
+| --- | --- | --- | --- |
+| 课程资源 | OpenEdX | 2 | `OBJ-004` Course、`OBJ-013` LearningUnit、`OBJ-014` LearningActivity |
+| 课程资源 | OpenEdX | 0 | `OBJ-011` ProgramVersion、`OBJ-019` ProgramAlignment、`FLD-RES-005` Resource.contributors |
+| 课程资源 | OpenEdX | 1 | `OBJ-005` CourseVersion、`OBJ-015` LearningObjective、`OBJ-016` Framework |
+| 课程资源 | Moodle | 2 | `OBJ-013` LearningUnit、`OBJ-016` Framework、`OBJ-018` Competency |
+| 课程资源 | Moodle | 0 | `FLD-RES-009` Resource.educational_use、`FLD-RGT-002` RightsRecord.rights_holders[]、`FLD-RGT-003` RightsRecord.rights_basis |
+| 课程资源 | Moodle | 1 | `OBJ-004` Course、`OBJ-005` CourseVersion、`OBJ-011` ProgramVersion |
+| 教学过程与学习证据 | OpenEdX | 2 | `FLD-EVT-002` LearningEvent.event_type、LearningEvent.event_type_version、`FLD-EVT-003` LearningEvent.event_class、`FLD-EVT-005` LearningEvent.source_instance |
+| 教学过程与学习证据 | OpenEdX | 0 | `OBJ-036` ObservationRecord、`FLD-EVT-004` LearningEvent.profile_id、LearningEvent.profile_version、`FLD-EVT-007` LearningEvent.entry_mode |
+| 教学过程与学习证据 | OpenEdX | 1 | `OBJ-009` TaskAttempt、`OBJ-012` LearnerGroup、`OBJ-029` LearningEvent |
+| 教学过程与学习证据 | Moodle | 2 | `FLD-EVT-002` LearningEvent.event_type、LearningEvent.event_type_version、`FLD-EVT-003` LearningEvent.event_class、`FLD-EVT-005` LearningEvent.source_instance |
+| 教学过程与学习证据 | Moodle | 0 | `FLD-EVT-004` LearningEvent.profile_id、LearningEvent.profile_version、`FLD-EVT-012` LearningEvent.teaching_assignment_ref、`FLD-EVT-017` LearningEvent.entry_evidence_refs |
+| 教学过程与学习证据 | Moodle | 1 | `OBJ-009` TaskAttempt、`OBJ-012` LearnerGroup、`OBJ-029` LearningEvent |
+| 认知诊断 | OpenEdX | 2 | `FLD-COG-002` CognitiveState.learner_ref、CognitiveState.enrollment_id（仅1项，全部列出） |
+| 认知诊断 | OpenEdX | 0 | `OBJ-037` CognitiveState、`OBJ-039` LearningRecommendation、`OBJ-040` MethodRegistration |
+| 认知诊断 | OpenEdX | 1 | `OBJ-028` Scale、`FLD-COG-003` CognitiveState.target_ref、`FLD-COG-007` CognitiveState.value、CognitiveState.scale_ref |
+| 认知诊断 | Moodle | 2 | `OBJ-028` Scale（仅1项，全部列出） |
+| 认知诊断 | Moodle | 0 | `FLD-COG-014` CognitiveState.use_purposes、CognitiveState.consequence_level、CognitiveState.access_policy_ref、`FLD-COG-015` CognitiveState.validity、`FLD-MTH-009` MethodApproval.用途级别 |
+| 认知诊断 | Moodle | 1 | `OBJ-037` CognitiveState、`OBJ-039` LearningRecommendation、`OBJ-040` MethodRegistration |
+| 公共与交换 | OpenEdX | 2 | `OBJ-001` Person、`FLD-MAN-005` manifest.export_task_id、`FLD-MAN-009` manifest.files |
+| 公共与交换 | OpenEdX | 0 | `OBJ-008` EnrollmentRound、`OBJ-046` DataClassification、`FLD-MAN-001` manifest.package_id |
+| 公共与交换 | OpenEdX | 1 | `OBJ-002` Organization、`OBJ-003` AcademicSession、`OBJ-006` Offering |
+| 公共与交换 | Moodle | 2 | `OBJ-001` Person、`FLD-MAN-003` manifest.schema_version、`FLD-MAN-005` manifest.export_task_id |
+| 公共与交换 | Moodle | 0 | `OBJ-008` EnrollmentRound、`FLD-MAN-004` manifest.profile_id、manifest.profile_version、`FLD-MAN-012` manifest.portability_level |
+| 公共与交换 | Moodle | 1 | `OBJ-002` Organization、`OBJ-003` AcademicSession、`OBJ-006` Offering |
+
 ### 两平台状态交叉统计
 
 行轴为Open edX，列轴为Moodle；单元格表示同一要素的状态组合。边际合计可用于读取各平台状态分布。
