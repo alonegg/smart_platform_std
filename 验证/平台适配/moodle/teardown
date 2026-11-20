@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-printf '%s\n' 'No containers, volumes or networks were created by this blocked deployment. Nothing to tear down.'
+cd "$(dirname "$0")"
+if [ "${1:-}" = '--volumes' ]; then
+    docker compose down --volumes
+else
+    docker compose down
+fi

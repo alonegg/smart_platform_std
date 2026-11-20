@@ -1,0 +1,8 @@
+{
+    "release": "6.0dev (Build: 20261117)",
+    "version": 2026111700,
+    "php": "8.3.36",
+    "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+    "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+    "evidence_level": "真实平台数据（合成课程/学员）"
+}

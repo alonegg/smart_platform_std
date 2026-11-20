@@ -1,0 +1,46 @@
+{
+    "omitted_sensitive_columns": {
+        "course": [],
+        "course_modules": [],
+        "resource": [],
+        "files": [],
+        "quiz": [
+            "password"
+        ],
+        "quiz_slots": [],
+        "quiz_attempts": [],
+        "quiz_grades": [],
+        "question": [],
+        "question_versions": [],
+        "question_bank_entries": [],
+        "question_references": [],
+        "question_answers": [],
+        "question_usages": [],
+        "question_attempts": [],
+        "question_attempt_steps": [],
+        "question_attempt_step_data": [],
+        "assign": [],
+        "assign_submission": [],
+        "assignsubmission_onlinetext": [],
+        "assign_grades": [],
+        "assign_plugin_config": [],
+        "grade_items": [],
+        "grade_grades": [],
+        "grade_grades_history": [],
+        "grade_items_history": [],
+        "groups": [],
+        "groups_members": [],
+        "groupings": [],
+        "groupings_groups": [],
+        "user_enrolments": [],
+        "enrol": [
+            "password"
+        ],
+        "role": [],
+        "role_assignments": [],
+        "context": [],
+        "logstore_standard_log": []
+    },
+    "user_projection": "id,username,firstname,lastname,email,auth,suspended,deleted,idnumber",
+    "scope": "All rows of the listed tables in an isolated synthetic-only site; no standard conversion"
+}

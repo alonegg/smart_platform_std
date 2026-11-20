@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "assignment": "1",
+        "submission": "1",
+        "onlinetext": "合成提交 0",
+        "onlineformat": "1"
+    },
+    {
+        "id": "2",
+        "assignment": "1",
+        "submission": "2",
+        "onlinetext": "合成提交 1",
+        "onlineformat": "1"
+    },
+    {
+        "id": "3",
+        "assignment": "2",
+        "submission": "3",
+        "onlinetext": "合成提交 0",
+        "onlineformat": "1"
+    }
+]

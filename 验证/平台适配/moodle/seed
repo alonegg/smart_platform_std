@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-printf '%s\n' 'Not executed: Docker deployment blocked. No synthetic platform records have been generated. See README.md.' >&2
-exit 2
+cd "$(dirname "$0")"
+mkdir -p .runtime
+ffmpeg -hide_banner -loglevel error -y -f lavfi -i color=c=blue:s=160x120:d=3 -an -c:v libx264 -pix_fmt yuv420p .runtime/synthetic.mp4
+docker compose exec -T web php /work/seed.php

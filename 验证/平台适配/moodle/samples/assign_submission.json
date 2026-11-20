@@ -1,0 +1,74 @@
+[
+    {
+        "id": "1",
+        "assignment": "1",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "submitted",
+        "groupid": "0",
+        "attemptnumber": "0",
+        "latest": "0"
+    },
+    {
+        "id": "2",
+        "assignment": "1",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "submitted",
+        "groupid": "0",
+        "attemptnumber": "1",
+        "latest": "1"
+    },
+    {
+        "id": "3",
+        "assignment": "2",
+        "userid": "0",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "submitted",
+        "groupid": "4",
+        "attemptnumber": "0",
+        "latest": "1"
+    },
+    {
+        "id": "4",
+        "assignment": "2",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "submitted",
+        "groupid": "0",
+        "attemptnumber": "0",
+        "latest": "1"
+    },
+    {
+        "id": "5",
+        "assignment": "2",
+        "userid": "16",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "draft",
+        "groupid": "0",
+        "attemptnumber": "0",
+        "latest": "1"
+    },
+    {
+        "id": "6",
+        "assignment": "2",
+        "userid": "17",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "timestarted": null,
+        "status": "draft",
+        "groupid": "0",
+        "attemptnumber": "0",
+        "latest": "1"
+    }
+]

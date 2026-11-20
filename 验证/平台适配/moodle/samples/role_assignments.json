@@ -1,0 +1,90 @@
+[
+    {
+        "id": "25",
+        "roleid": "5",
+        "contextid": "43",
+        "userid": "15",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "26",
+        "roleid": "5",
+        "contextid": "43",
+        "userid": "16",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "27",
+        "roleid": "5",
+        "contextid": "43",
+        "userid": "17",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "28",
+        "roleid": "3",
+        "contextid": "43",
+        "userid": "18",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "29",
+        "roleid": "5",
+        "contextid": "44",
+        "userid": "15",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "30",
+        "roleid": "5",
+        "contextid": "44",
+        "userid": "16",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "31",
+        "roleid": "5",
+        "contextid": "44",
+        "userid": "17",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    },
+    {
+        "id": "32",
+        "roleid": "3",
+        "contextid": "44",
+        "userid": "18",
+        "timemodified": "1795140228",
+        "modifierid": "2",
+        "component": "",
+        "itemid": "0",
+        "sortorder": "0"
+    }
+]
