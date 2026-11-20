@@ -1,0 +1,667 @@
+{
+  "evidence_level": "真实平台数据（合成课程/学员）",
+  "deployed": true,
+  "collected_at": "2026-11-20T02:48:55.502272+00:00",
+  "platform": {
+    "collected_at": "2026-11-20T02:48:55.501659+00:00",
+    "evidence_level": "运行时部署与本次合成样本关联版本元数据",
+    "source_command": "python3 collect_versions.py --output <empty-directory>",
+    "snapshot": {
+      "edx-platform": "ccfe30bfdb22d56c0139958c17049840b8176519",
+      "edx-event-routing-backends": "bae21257a259d17d54d9501af0abdd0c8e002ed8",
+      "edx-submissions": "9c9e7c416a127c769b72d2c1b7141de96d20283a"
+    },
+    "tutor": {
+      "version": "23.0.0",
+      "commit": "e29ec3e0a9d66131fffb21bef5adc00ac799d712"
+    },
+    "platform": {
+      "python": "3.12.13",
+      "packages": {
+        "edx-event-routing-backends": {
+          "version": "10.1.0",
+          "commit": "bae21257a259d17d54d9501af0abdd0c8e002ed8"
+        },
+        "edx-submissions": {
+          "version": "4.0.2",
+          "commit": null
+        },
+        "ora2": {
+          "version": "7.1.3",
+          "commit": null
+        },
+        "openedx-events": {
+          "version": "11.2.0",
+          "commit": null
+        },
+        "Django": {
+          "version": "5.2.19",
+          "commit": null
+        }
+      },
+      "edx-platform": "d3a86602dcf70bbf4f7925727bcc50ff10e51109"
+    },
+    "images": {
+      "lms": {
+        "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+        ]
+      },
+      "cms": {
+        "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+        ]
+      },
+      "lms-worker": {
+        "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+        ]
+      },
+      "cms-worker": {
+        "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+        ]
+      },
+      "mysql": {
+        "image": "mirror.gcr.io/library/mysql:8.4@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "mirror.gcr.io/library/mysql@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
+        ]
+      },
+      "mongodb": {
+        "image": "mirror.gcr.io/library/mongo:7.0@sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32",
+        "image_id": "sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "mirror.gcr.io/library/mongo@sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32"
+        ]
+      },
+      "redis": {
+        "image": "mirror.gcr.io/library/redis:7.4@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "image_id": "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "mirror.gcr.io/library/redis@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90"
+        ]
+      },
+      "caddy": {
+        "image": "mirror.gcr.io/library/caddy:2.11@sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b",
+        "image_id": "sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "mirror.gcr.io/library/caddy@sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b"
+        ]
+      },
+      "meilisearch": {
+        "image": "getmeili/meilisearch:v1.36.0@sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa",
+        "image_id": "sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa",
+        "status": "running",
+        "exit_code": 0,
+        "repo_digests": [
+          "getmeili/meilisearch@sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa"
+        ]
+      },
+      "permissions": {
+        "image": "overhangio/openedx-permissions:23.0.0-main@sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326",
+        "image_id": "sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326",
+        "status": "exited",
+        "exit_code": 0,
+        "repo_digests": [
+          "overhangio/openedx-permissions@sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326"
+        ]
+      }
+    },
+    "runtime_versions": {
+      "mysql": "mysql  Ver 8.4.13 for Linux on x86_64 (MySQL Community Server - GPL)",
+      "mongodb": "db version v7.0.48\nBuild Info: {\n    \"version\": \"7.0.48\",\n    \"gitVersion\": \"6937736f0539a5d4c8edb2970255b9369cb385a5\",\n    \"openSSLVersion\": \"OpenSSL 3.0.2 15 Mar 2022\",\n    \"modules\": [],\n    \"allocator\": \"tcmalloc\",\n    \"environment\": {\n        \"distmod\": \"ubuntu2204\",\n        \"distarch\": \"x86_64\",\n        \"target_arch\": \"x86_64\"\n    }\n}",
+      "redis": "Redis server v=7.4.12 sha=00000000:0 malloc=jemalloc-5.3.0 bits=64 build=69f2dd83f1b1edb9",
+      "caddy": "v2.11.9 h1:bhZtcRKQOq0fuLvEgCdPYvUxXyGn9kzjG4lh2332DTE=",
+      "meilisearch": "meilisearch 1.36.0"
+    },
+    "limitations": [
+      "Derivative image is built locally and was not published; recorded digests do not imply registry availability.",
+      "Wheel distributions without direct_url VCS metadata have unknown commits; versions are not commit evidence.",
+      "Version metadata alone does not establish course, learner activity, xAPI or Caliper evidence."
+    ]
+  },
+  "files": [
+    {
+      "file": "assessment_assessment.json",
+      "bytes": 798,
+      "sha256": "98a63f5cdc6280040e52e1377bed5ab71eb5a46358551ff7099c87d0a721cf22",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "assessment_revision"
+      ]
+    },
+    {
+      "file": "assessment_assessmentpart.json",
+      "bytes": 327,
+      "sha256": "c7e775800ba10c6aef3380b417623907dfe576cbbc65ea56345e0a9f48df4f1b",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "assessment_revision"
+      ]
+    },
+    {
+      "file": "assessment_criterion.json",
+      "bytes": 150,
+      "sha256": "43d65a430ac35e83297d332fd3ed523e1cb8e8ffa9df26c54b1b5b6045baa2f3",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "assessment_criterionoption.json",
+      "bytes": 309,
+      "sha256": "a1db26d33978a4082f1ab9e12d069cacfd7ae41f2ea894d217d2430d42a33ac9",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "assessment_rubric.json",
+      "bytes": 154,
+      "sha256": "0fff5a64836ec7875a71f870843cf62f52d8e586f25de2386706bc34ffa4ff11",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "assessment_staffworkflow.json",
+      "bytes": 921,
+      "sha256": "7b1ea3db1bf8fbd5b549e252ceaa01cacb9de1e3505d793c501b6db69b26812f",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "auth_user.json",
+      "bytes": 743,
+      "sha256": "931a8eba797995088a878cc84be72466495f64cd7baf239e4412bdba47245e3e",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "people"
+      ]
+    },
+    {
+      "file": "auth_userprofile.json",
+      "bytes": 203,
+      "sha256": "7f618694b45d8de942c250104c8d5339864e05d53a93f253dcfeed6245f774a7",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "people"
+      ]
+    },
+    {
+      "file": "caliper.jsonl",
+      "bytes": 28535,
+      "sha256": "00ecd194bd8148520be0bc002f882a959211e59c90219538fa9484a3e124df69",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "native_event_formats"
+      ]
+    },
+    {
+      "file": "course_groups_cohortmembership.json",
+      "bytes": 705,
+      "sha256": "a0bdc48871790223d4a3e7055de99a55bd8d8b3f729bb43111c4c99fb03ef6d6",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "cohorts"
+      ]
+    },
+    {
+      "file": "course_groups_coursecohort.json",
+      "bytes": 173,
+      "sha256": "c78fd7d1deb7bd15e06b1df3aadab985c8a0726846be3161330427973b39bee8",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "course_groups_courseusergroup.json",
+      "bytes": 255,
+      "sha256": "69ceb1aed289c5c5a54d1213d9b45b70969ab03bc2f44fac73f9e463b350d06d",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "cohorts"
+      ]
+    },
+    {
+      "file": "course_groups_courseusergroup_users.json",
+      "bytes": 411,
+      "sha256": "4c5b96b37a59c243f45bfa44097355130e3cb6f57bf2a981b2a787a4dcb40e93",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "courseware_studentmodule.json",
+      "bytes": 4473,
+      "sha256": "717aca2ae75ecdbbce8105afa70fcc14db58b1bdc6dc679ea2eac314a28b086e",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "capa_checks"
+      ]
+    },
+    {
+      "file": "courseware_studentmodulehistory.json",
+      "bytes": 6240,
+      "sha256": "a4fd68ae39f9af5e11943dc464ef34e02ea07e96fb355fdb45bf80939378132e",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "capa_checks"
+      ]
+    },
+    {
+      "file": "erb-report.json",
+      "bytes": 3694,
+      "sha256": "d5023ffe5be887f29f5a1de6dfc62e23ebe0926ef778cf7136d3bd17dfb1a631",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "native_event_formats"
+      ]
+    },
+    {
+      "file": "export-policy.json",
+      "bytes": 2432,
+      "sha256": "729f1c055962d2a32ca2f8236a1a884fc4a4c1f02e878daaa521c1c293a6cf7a",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "grades_historicalpersistentsubsectiongradeoverride.json",
+      "bytes": 1015,
+      "sha256": "d3dfdaf702cc708c0334dc0740299547f1ad7c94d09ea76d2273ea211ae94aac",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "assessment_revision"
+      ]
+    },
+    {
+      "file": "grades_persistentcoursegrade.json",
+      "bytes": 1315,
+      "sha256": "06d1bf89500de1ae4568e7b0a17ce403427c51d856df44ee84471e8ffc49594f",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "grades_persistentsubsectiongrade.json",
+      "bytes": 1743,
+      "sha256": "744c2487c2852f56f56a269932cbe99d47d7bc81dde8217e362c62abea5143ec",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "grades_persistentsubsectiongradeoverride.json",
+      "bytes": 349,
+      "sha256": "d6b6d22f951d5057bbb8b7cebfa2736c5088b9be1252f038b9987c38d803267b",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "assessment_revision"
+      ]
+    },
+    {
+      "file": "grades_visibleblocks.json",
+      "bytes": 934,
+      "sha256": "eb85d286bd8410f70428e13f70183b9e1d4d8f975d68e357660b85a6831e6d1c",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "platform.json",
+      "bytes": 6423,
+      "sha256": "325abd8ba0763686c35ac161df8bc6bf6554e62dbd092f854248ab7a9154b0af",
+      "source_command": "collect_versions.collect(): selected docker inspect fields and in-container version commands",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "run01.tar.gz",
+      "bytes": 4552,
+      "sha256": "1f8e58c08fbf72dc8713803737bfb83b39de7c7e8216a81735c935e7ba03a6ea",
+      "source_command": "./manage.py cms export course-v1:SYNTH+WP4A+run01 <new-directory>; tarfile gzip archive",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "two_offerings",
+        "video_events"
+      ]
+    },
+    {
+      "file": "run02.tar.gz",
+      "bytes": 4551,
+      "sha256": "c742e37f9a52337616b02c2513dab4ad597b7d47b218e43c5966d9bad22a0e9d",
+      "source_command": "./manage.py cms export course-v1:SYNTH+WP4A+run02 <new-directory>; tarfile gzip archive",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "two_offerings"
+      ]
+    },
+    {
+      "file": "student_courseaccessrole.json",
+      "bytes": 521,
+      "sha256": "e0a371b9a728e555994c9415a09c94fb52fee656d6aafd94952d3d295bb1fed6",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "people"
+      ]
+    },
+    {
+      "file": "student_courseaccessrolehistory.json",
+      "bytes": 1209,
+      "sha256": "df504cc25e696617e3bc0117c9b9ec2ddce4eed5690b872fcf957e6cb35d439f",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "student_courseenrollment.json",
+      "bytes": 1379,
+      "sha256": "7581ebc21a70b5e38f0192243e99f15614a4a89ae770b9321dc27666b5c9c047",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "enrolment_change"
+      ]
+    },
+    {
+      "file": "student_courseenrollment_history.json",
+      "bytes": 7303,
+      "sha256": "e41aa032fe9d45fb0e2e5bd5257ac53c9c04e6327bc025d7e13eadeeb39463b3",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "enrolment_change"
+      ]
+    },
+    {
+      "file": "submissions_score.json",
+      "bytes": 1495,
+      "sha256": "028cf1e046acf33614492a9c148d2840419fab32120ad5dfa358abcef5a20ba0",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "assessment_revision"
+      ]
+    },
+    {
+      "file": "submissions_scoresummary.json",
+      "bytes": 91,
+      "sha256": "ab94f90915483ac6877e4497674f752b085f42fc604bdf7ee85b1a3ba975e373",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "submissions_studentitem.json",
+      "bytes": 236,
+      "sha256": "b6c8708d5fda47929068330a17659b5a745bde9b0ba3f0b32aaafa76a21b55ad",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "ora_reset_resubmit"
+      ]
+    },
+    {
+      "file": "submissions_submission.json",
+      "bytes": 1049,
+      "sha256": "6ed4890e34a3a5a6f112886f326987157ebe69e5fcbb341679c246ce21b5a8ca",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "ora_reset_resubmit"
+      ]
+    },
+    {
+      "file": "tracking.jsonl",
+      "bytes": 75499,
+      "sha256": "e1a6e7ce582fe4104ef062dc034e4b136b699bf9d9aa8817269b90d03fb0c218",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "enrolment_change",
+        "video_events",
+        "capa_checks",
+        "ora_reset_resubmit",
+        "native_event_formats"
+      ]
+    },
+    {
+      "file": "workflow_assessmentworkflow.json",
+      "bytes": 848,
+      "sha256": "7d261a4acc74e5310bde1325631bbac318d567e3a054812fea808efe620d0d48",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "workflow_assessmentworkflowcancellation.json",
+      "bytes": 194,
+      "sha256": "d53108e8bf3e98fa4516f2eb7e47b2ca41393b3248a0be063f5e5d53accd21b1",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "ora_reset_resubmit"
+      ]
+    },
+    {
+      "file": "workflow_assessmentworkflowstep.json",
+      "bytes": 449,
+      "sha256": "9d0c09168d9859712b3d5d5cf1f59d3e79f88481fa4dadf84e62f73808a096db",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "supporting_metadata"
+      ]
+    },
+    {
+      "file": "xapi.jsonl",
+      "bytes": 69908,
+      "sha256": "1c5d31418187ef53f807290b874557162ce3a51f70cc68b46056a89cc5530937",
+      "source_command": "LMS Django shell: export_runtime.py; selected native SQL table or runtime processor output",
+      "collected_at": "2026-11-20T02:48:55.502272+00:00",
+      "platform_version": "d3a86602dcf70bbf4f7925727bcc50ff10e51109",
+      "coverage": [
+        "native_event_formats"
+      ]
+    }
+  ],
+  "scenario_files": {
+    "two_offerings": [
+      "run01.tar.gz",
+      "run02.tar.gz"
+    ],
+    "people": [
+      "auth_user.json",
+      "auth_userprofile.json",
+      "student_courseaccessrole.json"
+    ],
+    "enrolment_change": [
+      "student_courseenrollment.json",
+      "student_courseenrollment_history.json",
+      "tracking.jsonl"
+    ],
+    "video_events": [
+      "run01.tar.gz",
+      "tracking.jsonl"
+    ],
+    "capa_checks": [
+      "courseware_studentmodule.json",
+      "courseware_studentmodulehistory.json",
+      "tracking.jsonl"
+    ],
+    "ora_reset_resubmit": [
+      "submissions_submission.json",
+      "submissions_studentitem.json",
+      "workflow_assessmentworkflowcancellation.json",
+      "tracking.jsonl"
+    ],
+    "assessment_revision": [
+      "assessment_assessment.json",
+      "assessment_assessmentpart.json",
+      "submissions_score.json",
+      "grades_persistentsubsectiongradeoverride.json",
+      "grades_historicalpersistentsubsectiongradeoverride.json"
+    ],
+    "cohorts": [
+      "course_groups_courseusergroup.json",
+      "course_groups_cohortmembership.json"
+    ],
+    "native_event_formats": [
+      "tracking.jsonl",
+      "xapi.jsonl",
+      "caliper.jsonl",
+      "erb-report.json"
+    ]
+  },
+  "scenario_elements": {
+    "two_offerings": [
+      "OBJ-004",
+      "OBJ-006"
+    ],
+    "people": [
+      "OBJ-001",
+      "OBJ-010"
+    ],
+    "enrolment_change": [
+      "OBJ-007",
+      "EVT-002"
+    ],
+    "video_events": [
+      "OBJ-020",
+      "EVT-004"
+    ],
+    "capa_checks": [
+      "OBJ-009",
+      "EVT-011"
+    ],
+    "ora_reset_resubmit": [
+      "OBJ-009",
+      "EVT-013"
+    ],
+    "assessment_revision": [
+      "EVT-020"
+    ],
+    "cohorts": [
+      "OBJ-012",
+      "FLD-EVT-014"
+    ],
+    "native_event_formats": [
+      "OBJ-029",
+      "FLD-EVT-004"
+    ]
+  },
+  "not_claimed": [
+    "standard-contract conversion",
+    "certification",
+    "actual browser video playback",
+    "immutable course versions",
+    "real educational effectiveness",
+    "LRS delivery"
+  ]
+}

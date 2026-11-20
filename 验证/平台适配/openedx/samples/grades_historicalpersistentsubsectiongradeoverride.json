@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "created": "2026-11-20T02:37:35.538864",
+    "modified": "2026-11-20T02:37:35.538879",
+    "earned_all_override": 2.0,
+    "possible_all_override": 4.0,
+    "earned_graded_override": 2.0,
+    "possible_graded_override": 4.0,
+    "history_id": 1,
+    "history_date": "2026-11-20T02:37:35.540831",
+    "history_change_reason": null,
+    "history_type": "+",
+    "history_user_id": 7,
+    "grade_id": 1,
+    "override_reason": "合成初次分数覆盖",
+    "system": "wp4a-synthetic"
+  },
+  {
+    "id": 1,
+    "created": "2026-11-20T02:37:35.538864",
+    "modified": "2026-11-20T02:37:35.547110",
+    "earned_all_override": 3.5,
+    "possible_all_override": 4.0,
+    "earned_graded_override": 3.5,
+    "possible_graded_override": 4.0,
+    "history_id": 2,
+    "history_date": "2026-11-20T02:37:35.549944",
+    "history_change_reason": null,
+    "history_type": "~",
+    "history_user_id": 7,
+    "grade_id": 1,
+    "override_reason": "合成复核改分",
+    "system": "wp4a-synthetic"
+  }
+]

@@ -15,6 +15,8 @@ class SeedInputTest(unittest.TestCase):
             self.assertEqual(course.attrib['url_name'], run)
             self.assertEqual(course.attrib['org'], 'SYNTH')
             self.assertEqual(len(course.findall('.//video')), 1)
+            self.assertEqual(course.find('.//video/source').attrib['src'], '/static/synthetic.mp4')
+            self.assertEqual(course.find('.//video').attrib['youtube'], '1.00:')
             self.assertEqual(len(course.findall('.//problem/numericalresponse')), 1)
             self.assertEqual(len(course.findall('.//openassessment')), 1)
             self.assertEqual(course.find('.//openassessment/assessments/assessment').attrib['name'], 'staff-assessment')

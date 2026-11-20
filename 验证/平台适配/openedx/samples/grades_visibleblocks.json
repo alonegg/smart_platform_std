@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "blocks_json": "{\"blocks\":[{\"graded\":true,\"locator\":\"block-v1:SYNTH+WP4A+run01+type@problem+block@addition\",\"raw_possible\":1.0,\"weight\":null},{\"graded\":true,\"locator\":\"block-v1:SYNTH+WP4A+run01+type@openassessment+block@essay\",\"raw_possible\":null,\"weight\":null}],\"course_key\":\"course-v1:SYNTH+WP4A+run01\",\"version\":1}",
+    "hashed": "D5L00rs5xzNo4DG7IBqx8orhuwM=",
+    "course_id": "course-v1:SYNTH+WP4A+run01"
+  },
+  {
+    "id": 2,
+    "blocks_json": "{\"blocks\":[{\"graded\":true,\"locator\":\"block-v1:SYNTH+WP4A+run01+type@problem+block@addition\",\"raw_possible\":1.0,\"weight\":null},{\"graded\":true,\"locator\":\"block-v1:SYNTH+WP4A+run01+type@openassessment+block@essay\",\"raw_possible\":3.0,\"weight\":null}],\"course_key\":\"course-v1:SYNTH+WP4A+run01\",\"version\":1}",
+    "hashed": "JEUoL5uukEF4KIiB1kBMGkkZ2eM=",
+    "course_id": "course-v1:SYNTH+WP4A+run01"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "created": "2026-11-20T02:37:35.538864",
+    "modified": "2026-11-20T02:37:35.547110",
+    "earned_all_override": 3.5,
+    "possible_all_override": 4.0,
+    "earned_graded_override": 3.5,
+    "possible_graded_override": 4.0,
+    "grade_id": 1,
+    "override_reason": "合成复核改分",
+    "system": "wp4a-synthetic"
+  }
+]

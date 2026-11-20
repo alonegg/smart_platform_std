@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "submission_uuid": "1428eea2-80a1-44e9-80b6-42264e633741",
+    "scored_at": "2026-11-20T02:36:54.823223",
+    "scorer_id": "71afc7056406eaffdf539f2f42752772",
+    "score_type": "ST",
+    "feedback": "合成初评",
+    "rubric_id": 1
+  },
+  {
+    "id": 2,
+    "submission_uuid": "1428eea2-80a1-44e9-80b6-42264e633741",
+    "scored_at": "2026-11-20T02:36:54.928778",
+    "scorer_id": "71afc7056406eaffdf539f2f42752772",
+    "score_type": "ST",
+    "feedback": "合成复核改分",
+    "rubric_id": 1
+  },
+  {
+    "id": 3,
+    "submission_uuid": "dc23f525-cc14-488e-88ef-de449a812045",
+    "scored_at": "2026-11-20T02:37:35.312952",
+    "scorer_id": "71afc7056406eaffdf539f2f42752772",
+    "score_type": "ST",
+    "feedback": "合成重交后评分",
+    "rubric_id": 1
+  }
+]

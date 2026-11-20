@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "合成小组01",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "group_type": "cohort"
+  },
+  {
+    "id": 2,
+    "name": "合成小组01",
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "group_type": "cohort"
+  }
+]

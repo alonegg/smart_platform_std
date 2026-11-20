@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "feedback": "",
+    "assessment_id": 1,
+    "criterion_id": 1,
+    "option_id": 1
+  },
+  {
+    "id": 2,
+    "feedback": "",
+    "assessment_id": 2,
+    "criterion_id": 1,
+    "option_id": 2
+  },
+  {
+    "id": 3,
+    "feedback": "",
+    "assessment_id": 3,
+    "criterion_id": 1,
+    "option_id": 2
+  }
+]

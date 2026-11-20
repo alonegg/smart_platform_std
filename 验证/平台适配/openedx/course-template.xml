@@ -2,7 +2,7 @@
   <chapter url_name="chapter" display_name="合成学习活动">
     <sequential url_name="homework" display_name="合成练习" format="Homework" graded="true">
       <vertical url_name="unit" display_name="合成单元">
-        <video url_name="video" display_name="三秒合成视频" youtube="" html5_sources='["/static/synthetic.mp4"]'/>
+        <video url_name="video" display_name="三秒合成视频" youtube="1.00:"><source src="/static/synthetic.mp4"/></video>
         <problem url_name="addition" display_name="合成加法" max_attempts="5" rerandomize="never">
           <numericalresponse answer="2"><label>1 + 1 = ?</label><formulaequationinput/></numericalresponse>
         </problem>

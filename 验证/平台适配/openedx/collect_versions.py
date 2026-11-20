@@ -68,14 +68,14 @@ print(json.dumps({'python': sys.version.split()[0], 'packages': packages,
         runtime[service] = run('docker', 'exec', f'{PROJECT}-{service}-1', *command)
     return {
         'collected_at': datetime.now(timezone.utc).isoformat(),
-        'evidence_level': '运行时部署元数据；尚无教学场景取样',
+        'evidence_level': '运行时部署元数据；教学证据需另查samples清单',
         'source_command': 'python3 collect_versions.py --output <empty-directory>',
         'snapshot': SNAPSHOT, 'tutor': tutor, 'platform': platform,
         'images': images, 'runtime_versions': runtime,
         'limitations': [
             'Derivative image is built locally and was not published; recorded digests do not imply registry availability.',
             'Wheel distributions without direct_url VCS metadata have unknown commits; versions are not commit evidence.',
-            'No course, learner activity, xAPI or Caliper samples have been collected yet.',
+            'Version metadata alone does not establish course, learner activity, xAPI or Caliper evidence.',
         ],
     }
 

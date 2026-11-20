@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "name": "clarity",
+    "label": "clarity",
+    "order_num": 0,
+    "prompt": "表达是否清楚？",
+    "rubric_id": 1
+  }
+]

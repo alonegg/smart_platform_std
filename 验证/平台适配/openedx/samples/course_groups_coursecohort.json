@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "assignment_type": "manual",
+    "course_user_group_id": 1
+  },
+  {
+    "id": 2,
+    "assignment_type": "manual",
+    "course_user_group_id": 2
+  }
+]

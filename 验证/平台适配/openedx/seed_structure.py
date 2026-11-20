@@ -22,6 +22,8 @@ for run in ('run01', 'run02'):
     key = CourseKey.from_string(f'course-v1:SYNTH+WP4A+{run}')
     course = modulestore().get_course(key)
     assert course is not None
+    video, = modulestore().get_items(key, qualifiers={'category': 'video'})
+    assert not video.youtube_id_1_0, 'Only the synthetic HTML5 source is permitted'
     CourseOverview.load_from_module_store(key)
     for user in users:
         CourseEnrollment.enroll(user, key, mode='audit')

@@ -1,0 +1,101 @@
+{
+  "source": "tracking.jsonl",
+  "configuration": {
+    "CALIPER_EVENTS_ENABLED": true,
+    "XAPI_EVENTS_ENABLED": true,
+    "CALIPER_EVENT_LOGGING_ENABLED": false,
+    "XAPI_EVENT_LOGGING_ENABLED": false,
+    "delivery": "Offline native ERB processor invocation inside LMS; no LRS/network delivery"
+  },
+  "input_events": 99,
+  "input_types": {
+    "edx.course.enrollment.activated": 10,
+    "edx.course.enrollment.deactivated": 2,
+    "play_video": 3,
+    "pause_video": 3,
+    "stop_video": 3,
+    "/courses/course-v1:SYNTH+WP4A+run01/xblock/block-v1:SYNTH+WP4A+run01+type@problem+block@addition/handler/xmodule_handler/problem_check": 6,
+    "edx.grades.problem.submitted": 9,
+    "edx.completion.block_completion.changed": 10,
+    "problem_check": 6,
+    "openassessmentblock.create_submission": 2,
+    "openassessmentblock.staff_assess": 3,
+    "edx.notifications.generated": 5,
+    "edx.grades.subsection.grade_calculated": 11,
+    "edx.course.grade.passed.first_time": 1,
+    "edx.grades.course.grade_calculated": 12,
+    "edx.course.grade.now_passed": 8,
+    "edx.course.grade.now_failed": 4,
+    "edx.grades.problem.state_deleted": 1
+  },
+  "formats": {
+    "xapi": {
+      "converted_inputs": 76,
+      "unsupported_types": {
+        "/courses/course-v1:SYNTH+WP4A+run01/xblock/block-v1:SYNTH+WP4A+run01+type@problem+block@addition/handler/xmodule_handler/problem_check": 6,
+        "openassessmentblock.create_submission": 2,
+        "openassessmentblock.staff_assess": 3,
+        "edx.notifications.generated": 5,
+        "edx.grades.problem.state_deleted": 1
+      },
+      "errors": [
+        {
+          "input_line": 19,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        },
+        {
+          "input_line": 23,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        },
+        {
+          "input_line": 30,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        },
+        {
+          "input_line": 34,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        },
+        {
+          "input_line": 41,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        },
+        {
+          "input_line": 45,
+          "type": "problem_check",
+          "error_class": "ValueError",
+          "message": "Could not get value for context.referer in event \"problem_check\""
+        }
+      ],
+      "empty_types": {},
+      "output_records": 76
+    },
+    "caliper": {
+      "converted_inputs": 37,
+      "unsupported_types": {
+        "/courses/course-v1:SYNTH+WP4A+run01/xblock/block-v1:SYNTH+WP4A+run01+type@problem+block@addition/handler/xmodule_handler/problem_check": 6,
+        "edx.completion.block_completion.changed": 10,
+        "openassessmentblock.create_submission": 2,
+        "openassessmentblock.staff_assess": 3,
+        "edx.notifications.generated": 5,
+        "edx.grades.subsection.grade_calculated": 11,
+        "edx.grades.course.grade_calculated": 12,
+        "edx.course.grade.now_passed": 8,
+        "edx.course.grade.now_failed": 4,
+        "edx.grades.problem.state_deleted": 1
+      },
+      "errors": [],
+      "empty_types": {},
+      "output_records": 37
+    }
+  }
+}

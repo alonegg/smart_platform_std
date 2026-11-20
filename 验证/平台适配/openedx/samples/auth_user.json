@@ -1,0 +1,38 @@
+[
+  {
+    "id": 4,
+    "username": "wp4asynth01",
+    "email": "wp4asynth01@example.invalid",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_staff": false
+  },
+  {
+    "id": 5,
+    "username": "wp4asynth02",
+    "email": "wp4asynth02@example.invalid",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_staff": false
+  },
+  {
+    "id": 6,
+    "username": "wp4asynth03",
+    "email": "wp4asynth03@example.invalid",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_staff": false
+  },
+  {
+    "id": 7,
+    "username": "wp4asynth04",
+    "email": "wp4asynth04@example.invalid",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_staff": false
+  }
+]

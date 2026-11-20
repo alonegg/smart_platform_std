@@ -3,6 +3,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory
+from django.db import connection
 from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from lms.djangoapps.courseware.block_render import get_block_by_usage_id
@@ -17,6 +18,10 @@ key = CourseKey.from_string('course-v1:SYNTH+WP4A+run01')
 learner = get_user_model().objects.get(username='wp4asynth01')
 teacher = get_user_model().objects.get(username='wp4asynth04')
 assert not PersistentSubsectionGradeOverride.objects.filter(grade__course_id=key).exists(), 'Revision already exists'
+with connection.cursor() as cursor:
+    cursor.execute('SELECT s.status FROM submissions_submission s JOIN submissions_studentitem i '
+                   'ON s.student_item_id=i.id WHERE i.course_id=%s', [str(key)])
+    assert cursor.fetchall() == (('A',),), 'Expected exactly one active initial submission; partial/repeated revision refused'
 descriptor, = modulestore().get_items(key, qualifiers={'category': 'openassessment'})
 
 

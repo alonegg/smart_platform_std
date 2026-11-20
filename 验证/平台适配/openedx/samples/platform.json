@@ -1,0 +1,144 @@
+{
+  "collected_at": "2026-11-20T02:48:55.501659+00:00",
+  "evidence_level": "运行时部署与本次合成样本关联版本元数据",
+  "source_command": "python3 collect_versions.py --output <empty-directory>",
+  "snapshot": {
+    "edx-platform": "ccfe30bfdb22d56c0139958c17049840b8176519",
+    "edx-event-routing-backends": "bae21257a259d17d54d9501af0abdd0c8e002ed8",
+    "edx-submissions": "9c9e7c416a127c769b72d2c1b7141de96d20283a"
+  },
+  "tutor": {
+    "version": "23.0.0",
+    "commit": "e29ec3e0a9d66131fffb21bef5adc00ac799d712"
+  },
+  "platform": {
+    "python": "3.12.13",
+    "packages": {
+      "edx-event-routing-backends": {
+        "version": "10.1.0",
+        "commit": "bae21257a259d17d54d9501af0abdd0c8e002ed8"
+      },
+      "edx-submissions": {
+        "version": "4.0.2",
+        "commit": null
+      },
+      "ora2": {
+        "version": "7.1.3",
+        "commit": null
+      },
+      "openedx-events": {
+        "version": "11.2.0",
+        "commit": null
+      },
+      "Django": {
+        "version": "5.2.19",
+        "commit": null
+      }
+    },
+    "edx-platform": "d3a86602dcf70bbf4f7925727bcc50ff10e51109"
+  },
+  "images": {
+    "lms": {
+      "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+      ]
+    },
+    "cms": {
+      "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+      ]
+    },
+    "lms-worker": {
+      "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+      ]
+    },
+    "cms-worker": {
+      "image": "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "image_id": "sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "wp4a-openedx@sha256:be05a2e63642a1ea035dbfe829efeb5e70806d5e9c52f224f6527f3c8ed59b1c"
+      ]
+    },
+    "mysql": {
+      "image": "mirror.gcr.io/library/mysql:8.4@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+      "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "mirror.gcr.io/library/mysql@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
+      ]
+    },
+    "mongodb": {
+      "image": "mirror.gcr.io/library/mongo:7.0@sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32",
+      "image_id": "sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "mirror.gcr.io/library/mongo@sha256:884c055bff8b7144ca44830d01826facd3083b33c4dea44b94a1476c62de3c32"
+      ]
+    },
+    "redis": {
+      "image": "mirror.gcr.io/library/redis:7.4@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+      "image_id": "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "mirror.gcr.io/library/redis@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90"
+      ]
+    },
+    "caddy": {
+      "image": "mirror.gcr.io/library/caddy:2.11@sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b",
+      "image_id": "sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "mirror.gcr.io/library/caddy@sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b"
+      ]
+    },
+    "meilisearch": {
+      "image": "getmeili/meilisearch:v1.36.0@sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa",
+      "image_id": "sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa",
+      "status": "running",
+      "exit_code": 0,
+      "repo_digests": [
+        "getmeili/meilisearch@sha256:203a0854738be101bfdada825ac3cbf95e5681bc849757b6bc199e4cfae98faa"
+      ]
+    },
+    "permissions": {
+      "image": "overhangio/openedx-permissions:23.0.0-main@sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326",
+      "image_id": "sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326",
+      "status": "exited",
+      "exit_code": 0,
+      "repo_digests": [
+        "overhangio/openedx-permissions@sha256:b2ed70fb930b09bf96a2e587a1271106d5649ef51f8f4fe688f45b6450370326"
+      ]
+    }
+  },
+  "runtime_versions": {
+    "mysql": "mysql  Ver 8.4.13 for Linux on x86_64 (MySQL Community Server - GPL)",
+    "mongodb": "db version v7.0.48\nBuild Info: {\n    \"version\": \"7.0.48\",\n    \"gitVersion\": \"6937736f0539a5d4c8edb2970255b9369cb385a5\",\n    \"openSSLVersion\": \"OpenSSL 3.0.2 15 Mar 2022\",\n    \"modules\": [],\n    \"allocator\": \"tcmalloc\",\n    \"environment\": {\n        \"distmod\": \"ubuntu2204\",\n        \"distarch\": \"x86_64\",\n        \"target_arch\": \"x86_64\"\n    }\n}",
+    "redis": "Redis server v=7.4.12 sha=00000000:0 malloc=jemalloc-5.3.0 bits=64 build=69f2dd83f1b1edb9",
+    "caddy": "v2.11.9 h1:bhZtcRKQOq0fuLvEgCdPYvUxXyGn9kzjG4lh2332DTE=",
+    "meilisearch": "meilisearch 1.36.0"
+  },
+  "limitations": [
+    "Derivative image is built locally and was not published; recorded digests do not imply registry availability.",
+    "Wheel distributions without direct_url VCS metadata have unknown commits; versions are not commit evidence.",
+    "Version metadata alone does not establish course, learner activity, xAPI or Caliper evidence."
+  ]
+}

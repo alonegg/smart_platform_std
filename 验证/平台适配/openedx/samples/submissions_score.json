@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "points_earned": 0,
+    "points_possible": 0,
+    "created_at": "2026-11-20T02:36:54.851237",
+    "reset": 1,
+    "student_item_id": 1,
+    "submission_id": null
+  },
+  {
+    "id": 2,
+    "points_earned": 1,
+    "points_possible": 3,
+    "created_at": "2026-11-20T02:36:54.865710",
+    "reset": 0,
+    "student_item_id": 1,
+    "submission_id": 1
+  },
+  {
+    "id": 3,
+    "points_earned": 0,
+    "points_possible": 0,
+    "created_at": "2026-11-20T02:36:54.944119",
+    "reset": 1,
+    "student_item_id": 1,
+    "submission_id": null
+  },
+  {
+    "id": 4,
+    "points_earned": 3,
+    "points_possible": 3,
+    "created_at": "2026-11-20T02:36:54.951909",
+    "reset": 0,
+    "student_item_id": 1,
+    "submission_id": 1
+  },
+  {
+    "id": 5,
+    "points_earned": 0,
+    "points_possible": 3,
+    "created_at": "2026-11-20T02:37:35.153462",
+    "reset": 0,
+    "student_item_id": 1,
+    "submission_id": 1
+  },
+  {
+    "id": 6,
+    "points_earned": 0,
+    "points_possible": 0,
+    "created_at": "2026-11-20T02:37:35.163664",
+    "reset": 1,
+    "student_item_id": 1,
+    "submission_id": null
+  },
+  {
+    "id": 7,
+    "points_earned": 0,
+    "points_possible": 0,
+    "created_at": "2026-11-20T02:37:35.328511",
+    "reset": 1,
+    "student_item_id": 1,
+    "submission_id": null
+  },
+  {
+    "id": 8,
+    "points_earned": 3,
+    "points_possible": 3,
+    "created_at": "2026-11-20T02:37:35.334599",
+    "reset": 0,
+    "student_item_id": 1,
+    "submission_id": 2
+  }
+]
