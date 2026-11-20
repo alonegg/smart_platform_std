@@ -1,0 +1,76 @@
+{
+  "package_id": "synthetic-package-1",
+  "package_type": "teaching",
+  "schema_version": "0.1.0-candidate",
+  "profile_id": "https://example.edu/profile/exchange",
+  "profile_version": "v1",
+  "export_task_id": "synthetic-task-1",
+  "export_scope": {
+    "course_refs": [],
+    "offering_refs": [],
+    "object_types": [
+      "Resource"
+    ],
+    "time_window": {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-01-02T00:00:00Z"
+    },
+    "use_purposes": [
+      "课内教学"
+    ],
+    "grant_refs": [
+      {
+        "object_type": "AccessGrant",
+        "object_id": "https://example.edu/accessgrant/1",
+        "version_id": "v1"
+      }
+    ]
+  },
+  "exported_at": "2026-01-02T00:00:00Z",
+  "objects": [
+    {
+      "object_ref": {
+        "object_type": "Resource",
+        "object_id": "https://example.edu/resource/1",
+        "version_id": "v1"
+      },
+      "path": "resource.json"
+    }
+  ],
+  "files": [
+    {
+      "path": "resource.json",
+      "byte_length": 1773,
+      "sha256": "1254c0f6f215df566a0327b53b3bb7d1ffdc16a036c299b535d8194b74481043",
+      "media_type": "application/json"
+    },
+    {
+      "path": "content.txt",
+      "byte_length": 32,
+      "sha256": "329aff5025de0f6105fbb7076916411cbe1e503177627dd9d1878b0ec498be8a",
+      "media_type": "text/plain"
+    }
+  ],
+  "dependencies": [],
+  "access_requirements": {
+    "scopes": [],
+    "use_purposes": [
+      "课内教学"
+    ]
+  },
+  "portability_level": "references_only",
+  "content_inclusions": {
+    "state_records": "selected",
+    "missing_reasons": "all",
+    "member_snapshots": "all",
+    "assessment_adjustments": "none",
+    "teaching_assignments": "none"
+  },
+  "mapping_losses": [],
+  "exclusions": [],
+  "rights_summary": {
+    "license_identifiers": [],
+    "attribution_texts": [],
+    "restricted_components": []
+  }
+}

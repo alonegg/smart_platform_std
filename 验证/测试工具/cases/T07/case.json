@@ -1,0 +1,90 @@
+{
+  "case_id": "T07",
+  "title": "回执、重送与提交事实",
+  "clauses": [
+    "8.7.3",
+    "8.8"
+  ],
+  "elements": [
+    "OBJ-029",
+    "EVT-013",
+    "EVT-014"
+  ],
+  "profiles": [
+    "P-SUB"
+  ],
+  "bearer": "校级公共服务（可靠保存边界与本地对账）",
+  "handoff": "POST /events → 回执 → GET /reconciliation",
+  "observations": [
+    {
+      "id": "T07-boundary",
+      "description": "accepted durability=evidence_store，source_persisted 仍待源端确认",
+      "clause": "8.7.3",
+      "expected": "accepted durability=evidence_store，source_persisted 仍待源端确认"
+    },
+    {
+      "id": "T07-rejection",
+      "description": "rejected durability=none，completed_stages=[]",
+      "clause": "8.7.3",
+      "expected": "rejected durability=none，completed_stages=[]"
+    },
+    {
+      "id": "T07-lost-retry",
+      "description": "模拟客户端丢弃首次响应后重送 duplicate 引用原回执且事实=1",
+      "clause": "8.7.3",
+      "expected": "模拟客户端丢弃首次响应后重送 duplicate 引用原回执且事实=1"
+    },
+    {
+      "id": "T07-second",
+      "description": "同一任务第二次提交 accepted",
+      "clause": "8.7.3",
+      "expected": "同一任务第二次提交 accepted"
+    },
+    {
+      "id": "T07-withdrawn",
+      "description": "撤回事件 accepted",
+      "clause": "8.7.3",
+      "expected": "撤回事件 accepted"
+    },
+    {
+      "id": "T07-facts",
+      "description": "两次提交及撤回共三事实；传输5、重复1、拒收1",
+      "clause": "8.7.3",
+      "expected": "两次提交及撤回共三事实；传输5、重复1、拒收1"
+    },
+    {
+      "id": "T07-receipts",
+      "description": "受理、拒收、重送回执均通过 WP1",
+      "clause": "8.7.3",
+      "expected": "受理、拒收、重送回执均通过 WP1"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "有效提交选择规则",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-05"
+    },
+    {
+      "scenario": "撤回是否允许（E23b/E24）",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-05"
+    },
+    {
+      "scenario": "自动交卷判定",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-05"
+    },
+    {
+      "scenario": "源端故障与真实网络中断",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-05"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-05",
+    "S-10",
+    "W3-05"
+  ]
+}

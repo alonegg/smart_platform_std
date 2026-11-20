@@ -1,0 +1,96 @@
+{
+  "case_id": "T08-A",
+  "title": "教务接收与旧回执重放",
+  "clauses": [
+    "7.5.4",
+    "8.7"
+  ],
+  "elements": [
+    "OBJ-034",
+    "EVT-020"
+  ],
+  "profiles": [
+    "P-GRD"
+  ],
+  "bearer": "校级公共服务（模拟受控教务接收）",
+  "handoff": "POST /grades/registrar-receipts → GET /grades",
+  "observations": [
+    {
+      "id": "T08-A-proposal",
+      "description": "提议 accepted",
+      "clause": "7.5.4",
+      "expected": "提议 accepted"
+    },
+    {
+      "id": "T08-A-confirmed",
+      "description": "人员确认 accepted",
+      "clause": "7.5.4",
+      "expected": "人员确认 accepted"
+    },
+    {
+      "id": "T08-A-rejected",
+      "description": "教务 rejected 后仍 confirmed，registrar_status=rejected",
+      "clause": "7.5.4",
+      "expected": "教务 rejected 后仍 confirmed，registrar_status=rejected"
+    },
+    {
+      "id": "T08-A-quarantined",
+      "description": "教务 quarantined 后仍 confirmed，registrar_status=quarantined",
+      "clause": "7.5.4",
+      "expected": "教务 quarantined 后仍 confirmed，registrar_status=quarantined"
+    },
+    {
+      "id": "T08-A-version",
+      "description": "版本不符回执拒绝",
+      "clause": "7.5.4",
+      "expected": "版本不符回执拒绝"
+    },
+    {
+      "id": "T08-A-archive",
+      "description": "精确 accepted 回执受理",
+      "clause": "7.5.4",
+      "expected": "精确 accepted 回执受理"
+    },
+    {
+      "id": "T08-A-archived",
+      "description": "accepted 后 archived",
+      "clause": "7.5.4",
+      "expected": "accepted 后 archived"
+    },
+    {
+      "id": "T08-A-correction",
+      "description": "更正提议 accepted",
+      "clause": "7.5.4",
+      "expected": "更正提议 accepted"
+    },
+    {
+      "id": "T08-A-corrected",
+      "description": "更正确认 accepted",
+      "clause": "7.5.4",
+      "expected": "更正确认 accepted"
+    },
+    {
+      "id": "T08-A-old-replay",
+      "description": "旧决定新的回执受理但只关联旧决定",
+      "clause": "7.5.4",
+      "expected": "旧决定新的回执受理但只关联旧决定"
+    },
+    {
+      "id": "T08-A-new-unadvanced",
+      "description": "旧回执重放不推进新更正，仍 confirmed",
+      "clause": "7.5.4",
+      "expected": "旧回执重放不推进新更正，仍 confirmed"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "真实教务归档及正式分数核对",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-06"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-06"
+  ]
+}

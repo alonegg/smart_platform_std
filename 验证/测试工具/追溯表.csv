@@ -1,0 +1,32 @@
+element_id,条款,输出文件,状态,理由
+OBJ-029,7.6；7.2.8；8.7,验证/测试工具/cases/T05/case.json;验证/测试工具/cases/T05/check.py;验证/测试工具/bad_impls/README.md;验证/测试工具/bad_impls/services.py,assumption,合成去重冲突与回执子集；dup-not-deduped/conflict-overwrite 反例正常判失败；W3-02/W3-07
+FLD-EVT-001,7.6；7.2,验证/测试工具/cases/T05/case.json;验证/测试工具/bad_impls/README.md,partial,原事实与首次回执关联；receiver-fields-writable 三字段实际保存并由 T25 检出；W3-07
+FLD-EVT-020,7.6；7.2,验证/测试工具/cases/T05/case.json,partial,原事实包括载荷不覆盖；本步仅使用空提交载荷
+FLD-EVT-022,7.2.8,验证/测试工具/cases/T05/case.json,partial,拒收客户端 auth_context 后修复重试；H-09/S-04
+FLD-EVT-023,7.6；7.2,验证/测试工具/cases/T05/case.json,partial,同键同摘要重送与不同摘要冲突；H-11/S-02
+FLD-MAN-008,8.2.4—8.2.9,验证/测试工具/conformance/package.py,assumption,实际对象与引用一致性子集；W3-01
+FLD-MAN-009,8.2.4—8.2.9,验证/测试工具/conformance/package.py,assumption,文件存在长度摘要与声明覆盖子集；W3-01
+OBJ-004,5.1；5.2；12.2,验证/测试工具/cases/T01/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-005,5.1；5.2；12.2,验证/测试工具/cases/T01/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-006,5.1；5.2；12.2,验证/测试工具/cases/T01/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-008,5.1；5.2；12.2,验证/测试工具/cases/T01/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-009,5.1；5.2；12.2,验证/测试工具/cases/T01/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+FLD-EVT-021,7.2.8；7.6,验证/测试工具/cases/T06/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-013,8.7.3；8.8,验证/测试工具/cases/T07/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-014,8.7.3；8.8,验证/测试工具/cases/T07/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-034,7.5.4；8.7,验证/测试工具/cases/T08-A/case.json;验证/测试工具/bad_impls/README.md;验证/测试工具/bad_impls/services.py,partial,首批合成观察；service-confirms-grade/proposal-in-formal-view 正常判失败；W3-07
+EVT-020,7.5.4；8.7,验证/测试工具/cases/T08-A/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-010,7.5.2；9.2.4,验证/测试工具/cases/T08-C/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-019,7.5.2；9.2.4,验证/测试工具/cases/T08-C/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-018,7.5；9.5,验证/测试工具/cases/T08-P/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-021,7.5.5,验证/测试工具/cases/T08-R/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-037,10.6.5；10.2.1,验证/测试工具/cases/T09/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-038,10.6.5；10.2.1,验证/测试工具/cases/T09/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+EVT-022,10.6.5；10.2.1,验证/测试工具/cases/T09/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-040,10.13.3；10.13.6；9.5.6,验证/测试工具/cases/T10/case.json;验证/测试工具/bad_impls/README.md;验证/测试工具/bad_impls/services.py,partial,首批合成观察；unapproved-method-allowed 未批准/暂停正常判失败；W3-07
+OBJ-041,10.13.3；10.13.6；9.5.6,验证/测试工具/cases/T10/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+FLD-MTH-010,10.13.3；10.13.6；9.5.6,验证/测试工具/cases/T10/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+FLD-MTH-012,10.13.3；10.13.6；9.5.6,验证/测试工具/cases/T10/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据
+OBJ-042,9.2；8.6.6；11.5；9.8.5,验证/测试工具/cases/T11/case.json;验证/测试工具/bad_impls/README.md;验证/测试工具/bad_impls/services.py,partial,首批合成观察；cross-instance-pseudonym 跨实例解析正常判失败；W3-07
+OBJ-044,9.2；8.6.6；11.5；9.8.5,验证/测试工具/cases/T11/case.json;验证/测试工具/bad_impls/README.md;验证/测试工具/bad_impls/services.py,partial,首批合成观察；revocation-ineffective 撤权后访问正常判失败；W3-07
+EVT-003,9.2；8.6.6；11.5；9.8.5,验证/测试工具/cases/T11/case.json,partial,首批合成观察子集；精确预期与未覆盖子场景见用例元数据

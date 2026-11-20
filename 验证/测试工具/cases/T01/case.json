@@ -1,0 +1,86 @@
+{
+  "case_id": "T01",
+  "title": "标识、课程版本与修读轮次",
+  "clauses": [
+    "5.1",
+    "5.2",
+    "12.2"
+  ],
+  "elements": [
+    "OBJ-004",
+    "OBJ-005",
+    "OBJ-006",
+    "OBJ-008",
+    "OBJ-009"
+  ],
+  "profiles": [
+    "P-RES",
+    "P-EDT",
+    "P-SUB"
+  ],
+  "bearer": "主数据/课程版本产生方（合成离线核验）；校级公共服务承载事件",
+  "handoff": "WP1 对象校验 → POST /events → GET /events",
+  "observations": [
+    {
+      "id": "T01-contracts",
+      "description": "全部合成对象通过 WP1",
+      "clause": "5.1",
+      "expected": "全部合成对象通过 WP1"
+    },
+    {
+      "id": "T01-identifiers",
+      "description": "两个课程版本的 object_id/version_id 不同；两个开课及修读轮次标识不同",
+      "clause": "5.1",
+      "expected": "两个课程版本的 object_id/version_id 不同；两个开课及修读轮次标识不同"
+    },
+    {
+      "id": "T01-prior",
+      "description": "重修轮次 prior_round_ref 解析到首轮",
+      "clause": "5.1",
+      "expected": "重修轮次 prior_round_ref 解析到首轮"
+    },
+    {
+      "id": "T01-old-version",
+      "description": "TaskAttempt 经具体 LearningActivity 版本引用旧 CourseVersion；latest 反例拒绝",
+      "clause": "5.1",
+      "expected": "TaskAttempt 经具体 LearningActivity 版本引用旧 CourseVersion；latest 反例拒绝"
+    },
+    {
+      "id": "T01-missing-prior",
+      "description": "缺 prior_round_ref 的重修反例被 WP1 拒绝",
+      "clause": "5.1",
+      "expected": "缺 prior_round_ref 的重修反例被 WP1 拒绝"
+    },
+    {
+      "id": "T01-send1",
+      "description": "首轮 submission 事件 accepted",
+      "clause": "5.1",
+      "expected": "首轮 submission 事件 accepted"
+    },
+    {
+      "id": "T01-send2",
+      "description": "重修轮次 submission 事件 accepted",
+      "clause": "5.1",
+      "expected": "重修轮次 submission 事件 accepted"
+    },
+    {
+      "id": "T01-facts",
+      "description": "两条事实通过不同 attempt_ref 分别可查",
+      "clause": "5.1",
+      "expected": "两条事实通过不同 attempt_ref 分别可查"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "真实主数据同步与跨平台历史解析",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-04"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "H-16",
+    "H-21",
+    "W3-04"
+  ]
+}

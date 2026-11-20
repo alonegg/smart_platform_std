@@ -1,0 +1,80 @@
+{
+  "case_id": "T08-C",
+  "title": "人员确认与授课资格",
+  "clauses": [
+    "7.5.2",
+    "9.2.4"
+  ],
+  "elements": [
+    "OBJ-010",
+    "OBJ-034",
+    "EVT-019"
+  ],
+  "profiles": [
+    "P-GRD"
+  ],
+  "bearer": "校级公共服务（人员授权与授课有效性核验）",
+  "handoff": "授权/授课安排 → POST /grades/confirmations",
+  "observations": [
+    {
+      "id": "T08-C-proposal",
+      "description": "合成提议 accepted",
+      "clause": "7.5.2",
+      "expected": "合成提议 accepted"
+    },
+    {
+      "id": "T08-C-confirmed",
+      "description": "有效安排的 delegated 授权教师确认 accepted",
+      "clause": "7.5.2",
+      "expected": "有效安排的 delegated 授权教师确认 accepted"
+    },
+    {
+      "id": "T08-C-trace",
+      "description": "confirmed_by 包含教师及 client_id",
+      "clause": "7.5.2",
+      "expected": "confirmed_by 包含教师及 client_id"
+    },
+    {
+      "id": "T08-C-proposal2",
+      "description": "第二条待确认提议 accepted",
+      "clause": "7.5.2",
+      "expected": "第二条待确认提议 accepted"
+    },
+    {
+      "id": "T08-C-unauthorized",
+      "description": "无授课资格人员确认 rejected",
+      "clause": "7.5.2",
+      "expected": "无授课资格人员确认 rejected"
+    },
+    {
+      "id": "T08-C-service",
+      "description": "client_credentials 确认 rejected",
+      "clause": "7.5.2",
+      "expected": "client_credentials 确认 rejected"
+    },
+    {
+      "id": "T08-C-expired",
+      "description": "已过期授课安排人员确认 rejected",
+      "clause": "7.5.2",
+      "expected": "已过期授课安排人员确认 rejected"
+    },
+    {
+      "id": "T08-C-proposal-archive",
+      "description": "未确认提议不能接收教务归档回执",
+      "clause": "7.5.2",
+      "expected": "未确认提议不能接收教务归档回执"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "真实学校人员资格和身份认证",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-07"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-06",
+    "S-07"
+  ]
+}

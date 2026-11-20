@@ -1,0 +1,100 @@
+{
+  "case_id": "T10",
+  "title": "方法用途与 AI 准入",
+  "clauses": [
+    "10.13.3",
+    "10.13.6",
+    "9.5.6"
+  ],
+  "elements": [
+    "OBJ-040",
+    "OBJ-041",
+    "FLD-MTH-010",
+    "FLD-MTH-012"
+  ],
+  "profiles": [
+    "P-DIA"
+  ],
+  "bearer": "校级公共服务（方法登记与在线准入）",
+  "handoff": "方法登记/批准 → 准入查询 → 暂停 → 历史",
+  "observations": [
+    {
+      "id": "T10-register",
+      "description": "合成方法登记 accepted",
+      "clause": "10.13.3",
+      "expected": "合成方法登记 accepted"
+    },
+    {
+      "id": "T10-unapproved",
+      "description": "已登记未批准 allow=false",
+      "clause": "10.13.3",
+      "expected": "已登记未批准 allow=false"
+    },
+    {
+      "id": "T10-approve",
+      "description": "批准用途/人群/后果等级 accepted",
+      "clause": "10.13.3",
+      "expected": "批准用途/人群/后果等级 accepted"
+    },
+    {
+      "id": "T10-allow",
+      "description": "获批用途 allow=true",
+      "clause": "10.13.3",
+      "expected": "获批用途 allow=true"
+    },
+    {
+      "id": "T10-purpose",
+      "description": "未获批用途 allow=false",
+      "clause": "10.13.3",
+      "expected": "未获批用途 allow=false"
+    },
+    {
+      "id": "T10-population",
+      "description": "超出人群 allow=false",
+      "clause": "10.13.3",
+      "expected": "超出人群 allow=false"
+    },
+    {
+      "id": "T10-suspend",
+      "description": "暂停 accepted",
+      "clause": "10.13.3",
+      "expected": "暂停 accepted"
+    },
+    {
+      "id": "T10-history",
+      "description": "暂停后 allow=false；历史保留 approved/suspended 两条",
+      "clause": "10.13.3",
+      "expected": "暂停后 allow=false；历史保留 approved/suspended 两条"
+    },
+    {
+      "id": "T10-ordinary",
+      "description": "授权内普通 AI 答疑 allow=true",
+      "clause": "10.13.3",
+      "expected": "授权内普通 AI 答疑 allow=true"
+    },
+    {
+      "id": "T10-no-method",
+      "description": "掌握推断无方法拒绝",
+      "clause": "10.13.3",
+      "expected": "掌握推断无方法拒绝"
+    },
+    {
+      "id": "T10-outside-purpose",
+      "description": "授权外用途拒绝",
+      "clause": "10.13.3",
+      "expected": "授权外用途拒绝"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "不同量尺跨应用迁移不混算",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-08"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "H-24",
+    "S-08"
+  ]
+}

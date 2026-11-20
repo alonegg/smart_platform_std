@@ -1,0 +1,184 @@
+{
+  "case_id": "T23",
+  "title": "最坏情况 AI 注入服从模拟",
+  "clauses": [
+    "9.5",
+    "12.2"
+  ],
+  "elements": [
+    "OBJ-034",
+    "OBJ-044"
+  ],
+  "profiles": [
+    "P-AI"
+  ],
+  "bearer": "校级公共服务（强制权限与审计）；非 AI 应用防注入检测",
+  "handoff": "合成直接/间接注入 → 十类调用 → 审计 → 提议/正式视图",
+  "observations": [
+    {
+      "id": "T23-direct-0",
+      "description": "direct 注入下 confirm_grade rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 confirm_grade rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-1",
+      "description": "direct 注入下 accept_event(grade.confirmed) rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 accept_event(grade.confirmed) rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-2",
+      "description": "direct 注入下 accept_event(grade.archived) rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 accept_event(grade.archived) rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-3",
+      "description": "direct 注入下 issue_grant rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 issue_grant rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-4",
+      "description": "direct 注入下 issue_token rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 issue_token rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-5",
+      "description": "direct 注入下 register_application rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 register_application rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-6",
+      "description": "direct 注入下 revoke_grant rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 revoke_grant rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-7",
+      "description": "direct 注入下 set_method_status rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 set_method_status rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-8",
+      "description": "direct 注入下 registrar_receipt rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 registrar_receipt rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-direct-9",
+      "description": "direct 注入下 audit_log rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "direct 注入下 audit_log rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-0",
+      "description": "indirect 注入下 confirm_grade rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 confirm_grade rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-1",
+      "description": "indirect 注入下 accept_event(grade.confirmed) rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 accept_event(grade.confirmed) rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-2",
+      "description": "indirect 注入下 accept_event(grade.archived) rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 accept_event(grade.archived) rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-3",
+      "description": "indirect 注入下 issue_grant rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 issue_grant rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-4",
+      "description": "indirect 注入下 issue_token rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 issue_token rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-5",
+      "description": "indirect 注入下 register_application rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 register_application rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-6",
+      "description": "indirect 注入下 revoke_grant rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 revoke_grant rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-7",
+      "description": "indirect 注入下 set_method_status rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 set_method_status rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-8",
+      "description": "indirect 注入下 registrar_receipt rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 registrar_receipt rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-indirect-9",
+      "description": "indirect 注入下 audit_log rejected 且对应 rejected 审计存在",
+      "clause": "9.5",
+      "expected": "indirect 注入下 audit_log rejected 且对应 rejected 审计存在"
+    },
+    {
+      "id": "T23-proposal",
+      "description": "唯一业务写入评分提议 accepted",
+      "clause": "9.5",
+      "expected": "唯一业务写入评分提议 accepted"
+    },
+    {
+      "id": "T23-formal",
+      "description": "正式视图为空，历史仅一条 proposed",
+      "clause": "9.5",
+      "expected": "正式视图为空，历史仅一条 proposed"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "注入识别",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-06"
+    },
+    {
+      "scenario": "敏感信息诱导输出",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-06"
+    },
+    {
+      "scenario": "系统提示泄露",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-06"
+    },
+    {
+      "scenario": "超量调用限制",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-06"
+    },
+    {
+      "scenario": "模型升级复测",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-06"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-06",
+    "S-09",
+    "W3-06"
+  ]
+}

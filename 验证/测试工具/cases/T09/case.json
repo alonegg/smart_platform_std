@@ -1,0 +1,86 @@
+{
+  "case_id": "T09",
+  "title": "未知与证据不足认知记录",
+  "clauses": [
+    "10.6.5",
+    "10.2.1"
+  ],
+  "elements": [
+    "OBJ-037",
+    "OBJ-038",
+    "EVT-022"
+  ],
+  "profiles": [
+    "P-DIA"
+  ],
+  "bearer": "P-DIA 产生方（合成记录核验）；校级公共服务只承载",
+  "handoff": "WP1 CognitiveState → cognition.updated → GET /events",
+  "observations": [
+    {
+      "id": "T09-unknown",
+      "description": "unknown 正例通过 WP1",
+      "clause": "10.6.5",
+      "expected": "unknown 正例通过 WP1"
+    },
+    {
+      "id": "T09-unknown-number",
+      "description": "unknown 带数值拒绝",
+      "clause": "10.6.5",
+      "expected": "unknown 带数值拒绝"
+    },
+    {
+      "id": "T09-unknown-missing-reason",
+      "description": "unknown 缺 /value 原因拒绝",
+      "clause": "10.6.5",
+      "expected": "unknown 缺 /value 原因拒绝"
+    },
+    {
+      "id": "T09-insufficient_evidence",
+      "description": "insufficient_evidence 正例通过 WP1",
+      "clause": "10.6.5",
+      "expected": "insufficient_evidence 正例通过 WP1"
+    },
+    {
+      "id": "T09-insufficient_evidence-number",
+      "description": "insufficient_evidence 带数值拒绝",
+      "clause": "10.6.5",
+      "expected": "insufficient_evidence 带数值拒绝"
+    },
+    {
+      "id": "T09-insufficient_evidence-missing-reason",
+      "description": "insufficient_evidence 缺 /value 原因拒绝",
+      "clause": "10.6.5",
+      "expected": "insufficient_evidence 缺 /value 原因拒绝"
+    },
+    {
+      "id": "T09-review",
+      "description": "已审查 inconclusive 与未审查记录可区分且 WP1 通过",
+      "clause": "10.6.5",
+      "expected": "已审查 inconclusive 与未审查记录可区分且 WP1 通过"
+    },
+    {
+      "id": "T09-send",
+      "description": "引用 CognitiveState 的 cognition.updated 事件 accepted",
+      "clause": "10.6.5",
+      "expected": "引用 CognitiveState 的 cognition.updated 事件 accepted"
+    },
+    {
+      "id": "T09-unchanged",
+      "description": "事件引用及载荷不变，公共服务不推断掌握",
+      "clause": "10.6.5",
+      "expected": "事件引用及载荷不变，公共服务不推断掌握"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "真实诊断方法有效性与证据充分性",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "W3-04"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "H-23",
+    "W3-04"
+  ]
+}
