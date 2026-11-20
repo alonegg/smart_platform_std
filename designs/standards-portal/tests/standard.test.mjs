@@ -2,9 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { marked } from "marked";
+import { root, sourcePath } from "../scripts/content.mjs";
+import path from "node:path";
 
 const source = await readFile(
-  new URL("../../../标准/评审稿/智慧教学-数据模型标准.md", import.meta.url),
+  path.join(root, sourcePath),
   "utf8",
 );
 const section = (start, end) => {

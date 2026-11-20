@@ -4,10 +4,12 @@ import path from "node:path";
 import { build } from "esbuild";
 import { pathToFileURL } from "node:url";
 import { generateContent, project, root } from "./content.mjs";
+import { isR2 } from "./edition.mjs";
+import { r2Aliases } from "./r2-aliases.mjs";
 const data = await generateContent();
 await writeFile(
   path.join(project, "server/document-info.json"),
-  JSON.stringify({ sourceSha: data.sourceSha256 }),
+  JSON.stringify({ sourceSha: data.sourceSha256, ...(isR2 ? { edition: "r2" } : {}) }),
 );
 execFileSync(path.join(project, "node_modules/.bin/vite"), ["build"], {
   cwd: project,
@@ -23,6 +25,12 @@ try {
     format: "cjs",
     outfile: path.join(scratch, "render.cjs"),
     define: { "process.env.NODE_ENV": '"production"' },
+    ...(isR2 ? {
+      loader: { ".css": "empty" },
+      plugins: [{ name: "r2-edition", setup(build) {
+        build.onResolve({ filter: /^\.\/(App|Consultation|registration|Topics)\.jsx$/ }, (args) => ({ path: r2Aliases[args.path] }));
+      } }],
+    } : {}),
     logLevel: "warning",
   });
   const { render, routes } = await import(
@@ -44,6 +52,7 @@ try {
     "/responses/": "意见处理情况",
     "/privacy/": "登记与意见信息处理说明",
     "/admin/": "阅读者登记管理",
+    "/compare/": "条款对照",
   };
   for (const route of [...routes, "/admin/", "/404/"]) {
     const section = data.sections.find((s) => route === `/read/${s.key}/`);
@@ -53,7 +62,7 @@ try {
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
       .replace(
         "</head>",
-        `<link rel="canonical" href="https://stds.chunlin.ch${route}" /></head>`,
+        `${isR2 ? '<meta name="robots" content="noindex">' : ""}<link rel="canonical" href="https://${isR2 ? "r2.stds.chunlin.ch" : "stds.chunlin.ch"}${route}" /></head>`,
       );
     const output =
       route === "/404/"
@@ -64,12 +73,13 @@ try {
   }
   await writeFile(
     path.join(project, "dist/sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>https://stds.chunlin.ch${route}</loc></url>`).join("")}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>https://${isR2 ? "r2.stds.chunlin.ch" : "stds.chunlin.ch"}${route}</loc></url>`).join("")}</urlset>`,
   );
   await writeFile(
     path.join(project, "dist/robots.txt"),
-    "User-agent: *\nAllow: /\nSitemap: https://stds.chunlin.ch/sitemap.xml\n",
+    isR2 ? "User-agent: *\nDisallow: /\n" : "User-agent: *\nAllow: /\nSitemap: https://stds.chunlin.ch/sitemap.xml\n",
   );
+  if (isR2) await writeFile(path.join(project, "dist/_headers"), "/*\n  X-Robots-Tag: noindex\n  Cache-Control: private, no-store\n");
   console.info(
     `Prerendered ${routes.length} pages; ${data.sections.length} source sections; ${data.pending.length} pending decisions.`,
   );

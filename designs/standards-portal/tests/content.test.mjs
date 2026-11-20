@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
+import { expected } from "../scripts/edition.mjs";
 import {
   root,
   project,
@@ -97,12 +98,12 @@ test("download bytes match original controlled files and manifest", async () => 
   }
 });
 
-test("29 canonical pages are indexed, with a separate 404", async () => {
+test("edition-specific canonical pages are indexed, with a separate 404", async () => {
   const sitemap = await readFile(
     path.join(project, "dist/sitemap.xml"),
     "utf8",
   );
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 29);
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, expected.pages);
   assert.ok(
     (await readFile(path.join(project, "dist/404.html"), "utf8")).includes(
       "页面未找到",

@@ -267,6 +267,13 @@ async function adminApi(request, env, url) {
 
 export async function handleRequest(request, env) {
   const url = new URL(request.url);
+  const preview = documentInfo.edition === "r2" || env.PORTAL_EDITION === "r2";
+  if (preview && env.REQUIRE_ACCESS !== "true")
+    return json({ error: "内部预览必须开启 Cloudflare Access。" }, 503);
+  if (env.REQUIRE_ACCESS === "true" && !(await verifyAccess(request, env, fetch, { adminOnly: false })))
+    return json({ error: "请通过 Cloudflare Access 登录。" }, 401);
+  if (preview && (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin/api/")))
+    return json({ error: "内部预览不提供登记、意见提交或数据库服务。" }, 403);
   if (
     url.protocol !== "https:" &&
     !["localhost", "127.0.0.1"].includes(url.hostname)
@@ -462,21 +469,30 @@ export async function handleRequest(request, env) {
 
 export default {
   async fetch(request, env) {
+    let response;
     try {
-      return await handleRequest(request, {
+      response = await handleRequest(request, {
         ...env,
         DOCUMENT_SHA: documentInfo.sourceSha,
       });
     } catch (error) {
-      if (error instanceof Error && /请|登记字段|登记内容|提交内容|意见/.test(error.message))
-        return message(error.message);
-      return json(
+      response = error instanceof Error && /请|登记字段|登记内容|提交内容|意见/.test(error.message)
+        ? message(error.message)
+        : json(
         { error: "服务暂时不可用，信息尚未确认保存。请稍后重试。" },
         503,
       );
     }
+    if (documentInfo.edition === "r2" || env.PORTAL_EDITION === "r2") {
+      response = new Response(response.body, response);
+      response.headers.set("X-Robots-Tag", "noindex");
+      response.headers.set("Cache-Control", "private, no-store");
+      response.headers.set("Vary", "Cf-Access-Jwt-Assertion");
+    }
+    return response;
   },
   async scheduled(event, env) {
+    if (documentInfo.edition === "r2" || env.PORTAL_EDITION === "r2") return;
     await env.READERS_DB.prepare(
       "DELETE FROM reader_registrations WHERE expires_at <= ?",
     )

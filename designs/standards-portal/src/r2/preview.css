@@ -1,0 +1,17 @@
+.r2-edition-bar { position: relative; z-index: 60; display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; padding: 12px 28px; background: #183e35; color: #fff; font-size: 14px; }
+.r2-edition-bar nav { display: flex; flex-wrap: wrap; gap: 20px; }
+.r2-edition-bar a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.topic-page.r2-compare { max-width: 1600px; margin: auto; padding: 40px 28px; }
+.r2-filter { display: flex; align-items: center; gap: 10px; padding: 14px 0; font-weight: 600; }
+.r2-filter input { width: 18px; height: 18px; }
+.r2-comparison { border: 1px solid #d5ded8; border-radius: 8px; padding: 20px; margin: 24px 0; background: #fff; }
+.r2-comparison.changed { border-left: 4px solid #2f7558; }
+.r2-comparison h2 { margin-top: 0; }
+.r2-comparison h2 small { font-size: 14px; margin-left: 12px; color: #526258; }
+.r2-references { overflow-wrap: anywhere; }
+.r2-references a { color: #215c45; text-decoration: underline; }
+.r2-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.r2-columns > div { min-width: 0; }
+.r2-columns pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.9; color: #263e32; }
+.r2-comparison.changed .r2-columns > div:last-child { background: #f0f7f1; padding: 0 14px; border-radius: 4px; }
+@media (max-width: 760px) { .r2-columns { grid-template-columns: 1fr; } .topic-page.r2-compare { padding: 24px 14px; } .r2-comparison { padding: 14px; } }

@@ -2,6 +2,96 @@
 
 公开站点：<https://stds.chunlin.ch>。用于应用厂商、标准专家审阅、评议和提出意见。
 
+## 第2轮修订稿预览站
+
+这是受 Cloudflare Access 保护的内部维护预览，不是现行征求意见稿，不部署到默认站点。
+`PORTAL_EDITION=r2` 选择 `维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.md`，
+固定源提交为 `0ebb33034179adde310f4616fba06365f959337e`；默认版仍使用原受控源与提交。
+正文、全文检索及标准 Word/PDF/Markdown 下载均使用修订稿；评议意见汇总表沿用现有文件。
+Word 使用 Pandoc 与当前 reference-doc 生成，表格过滤器只补齐相对列宽，防止自动布局越过页边界；PDF 使用 LibreOffice Writer 从该 Word 导出。
+默认版仍为 786 个条款单元、56 张表；r2 为 805 个单元、57 张表，19 个分节与附录 A 的 288 格矩阵不变。
+预览站顶部始终标明“第2轮修订稿预览，非现行征求意见稿”，不改 `consultation.json`。
+
+内部 `/compare/` 按 `docmodel.py` 的条款单元并排展示两版全文，默认只看 19 项新增和 8 项修改，
+可取消“只看改动”查看全部条款。修订编号、Issue 来自修订清单，与 `make_diff.py` 共用解析逻辑；
+未关联 Issue 的项明确标注，不虚构链接。对照数据仅进入 r2 页面资源，不进入全文搜索索引或下载文件。
+默认版不生成该页、对照数据或导航入口。
+构建及测试均强制检查 `wrangler.r2.jsonc` 的 `REQUIRE_ACCESS` 必须为字符串 `"true"`，
+同时要求 `PORTAL_EDITION: "r2"` 和 `run_worker_first: true`，否则失败。
+
+### 从零开始本地构建
+
+需要 Node.js 22.12+、npm、Python 3.11+；重新生成 Word 另需 Pandoc。
+以下命令从仓库根目录开始；应使用完整 Git 历史，浅克隆先执行 `git fetch --unshallow origin`。
+
+```bash
+cd designs/standards-portal
+npm ci
+PORTAL_EDITION=r2 npm run build
+PORTAL_EDITION=r2 npm test
+# 等价构建快捷命令：npm run build:r2
+# 仅本机静态预览（没有 Access，不可暴露到公网）
+npm run preview
+# 浏览器检查内部对照筛选与禁用意见页；另一个终端执行
+PORTAL_EDITION=r2 PORTAL_TEST_URL=http://127.0.0.1:4311 npm run test:browser -- tests/r2.spec.js
+```
+
+切换默认版前必须重新 `npm run build && npm test`，不要部署上一次 r2 的 dist。
+默认测试执行所有单元测试；r2 执行同一组正文/搜索/下载检查、修订结构检查和预览安全测试。
+仅现有登记写入/征求意见程序测试不在 r2 执行，因为它们的可写业务断言与只读预览相反，仍由默认版完整执行。
+
+### 用户自行创建资源与部署
+
+本任务不部署、不申请 Cloudflare 凭证，也不创建云端资源。由部署者在本机完成授权后执行：
+
+```bash
+cd designs/standards-portal  # 若当前已在此目录则省略
+npm exec -- wrangler login
+npm exec -- wrangler d1 create smart-platform-stds-r2-readers
+# 将返回的 database_id 填入 wrangler.r2.jsonc 的占位符，绝不能复制生产数据库 id。
+# 在 Cloudflare Zero Trust 后台为 r2.stds.chunlin.ch 单独创建 Self-hosted Access 应用。
+# 为内部读者配置 Allow 策略；将 Team Domain 和该应用 AUD 填入配置的 ACCESS_TEAM_DOMAIN/ACCESS_AUD。
+# 必须保留 REQUIRE_ACCESS="true"、PORTAL_EDITION="r2"、run_worker_first=true。
+npm exec -- wrangler d1 migrations apply smart-platform-stds-r2-readers --remote -c wrangler.r2.jsonc
+PORTAL_EDITION=r2 npm run build
+PORTAL_EDITION=r2 npm test
+npm exec -- wrangler deploy -c wrangler.r2.jsonc
+# 后续可用 npm run deploy:r2（构建、测试后使用独立配置部署）。
+```
+
+预览域名为 <https://r2.stds.chunlin.ch>，Worker `smart-platform-stds-r2`，D1 `smart-platform-stds-r2-readers`，
+限流 namespace 独立；数据库 id、Access Team Domain 和 r2 应用 AUD 必须由部署者填写。
+Access 应用策略决定内部读者范围；Worker 仍核验签名、issuer、audience 与有效期，不只信任邮箱头。
+管理端还额外要求 `ADMIN_EMAIL`，普通获准预览用户不会因此获得管理权限。
+所有路径（包括下载、JS、robots、API、错误响应）均经过 Worker；r2 未开启 Access 时拒绝服务，
+未通过 JWT 校验时拒绝访问，不因无索引标识而放松鉴权。
+
+r2 的 robots 为全站 `Disallow: /`，所有 Worker 响应及静态 `_headers` 含 `X-Robots-Tag: noindex`，
+全部预渲染页面（含 404、管理页）含 noindex meta。响应禁止共享缓存。
+意见页面无表单、提交按钮禁用；Worker 在数据库分发前拒绝所有业务 API，登记与定时清理也停用，
+不连接生产数据库。独立 D1 及迁移保留以保持部署结构独立，不代表预览允许收集数据。
+本机 `npm run preview` 仅用于静态界面检查，不验证线上 Access；上线后须分别核对匿名请求拒绝、
+获准用户可读、普通读者不能管理、意见 POST 拒绝，以及 noindex、下载与 `/version.json`。
+
+**r2 若将来转为公开征求意见稿，必须去掉 `/compare/` 和预览标识，并按 `AGENTS.md` 重新检查，
+重新选定受控正文、下载、检索与程序信息后再发布；不得仅关闭 Access 将本预览站公开。**
+
+### 重新生成预览下载文稿
+
+在仓库根目录执行，保留当前 Word 参考文档的样式；只新增生成物，不修改修订稿正文：
+
+```bash
+pandoc 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.md --reference-doc=标准/评审稿/智慧教学-数据模型标准.docx --lua-filter=designs/standards-portal/scripts/r2-table-widths.lua -o 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.docx
+# 需安装 LibreOffice Writer（仅安装 core 无法载入 Word）与 Noto 中文字体。
+libreoffice -env:UserInstallation=file://$HOME/.cache/lo-r2-preview --headless --convert-to pdf --outdir 维护/第2轮修订稿 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.docx
+pdffonts 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.pdf
+```
+
+重新生成后应核对正文和 57 张表的完整性、中文字体及分页，而不仅检查文件是否存在。
+若本机不能生成并验证 PDF，必须显式从 r2 下载清单移除 PDF 并说明原因，不得回退到默认版 PDF。
+
+## 默认站点发布开关
+
 发布开关：`wrangler.jsonc` 的 `PUBLICATION_PAUSED` 设为 `"true"` 时，Worker 统一返回暂停说明；当前为 `"false"`（正常发布），正文、附件、搜索数据、前端资源、阅读登记和管理页面均经过该入口，避免从深链接继续读取已暂停的内容。普通请求返回 HTTP 503、`Retry-After` 和 `no-store`；`robots.txt` 返回全站暂停抓取规则。暂停页面无需 JavaScript，也不加载原站点资源。受控文稿与既有登记数据保留，原有到期清理任务继续运行。
 
 恢复发布须明确将 `wrangler.jsonc` 的 `PUBLICATION_PAUSED` 改为 `"false"`，核对选定的受控评审稿，执行构建、测试和部署，再验收公网阅读、检索、下载及登记功能。`run_worker_first: true` 保证所有静态资源也受发布开关控制；不应通过跳过 Worker 恢复访问。

@@ -5,7 +5,7 @@ const decode = (part) =>
   );
 const parse = (part) => JSON.parse(new TextDecoder().decode(decode(part)));
 
-export async function verifyAccess(request, env, fetchKeys = fetch) {
+export async function verifyAccess(request, env, fetchKeys = fetch, { adminOnly = true } = {}) {
   const token = request.headers.get("Cf-Access-Jwt-Assertion");
   if (
     !token ||
@@ -33,7 +33,8 @@ export async function verifyAccess(request, env, fetchKeys = fetch) {
       (claims.nbf !== undefined &&
         (!Number.isFinite(claims.nbf) || claims.nbf > now + 30)) ||
       typeof claims.email !== "string" ||
-      claims.email.toLowerCase() !== env.ADMIN_EMAIL?.toLowerCase()
+      !claims.email ||
+      (adminOnly && claims.email.toLowerCase() !== env.ADMIN_EMAIL?.toLowerCase())
     )
       return null;
     let cached = keyCache.get(issuer);

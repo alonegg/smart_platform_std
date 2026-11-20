@@ -4,11 +4,11 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { marked } from "marked";
+import { checkEditionConfig, expected, isR2, sourcePath, sourceCommit } from "./edition.mjs";
+export { sourcePath, sourceCommit } from "./edition.mjs";
 
 export const project = fileURLToPath(new URL("../", import.meta.url));
 export const root = path.resolve(project, "../..");
-export const sourcePath = "标准/评审稿/智慧教学-数据模型标准.md";
-export const sourceCommit = "904d37a9797a4ad2ab238b5e00946e8a9dcbfdd7";
 export const standardTitle = "智慧教学-数据模型标准";
 export const sourceBase = `https://github.com/alonegg/smart_platform_std/blob/${sourceCommit}/`;
 const digest = (text) => createHash("sha256").update(text).digest("hex");
@@ -93,6 +93,7 @@ function tableRows(body, heading) {
 }
 
 export async function generateContent() {
+  await checkEditionConfig();
   const markdown = await readFile(path.join(root, sourcePath), "utf8");
   const controlled = execFileSync(
     "git",
@@ -146,7 +147,7 @@ export async function generateContent() {
   });
   const data = {
     title: standardTitle,
-    version: "征求意见稿",
+    version: isR2 ? "第2轮修订稿预览" : "征求意见稿",
     date: "2026-11-10",
     synced: "2026-11-10",
     sourceCommit,
@@ -212,14 +213,33 @@ export async function generateContent() {
       },
     ],
   };
+  if (isR2) {
+    data.edition = "r2";
+    for (const item of data.downloads.filter((item) => item.from.startsWith("维护/"))) {
+      item.title = item.title.replace(" · ", " · 第2轮修订稿 · ");
+      item.description = item.type === "MD" ? "与预览站在线全文一致" : "第2轮修订稿，仅供内部核对";
+    }
+    const comparison = JSON.parse(execFileSync("python3", ["-B", path.join(project, "scripts/comparison.py")], { cwd: root, encoding: "utf8" }));
+    const count = (kind) => comparison.filter((row) => row.kind === kind).length;
+    if (comparison.length !== expected.units || count("新增") !== 19 || count("修改") !== 8 || count("删除") !== 0)
+      throw new Error("Unexpected r2 clause comparison structure");
+    await writeFile(path.join(project, "src/r2/comparison.json"), JSON.stringify(comparison));
+  } else {
+    await rm(path.join(project, "src/r2/comparison.json"), { force: true });
+  }
+  const units = 1 + markdown.split("\n").filter((line) => /^(?:#{1,4}\s+|\d{1,2}(?:\.\d{1,2}){2,3}\s|[A-E]\.\d{1,2}(?:\.\d{1,2})?\s)/.test(line)).length;
   if (
-    sections.length !== 19 ||
-    profiles.length !== 9 ||
-    triggers.length !== 17 ||
-    pending.length !== 30 ||
-    phases.length !== 6 ||
-    matrixTables.length !== 4 ||
-    matrixTables.some((table) => table.rows.length !== 9)
+    sections.length !== expected.sections ||
+    units !== expected.units ||
+    marked.lexer(markdown).filter((token) => token.type === "table").length !== expected.tables ||
+    profiles.length !== expected.profiles ||
+    groups.length !== expected.groups ||
+    triggers.length !== expected.triggers ||
+    pending.length !== expected.pending ||
+    phases.length !== expected.phases ||
+    matrixTables.length !== expected.matrices ||
+    matrixTables.some((table) => table.rows.length !== expected.matrixRows) ||
+    matrixTables.reduce((sum, table) => sum + table.rows.length * table.columns.length, 0) !== expected.cells
   ) {
     throw new Error(
       `Incomplete source extraction: ${JSON.stringify({ sections: sections.length, profiles: profiles.length, pending: pending.length, phases: phases.length, matrices: matrixTables.length })}`,
@@ -262,7 +282,7 @@ export async function generateContent() {
         version: data.version,
         sourceCommit,
         sourceSha256: data.sourceSha256,
-        documentStatus: "征求意见稿",
+        documentStatus: data.version,
         siteCommit: execFileSync("git", ["rev-parse", "HEAD"], {
           cwd: root,
           encoding: "utf8",
