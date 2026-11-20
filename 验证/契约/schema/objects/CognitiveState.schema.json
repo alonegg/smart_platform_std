@@ -1,0 +1,561 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/CognitiveState.schema.json",
+  "x-clause": "10.3 表10-1；10.6.5",
+  "x-elements": [
+    "OBJ-037"
+  ],
+  "x-assumption": [
+    "H-23",
+    "H-14"
+  ],
+  "x-rule-id": "R-COGNITIVESTATE-001",
+  "x-hint": "补齐 version_id、learner_ref、enrollment_id、target_ref、dimension、origin_type、estimate_status、uncertainty、evidence_links、context、evidence_window、as_of、valid_until、use_purposes、consequence_level；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "CognitiveState"
+        },
+        "object_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier",
+          "x-elements": [
+            "FLD-COG-001"
+          ]
+        },
+        "version_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier",
+          "x-elements": [
+            "FLD-COG-001"
+          ]
+        },
+        "learner_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-002"
+          ]
+        },
+        "enrollment_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier",
+          "x-elements": [
+            "FLD-COG-002"
+          ]
+        },
+        "target_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "KnowledgePoint",
+            "LearningObjective",
+            "Competency"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "KnowledgePoint",
+                "LearningObjective",
+                "Competency"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-003"
+          ]
+        },
+        "dimension": {
+          "enum": [
+            "conceptual_understanding",
+            "procedural_skill",
+            "transfer",
+            "misconception"
+          ],
+          "x-elements": [
+            "FLD-COG-004"
+          ]
+        },
+        "origin_type": {
+          "enum": [
+            "observation",
+            "model_inference",
+            "teacher_judgment",
+            "self_report"
+          ],
+          "x-elements": [
+            "FLD-COG-005"
+          ]
+        },
+        "estimate_status": {
+          "enum": [
+            "unknown",
+            "insufficient_evidence",
+            "estimated"
+          ],
+          "x-elements": [
+            "FLD-COG-006"
+          ]
+        },
+        "value": {
+          "x-elements": [
+            "FLD-COG-007"
+          ]
+        },
+        "scale_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Scale"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Scale"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-007"
+          ]
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "explanation": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "type",
+                "source",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-elements": [
+            "FLD-COG-008"
+          ]
+        },
+        "evidence_links": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "EvidenceLink.schema.json"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-elements": [
+            "FLD-COG-009"
+          ]
+        },
+        "method_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "MethodRegistration"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "MethodRegistration"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-010"
+          ]
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "difficulty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "assistance": {
+              "enum": [
+                "independent",
+                "assisted"
+              ]
+            },
+            "attempt_ref": {
+              "$ref": "../common.schema.json#/$defs/ObjectRef",
+              "x-target-types": [
+                "TaskAttempt"
+              ],
+              "properties": {
+                "object_type": {
+                  "enum": [
+                    "TaskAttempt"
+                  ]
+                }
+              }
+            },
+            "language": {
+              "type": "string",
+              "minLength": 1
+            },
+            "extensions": {
+              "$ref": "../common.schema.json#/$defs/Extensions"
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-COG-011"
+          ]
+        },
+        "evidence_window": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "$ref": "../common.schema.json#/$defs/Timestamp"
+            },
+            "end": {
+              "$ref": "../common.schema.json#/$defs/Timestamp"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-COG-012"
+          ]
+        },
+        "as_of": {
+          "$ref": "../common.schema.json#/$defs/Timestamp",
+          "x-elements": [
+            "FLD-COG-012"
+          ]
+        },
+        "valid_until": {
+          "$ref": "../common.schema.json#/$defs/Timestamp",
+          "x-elements": [
+            "FLD-COG-012"
+          ]
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "reviewer_ref": {
+              "$ref": "../common.schema.json#/$defs/ObjectRef",
+              "x-target-types": [
+                "Person"
+              ],
+              "properties": {
+                "object_type": {
+                  "enum": [
+                    "Person"
+                  ]
+                }
+              }
+            },
+            "reviewed_at": {
+              "$ref": "../common.schema.json#/$defs/Timestamp"
+            },
+            "conclusion": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "reviewer_ref",
+            "reviewed_at",
+            "conclusion"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-COG-013"
+          ]
+        },
+        "supersedes": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "CognitiveState"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "CognitiveState"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-013"
+          ]
+        },
+        "use_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "课内教学",
+              "校内跨课程复用",
+              "公开传播",
+              "对外平台上线",
+              "科研利用",
+              "模型训练"
+            ]
+          },
+          "x-elements": [
+            "FLD-COG-014"
+          ]
+        },
+        "consequence_level": {
+          "enum": [
+            "research_shadow",
+            "formative_support",
+            "consequential_decision"
+          ],
+          "x-elements": [
+            "FLD-COG-014"
+          ]
+        },
+        "access_policy_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "AccessPolicy"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessPolicy"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-COG-014"
+          ]
+        },
+        "validity": {
+          "x-rule-id": "R-COG-007",
+          "x-clause": "5.6.9；10.3.1",
+          "x-hint": "validity 是派生状态，不写入 CognitiveState 记录；另行提供权威状态记录。",
+          "not": {},
+          "x-elements": [
+            "FLD-COG-015"
+          ]
+        },
+        "use_restriction": {
+          "x-rule-id": "R-COG-007",
+          "x-clause": "5.6.9；10.3.1",
+          "x-hint": "use_restriction 是派生状态，不写入认知记录。",
+          "not": {},
+          "x-elements": [
+            "FLD-COG-016"
+          ]
+        }
+      },
+      "required": [
+        "version_id",
+        "learner_ref",
+        "enrollment_id",
+        "target_ref",
+        "dimension",
+        "origin_type",
+        "estimate_status",
+        "uncertainty",
+        "evidence_links",
+        "context",
+        "evidence_window",
+        "as_of",
+        "valid_until",
+        "use_purposes",
+        "consequence_level"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-COG-002",
+          "x-clause": "10.3；10.6.1",
+          "x-hint": "未知或证据不足时 value 必须显式为 null，并在 missing_reasons 登记 /value 的原因。",
+          "if": {
+            "properties": {
+              "estimate_status": {
+                "enum": [
+                  "unknown",
+                  "insufficient_evidence"
+                ]
+              }
+            },
+            "required": [
+              "estimate_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "value",
+              "missing_reasons"
+            ],
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "missing_reasons": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "pointer",
+                    "reason"
+                  ],
+                  "properties": {
+                    "pointer": {
+                      "const": "/value"
+                    },
+                    "reason": {
+                      "enum": [
+                        "unknown",
+                        "not_collected",
+                        "not_authorized",
+                        "source_unsupported"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "x-rule-id": "R-COG-003",
+          "x-clause": "10.3.1",
+          "x-hint": "已估计记录须包含非null的 value 和明确的 scale_ref。",
+          "if": {
+            "properties": {
+              "estimate_status": {
+                "const": "estimated"
+              }
+            },
+            "required": [
+              "estimate_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "value",
+              "scale_ref"
+            ],
+            "properties": {
+              "value": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "x-rule-id": "R-COG-004",
+          "x-clause": "10.3.3",
+          "x-hint": "模型推断或教师判断必须引用具体 MethodRegistration 版本。",
+          "if": {
+            "properties": {
+              "origin_type": {
+                "enum": [
+                  "model_inference",
+                  "teacher_judgment"
+                ]
+              }
+            },
+            "required": [
+              "origin_type"
+            ]
+          },
+          "then": {
+            "required": [
+              "method_ref"
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-COG-005",
+          "x-clause": "10.6.5",
+          "x-hint": "unknown 的证据应为未审查的 null 或已核查无可用证据的空数组。",
+          "if": {
+            "properties": {
+              "estimate_status": {
+                "const": "unknown"
+              }
+            },
+            "required": [
+              "estimate_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "evidence_links": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "maxItems": 0
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "x-rule-id": "R-COG-006",
+          "x-clause": "10.3.1；10.6.5",
+          "x-hint": "已估计或证据不足必须逐项列出至少一条经审查的证据关联。",
+          "if": {
+            "properties": {
+              "estimate_status": {
+                "enum": [
+                  "estimated",
+                  "insufficient_evidence"
+                ]
+              }
+            },
+            "required": [
+              "estimate_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "evidence_links": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

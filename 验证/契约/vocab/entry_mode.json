@@ -1,0 +1,10 @@
+{
+  "clause": "7.2.12 b)",
+  "values": [
+    "self",
+    "proxy",
+    "bulk_import",
+    "substitute",
+    "system_auto"
+  ]
+}

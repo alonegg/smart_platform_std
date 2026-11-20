@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Submission.schema.json",
+  "x-clause": "7.1.2；7.1.4；7.5",
+  "x-elements": [
+    "OBJ-031"
+  ],
+  "x-assumption": [
+    "H-21",
+    "H-14"
+  ],
+  "x-rule-id": "R-SUBMISSION-001",
+  "x-hint": "补齐 attempt_ref、artifact_refs；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Submission"
+        },
+        "attempt_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "TaskAttempt"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "TaskAttempt"
+              ]
+            }
+          }
+        },
+        "artifact_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "ProcessArtifact"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "ProcessArtifact"
+                ]
+              }
+            }
+          }
+        },
+        "help_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "HelpRecord"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "HelpRecord"
+                ]
+              }
+            }
+          }
+        },
+        "group_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "LearnerGroup"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "LearnerGroup"
+              ]
+            }
+          }
+        },
+        "member_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Person"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Person"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "attempt_ref",
+        "artifact_refs"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-GROUP-001",
+          "x-clause": "7.1.4 a)",
+          "x-hint": "涉及小组时同时提供 group_ref 和非空 member_refs，保存形成时的成员快照。",
+          "dependentRequired": {
+            "group_ref": [
+              "member_refs"
+            ],
+            "member_refs": [
+              "group_ref"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "fixture": {
+    "target": "NonVersionedRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-001"
+    ],
+    "violates": "missing-id",
+    "expected_rule_ids": [
+      "R-REF-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Person"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "clause": "5.3.5",
+  "values": [
+    "not_applicable",
+    "pending",
+    "approved",
+    "rejected"
+  ]
+}

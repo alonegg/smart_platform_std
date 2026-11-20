@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/ApplicationInstance.schema.json",
+  "x-clause": "8.6；9.1.1；9.1.2",
+  "x-elements": [
+    "OBJ-042"
+  ],
+  "x-assumption": [
+    "H-17",
+    "H-14"
+  ],
+  "x-rule-id": "R-APPLICATIONINSTANCE-001",
+  "x-hint": "补齐 application_id、application_version、source_instance、client_id、capability_registration_ref；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "ApplicationInstance"
+        },
+        "application_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "application_version": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "source_instance": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "client_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "capability_registration_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "CapabilityRegistration"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "CapabilityRegistration"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "application_id",
+        "application_version",
+        "source_instance",
+        "client_id",
+        "capability_registration_ref"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

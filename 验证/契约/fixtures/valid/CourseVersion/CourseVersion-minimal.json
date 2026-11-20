@@ -1,0 +1,94 @@
+{
+  "fixture": {
+    "target": "CourseVersion",
+    "stage": "input",
+    "expect": "valid",
+    "clauses": [
+      "5.2.1；6.1.1；6.1.3"
+    ],
+    "elements": [
+      "OBJ-005"
+    ]
+  },
+  "instance": {
+    "object_id": "https://example.edu/courseversion/1",
+    "object_type": "CourseVersion",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "version_id": "v1",
+    "lifecycle_status": "published",
+    "review_status": "approved",
+    "course_ref": {
+      "object_type": "Course",
+      "object_id": "https://example.edu/course/1"
+    },
+    "objective_refs": [
+      {
+        "object_type": "LearningObjective",
+        "object_id": "https://example.edu/learningobjective/1",
+        "owner_ref": {
+          "object_type": "CourseVersion",
+          "object_id": "https://example.edu/courseversion/1",
+          "version_id": "v1"
+        }
+      }
+    ],
+    "assessment_plan_ref": {
+      "object_type": "AssessmentPlan",
+      "object_id": "https://example.edu/assessmentplan/1",
+      "version_id": "v1"
+    },
+    "syllabus_ref": {
+      "object_type": "Resource",
+      "object_id": "https://example.edu/resource/1",
+      "version_id": "v1"
+    },
+    "unit_refs": [
+      {
+        "object_type": "LearningUnit",
+        "object_id": "https://example.edu/learningunit/1",
+        "owner_ref": {
+          "object_type": "CourseVersion",
+          "object_id": "https://example.edu/courseversion/1",
+          "version_id": "v1"
+        }
+      }
+    ],
+    "resource_refs": [
+      {
+        "object_type": "Resource",
+        "object_id": "https://example.edu/resource/1",
+        "version_id": "v1"
+      }
+    ],
+    "activity_refs": [
+      {
+        "object_type": "LearningActivity",
+        "object_id": "https://example.edu/learningactivity/1",
+        "version_id": "v1"
+      }
+    ],
+    "course_profile": "基础"
+  }
+}

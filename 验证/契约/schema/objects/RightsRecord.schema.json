@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/RightsRecord.schema.json",
+  "x-clause": "6.3.1—6.3.6",
+  "x-elements": [
+    "OBJ-022"
+  ],
+  "x-assumption": [
+    "H-18",
+    "H-14"
+  ],
+  "x-rule-id": "R-RIGHTSRECORD-001",
+  "x-hint": "补齐 contributors、rights_holders、rights_basis、license、attribution_text、permitted_uses、third_party_components、personal_data_flags、review；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/IndependentBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "RightsRecord"
+        },
+        "contributors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Contributor"
+          },
+          "x-elements": [
+            "FLD-RGT-001"
+          ]
+        },
+        "rights_holders": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Person",
+              "Organization"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Person",
+                  "Organization"
+                ]
+              }
+            }
+          },
+          "x-elements": [
+            "FLD-RGT-002"
+          ]
+        },
+        "rights_basis": {
+          "type": "object",
+          "properties": {
+            "basis": {
+              "enum": [
+                "职务作品一般情形",
+                "约定归属",
+                "授权书",
+                "许可",
+                "公有领域",
+                "合理使用依据待审"
+              ]
+            },
+            "document_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "Resource"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "Resource"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "basis",
+            "document_refs"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-RGT-003"
+          ]
+        },
+        "license": {
+          "$ref": "#/$defs/License",
+          "x-elements": [
+            "FLD-RGT-004"
+          ]
+        },
+        "attribution_text": {
+          "type": "string",
+          "x-elements": [
+            "FLD-RGT-005"
+          ]
+        },
+        "permitted_uses": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "use": {
+                "enum": [
+                  "课内教学",
+                  "校内跨课程复用",
+                  "公开传播",
+                  "对外平台上线",
+                  "科研利用",
+                  "模型训练"
+                ]
+              },
+              "valid_from": {
+                "$ref": "../common.schema.json#/$defs/Timestamp"
+              },
+              "valid_until": {
+                "$ref": "../common.schema.json#/$defs/Timestamp"
+              },
+              "approval_ref": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "AccessGrant"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "AccessGrant"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "use",
+              "valid_from",
+              "valid_until",
+              "approval_ref"
+            ],
+            "additionalProperties": false
+          },
+          "x-elements": [
+            "FLD-RGT-006"
+          ]
+        },
+        "third_party_components": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_ref": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "Segment"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "Segment"
+                    ]
+                  }
+                }
+              },
+              "source_ref": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "Resource"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "Resource"
+                    ]
+                  }
+                }
+              },
+              "license": {
+                "type": "string",
+                "minLength": 1,
+                "x-rule-id": "R-LICENSE-001",
+                "x-clause": "6.3.2",
+                "x-hint": "填写有效 SPDX 单一许可标识，或候选 school: 命名空间学校代码；学校代码还需注册服务核验。",
+                "x-assumption": [
+                  "H-18"
+                ]
+              },
+              "restrictions": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "segment_ref",
+              "source_ref",
+              "license",
+              "restrictions"
+            ],
+            "additionalProperties": false
+          },
+          "x-elements": [
+            "FLD-RGT-007"
+          ]
+        },
+        "personal_data_flags": {
+          "type": "object",
+          "properties": {
+            "student_work": {
+              "type": "boolean"
+            },
+            "student_image_or_voice": {
+              "type": "boolean"
+            },
+            "authorization_refs": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "AccessGrant"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "AccessGrant"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "student_work",
+            "student_image_or_voice",
+            "authorization_refs"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-RGT-008"
+          ]
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "reviewer_ref": {
+              "$ref": "../common.schema.json#/$defs/ObjectRef",
+              "x-target-types": [
+                "Person"
+              ],
+              "properties": {
+                "object_type": {
+                  "enum": [
+                    "Person"
+                  ]
+                }
+              }
+            },
+            "reviewed_at": {
+              "$ref": "../common.schema.json#/$defs/Timestamp"
+            },
+            "conclusion": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "reviewer_ref",
+            "reviewed_at",
+            "conclusion"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-RGT-009"
+          ]
+        }
+      },
+      "required": [
+        "contributors",
+        "rights_holders",
+        "rights_basis",
+        "license",
+        "attribution_text",
+        "permitted_uses",
+        "third_party_components",
+        "personal_data_flags",
+        "review"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "Contributor": {
+      "type": "object",
+      "properties": {
+        "contributor_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "Organization"
+              ]
+            }
+          }
+        },
+        "role": {
+          "enum": [
+            "主讲或主要作者",
+            "共建作者",
+            "修订者",
+            "审核者",
+            "助教整理",
+            "学生作者",
+            "AI 辅助生成的人工编辑者",
+            "第三方"
+          ]
+        },
+        "contribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Resource"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Resource"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "contributor_ref",
+        "role",
+        "contribution",
+        "version_refs"
+      ],
+      "additionalProperties": false
+    },
+    "License": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "minLength": 1,
+          "x-rule-id": "R-LICENSE-001",
+          "x-clause": "6.3.2",
+          "x-hint": "填写有效 SPDX 单一许可标识，或候选 school: 命名空间学校代码；学校代码还需注册服务核验。",
+          "x-assumption": [
+            "H-18"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "revocable": {
+          "type": "boolean"
+        },
+        "effective_at": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "identifier",
+        "url",
+        "revocable",
+        "effective_at"
+      ],
+      "additionalProperties": false
+    },
+    "LicenseIdentifier": {
+      "type": "string",
+      "minLength": 1,
+      "x-rule-id": "R-LICENSE-001",
+      "x-clause": "6.3.2",
+      "x-hint": "填写有效 SPDX 单一许可标识，或候选 school: 命名空间学校代码；学校代码还需注册服务核验。",
+      "x-assumption": [
+        "H-18"
+      ]
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "fixture": {
+    "target": "event",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "7.2",
+      "7.3.1",
+      "7.3.3",
+      "7.7.3",
+      "7.8"
+    ],
+    "elements": [
+      "EVT-005"
+    ],
+    "violates": "payload",
+    "expected_rule_ids": [
+      "R-PAYLOAD-001"
+    ]
+  },
+  "instance": {
+    "event_type": "media.progressed",
+    "event_type_version": "0.1.0-candidate",
+    "schema_version": "0.1.0-candidate",
+    "event_class": "learner_event",
+    "profile_id": "https://example.edu/profile",
+    "profile_version": "v1",
+    "source_system": "https://example.edu/source",
+    "source_instance": "https://example.edu/app/1",
+    "source_event_id": "source-1",
+    "actor_ref": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "actor_type": "learner",
+    "entry_mode": "self",
+    "scope_type": "offering",
+    "scope_refs": [
+      {
+        "object_type": "Offering",
+        "object_id": "https://example.edu/offering/1"
+      }
+    ],
+    "object_ref": {
+      "object_type": "Resource",
+      "object_id": "https://example.edu/resource/1",
+      "version_id": "v1"
+    },
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "capability_ref": {
+        "object_type": "CapabilityRegistration",
+        "object_id": "https://example.edu/capabilityregistration/1",
+        "version_id": "v1"
+      },
+      "intervals": [
+        {
+          "start_ms": 0,
+          "end_ms": 1000
+        }
+      ],
+      "missing_reasons": [],
+      "unregistered": "合成未注册成员"
+    },
+    "offering_id": "https://example.edu/offering/1",
+    "enrollment_id": "https://example.edu/enrollment/1"
+  }
+}

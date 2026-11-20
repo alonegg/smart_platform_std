@@ -1,0 +1,127 @@
+{
+  "event_type": "grade.proposed",
+  "event_class": "staff_event",
+  "status": "first_phase",
+  "meaning": "评分提议，不构成正式成绩；提议来源区分人工、规则引擎和 AI",
+  "event_type_version": "0.1.0-candidate",
+  "clauses": [
+    "7.2",
+    "7.3.4",
+    "7.5"
+  ],
+  "elements": [
+    "EVT-018"
+  ],
+  "preconditions": "提议不形成正式成绩；确认须由授权教师追加决定",
+  "allowed_actor_types": [
+    "staff",
+    "rule_engine",
+    "ai_service"
+  ],
+  "allowed_entry_modes": [
+    "self",
+    "proxy",
+    "bulk_import",
+    "substitute",
+    "system_auto"
+  ],
+  "ai_may_emit": true,
+  "ai_note": "AI 只产生提议，不得确认或归档",
+  "scope_types": [
+    "offering"
+  ],
+  "subject_refs": "required",
+  "requires_attempt_ref": false,
+  "group": "conditional",
+  "requires_teaching_assignment_ref": false,
+  "requires_source_recorded_at": false,
+  "object_ref_types": [
+    "GradeDecision"
+  ],
+  "artifact_refs": "optional",
+  "hash_envelope_members": [
+    "event_type_version",
+    "source_system",
+    "source_instance",
+    "source_event_id",
+    "profile_id",
+    "profile_version",
+    "offering_id",
+    "enrollment_id",
+    "occurred_at",
+    "source_recorded_at",
+    "attested_at",
+    "schema_version",
+    "event_type",
+    "event_class",
+    "actor_type",
+    "entry_mode",
+    "scope_type",
+    "source_sequence",
+    "actor_ref",
+    "subject_refs",
+    "scope_refs",
+    "object_ref",
+    "attempt_ref",
+    "teaching_assignment_ref",
+    "adjustment_refs",
+    "group_ref",
+    "member_refs",
+    "artifact_refs",
+    "entry_evidence_refs",
+    "context"
+  ],
+  "idempotency_key": [
+    "source_instance",
+    "source_event_id"
+  ],
+  "receiver_only_fields": [
+    "event_id",
+    "received_at",
+    "auth_context"
+  ],
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "proposer_type": {
+        "enum": [
+          "staff",
+          "rule_engine",
+          "ai_service"
+        ],
+        "x-rule-id": "R-AI-004"
+      }
+    },
+    "required": [
+      "proposer_type"
+    ],
+    "additionalProperties": false,
+    "x-assumption": [
+      "H-10"
+    ],
+    "x-clause": "7.3.4",
+    "x-rule-id": "R-PAYLOAD-001"
+  },
+  "standard_mapping": "未定（7.4.6）",
+  "source_members": [
+    "source_system",
+    "source_instance",
+    "source_event_id"
+  ],
+  "relationships": "按实际范围解析修读、修读轮次、任务尝试、授课安排及个人调整；离线结构通过不证明关系存在。",
+  "help_refs": "需要说明帮助时，通过业务对象引用HelpRecord；不从技术日志反推帮助。",
+  "time_semantics": "occurred_at为事实发生时间；received_at为接收端时间，不能代替事实时间。",
+  "withdrawal_semantics": "本事件本身不撤回或覆盖既有不可变记录。",
+  "statistics_effect": "分别统计提议、确认、更正、归档，不将提议当正式成绩。",
+  "applicability": "首批候选事件，需相应能力及真实业务条件。",
+  "upgrade_path": "由维护机构评审并随学校Profile版本冻结，不据合成样例宣布准入。",
+  "examples": {
+    "valid": [
+      "fixtures/valid/event/event-grade.proposed.json"
+    ],
+    "invalid": [
+      "fixtures/invalid/event/event-grade.proposed-missing-payload.json",
+      "fixtures/invalid/event/event-grade.proposed-wrong-class.json"
+    ]
+  }
+}

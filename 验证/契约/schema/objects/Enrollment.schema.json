@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Enrollment.schema.json",
+  "x-clause": "5.2.1；5.2.4；5.2.8",
+  "x-elements": [
+    "OBJ-007"
+  ],
+  "x-assumption": [
+    "H-16",
+    "H-14"
+  ],
+  "x-rule-id": "R-ENROLLMENT-001",
+  "x-hint": "补齐 offering_ref、learner_ref、enrollment_type；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Enrollment"
+        },
+        "offering_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Offering"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Offering"
+              ]
+            }
+          }
+        },
+        "learner_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          }
+        },
+        "enrollment_type": {
+          "enum": [
+            "formal",
+            "provisional",
+            "audit"
+          ]
+        },
+        "program_version_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "ProgramVersion"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "ProgramVersion"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "offering_ref",
+        "learner_ref",
+        "enrollment_type"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

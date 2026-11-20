@@ -1,0 +1,344 @@
+{
+  "clause": "5.1.8 表5-1",
+  "values": [
+    {
+      "object_type": "Person",
+      "name": "人员",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "3.5；3.14；5.9"
+    },
+    {
+      "object_type": "Organization",
+      "name": "组织机构",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "3.5；5.9"
+    },
+    {
+      "object_type": "AcademicSession",
+      "name": "学期",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2；5.9"
+    },
+    {
+      "object_type": "Course",
+      "name": "课程",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2"
+    },
+    {
+      "object_type": "CourseVersion",
+      "name": "课程版本",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "5.2；6.1；6.7"
+    },
+    {
+      "object_type": "Offering",
+      "name": "开课",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2"
+    },
+    {
+      "object_type": "Enrollment",
+      "name": "修读",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2；5.2.8"
+    },
+    {
+      "object_type": "EnrollmentRound",
+      "name": "修读轮次",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2"
+    },
+    {
+      "object_type": "TaskAttempt",
+      "name": "任务尝试",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2；7.5"
+    },
+    {
+      "object_type": "TeachingAssignment",
+      "name": "授课安排",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "3.15；5.2.7"
+    },
+    {
+      "object_type": "ProgramVersion",
+      "name": "培养方案版本",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "5.2；6.5"
+    },
+    {
+      "object_type": "LearnerGroup",
+      "name": "学习小组",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "5.2.5；7.1.4"
+    },
+    {
+      "object_type": "LearningUnit",
+      "name": "学习单元",
+      "versioning": "随所属版本固定（CourseVersion）",
+      "owner_types": [
+        "CourseVersion"
+      ],
+      "clause": "6.1.1"
+    },
+    {
+      "object_type": "LearningActivity",
+      "name": "学习活动（任务）",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "3.17；6.1.1；7.3"
+    },
+    {
+      "object_type": "LearningObjective",
+      "name": "学习目标",
+      "versioning": "随所属版本固定（课程层、课堂层目标随 CourseVersion；专业层目标随 ProgramVersion）",
+      "owner_types": [
+        "CourseVersion",
+        "ProgramVersion"
+      ],
+      "clause": "6.5"
+    },
+    {
+      "object_type": "Framework",
+      "name": "知识与能力框架",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.5"
+    },
+    {
+      "object_type": "KnowledgePoint",
+      "name": "知识点",
+      "versioning": "随所属版本固定（Framework）",
+      "owner_types": [
+        "Framework"
+      ],
+      "clause": "6.5"
+    },
+    {
+      "object_type": "Competency",
+      "name": "能力要求",
+      "versioning": "随所属版本固定（Framework）",
+      "owner_types": [
+        "Framework"
+      ],
+      "clause": "6.5"
+    },
+    {
+      "object_type": "ProgramAlignment",
+      "name": "课程目标支撑关系",
+      "versioning": "随所属版本固定（ProgramVersion）",
+      "owner_types": [
+        "ProgramVersion"
+      ],
+      "clause": "6.5.5"
+    },
+    {
+      "object_type": "Resource",
+      "name": "资源",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.2"
+    },
+    {
+      "object_type": "Segment",
+      "name": "资源片段",
+      "versioning": "随所属版本固定（Resource）",
+      "owner_types": [
+        "Resource"
+      ],
+      "clause": "6.4"
+    },
+    {
+      "object_type": "RightsRecord",
+      "name": "权利档案",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.3"
+    },
+    {
+      "object_type": "AssessmentItem",
+      "name": "题目",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.6.1"
+    },
+    {
+      "object_type": "AssessmentPlan",
+      "name": "考核方案",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.6.3；6.6.4"
+    },
+    {
+      "object_type": "AssessmentAdjustment",
+      "name": "个人考核调整",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "3.19；6.6.10"
+    },
+    {
+      "object_type": "Rubric",
+      "name": "评价量规",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "6.6.5"
+    },
+    {
+      "object_type": "RubricCriterion",
+      "name": "评价准则",
+      "versioning": "随所属版本固定（Rubric）",
+      "owner_types": [
+        "Rubric"
+      ],
+      "clause": "6.6.5"
+    },
+    {
+      "object_type": "Scale",
+      "name": "认知量尺",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "10.4"
+    },
+    {
+      "object_type": "LearningEvent",
+      "name": "学习事件",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1；7.2；7.3"
+    },
+    {
+      "object_type": "ProcessArtifact",
+      "name": "过程作品",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1"
+    },
+    {
+      "object_type": "Submission",
+      "name": "提交",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1.2；7.5"
+    },
+    {
+      "object_type": "HelpRecord",
+      "name": "帮助记录",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1.2；7.3"
+    },
+    {
+      "object_type": "Feedback",
+      "name": "反馈",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.3.4；7.5"
+    },
+    {
+      "object_type": "GradeDecision",
+      "name": "评分决定",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.5"
+    },
+    {
+      "object_type": "PeerReview",
+      "name": "同伴互评",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1.4"
+    },
+    {
+      "object_type": "ObservationRecord",
+      "name": "观察记录",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "7.1.4"
+    },
+    {
+      "object_type": "CognitiveState",
+      "name": "认知状态",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "10.3"
+    },
+    {
+      "object_type": "EvidenceLink",
+      "name": "证据关联",
+      "versioning": "随所属版本固定（嵌入所在记录）",
+      "owner_types": [
+        "所在记录"
+      ],
+      "clause": "8.11.3；10.2.1"
+    },
+    {
+      "object_type": "LearningRecommendation",
+      "name": "学习行动建议",
+      "versioning": "不可变记录",
+      "owner_types": [],
+      "clause": "10.10"
+    },
+    {
+      "object_type": "MethodRegistration",
+      "name": "方法登记",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "10.8"
+    },
+    {
+      "object_type": "MethodApproval",
+      "name": "方法用途批准",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "10.8；10.13"
+    },
+    {
+      "object_type": "ApplicationInstance",
+      "name": "应用实例",
+      "versioning": "非版本化",
+      "owner_types": [],
+      "clause": "9.1"
+    },
+    {
+      "object_type": "CapabilityRegistration",
+      "name": "能力登记",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "9.1"
+    },
+    {
+      "object_type": "AccessGrant",
+      "name": "访问授权",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "8.6；9.2"
+    },
+    {
+      "object_type": "AccessPolicy",
+      "name": "访问策略",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "9.2；11.3"
+    },
+    {
+      "object_type": "DataClassification",
+      "name": "数据分类分级",
+      "versioning": "独立版本化",
+      "owner_types": [],
+      "clause": "11.2"
+    }
+  ]
+}

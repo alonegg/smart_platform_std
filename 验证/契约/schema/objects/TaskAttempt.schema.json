@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/TaskAttempt.schema.json",
+  "x-clause": "5.2.1；5.2.6",
+  "x-elements": [
+    "OBJ-009"
+  ],
+  "x-assumption": [
+    "H-21",
+    "H-14"
+  ],
+  "x-rule-id": "R-TASKATTEMPT-001",
+  "x-hint": "补齐 enrollment_round_ref、activity_ref、attempt_number；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "TaskAttempt"
+        },
+        "enrollment_round_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "EnrollmentRound"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "EnrollmentRound"
+              ]
+            }
+          }
+        },
+        "activity_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "LearningActivity"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "LearningActivity"
+              ]
+            }
+          }
+        },
+        "attempt_number": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "enrollment_round_ref",
+        "activity_ref",
+        "attempt_number"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,29 @@
+{
+  "fixture": {
+    "target": "receipt",
+    "stage": "exchange",
+    "expect": "invalid",
+    "clauses": [
+      "8.7.1"
+    ],
+    "elements": [
+      "OBJ-029"
+    ],
+    "violates": "missing-id",
+    "expected_rule_ids": [
+      "R-RCP-001"
+    ]
+  },
+  "instance": {
+    "status": "accepted",
+    "durability": "queue",
+    "errors": [],
+    "completed_stages": [
+      "source_persisted",
+      "school_received"
+    ],
+    "pending_stages": [
+      "school_registered"
+    ]
+  }
+}

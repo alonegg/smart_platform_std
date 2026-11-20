@@ -1,0 +1,711 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/manifest.schema.json",
+  "x-elements": [
+    "FLD-MAN-001",
+    "FLD-MAN-002",
+    "FLD-MAN-003",
+    "FLD-MAN-004",
+    "FLD-MAN-005",
+    "FLD-MAN-006",
+    "FLD-MAN-007",
+    "FLD-MAN-008",
+    "FLD-MAN-009",
+    "FLD-MAN-010",
+    "FLD-MAN-011",
+    "FLD-MAN-012",
+    "FLD-MAN-013",
+    "FLD-MAN-014",
+    "FLD-MAN-015",
+    "FLD-MAN-016",
+    "FLD-MAN-017"
+  ],
+  "type": "object",
+  "properties": {
+    "package_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-MAN-001"
+      ]
+    },
+    "package_type": {
+      "enum": [
+        "teaching",
+        "migration",
+        "archive",
+        "research"
+      ],
+      "x-elements": [
+        "FLD-MAN-002"
+      ]
+    },
+    "schema_version": {
+      "const": "0.1.0-candidate",
+      "x-elements": [
+        "FLD-MAN-003"
+      ]
+    },
+    "profile_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-MAN-004"
+      ]
+    },
+    "profile_version": {
+      "$ref": "common.schema.json#/$defs/VersionId",
+      "x-elements": [
+        "FLD-MAN-004"
+      ]
+    },
+    "export_task_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-MAN-005"
+      ]
+    },
+    "export_scope": {
+      "type": "object",
+      "properties": {
+        "course_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Course"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Course"
+                ]
+              }
+            }
+          }
+        },
+        "offering_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Offering"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Offering"
+                ]
+              }
+            }
+          }
+        },
+        "object_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectType"
+          }
+        },
+        "time_window": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "$ref": "common.schema.json#/$defs/Timestamp",
+              "x-elements": [
+                "FLD-MAN-007"
+              ]
+            },
+            "end": {
+              "$ref": "common.schema.json#/$defs/Timestamp",
+              "x-elements": [
+                "FLD-MAN-007"
+              ]
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        "use_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "grant_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "AccessGrant"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "AccessGrant"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "course_refs",
+        "offering_refs",
+        "object_types",
+        "time_window",
+        "use_purposes",
+        "grant_refs"
+      ],
+      "additionalProperties": false,
+      "x-elements": [
+        "FLD-MAN-006"
+      ]
+    },
+    "exported_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp",
+      "x-elements": [
+        "FLD-MAN-007"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_ref": {
+            "$ref": "common.schema.json#/$defs/ObjectRef"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*\\.\\.)(?!.*\\\\)[A-Za-z0-9%._~/-]+$",
+            "x-assumption": [
+              "H-26"
+            ],
+            "x-hint": "使用包内相对路径，禁止绝对路径、反斜杠和父目录跳转。"
+          }
+        },
+        "required": [
+          "object_ref",
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "x-elements": [
+        "FLD-MAN-008"
+      ]
+    },
+    "files": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*\\.\\.)(?!.*\\\\)[A-Za-z0-9%._~/-]+$",
+            "x-assumption": [
+              "H-26"
+            ],
+            "x-hint": "使用包内相对路径，禁止绝对路径、反斜杠和父目录跳转。"
+          },
+          "byte_length": {
+            "$ref": "common.schema.json#/$defs/ByteLength"
+          },
+          "sha256": {
+            "$ref": "common.schema.json#/$defs/Sha256"
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "path",
+          "byte_length",
+          "sha256",
+          "media_type"
+        ],
+        "additionalProperties": false
+      },
+      "x-elements": [
+        "FLD-MAN-009"
+      ]
+    },
+    "dependencies": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_ref": {
+            "$ref": "common.schema.json#/$defs/ObjectRef"
+          },
+          "storage_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runtime": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acquisition_method": {
+            "type": "string",
+            "minLength": 1
+          },
+          "permissions": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "acquisition_method",
+          "permissions"
+        ],
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "object_ref"
+            ]
+          },
+          {
+            "required": [
+              "storage_id"
+            ]
+          },
+          {
+            "required": [
+              "runtime"
+            ]
+          }
+        ]
+      },
+      "x-elements": [
+        "FLD-MAN-010"
+      ]
+    },
+    "access_requirements": {
+      "type": "object",
+      "properties": {
+        "scopes": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "use_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "scopes",
+        "use_purposes"
+      ],
+      "additionalProperties": false,
+      "x-elements": [
+        "FLD-MAN-011"
+      ]
+    },
+    "portability_level": {
+      "enum": [
+        "references_only",
+        "content_available",
+        "independently_restorable"
+      ],
+      "x-elements": [
+        "FLD-MAN-012"
+      ]
+    },
+    "content_inclusions": {
+      "type": "object",
+      "properties": {
+        "state_records": {
+          "enum": [
+            "all",
+            "selected",
+            "none"
+          ]
+        },
+        "missing_reasons": {
+          "enum": [
+            "all",
+            "selected",
+            "none"
+          ]
+        },
+        "member_snapshots": {
+          "enum": [
+            "all",
+            "selected",
+            "none"
+          ]
+        },
+        "assessment_adjustments": {
+          "enum": [
+            "all",
+            "selected",
+            "none"
+          ]
+        },
+        "teaching_assignments": {
+          "enum": [
+            "all",
+            "selected",
+            "none"
+          ]
+        }
+      },
+      "required": [
+        "state_records",
+        "missing_reasons",
+        "member_snapshots",
+        "assessment_adjustments",
+        "teaching_assignments"
+      ],
+      "additionalProperties": false,
+      "x-elements": [
+        "FLD-MAN-013"
+      ]
+    },
+    "mapping_losses": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_ref": {
+            "$ref": "common.schema.json#/$defs/ObjectRef"
+          },
+          "field_pointer": {
+            "type": "string",
+            "pattern": "^(|/.*)$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "field_pointer",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "x-elements": [
+        "FLD-MAN-014"
+      ]
+    },
+    "exclusions": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_ref": {
+            "$ref": "common.schema.json#/$defs/ObjectRef"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "object_ref",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "x-elements": [
+        "FLD-MAN-015"
+      ]
+    },
+    "rights_summary": {
+      "type": "object",
+      "properties": {
+        "license_identifiers": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "attribution_texts": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string"
+          }
+        },
+        "restricted_components": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef"
+          }
+        }
+      },
+      "required": [
+        "license_identifiers",
+        "attribution_texts",
+        "restricted_components"
+      ],
+      "additionalProperties": false,
+      "x-elements": [
+        "FLD-MAN-016"
+      ]
+    },
+    "export_receipt_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-MAN-017"
+      ]
+    }
+  },
+  "required": [
+    "package_id",
+    "package_type",
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "export_task_id",
+    "export_scope",
+    "exported_at",
+    "objects",
+    "files",
+    "dependencies",
+    "access_requirements",
+    "portability_level",
+    "content_inclusions",
+    "mapping_losses",
+    "exclusions",
+    "rights_summary"
+  ],
+  "additionalProperties": false,
+  "x-rule-id": "R-MAN-001",
+  "x-clause": "8.2.5",
+  "x-hint": "补齐表8-1的必填成员；核心位置不接受未登记字段。",
+  "allOf": [
+    {
+      "x-rule-id": "R-MAN-002",
+      "x-clause": "8.2.8",
+      "x-hint": "迁移、归档和研究包须关联独立交付的导出回执。",
+      "if": {
+        "properties": {
+          "package_type": {
+            "enum": [
+              "migration",
+              "archive",
+              "research"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "export_receipt_id"
+        ]
+      }
+    },
+    {
+      "x-rule-id": "R-MAN-003",
+      "x-clause": "8.4.3",
+      "x-hint": "archive 必须 independently_restorable；实际恢复能力须另行验证。",
+      "if": {
+        "properties": {
+          "package_type": {
+            "const": "archive"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "portability_level": {
+            "const": "independently_restorable"
+          }
+        }
+      }
+    },
+    {
+      "x-rule-id": "R-MAN-004",
+      "x-clause": "8.2.9",
+      "x-hint": "teaching 不携带个人考核调整或个人授课安排。",
+      "if": {
+        "properties": {
+          "package_type": {
+            "const": "teaching"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content_inclusions": {
+            "properties": {
+              "assessment_adjustments": {
+                "const": "none"
+              },
+              "teaching_assignments": {
+                "const": "none"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-rule-id": "R-MAN-005",
+      "x-clause": "8.2.9",
+      "x-hint": "migration/archive 应携带范围内全部状态记录；不能用当前状态快照替代。",
+      "if": {
+        "properties": {
+          "package_type": {
+            "enum": [
+              "migration",
+              "archive"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "content_inclusions": {
+            "properties": {
+              "state_records": {
+                "const": "all"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "ExportScope": {
+      "type": "object",
+      "properties": {
+        "course_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Course"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Course"
+                ]
+              }
+            }
+          }
+        },
+        "offering_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Offering"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Offering"
+                ]
+              }
+            }
+          }
+        },
+        "object_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectType"
+          }
+        },
+        "time_window": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "$ref": "common.schema.json#/$defs/Timestamp",
+              "x-elements": [
+                "FLD-MAN-007"
+              ]
+            },
+            "end": {
+              "$ref": "common.schema.json#/$defs/Timestamp",
+              "x-elements": [
+                "FLD-MAN-007"
+              ]
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        "use_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "grant_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "AccessGrant"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "AccessGrant"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "course_refs",
+        "offering_refs",
+        "object_types",
+        "time_window",
+        "use_purposes",
+        "grant_refs"
+      ],
+      "additionalProperties": false,
+      "x-elements": [
+        "FLD-MAN-006"
+      ]
+    }
+  },
+  "x-assumption": [
+    "H-26"
+  ]
+}

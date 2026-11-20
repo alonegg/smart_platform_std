@@ -1,0 +1,70 @@
+{
+  "fixture": {
+    "target": "event",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.3.3"
+    ],
+    "elements": [
+      "EVT-013"
+    ],
+    "violates": "T25-client-auth-context",
+    "expected_rule_ids": [
+      "R-STAGE-001"
+    ]
+  },
+  "instance": {
+    "event_type": "submission.submitted",
+    "event_type_version": "0.1.0-candidate",
+    "schema_version": "0.1.0-candidate",
+    "event_class": "artifact_event",
+    "profile_id": "https://example.edu/profile",
+    "profile_version": "v1",
+    "source_system": "https://example.edu/source",
+    "source_instance": "https://example.edu/app/1",
+    "source_event_id": "source-1",
+    "actor_ref": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "actor_type": "learner",
+    "entry_mode": "self",
+    "scope_type": "offering",
+    "scope_refs": [
+      {
+        "object_type": "Offering",
+        "object_id": "https://example.edu/offering/1"
+      }
+    ],
+    "offering_id": "https://example.edu/offering/1",
+    "enrollment_id": "https://example.edu/enrollment/1",
+    "object_ref": {
+      "object_type": "Submission",
+      "object_id": "https://example.edu/submission/1"
+    },
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {},
+    "attempt_ref": {
+      "object_type": "TaskAttempt",
+      "object_id": "https://example.edu/taskattempt/1"
+    },
+    "artifact_refs": [
+      {
+        "object_type": "ProcessArtifact",
+        "object_id": "https://example.edu/processartifact/1"
+      }
+    ],
+    "source_recorded_at": "2026-01-01T00:00:01Z",
+    "auth_context": {
+      "client_id": "https://example.edu/app/1",
+      "grant_ref": {
+        "object_type": "AccessGrant",
+        "object_id": "https://example.edu/accessgrant/1",
+        "version_id": "v1"
+      },
+      "credential_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "access_mode": "user_session"
+    }
+  }
+}

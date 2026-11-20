@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/EnrollmentRound.schema.json",
+  "x-clause": "5.2.1；5.2.2",
+  "x-elements": [
+    "OBJ-008"
+  ],
+  "x-assumption": [
+    "H-16",
+    "H-14"
+  ],
+  "x-rule-id": "R-ENROLLMENTROUND-001",
+  "x-hint": "补齐 enrollment_ref、round_type；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "EnrollmentRound"
+        },
+        "enrollment_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Enrollment"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Enrollment"
+              ]
+            }
+          }
+        },
+        "round_type": {
+          "enum": [
+            "initial",
+            "makeup",
+            "retake"
+          ]
+        },
+        "prior_round_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "EnrollmentRound"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "EnrollmentRound"
+              ]
+            }
+          }
+        },
+        "supersedes": false
+      },
+      "required": [
+        "enrollment_ref",
+        "round_type"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-ENROLLMENTROUND-002",
+          "x-clause": "5.2.2",
+          "x-hint": "补考或重修轮次须以 prior_round_ref 指向前轮次，不用 supersedes。",
+          "if": {
+            "properties": {
+              "round_type": {
+                "enum": [
+                  "makeup",
+                  "retake"
+                ]
+              }
+            },
+            "required": [
+              "round_type"
+            ]
+          },
+          "then": {
+            "required": [
+              "prior_round_ref"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

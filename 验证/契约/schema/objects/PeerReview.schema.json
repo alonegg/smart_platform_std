@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/PeerReview.schema.json",
+  "x-clause": "7.1.4 b)",
+  "x-elements": [
+    "OBJ-035"
+  ],
+  "x-assumption": [
+    "H-21",
+    "H-14"
+  ],
+  "x-rule-id": "R-PEERREVIEW-001",
+  "x-hint": "补齐 reviewer_ref、reviewed_object_ref、rubric_ref、score、comment、anonymous；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "PeerReview"
+        },
+        "reviewer_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "LearnerGroup"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "LearnerGroup"
+              ]
+            }
+          }
+        },
+        "reviewed_object_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "LearnerGroup",
+            "Submission",
+            "ProcessArtifact"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "LearnerGroup",
+                "Submission",
+                "ProcessArtifact"
+              ]
+            }
+          }
+        },
+        "rubric_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Rubric"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Rubric"
+              ]
+            }
+          }
+        },
+        "score": {
+          "type": "number"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "anonymous": {
+          "type": "boolean"
+        },
+        "review_at_creation": {
+          "type": "object",
+          "properties": {
+            "reviewer_ref": {
+              "$ref": "../common.schema.json#/$defs/ObjectRef",
+              "x-target-types": [
+                "Person"
+              ],
+              "properties": {
+                "object_type": {
+                  "enum": [
+                    "Person"
+                  ]
+                }
+              }
+            },
+            "reviewed_at": {
+              "$ref": "../common.schema.json#/$defs/Timestamp"
+            },
+            "conclusion": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "reviewer_ref",
+            "reviewed_at",
+            "conclusion"
+          ],
+          "additionalProperties": false
+        },
+        "group_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "LearnerGroup"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "LearnerGroup"
+              ]
+            }
+          }
+        },
+        "member_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Person"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Person"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "reviewer_ref",
+        "reviewed_object_ref",
+        "rubric_ref",
+        "score",
+        "comment",
+        "anonymous"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-GROUP-001",
+          "x-clause": "7.1.4 a)",
+          "x-hint": "涉及小组时同时提供 group_ref 和非空 member_refs，保存形成时的成员快照。",
+          "dependentRequired": {
+            "group_ref": [
+              "member_refs"
+            ],
+            "member_refs": [
+              "group_ref"
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-PEERREVIEW-002",
+          "x-clause": "7.1.4",
+          "x-hint": "小组评价者必须携带该小组引用及形成时的成员快照。",
+          "if": {
+            "properties": {
+              "reviewer_ref": {
+                "properties": {
+                  "object_type": {
+                    "const": "LearnerGroup"
+                  }
+                },
+                "required": [
+                  "object_type"
+                ]
+              }
+            },
+            "required": [
+              "reviewer_ref"
+            ]
+          },
+          "then": {
+            "required": [
+              "group_ref",
+              "member_refs"
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-PEERREVIEW-002",
+          "x-clause": "7.1.4",
+          "x-hint": "被评对象为小组时同时携带 group_ref 与形成时的 member_refs。",
+          "if": {
+            "properties": {
+              "reviewed_object_ref": {
+                "properties": {
+                  "object_type": {
+                    "const": "LearnerGroup"
+                  }
+                },
+                "required": [
+                  "object_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "group_ref",
+              "member_refs"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

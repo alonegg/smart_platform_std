@@ -1,0 +1,20 @@
+{
+  "fixture": {
+    "target": "ObjectRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-001"
+    ],
+    "violates": "missing-type",
+    "expected_rule_ids": [
+      "R-REF-003"
+    ]
+  },
+  "instance": {
+    "object_id": "https://example.edu/person/1"
+  }
+}

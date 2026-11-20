@@ -1,0 +1,31 @@
+{
+  "fixture": {
+    "target": "receipt",
+    "stage": "exchange",
+    "expect": "invalid",
+    "clauses": [
+      "8.7.1"
+    ],
+    "elements": [
+      "OBJ-029"
+    ],
+    "violates": "unregistered",
+    "expected_rule_ids": [
+      "R-RCP-001"
+    ]
+  },
+  "instance": {
+    "receipt_id": "synthetic-receipt-1",
+    "status": "accepted",
+    "durability": "queue",
+    "errors": [],
+    "completed_stages": [
+      "source_persisted",
+      "school_received"
+    ],
+    "pending_stages": [
+      "school_registered"
+    ],
+    "unregistered": "合成字段"
+  }
+}

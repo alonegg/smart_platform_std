@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/receipt.schema.json",
+  "x-elements": [
+    "OBJ-029"
+  ],
+  "type": "object",
+  "properties": {
+    "receipt_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "status": {
+      "enum": [
+        "accepted",
+        "duplicate",
+        "rejected",
+        "quarantined",
+        "conflict"
+      ]
+    },
+    "durability": {
+      "enum": [
+        "none",
+        "queue",
+        "evidence_store"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rule_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pointer": {
+            "type": "string",
+            "pattern": "^(|/.*)$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hint": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "code",
+          "rule_id",
+          "pointer",
+          "reason",
+          "hint"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "completed_stages": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "enum": [
+          "source_persisted",
+          "school_received",
+          "school_registered"
+        ]
+      }
+    },
+    "pending_stages": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "enum": [
+          "source_persisted",
+          "school_received",
+          "school_registered"
+        ]
+      }
+    },
+    "original_receipt_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "original_status": {
+      "enum": [
+        "accepted",
+        "rejected",
+        "quarantined",
+        "conflict"
+      ]
+    },
+    "current_status": {
+      "enum": [
+        "accepted",
+        "rejected",
+        "quarantined",
+        "conflict"
+      ]
+    },
+    "quarantined_extensions": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "receipt_id",
+    "status",
+    "errors",
+    "completed_stages",
+    "pending_stages"
+  ],
+  "additionalProperties": false,
+  "x-rule-id": "R-RCP-001",
+  "x-clause": "8.7.1",
+  "x-hint": "填写可查询回执ID、业务状态、错误列表及已完成/未完成阶段；HTTP状态不是业务回执。",
+  "x-assumption": [
+    "H-27"
+  ],
+  "allOf": [
+    {
+      "x-rule-id": "R-RCP-002",
+      "x-clause": "8.7.1",
+      "x-hint": "accepted 必须明确 queue 或 evidence_store 的持久化边界。",
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "durability"
+        ],
+        "properties": {
+          "durability": {
+            "enum": [
+              "queue",
+              "evidence_store"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "x-rule-id": "R-RCP-003",
+      "x-clause": "8.7.1",
+      "x-hint": "duplicate 须关联原回执、原结果、当前状态和持久化边界，不能单独证明入库。",
+      "if": {
+        "properties": {
+          "status": {
+            "const": "duplicate"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "original_receipt_id",
+          "original_status",
+          "current_status",
+          "durability"
+        ]
+      }
+    },
+    {
+      "x-rule-id": "R-RCP-004",
+      "x-clause": "8.7.1",
+      "x-hint": "拒收、整条隔离或冲突须列错误，不可冒充已进入学校证据库。",
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "rejected",
+              "quarantined",
+              "conflict"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "errors": {
+            "minItems": 1
+          },
+          "durability": {
+            "const": "none"
+          }
+        }
+      }
+    }
+  ]
+}

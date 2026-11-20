@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Resource.schema.json",
+  "x-clause": "6.2.1—6.2.6；6.3.6",
+  "x-elements": [
+    "OBJ-020"
+  ],
+  "x-assumption": [
+    "H-19",
+    "H-14"
+  ],
+  "x-rule-id": "R-RESOURCE-001",
+  "x-hint": "补齐 title、resource_type、language、contributors、source、license、audience、educational_use、representation_kind、media_type、file_based；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/IndependentBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Resource"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-RES-001"
+          ]
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-RES-002"
+          ]
+        },
+        "classification_codes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-elements": [
+            "FLD-RES-003"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$",
+          "x-assumption": [
+            "H-19"
+          ],
+          "x-elements": [
+            "FLD-RES-004"
+          ]
+        },
+        "contributors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "RightsRecord.schema.json#/$defs/Contributor"
+          },
+          "x-elements": [
+            "FLD-RES-005"
+          ]
+        },
+        "source": {
+          "enum": [
+            "original",
+            "adapted",
+            "quoted",
+            "procured"
+          ],
+          "x-elements": [
+            "FLD-RES-006"
+          ]
+        },
+        "license": {
+          "$ref": "RightsRecord.schema.json#/$defs/LicenseIdentifier",
+          "x-elements": [
+            "FLD-RES-007"
+          ]
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-RES-008"
+          ]
+        },
+        "educational_use": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-RES-009"
+          ]
+        },
+        "representation_kind": {
+          "enum": [
+            "editable_source",
+            "reading_copy",
+            "runtime_package",
+            "media_derivative"
+          ],
+          "x-elements": [
+            "FLD-RES-010"
+          ]
+        },
+        "media_type": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$",
+          "x-elements": [
+            "FLD-RES-011"
+          ]
+        },
+        "byte_length": {
+          "$ref": "../common.schema.json#/$defs/ByteLength",
+          "x-elements": [
+            "FLD-RES-012"
+          ]
+        },
+        "content_hash": {
+          "$ref": "../common.schema.json#/$defs/Sha256",
+          "x-elements": [
+            "FLD-RES-013"
+          ]
+        },
+        "storage_ref": {
+          "type": "object",
+          "properties": {
+            "object_id": {
+              "$ref": "../common.schema.json#/$defs/Identifier"
+            }
+          },
+          "required": [
+            "object_id"
+          ],
+          "additionalProperties": false,
+          "x-elements": [
+            "FLD-RES-014"
+          ]
+        },
+        "accessibility_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Resource"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Resource"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-RES-015"
+          ]
+        },
+        "target_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "LearningObjective",
+              "KnowledgePoint",
+              "Competency"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "LearningObjective",
+                  "KnowledgePoint",
+                  "Competency"
+                ]
+              }
+            }
+          },
+          "x-elements": [
+            "FLD-RES-016"
+          ]
+        },
+        "derived_from": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "resource_ref": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "Resource"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "Resource"
+                    ]
+                  }
+                }
+              },
+              "relation": {
+                "enum": [
+                  "references",
+                  "copies",
+                  "adapts",
+                  "translates"
+                ]
+              },
+              "modification_note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "resource_ref",
+              "relation"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "x-rule-id": "R-RESOURCE-006",
+                "x-clause": "6.3.6",
+                "x-hint": "改编或翻译须记录 modification_note，许可兼容性另交权威服务核验。",
+                "if": {
+                  "properties": {
+                    "relation": {
+                      "enum": [
+                        "adapts",
+                        "translates"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "modification_note"
+                  ]
+                }
+              }
+            ]
+          },
+          "x-elements": [
+            "FLD-RES-017"
+          ]
+        },
+        "file_based": {
+          "type": "boolean",
+          "x-assumption": [
+            "H-19"
+          ],
+          "x-clause": "6.2.1",
+          "x-hint": "候选 file_based 明确区分文件类和非文件类表示形式。"
+        }
+      },
+      "required": [
+        "title",
+        "resource_type",
+        "language",
+        "contributors",
+        "source",
+        "license",
+        "audience",
+        "educational_use",
+        "representation_kind",
+        "media_type",
+        "file_based"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-RESOURCE-002",
+          "x-clause": "6.2.1",
+          "x-hint": "改编或引用来源必须携带 derived_from，指向具体来源资源版本并声明关系类型。",
+          "if": {
+            "properties": {
+              "source": {
+                "enum": [
+                  "adapted",
+                  "quoted"
+                ]
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          "then": {
+            "required": [
+              "derived_from"
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-RESOURCE-003",
+          "x-clause": "6.2.1",
+          "x-hint": "file_based 为 true 时补齐 byte_length/content_hash/storage_ref；非文件表示形式请明确标为 false。",
+          "x-assumption": [
+            "H-19"
+          ],
+          "if": {
+            "properties": {
+              "file_based": {
+                "const": true
+              }
+            },
+            "required": [
+              "file_based"
+            ]
+          },
+          "then": {
+            "required": [
+              "byte_length",
+              "content_hash",
+              "storage_ref"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

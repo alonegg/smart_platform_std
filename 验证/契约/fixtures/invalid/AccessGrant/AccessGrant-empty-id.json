@@ -1,0 +1,68 @@
+{
+  "fixture": {
+    "target": "AccessGrant",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "8.6.4—8.6.6；9.2.1；9.2.4"
+    ],
+    "elements": [
+      "OBJ-044"
+    ],
+    "violates": "empty-id",
+    "expected_rule_ids": [
+      "R-ID-001"
+    ]
+  },
+  "instance": {
+    "object_id": "",
+    "object_type": "AccessGrant",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "version_id": "v1",
+    "lifecycle_status": "published",
+    "review_status": "approved",
+    "application_ref": {
+      "object_type": "ApplicationInstance",
+      "object_id": "https://example.edu/applicationinstance/1"
+    },
+    "client_id": "https://example.edu/client/1",
+    "access_mode": "client_credentials",
+    "audience": "https://example.edu/api",
+    "scopes": [
+      "events.write"
+    ],
+    "scope_refs": [
+      {
+        "object_type": "Offering",
+        "object_id": "https://example.edu/offering/1"
+      }
+    ],
+    "use_purposes": [
+      "课内教学"
+    ],
+    "valid_from": "2026-01-01T00:00:00Z",
+    "valid_until": "2026-01-02T00:00:00Z"
+  }
+}

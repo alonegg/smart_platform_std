@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Person.schema.json",
+  "x-clause": "5.3；5.9",
+  "x-elements": [
+    "OBJ-001"
+  ],
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Person"
+        }
+      },
+      "required": []
+    }
+  ],
+  "unevaluatedProperties": false,
+  "x-rule-id": "R-PERSON-001",
+  "x-assumption": [
+    "H-14"
+  ],
+  "x-hint": "Person 保留公共身份、来源、保护字段；非版本化身份不得有 version_id。"
+}

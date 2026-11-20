@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/TeachingAssignment.schema.json",
+  "x-clause": "5.2.7",
+  "x-elements": [
+    "OBJ-010"
+  ],
+  "x-assumption": [
+    "H-16",
+    "H-14"
+  ],
+  "x-rule-id": "R-TEACHINGASSIGNMENT-001",
+  "x-hint": "补齐 person_ref、offering_refs、role、starts_at、ends_at；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "TeachingAssignment"
+        },
+        "person_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          }
+        },
+        "offering_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Offering"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Offering"
+                ]
+              }
+            }
+          }
+        },
+        "role": {
+          "enum": [
+            "lead_instructor",
+            "co_instructor",
+            "teaching_assistant",
+            "external_mentor"
+          ]
+        },
+        "starts_at": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "ends_at": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "confirmation_scope_refs": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "x-target-types": [
+              "Offering"
+            ],
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Offering"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "person_ref",
+        "offering_refs",
+        "role",
+        "starts_at",
+        "ends_at"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

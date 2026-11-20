@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/EvidenceLink.schema.json",
+  "x-clause": "8.11.3；10.2.1",
+  "x-elements": [
+    "OBJ-038"
+  ],
+  "x-assumption": [
+    "H-20",
+    "H-14"
+  ],
+  "x-rule-id": "R-EVIDENCELINK-001",
+  "x-hint": "补齐 owner_ref、object_ref、role；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/EmbeddedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "EvidenceLink"
+        },
+        "owner_ref": {
+          "$ref": "../common.schema.json#/$defs/EmbeddedInRecordRef/properties/owner_ref",
+          "x-target-types": [
+            "AssessmentAdjustment",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "LearningRecommendation"
+          ]
+        },
+        "object_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "CourseVersion",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "ProgramVersion",
+            "LearnerGroup",
+            "LearningUnit",
+            "LearningActivity",
+            "LearningObjective",
+            "Framework",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Resource",
+            "Segment",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "AssessmentAdjustment",
+            "Rubric",
+            "RubricCriterion",
+            "Scale",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "EvidenceLink",
+            "LearningRecommendation",
+            "MethodRegistration",
+            "MethodApproval",
+            "ApplicationInstance",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "role": {
+          "enum": [
+            "supports",
+            "refutes",
+            "inconclusive",
+            "limits"
+          ]
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner_ref",
+        "object_ref",
+        "role"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

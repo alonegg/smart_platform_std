@@ -1,0 +1,86 @@
+{
+  "fixture": {
+    "target": "manifest",
+    "stage": "exchange",
+    "expect": "invalid",
+    "clauses": [
+      "8.2.5"
+    ],
+    "elements": [
+      "FLD-MAN-001",
+      "FLD-MAN-002",
+      "FLD-MAN-003",
+      "FLD-MAN-004",
+      "FLD-MAN-005",
+      "FLD-MAN-006",
+      "FLD-MAN-007",
+      "FLD-MAN-008",
+      "FLD-MAN-009",
+      "FLD-MAN-010",
+      "FLD-MAN-011",
+      "FLD-MAN-012",
+      "FLD-MAN-013",
+      "FLD-MAN-014",
+      "FLD-MAN-015",
+      "FLD-MAN-016",
+      "FLD-MAN-017"
+    ],
+    "violates": "missing-id",
+    "expected_rule_ids": [
+      "R-MAN-001"
+    ]
+  },
+  "instance": {
+    "package_type": "teaching",
+    "schema_version": "0.1.0-candidate",
+    "profile_id": "https://example.edu/profile/exchange",
+    "profile_version": "v1",
+    "export_task_id": "synthetic-task-1",
+    "export_scope": {
+      "course_refs": [],
+      "offering_refs": [],
+      "object_types": [
+        "Resource"
+      ],
+      "time_window": {
+        "start": "2026-01-01T00:00:00Z",
+        "end": "2026-01-02T00:00:00Z"
+      },
+      "use_purposes": [
+        "课内教学"
+      ],
+      "grant_refs": [
+        {
+          "object_type": "AccessGrant",
+          "object_id": "https://example.edu/accessgrant/1",
+          "version_id": "v1"
+        }
+      ]
+    },
+    "exported_at": "2026-01-02T00:00:00Z",
+    "objects": [],
+    "files": [],
+    "dependencies": [],
+    "access_requirements": {
+      "scopes": [],
+      "use_purposes": [
+        "课内教学"
+      ]
+    },
+    "portability_level": "references_only",
+    "content_inclusions": {
+      "state_records": "selected",
+      "missing_reasons": "all",
+      "member_snapshots": "all",
+      "assessment_adjustments": "none",
+      "teaching_assignments": "none"
+    },
+    "mapping_losses": [],
+    "exclusions": [],
+    "rights_summary": {
+      "license_identifiers": [],
+      "attribution_texts": [],
+      "restricted_components": []
+    }
+  }
+}

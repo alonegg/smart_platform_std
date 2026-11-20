@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Feedback.schema.json",
+  "x-clause": "7.3.4 g)；7.5",
+  "x-elements": [
+    "OBJ-033"
+  ],
+  "x-assumption": [
+    "H-21",
+    "H-14"
+  ],
+  "x-rule-id": "R-FEEDBACK-001",
+  "x-hint": "补齐 submission_ref；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Feedback"
+        },
+        "submission_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Submission"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Submission"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "submission_ref"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

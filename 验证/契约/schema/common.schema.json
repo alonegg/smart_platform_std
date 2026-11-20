@@ -1,0 +1,1380 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/common.schema.json",
+  "$defs": {
+    "Identifier": {
+      "x-rule-id": "R-ID-001",
+      "x-clause": "5.1.7",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "x-assumption": [
+        "H-01"
+      ],
+      "x-hint": "填写1至512字符的非空标识；不要使用显示名称代替稳定身份。"
+    },
+    "VersionId": {
+      "x-rule-id": "R-REF-002",
+      "x-clause": "5.1.3 c)",
+      "$ref": "#/$defs/Identifier",
+      "not": {
+        "enum": [
+          "latest",
+          "current",
+          "head"
+        ]
+      },
+      "x-assumption": [
+        "H-02"
+      ],
+      "x-hint": "填写具体不可变版本标识，不能使用 latest/current/head 别名。"
+    },
+    "ObjectType": {
+      "enum": [
+        "Person",
+        "Organization",
+        "AcademicSession",
+        "Course",
+        "CourseVersion",
+        "Offering",
+        "Enrollment",
+        "EnrollmentRound",
+        "TaskAttempt",
+        "TeachingAssignment",
+        "ProgramVersion",
+        "LearnerGroup",
+        "LearningUnit",
+        "LearningActivity",
+        "LearningObjective",
+        "Framework",
+        "KnowledgePoint",
+        "Competency",
+        "ProgramAlignment",
+        "Resource",
+        "Segment",
+        "RightsRecord",
+        "AssessmentItem",
+        "AssessmentPlan",
+        "AssessmentAdjustment",
+        "Rubric",
+        "RubricCriterion",
+        "Scale",
+        "LearningEvent",
+        "ProcessArtifact",
+        "Submission",
+        "HelpRecord",
+        "Feedback",
+        "GradeDecision",
+        "PeerReview",
+        "ObservationRecord",
+        "CognitiveState",
+        "EvidenceLink",
+        "LearningRecommendation",
+        "MethodRegistration",
+        "MethodApproval",
+        "ApplicationInstance",
+        "CapabilityRegistration",
+        "AccessGrant",
+        "AccessPolicy",
+        "DataClassification"
+      ],
+      "x-clause": "5.1.8"
+    },
+    "Timestamp": {
+      "x-rule-id": "R-TIME-001",
+      "x-clause": "5.5.1",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$",
+      "x-hint": "使用真实 RFC3339 日期时间，明确填写 Z 或 ±hh:mm 时区。"
+    },
+    "Sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "x-clause": "5.3.4"
+    },
+    "ByteLength": {
+      "type": "integer",
+      "minimum": 0,
+      "x-clause": "5.3.4"
+    },
+    "ProfileDecl": {
+      "x-rule-id": "R-PROFILE-001",
+      "x-clause": "5.1.2",
+      "type": "object",
+      "properties": {
+        "profile_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "profile_version": {
+          "$ref": "#/$defs/Identifier"
+        }
+      },
+      "dependentRequired": {
+        "profile_id": [
+          "profile_version"
+        ],
+        "profile_version": [
+          "profile_id"
+        ]
+      },
+      "x-hint": "profile_id 与 profile_version 必须成对填写，并且均为非空标识。"
+    },
+    "LifecycleStatus": {
+      "enum": [
+        "draft",
+        "published",
+        "withdrawn",
+        "archived"
+      ],
+      "x-clause": "5.3.5"
+    },
+    "ReviewStatus": {
+      "enum": [
+        "not_applicable",
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "x-clause": "5.3.5"
+    },
+    "IndependentRef": {
+      "x-rule-id": "R-REF-001",
+      "x-clause": "5.1.3；5.1.4",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "enum": [
+            "CourseVersion",
+            "ProgramVersion",
+            "LearningActivity",
+            "Framework",
+            "Resource",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "Rubric",
+            "Scale",
+            "MethodRegistration",
+            "MethodApproval",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "version_id": {
+          "$ref": "#/$defs/VersionId"
+        }
+      },
+      "required": [
+        "object_id",
+        "version_id"
+      ],
+      "additionalProperties": false,
+      "x-hint": "只保留引用已注册成员；独立版本带version_id、嵌入对象带owner_ref，非版本化对象不带version_id。"
+    },
+    "EmbeddedRef": {
+      "x-rule-id": "R-REF-001",
+      "x-clause": "5.1.3；5.1.4",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "enum": [
+            "LearningUnit",
+            "LearningObjective",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Segment",
+            "RubricCriterion",
+            "EvidenceLink"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "required": [
+            "object_type"
+          ],
+          "x-target-types": [
+            "CourseVersion",
+            "ProgramVersion",
+            "LearningActivity",
+            "Framework",
+            "Resource",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "Rubric",
+            "Scale",
+            "MethodRegistration",
+            "MethodApproval",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "CourseVersion",
+                "ProgramVersion",
+                "LearningActivity",
+                "Framework",
+                "Resource",
+                "RightsRecord",
+                "AssessmentItem",
+                "AssessmentPlan",
+                "Rubric",
+                "Scale",
+                "MethodRegistration",
+                "MethodApproval",
+                "CapabilityRegistration",
+                "AccessGrant",
+                "AccessPolicy",
+                "DataClassification"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "object_id",
+        "owner_ref"
+      ],
+      "additionalProperties": false,
+      "x-hint": "只保留引用已注册成员；独立版本带version_id、嵌入对象带owner_ref，非版本化对象不带version_id。"
+    },
+    "RecordRef": {
+      "x-rule-id": "R-REF-001",
+      "x-clause": "5.1.3；5.1.4",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "enum": [
+            "AssessmentAdjustment",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "LearningRecommendation"
+          ]
+        },
+        "version_id": {
+          "$ref": "#/$defs/Identifier"
+        }
+      },
+      "required": [
+        "object_id"
+      ],
+      "additionalProperties": false,
+      "x-hint": "只保留引用已注册成员；独立版本带version_id、嵌入对象带owner_ref，非版本化对象不带version_id。"
+    },
+    "NonVersionedRef": {
+      "x-rule-id": "R-REF-001",
+      "x-clause": "5.1.3；5.1.4",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "enum": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "LearnerGroup",
+            "ApplicationInstance"
+          ]
+        }
+      },
+      "required": [
+        "object_id"
+      ],
+      "additionalProperties": false,
+      "x-hint": "只保留引用已注册成员；独立版本带version_id、嵌入对象带owner_ref，非版本化对象不带version_id。"
+    },
+    "ObjectRef": {
+      "x-rule-id": "R-REF-003",
+      "x-clause": "5.1.3",
+      "type": "object",
+      "required": [
+        "object_type"
+      ],
+      "properties": {
+        "object_type": {
+          "$ref": "#/$defs/ObjectType"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "CourseVersion",
+                  "ProgramVersion",
+                  "LearningActivity",
+                  "Framework",
+                  "Resource",
+                  "RightsRecord",
+                  "AssessmentItem",
+                  "AssessmentPlan",
+                  "Rubric",
+                  "Scale",
+                  "MethodRegistration",
+                  "MethodApproval",
+                  "CapabilityRegistration",
+                  "AccessGrant",
+                  "AccessPolicy",
+                  "DataClassification"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/IndependentRef"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "LearningUnit",
+                  "LearningObjective",
+                  "KnowledgePoint",
+                  "Competency",
+                  "ProgramAlignment",
+                  "Segment",
+                  "RubricCriterion"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/EmbeddedRef"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "AssessmentAdjustment",
+                  "LearningEvent",
+                  "ProcessArtifact",
+                  "Submission",
+                  "HelpRecord",
+                  "Feedback",
+                  "GradeDecision",
+                  "PeerReview",
+                  "ObservationRecord",
+                  "CognitiveState",
+                  "LearningRecommendation"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/RecordRef"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Person",
+                  "Organization",
+                  "AcademicSession",
+                  "Course",
+                  "Offering",
+                  "Enrollment",
+                  "EnrollmentRound",
+                  "TaskAttempt",
+                  "TeachingAssignment",
+                  "LearnerGroup",
+                  "ApplicationInstance"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/NonVersionedRef"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "object_type": {
+                "const": "EvidenceLink"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/EmbeddedInRecordRef"
+          }
+        }
+      ],
+      "x-hint": "ObjectRef 必须携带 object_type，并按该类型的版本化分类填写版本或所有者。"
+    },
+    "MissingReasons": {
+      "x-rule-id": "R-MISSING-001",
+      "x-clause": "5.5.5",
+      "type": "array",
+      "x-assumption": [
+        "H-03"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "pointer": {
+            "type": "string",
+            "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          },
+          "reason": {
+            "enum": [
+              "unknown",
+              "not_collected",
+              "not_authorized",
+              "source_unsupported",
+              "not_applicable"
+            ]
+          },
+          "rule_id": {
+            "$ref": "#/$defs/Identifier"
+          },
+          "adjustment_ref": {
+            "$ref": "#/$defs/RecordRef",
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "AssessmentAdjustment"
+                ]
+              }
+            },
+            "x-target-types": [
+              "AssessmentAdjustment"
+            ]
+          }
+        },
+        "required": [
+          "pointer",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "not_applicable"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "rule_id"
+              ]
+            }
+          }
+        ]
+      },
+      "x-hint": "为缺失值填写 pointer/reason；not_applicable 还必须提供适用性 rule_id。"
+    },
+    "AuthContext": {
+      "x-rule-id": "R-AUTH-001",
+      "x-clause": "5.3.3",
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "grant_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessGrant"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessGrant"
+          ]
+        },
+        "credential_digest": {
+          "$ref": "#/$defs/Sha256"
+        },
+        "access_mode": {
+          "enum": [
+            "user_session",
+            "delegated",
+            "client_credentials"
+          ]
+        },
+        "on_behalf_of_ref": {
+          "$ref": "#/$defs/NonVersionedRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person"
+          ]
+        },
+        "delegation_grant_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessGrant"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessGrant"
+          ]
+        }
+      },
+      "required": [
+        "client_id",
+        "grant_ref",
+        "credential_digest",
+        "access_mode"
+      ],
+      "additionalProperties": false,
+      "x-assumption": [
+        "H-04"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "access_mode": {
+                "const": "delegated"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "on_behalf_of_ref",
+              "delegation_grant_ref"
+            ]
+          }
+        }
+      ],
+      "x-hint": "填写 client_id/grant_ref/credential_digest/access_mode；delegated 还需人员与委托授权引用。"
+    },
+    "ExternalId": {
+      "type": "object",
+      "properties": {
+        "source_system": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "source_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "mapping_status": {
+          "enum": [
+            "pending",
+            "confirmed",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "source_system",
+        "source_id",
+        "mapping_status"
+      ],
+      "additionalProperties": false,
+      "x-clause": "5.1.5"
+    },
+    "Extensions": {
+      "type": "object",
+      "patternProperties": {
+        "^https?://": {}
+      },
+      "additionalProperties": false,
+      "x-clause": "5.7.1",
+      "x-assumption": [
+        "H-05"
+      ]
+    },
+    "IndependentBase": {
+      "x-rule-id": "R-BASE-001",
+      "x-clause": "5.3.1",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "$ref": "#/$defs/ObjectType"
+        },
+        "schema_version": {
+          "const": "0.1.0-candidate",
+          "x-assumption": [
+            "H-06"
+          ]
+        },
+        "source_system": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "source_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "created_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "created_by": {
+          "$ref": "#/$defs/ObjectRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "ApplicationInstance"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person",
+            "ApplicationInstance"
+          ]
+        },
+        "rights_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "RightsRecord"
+              ]
+            }
+          },
+          "x-target-types": [
+            "RightsRecord"
+          ]
+        },
+        "access_policy_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessPolicy"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessPolicy"
+          ]
+        },
+        "classification_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "DataClassification"
+              ]
+            }
+          },
+          "x-target-types": [
+            "DataClassification"
+          ]
+        },
+        "missing_reasons": {
+          "$ref": "#/$defs/MissingReasons"
+        },
+        "extensions": {
+          "$ref": "#/$defs/Extensions"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "CourseVersion",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "ProgramVersion",
+            "LearnerGroup",
+            "LearningUnit",
+            "LearningActivity",
+            "LearningObjective",
+            "Framework",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Resource",
+            "Segment",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "AssessmentAdjustment",
+            "Rubric",
+            "RubricCriterion",
+            "Scale",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "EvidenceLink",
+            "LearningRecommendation",
+            "MethodRegistration",
+            "MethodApproval",
+            "ApplicationInstance",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "version_id": {
+          "$ref": "#/$defs/VersionId"
+        },
+        "lifecycle_status": {
+          "$ref": "#/$defs/LifecycleStatus"
+        },
+        "review_status": {
+          "$ref": "#/$defs/ReviewStatus"
+        },
+        "previous_version_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "x-target-types": [
+            "CourseVersion",
+            "ProgramVersion",
+            "LearningActivity",
+            "Framework",
+            "Resource",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "Rubric",
+            "Scale",
+            "MethodRegistration",
+            "MethodApproval",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        }
+      },
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_version",
+        "source_system",
+        "source_id",
+        "created_at",
+        "created_by",
+        "rights_ref",
+        "access_policy_ref",
+        "classification_ref",
+        "version_id",
+        "lifecycle_status",
+        "review_status"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProfileDecl"
+        }
+      ],
+      "x-assumption": [
+        "H-07"
+      ],
+      "x-hint": "补齐 object_id/object_type/schema_version、来源与写入身份、权利及保护引用；仅独立版本化对象填写版本生命周期和审核状态。"
+    },
+    "RecordBase": {
+      "x-rule-id": "R-BASE-001",
+      "x-clause": "5.3.1",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "$ref": "#/$defs/ObjectType"
+        },
+        "schema_version": {
+          "const": "0.1.0-candidate",
+          "x-assumption": [
+            "H-06"
+          ]
+        },
+        "source_system": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "source_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "created_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "created_by": {
+          "$ref": "#/$defs/ObjectRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "ApplicationInstance"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person",
+            "ApplicationInstance"
+          ]
+        },
+        "rights_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "RightsRecord"
+              ]
+            }
+          },
+          "x-target-types": [
+            "RightsRecord"
+          ]
+        },
+        "access_policy_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessPolicy"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessPolicy"
+          ]
+        },
+        "classification_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "DataClassification"
+              ]
+            }
+          },
+          "x-target-types": [
+            "DataClassification"
+          ]
+        },
+        "missing_reasons": {
+          "$ref": "#/$defs/MissingReasons"
+        },
+        "extensions": {
+          "$ref": "#/$defs/Extensions"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "CourseVersion",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "ProgramVersion",
+            "LearnerGroup",
+            "LearningUnit",
+            "LearningActivity",
+            "LearningObjective",
+            "Framework",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Resource",
+            "Segment",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "AssessmentAdjustment",
+            "Rubric",
+            "RubricCriterion",
+            "Scale",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "EvidenceLink",
+            "LearningRecommendation",
+            "MethodRegistration",
+            "MethodApproval",
+            "ApplicationInstance",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "version_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "lifecycle_status": false,
+        "review_status": false
+      },
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_version",
+        "source_system",
+        "source_id",
+        "created_at",
+        "created_by",
+        "rights_ref",
+        "access_policy_ref",
+        "classification_ref"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProfileDecl"
+        }
+      ],
+      "x-assumption": [
+        "H-07"
+      ],
+      "x-hint": "补齐 object_id/object_type/schema_version、来源与写入身份、权利及保护引用；仅独立版本化对象填写版本生命周期和审核状态。"
+    },
+    "NonVersionedBase": {
+      "x-rule-id": "R-BASE-001",
+      "x-clause": "5.3.1",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "$ref": "#/$defs/ObjectType"
+        },
+        "schema_version": {
+          "const": "0.1.0-candidate",
+          "x-assumption": [
+            "H-06"
+          ]
+        },
+        "source_system": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "source_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "created_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "created_by": {
+          "$ref": "#/$defs/ObjectRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "ApplicationInstance"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person",
+            "ApplicationInstance"
+          ]
+        },
+        "rights_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "RightsRecord"
+              ]
+            }
+          },
+          "x-target-types": [
+            "RightsRecord"
+          ]
+        },
+        "access_policy_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessPolicy"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessPolicy"
+          ]
+        },
+        "classification_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "DataClassification"
+              ]
+            }
+          },
+          "x-target-types": [
+            "DataClassification"
+          ]
+        },
+        "missing_reasons": {
+          "$ref": "#/$defs/MissingReasons"
+        },
+        "extensions": {
+          "$ref": "#/$defs/Extensions"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "CourseVersion",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "ProgramVersion",
+            "LearnerGroup",
+            "LearningUnit",
+            "LearningActivity",
+            "LearningObjective",
+            "Framework",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Resource",
+            "Segment",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "AssessmentAdjustment",
+            "Rubric",
+            "RubricCriterion",
+            "Scale",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "EvidenceLink",
+            "LearningRecommendation",
+            "MethodRegistration",
+            "MethodApproval",
+            "ApplicationInstance",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "version_id": false,
+        "lifecycle_status": false,
+        "review_status": false
+      },
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_version",
+        "source_system",
+        "source_id",
+        "created_at",
+        "created_by",
+        "rights_ref",
+        "access_policy_ref",
+        "classification_ref"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProfileDecl"
+        }
+      ],
+      "x-assumption": [
+        "H-07"
+      ],
+      "x-hint": "补齐 object_id/object_type/schema_version、来源与写入身份、权利及保护引用；仅独立版本化对象填写版本生命周期和审核状态。"
+    },
+    "EmbeddedBase": {
+      "x-rule-id": "R-BASE-001",
+      "x-clause": "5.3.1",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "$ref": "#/$defs/ObjectType"
+        },
+        "schema_version": {
+          "const": "0.1.0-candidate",
+          "x-assumption": [
+            "H-06"
+          ]
+        },
+        "source_system": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "source_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "created_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "created_by": {
+          "$ref": "#/$defs/ObjectRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person",
+                "ApplicationInstance"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person",
+            "ApplicationInstance"
+          ]
+        },
+        "rights_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "RightsRecord"
+              ]
+            }
+          },
+          "x-target-types": [
+            "RightsRecord"
+          ]
+        },
+        "access_policy_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessPolicy"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AccessPolicy"
+          ]
+        },
+        "classification_ref": {
+          "$ref": "#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "DataClassification"
+              ]
+            }
+          },
+          "x-target-types": [
+            "DataClassification"
+          ]
+        },
+        "missing_reasons": {
+          "$ref": "#/$defs/MissingReasons"
+        },
+        "extensions": {
+          "$ref": "#/$defs/Extensions"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person",
+            "Organization",
+            "AcademicSession",
+            "Course",
+            "CourseVersion",
+            "Offering",
+            "Enrollment",
+            "EnrollmentRound",
+            "TaskAttempt",
+            "TeachingAssignment",
+            "ProgramVersion",
+            "LearnerGroup",
+            "LearningUnit",
+            "LearningActivity",
+            "LearningObjective",
+            "Framework",
+            "KnowledgePoint",
+            "Competency",
+            "ProgramAlignment",
+            "Resource",
+            "Segment",
+            "RightsRecord",
+            "AssessmentItem",
+            "AssessmentPlan",
+            "AssessmentAdjustment",
+            "Rubric",
+            "RubricCriterion",
+            "Scale",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "EvidenceLink",
+            "LearningRecommendation",
+            "MethodRegistration",
+            "MethodApproval",
+            "ApplicationInstance",
+            "CapabilityRegistration",
+            "AccessGrant",
+            "AccessPolicy",
+            "DataClassification"
+          ]
+        },
+        "version_id": false,
+        "lifecycle_status": false,
+        "review_status": false
+      },
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_version",
+        "source_system",
+        "source_id",
+        "created_at",
+        "created_by",
+        "rights_ref",
+        "access_policy_ref",
+        "classification_ref"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProfileDecl"
+        }
+      ],
+      "x-assumption": [
+        "H-07"
+      ],
+      "x-hint": "补齐 object_id/object_type/schema_version、来源与写入身份、权利及保护引用；仅独立版本化对象填写版本生命周期和审核状态。"
+    },
+    "EmbeddedInRecordRef": {
+      "x-rule-id": "R-REF-006",
+      "x-clause": "5.1.3 a)；8.11.3",
+      "x-assumption": [
+        "H-20"
+      ],
+      "x-hint": "EvidenceLink 不另赋 version_id；owner_ref 须是含 object_type 的不可变记录引用。",
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "object_type": {
+          "const": "EvidenceLink"
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/RecordRef",
+          "required": [
+            "object_type"
+          ],
+          "x-target-types": [
+            "AssessmentAdjustment",
+            "LearningEvent",
+            "ProcessArtifact",
+            "Submission",
+            "HelpRecord",
+            "Feedback",
+            "GradeDecision",
+            "PeerReview",
+            "ObservationRecord",
+            "CognitiveState",
+            "LearningRecommendation"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AssessmentAdjustment",
+                "LearningEvent",
+                "ProcessArtifact",
+                "Submission",
+                "HelpRecord",
+                "Feedback",
+                "GradeDecision",
+                "PeerReview",
+                "ObservationRecord",
+                "CognitiveState",
+                "LearningRecommendation"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "object_id",
+        "owner_ref"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "x-assumption": [
+    "H-14",
+    "H-15"
+  ],
+  "x-clause": "5.1；5.3；5.5",
+  "x-elements": [
+    "OBJ-001"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "clause": "7.2.2",
+  "values": [
+    "learner_event",
+    "artifact_event",
+    "staff_event",
+    "course_event",
+    "system_event"
+  ]
+}

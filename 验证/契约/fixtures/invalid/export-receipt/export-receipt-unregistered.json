@@ -1,0 +1,56 @@
+{
+  "fixture": {
+    "target": "export-receipt",
+    "stage": "exchange",
+    "expect": "invalid",
+    "clauses": [
+      "8.2.8"
+    ],
+    "elements": [
+      "FLD-MAN-017"
+    ],
+    "violates": "unregistered",
+    "expected_rule_ids": [
+      "R-EXR-001"
+    ]
+  },
+  "instance": {
+    "receipt_id": "synthetic-export-receipt-1",
+    "package_id": "synthetic-package-1",
+    "package_type": "teaching",
+    "export_task_id": "synthetic-task-1",
+    "manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "archive_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "export_scope": {
+      "course_refs": [],
+      "offering_refs": [],
+      "object_types": [
+        "Resource"
+      ],
+      "time_window": {
+        "start": "2026-01-01T00:00:00Z",
+        "end": "2026-01-02T00:00:00Z"
+      },
+      "use_purposes": [
+        "课内教学"
+      ],
+      "grant_refs": [
+        {
+          "object_type": "AccessGrant",
+          "object_id": "https://example.edu/accessgrant/1",
+          "version_id": "v1"
+        }
+      ]
+    },
+    "authorization_refs": [
+      {
+        "object_type": "AccessGrant",
+        "object_id": "https://example.edu/accessgrant/1",
+        "version_id": "v1"
+      }
+    ],
+    "source_instance": "https://example.edu/applicationinstance/1",
+    "issued_at": "2026-01-02T00:00:00Z",
+    "unregistered": "合成字段"
+  }
+}

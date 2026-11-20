@@ -1,0 +1,53 @@
+{
+  "fixture": {
+    "target": "Segment",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "6.4"
+    ],
+    "elements": [
+      "OBJ-021"
+    ],
+    "violates": "page-missing-locator",
+    "expected_rule_ids": [
+      "R-SEG-004"
+    ]
+  },
+  "instance": {
+    "object_id": "https://example.edu/segment/1",
+    "object_type": "Segment",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "owner_ref": {
+      "object_type": "Resource",
+      "object_id": "https://example.edu/resource/1",
+      "version_id": "v1"
+    },
+    "locator_type": "page",
+    "source_duration_ms": 2000,
+    "subtitle_refs": [],
+    "target_refs": []
+  }
+}

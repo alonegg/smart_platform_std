@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/AssessmentAdjustment.schema.json",
+  "x-clause": "6.6.10",
+  "x-elements": [
+    "OBJ-025"
+  ],
+  "x-assumption": [
+    "H-22",
+    "H-14"
+  ],
+  "x-rule-id": "R-ASSESSMENTADJUSTMENT-001",
+  "x-hint": "补齐 learner_ref、adjustment_type、basis、approval_ref、registered_by、effective_at；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "AssessmentAdjustment"
+        },
+        "learner_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          }
+        },
+        "enrollment_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Enrollment"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Enrollment"
+              ]
+            }
+          }
+        },
+        "enrollment_round_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "EnrollmentRound"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "EnrollmentRound"
+              ]
+            }
+          }
+        },
+        "activity_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "LearningActivity"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "LearningActivity"
+              ]
+            }
+          }
+        },
+        "component_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "assessment_plan_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "AssessmentPlan"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AssessmentPlan"
+              ]
+            }
+          }
+        },
+        "adjustment_type": {
+          "enum": [
+            "extension",
+            "deferred_exam",
+            "course_exemption",
+            "exam_exemption",
+            "extra_time",
+            "substitute_task"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approval_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "AccessGrant"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AccessGrant"
+              ]
+            }
+          }
+        },
+        "registered_by": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          }
+        },
+        "effective_at": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "effective_deadline": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "time_limit_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "substitute_activity_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "LearningActivity"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "LearningActivity"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "learner_ref",
+        "adjustment_type",
+        "basis",
+        "approval_ref",
+        "registered_by",
+        "effective_at"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-ASSESSMENTADJUSTMENT-002",
+          "x-clause": "6.6.10",
+          "x-hint": "至少关联修读 enrollment_ref 或修读轮次 enrollment_round_ref。",
+          "anyOf": [
+            {
+              "required": [
+                "enrollment_ref"
+              ]
+            },
+            {
+              "required": [
+                "enrollment_round_ref"
+              ]
+            }
+          ]
+        },
+        {
+          "x-rule-id": "R-ASSESSMENTADJUSTMENT-003",
+          "x-clause": "6.6.10",
+          "x-hint": "指定活动版本，或同时指定考核方案版本和环节局部标识。",
+          "anyOf": [
+            {
+              "required": [
+                "activity_ref"
+              ]
+            },
+            {
+              "required": [
+                "component_id",
+                "assessment_plan_ref"
+              ]
+            }
+          ]
+        },
+        {
+          "x-rule-id": "R-ASSESSMENTADJUSTMENT-004",
+          "x-clause": "6.6.10",
+          "x-hint": "延期、延时必须给出个人有效截止时间或时限。",
+          "if": {
+            "properties": {
+              "adjustment_type": {
+                "enum": [
+                  "extension",
+                  "extra_time"
+                ]
+              }
+            },
+            "required": [
+              "adjustment_type"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "effective_deadline"
+                ]
+              },
+              {
+                "required": [
+                  "time_limit_ms"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-ASSESSMENTADJUSTMENT-005",
+          "x-clause": "6.6.10",
+          "x-hint": "替代任务调整须引用替代的学习活动具体版本。",
+          "if": {
+            "properties": {
+              "adjustment_type": {
+                "const": "substitute_task"
+              }
+            },
+            "required": [
+              "adjustment_type"
+            ]
+          },
+          "then": {
+            "required": [
+              "substitute_activity_ref"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/MethodRegistration.schema.json",
+  "x-clause": "10.8 表10-2",
+  "x-elements": [
+    "OBJ-040"
+  ],
+  "x-assumption": [
+    "H-24",
+    "H-14"
+  ],
+  "x-rule-id": "R-METHODREGISTRATION-001",
+  "x-hint": "补齐 method_type、input_fields、input_evidence_types、scale_ref、source_description、legal_basis、validation_evidence、limitations；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/IndependentBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "MethodRegistration"
+        },
+        "object_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier",
+          "x-elements": [
+            "FLD-MTH-001"
+          ]
+        },
+        "version_id": {
+          "$ref": "../common.schema.json#/$defs/VersionId",
+          "x-elements": [
+            "FLD-MTH-001"
+          ]
+        },
+        "method_type": {
+          "enum": [
+            "推断模型",
+            "评分规则",
+            "人工判断规程"
+          ],
+          "x-elements": [
+            "FLD-MTH-002"
+          ]
+        },
+        "input_fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-elements": [
+            "FLD-MTH-003"
+          ]
+        },
+        "input_evidence_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-elements": [
+            "FLD-MTH-003"
+          ]
+        },
+        "scale_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Scale"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Scale"
+              ]
+            }
+          },
+          "x-elements": [
+            "FLD-MTH-003"
+          ]
+        },
+        "source_description": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-MTH-004"
+          ]
+        },
+        "legal_basis": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-MTH-004"
+          ]
+        },
+        "validation_evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "evidence_ref": {
+                "$ref": "../common.schema.json#/$defs/ObjectRef",
+                "x-target-types": [
+                  "Resource"
+                ],
+                "properties": {
+                  "object_type": {
+                    "enum": [
+                      "Resource"
+                    ]
+                  }
+                }
+              },
+              "consequence_level": {
+                "enum": [
+                  "research_shadow",
+                  "formative_support",
+                  "consequential_decision"
+                ]
+              },
+              "scope": {
+                "type": "object",
+                "properties": {
+                  "disciplines": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "course_refs": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "../common.schema.json#/$defs/ObjectRef",
+                      "x-target-types": [
+                        "Course"
+                      ],
+                      "properties": {
+                        "object_type": {
+                          "enum": [
+                            "Course"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "populations": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "languages": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "task_difficulties": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "assistance_modes": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "enum": [
+                        "independent",
+                        "assisted"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "disciplines",
+                  "course_refs",
+                  "populations",
+                  "languages",
+                  "task_difficulties",
+                  "assistance_modes"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "evidence_ref",
+              "consequence_level",
+              "scope"
+            ],
+            "additionalProperties": false
+          },
+          "x-elements": [
+            "FLD-MTH-005"
+          ]
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 1,
+          "x-elements": [
+            "FLD-MTH-006"
+          ]
+        },
+        "lifecycle_status": {
+          "$ref": "../common.schema.json#/$defs/LifecycleStatus",
+          "x-elements": [
+            "FLD-MTH-007"
+          ]
+        },
+        "approval_status": false
+      },
+      "required": [
+        "method_type",
+        "input_fields",
+        "input_evidence_types",
+        "scale_ref",
+        "source_description",
+        "legal_basis",
+        "validation_evidence",
+        "limitations"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

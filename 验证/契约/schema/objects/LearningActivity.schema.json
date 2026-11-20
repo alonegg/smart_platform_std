@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/LearningActivity.schema.json",
+  "x-clause": "3.17；6.1.1；6.6.3；7.3",
+  "x-elements": [
+    "OBJ-014"
+  ],
+  "x-assumption": [
+    "H-21",
+    "H-14"
+  ],
+  "x-rule-id": "R-LEARNINGACTIVITY-001",
+  "x-hint": "补齐 course_version_ref；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/IndependentBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "LearningActivity"
+        },
+        "course_version_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "CourseVersion"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "CourseVersion"
+              ]
+            }
+          }
+        },
+        "assessment_plan_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "AssessmentPlan"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AssessmentPlan"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "course_version_ref"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}
