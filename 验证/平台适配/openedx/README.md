@@ -26,7 +26,9 @@ learning阶段通过Django Client派发原生 `/event` 和CAPA XBlock handler请
 
 这是脚本化请求，不是浏览器真实解码/观看的证据，三秒时间值为合成事件参数。CAPA请求则实际执行平台作答与判分逻辑，不是直接写成绩表。
 
-ORA通过已导入block的 `submissions_actions.submit` 创建初稿及workflow，再通过原生staff assessment API初评1/3、复评3/3。revision阶段调用平台 `reset_student_attempts(..., delete_module=True)`，由ORA的 `clear_student_state` 取消并孤立旧提交后再通过原生block API重交不同文本；第二份作业获3/3。旧提交与取消记录保留，不把重置后的新记录误称为同一StudentItem的连续attempt_number。当前ORA版本源码有受配置/截止/评审状态限制的学习者重交功能，本场景未启用；**不声称整个Open edX缺少重交能力**，本次采用员工重置这一等效流程。
+ORA通过已导入block的 `submissions_actions.submit` 创建初稿及workflow，再通过原生staff assessment API初评1/3、复评3/3。revision阶段调用平台 `reset_student_attempts(..., delete_module=True)`，由ORA的 `clear_student_state` 取消workflow并将旧提交软删除，再通过原生block API重交不同文本；第二份作业获3/3。旧提交底层行与取消记录保留。当前ORA版本源码有受配置/截止/评审状态限制的学习者重交功能，本场景未启用；**不声称整个Open edX缺少重交能力**，本次采用员工重置这一等效流程。
+
+核对时发现 `Submission.objects.count()` 默认排除软删除的初稿（返回1），不能用该manager判断原始提交历史数量；取样必须直接读取原始表以保留两份记录，不能“修复”平台manager或补造历史。
 
 此外用原生成绩工厂计算持久化成绩，并调用 `PersistentSubsectionGradeOverride.update_or_create_override` 将学员01的subsection覆盖分从2/4改为3.5/4，保留两条历史及教师归属。它是平台分数覆盖历史，不自动等同标准正式更正决定/审批链。learning及revision阶段分别在已有学习状态/分数覆盖时拒绝重复；中途失败后不自动覆盖已有记录。
 
