@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Segment.schema.json",
+  "x-clause": "6.4",
+  "x-elements": [
+    "OBJ-021"
+  ],
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/EmbeddedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Segment"
+        },
+        "owner_ref": {
+          "$ref": "../common.schema.json#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Resource"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Resource"
+          ]
+        },
+        "locator_type": {
+          "enum": [
+            "time_range",
+            "page",
+            "text_range",
+            "image_region"
+          ],
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "start_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "text_start": {
+          "type": "integer",
+          "minimum": 0,
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "text_end": {
+          "type": "integer",
+          "minimum": 0,
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "region": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": 0
+            },
+            "y": {
+              "type": "number",
+              "minimum": 0
+            },
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "width",
+            "height"
+          ],
+          "additionalProperties": false,
+          "x-assumption": [
+            "H-12"
+          ]
+        },
+        "subtitle_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "Resource",
+                  "Segment"
+                ]
+              }
+            },
+            "x-target-types": [
+              "Resource",
+              "Segment"
+            ]
+          }
+        },
+        "target_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef",
+            "properties": {
+              "object_type": {
+                "enum": [
+                  "LearningObjective",
+                  "KnowledgePoint",
+                  "Competency"
+                ]
+              }
+            },
+            "x-target-types": [
+              "LearningObjective",
+              "KnowledgePoint",
+              "Competency"
+            ]
+          }
+        }
+      },
+      "required": [
+        "owner_ref",
+        "locator_type",
+        "subtitle_refs",
+        "target_refs"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-SEG-004",
+          "x-clause": "6.4；Issue #39",
+          "if": {
+            "properties": {
+              "locator_type": {
+                "const": "time_range"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "start_ms",
+              "end_ms"
+            ],
+            "properties": {
+              "page": false,
+              "text_start": false,
+              "text_end": false,
+              "region": false
+            }
+          },
+          "x-hint": "时间定位填写 start_ms/end_ms；非时间定位只填写对应页码、文本范围或图像范围。"
+        },
+        {
+          "x-rule-id": "R-SEG-004",
+          "x-clause": "6.4；Issue #39",
+          "if": {
+            "properties": {
+              "locator_type": {
+                "const": "page"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "page"
+            ],
+            "properties": {
+              "start_ms": false,
+              "end_ms": false,
+              "text_start": false,
+              "text_end": false,
+              "region": false
+            }
+          },
+          "x-hint": "时间定位填写 start_ms/end_ms；非时间定位只填写对应页码、文本范围或图像范围。"
+        },
+        {
+          "x-rule-id": "R-SEG-004",
+          "x-clause": "6.4；Issue #39",
+          "if": {
+            "properties": {
+              "locator_type": {
+                "const": "text_range"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "text_start",
+              "text_end"
+            ],
+            "properties": {
+              "start_ms": false,
+              "end_ms": false,
+              "page": false,
+              "region": false
+            }
+          },
+          "x-hint": "时间定位填写 start_ms/end_ms；非时间定位只填写对应页码、文本范围或图像范围。"
+        },
+        {
+          "x-rule-id": "R-SEG-004",
+          "x-clause": "6.4；Issue #39",
+          "if": {
+            "properties": {
+              "locator_type": {
+                "const": "image_region"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "region"
+            ],
+            "properties": {
+              "start_ms": false,
+              "end_ms": false,
+              "page": false,
+              "text_start": false,
+              "text_end": false
+            }
+          },
+          "x-hint": "时间定位填写 start_ms/end_ms；非时间定位只填写对应页码、文本范围或图像范围。"
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false,
+  "x-rule-id": "R-SEG-001",
+  "x-assumption": [
+    "H-14"
+  ],
+  "x-hint": "提供 owner_ref、locator_type、subtitle_refs 与 target_refs，并仅填写相应定位类型的成员。"
+}

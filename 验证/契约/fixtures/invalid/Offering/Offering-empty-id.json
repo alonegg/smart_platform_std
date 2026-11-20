@@ -1,0 +1,64 @@
+{
+  "fixture": {
+    "target": "Offering",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.2.1；6.6.3"
+    ],
+    "elements": [
+      "OBJ-006"
+    ],
+    "violates": "empty-id",
+    "expected_rule_ids": [
+      "R-ID-001"
+    ]
+  },
+  "instance": {
+    "object_id": "",
+    "object_type": "Offering",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "course_version_ref": {
+      "object_type": "CourseVersion",
+      "object_id": "https://example.edu/courseversion/1",
+      "version_id": "v1"
+    },
+    "academic_session_ref": {
+      "object_type": "AcademicSession",
+      "object_id": "https://example.edu/academicsession/1"
+    },
+    "teaching_assignment_refs": [
+      {
+        "object_type": "TeachingAssignment",
+        "object_id": "https://example.edu/teachingassignment/1"
+      }
+    ],
+    "assessment_plan_ref": {
+      "object_type": "AssessmentPlan",
+      "object_id": "https://example.edu/assessmentplan/1",
+      "version_id": "v1"
+    }
+  }
+}

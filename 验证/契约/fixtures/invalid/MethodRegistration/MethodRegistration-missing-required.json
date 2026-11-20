@@ -1,0 +1,94 @@
+{
+  "fixture": {
+    "target": "MethodRegistration",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "10.8 表10-2"
+    ],
+    "elements": [
+      "OBJ-040"
+    ],
+    "violates": "missing-required",
+    "expected_rule_ids": [
+      "R-METHODREGISTRATION-001"
+    ]
+  },
+  "instance": {
+    "object_id": "https://example.edu/methodregistration/1",
+    "object_type": "MethodRegistration",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "version_id": "v1",
+    "lifecycle_status": "published",
+    "review_status": "approved",
+    "input_fields": [
+      "response"
+    ],
+    "input_evidence_types": [
+      "ProcessArtifact"
+    ],
+    "scale_ref": {
+      "object_type": "Scale",
+      "object_id": "https://example.edu/scale/1",
+      "version_id": "v1"
+    },
+    "source_description": "仅用合成规则",
+    "legal_basis": "合成测试授权",
+    "validation_evidence": [
+      {
+        "evidence_ref": {
+          "object_type": "Resource",
+          "object_id": "https://example.edu/resource/1",
+          "version_id": "v1"
+        },
+        "consequence_level": "formative_support",
+        "scope": {
+          "disciplines": [
+            "合成学科"
+          ],
+          "course_refs": [
+            {
+              "object_type": "Course",
+              "object_id": "https://example.edu/course/1"
+            }
+          ],
+          "populations": [
+            "合成群体"
+          ],
+          "languages": [
+            "zh-CN"
+          ],
+          "task_difficulties": [
+            "合成难度"
+          ],
+          "assistance_modes": [
+            "independent"
+          ]
+        }
+      }
+    ],
+    "limitations": "未在真实人群验证"
+  }
+}

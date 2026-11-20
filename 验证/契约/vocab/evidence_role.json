@@ -1,0 +1,9 @@
+{
+  "clause": "8.11.3；10.2.1",
+  "values": [
+    "supports",
+    "refutes",
+    "inconclusive",
+    "limits"
+  ]
+}

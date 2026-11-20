@@ -1,0 +1,10 @@
+{
+  "clause": "7.2.12 a)",
+  "values": [
+    "staff",
+    "learner",
+    "ai_service",
+    "rule_engine",
+    "system"
+  ]
+}

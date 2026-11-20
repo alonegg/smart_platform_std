@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Organization.schema.json",
+  "x-clause": "3.5；5.9",
+  "x-elements": [
+    "OBJ-002"
+  ],
+  "x-assumption": [
+    "H-16",
+    "H-14"
+  ],
+  "x-rule-id": "R-ORGANIZATION-001",
+  "x-hint": "补齐 Organization 的必填字段，删除未注册成员，并按目标类型使用结构化引用。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/NonVersionedBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "Organization"
+        }
+      },
+      "required": []
+    }
+  ],
+  "unevaluatedProperties": false
+}

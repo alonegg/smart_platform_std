@@ -1,0 +1,22 @@
+{
+  "fixture": {
+    "target": "IndependentRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-020"
+    ],
+    "violates": "alias-version",
+    "expected_rule_ids": [
+      "R-REF-002"
+    ]
+  },
+  "instance": {
+    "object_type": "Resource",
+    "object_id": "https://example.edu/resource/1",
+    "version_id": "latest"
+  }
+}

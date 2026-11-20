@@ -1,0 +1,133 @@
+{
+  "event_type": "guidance.recorded",
+  "event_class": "staff_event",
+  "status": "first_phase",
+  "meaning": "教学人员确认的指导记录",
+  "event_type_version": "0.1.0-candidate",
+  "clauses": [
+    "7.2",
+    "7.3.1",
+    "7.3.3",
+    "9.5.1"
+  ],
+  "elements": [
+    "EVT-010"
+  ],
+  "preconditions": "教学人员已确认指导记录，AI建议不是已实施指导。",
+  "allowed_actor_types": [
+    "staff"
+  ],
+  "allowed_entry_modes": [
+    "self",
+    "proxy",
+    "bulk_import",
+    "substitute",
+    "system_auto"
+  ],
+  "ai_may_emit": false,
+  "ai_note": "本候选定义不允许AI作为本事件行为主体；AI提议与人员确认分别记录。",
+  "scope_types": [
+    "offering"
+  ],
+  "subject_refs": "required",
+  "requires_attempt_ref": false,
+  "group": "conditional",
+  "requires_teaching_assignment_ref": true,
+  "requires_source_recorded_at": false,
+  "object_ref_types": [
+    "Feedback"
+  ],
+  "artifact_refs": "optional",
+  "hash_envelope_members": [
+    "event_type_version",
+    "source_system",
+    "source_instance",
+    "source_event_id",
+    "profile_id",
+    "profile_version",
+    "offering_id",
+    "enrollment_id",
+    "occurred_at",
+    "source_recorded_at",
+    "attested_at",
+    "schema_version",
+    "event_type",
+    "event_class",
+    "actor_type",
+    "entry_mode",
+    "scope_type",
+    "source_sequence",
+    "actor_ref",
+    "subject_refs",
+    "scope_refs",
+    "object_ref",
+    "attempt_ref",
+    "teaching_assignment_ref",
+    "adjustment_refs",
+    "group_ref",
+    "member_refs",
+    "artifact_refs",
+    "entry_evidence_refs",
+    "context"
+  ],
+  "idempotency_key": [
+    "source_instance",
+    "source_event_id"
+  ],
+  "receiver_only_fields": [
+    "event_id",
+    "received_at",
+    "auth_context"
+  ],
+  "payload_schema": {
+    "type": "object",
+    "properties": {
+      "confirmed_by": {
+        "$ref": "../schema/common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "const": "Person"
+          }
+        },
+        "x-target-types": [
+          "Person"
+        ]
+      }
+    },
+    "required": [
+      "confirmed_by"
+    ],
+    "additionalProperties": false,
+    "x-assumption": [
+      "H-25"
+    ],
+    "x-rule-id": "R-PAYLOAD-001",
+    "x-clause": "7.3.3",
+    "x-hint": "补齐本逐事件定义要求的payload成员；正文未冻结的英文结构见H-25，不写入未注册载荷。"
+  },
+  "standard_mapping": "未定（7.4.6）",
+  "x-assumption": [
+    "H-10"
+  ],
+  "source_members": [
+    "source_system",
+    "source_instance",
+    "source_event_id"
+  ],
+  "relationships": "按实际范围解析修读、修读轮次、任务尝试、授课安排及个人调整；离线结构通过不证明关系存在。",
+  "help_refs": "需要说明帮助时，通过业务对象引用HelpRecord；不从技术日志反推帮助。",
+  "time_semantics": "occurred_at为事实发生时间；received_at为接收端时间，不能代替事实时间。",
+  "withdrawal_semantics": "本事件本身不撤回或覆盖既有不可变记录。",
+  "statistics_effect": "按源事实键去重，事实、传输尝试及采纳分开统计；不直接推断掌握。",
+  "applicability": "首批候选事件，需相应能力及真实业务条件。",
+  "upgrade_path": "由维护机构评审并随学校Profile版本冻结，不据合成样例宣布准入。",
+  "examples": {
+    "valid": [
+      "fixtures/valid/event/event-guidance.recorded.json"
+    ],
+    "invalid": [
+      "fixtures/invalid/event/event-guidance.recorded-version.json",
+      "fixtures/invalid/event/event-guidance.recorded-payload.json"
+    ]
+  }
+}

@@ -1,0 +1,1647 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/envelope-core.schema.json",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-001"
+      ]
+    },
+    "event_type_version": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-002"
+      ]
+    },
+    "source_system": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "source_instance": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-005"
+      ]
+    },
+    "source_event_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "profile_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-004"
+      ]
+    },
+    "profile_version": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-004"
+      ]
+    },
+    "offering_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-009"
+      ]
+    },
+    "enrollment_id": {
+      "$ref": "common.schema.json#/$defs/Identifier",
+      "x-elements": [
+        "FLD-EVT-010"
+      ]
+    },
+    "occurred_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "source_recorded_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp",
+      "x-elements": [
+        "FLD-EVT-019"
+      ]
+    },
+    "attested_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp",
+      "x-elements": [
+        "FLD-EVT-018"
+      ]
+    },
+    "received_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp",
+      "x-elements": [
+        "FLD-EVT-021"
+      ]
+    },
+    "schema_version": {
+      "const": "0.1.0-candidate",
+      "x-assumption": [
+        "H-06"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "course.published",
+        "enrollment.changed",
+        "permission.revoked",
+        "resource.opened",
+        "media.progressed",
+        "activity.started",
+        "discussion.posted",
+        "discussion.facilitated",
+        "attendance.recorded",
+        "guidance.recorded",
+        "response.recorded",
+        "submission.saved",
+        "submission.submitted",
+        "submission.withdrawn",
+        "help.requested",
+        "help.provided",
+        "feedback.published",
+        "grade.proposed",
+        "grade.confirmed",
+        "grade.corrected",
+        "grade.archived",
+        "cognition.updated",
+        "recommendation.issued",
+        "intervention.recorded"
+      ],
+      "x-elements": [
+        "FLD-EVT-002"
+      ]
+    },
+    "event_class": {
+      "enum": [
+        "learner_event",
+        "artifact_event",
+        "staff_event",
+        "course_event",
+        "system_event"
+      ],
+      "x-elements": [
+        "FLD-EVT-003"
+      ]
+    },
+    "actor_type": {
+      "enum": [
+        "staff",
+        "learner",
+        "ai_service",
+        "rule_engine",
+        "system"
+      ],
+      "x-elements": [
+        "FLD-EVT-006"
+      ]
+    },
+    "entry_mode": {
+      "enum": [
+        "self",
+        "proxy",
+        "bulk_import",
+        "substitute",
+        "system_auto"
+      ],
+      "x-elements": [
+        "FLD-EVT-007"
+      ]
+    },
+    "scope_type": {
+      "enum": [
+        "offering",
+        "course",
+        "application",
+        "authorization",
+        "object"
+      ],
+      "x-elements": [
+        "FLD-EVT-008"
+      ]
+    },
+    "source_sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "x-assumption": [
+        "H-08"
+      ]
+    },
+    "actor_ref": {
+      "$ref": "common.schema.json#/$defs/ObjectRef",
+      "properties": {
+        "object_type": {
+          "enum": [
+            "Person",
+            "ApplicationInstance"
+          ]
+        }
+      },
+      "x-target-types": [
+        "Person",
+        "ApplicationInstance"
+      ],
+      "x-elements": [
+        "FLD-EVT-006"
+      ]
+    },
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "Person"
+            ]
+          }
+        },
+        "x-target-types": [
+          "Person"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-011"
+      ]
+    },
+    "scope_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "Person",
+              "Organization",
+              "AcademicSession",
+              "Course",
+              "CourseVersion",
+              "Offering",
+              "Enrollment",
+              "EnrollmentRound",
+              "TaskAttempt",
+              "TeachingAssignment",
+              "ProgramVersion",
+              "LearnerGroup",
+              "LearningUnit",
+              "LearningActivity",
+              "LearningObjective",
+              "Framework",
+              "KnowledgePoint",
+              "Competency",
+              "ProgramAlignment",
+              "Resource",
+              "Segment",
+              "RightsRecord",
+              "AssessmentItem",
+              "AssessmentPlan",
+              "AssessmentAdjustment",
+              "Rubric",
+              "RubricCriterion",
+              "Scale",
+              "LearningEvent",
+              "ProcessArtifact",
+              "Submission",
+              "HelpRecord",
+              "Feedback",
+              "GradeDecision",
+              "PeerReview",
+              "ObservationRecord",
+              "CognitiveState",
+              "EvidenceLink",
+              "LearningRecommendation",
+              "MethodRegistration",
+              "MethodApproval",
+              "ApplicationInstance",
+              "CapabilityRegistration",
+              "AccessGrant",
+              "AccessPolicy",
+              "DataClassification"
+            ]
+          }
+        },
+        "x-target-types": [
+          "Person",
+          "Organization",
+          "AcademicSession",
+          "Course",
+          "CourseVersion",
+          "Offering",
+          "Enrollment",
+          "EnrollmentRound",
+          "TaskAttempt",
+          "TeachingAssignment",
+          "ProgramVersion",
+          "LearnerGroup",
+          "LearningUnit",
+          "LearningActivity",
+          "LearningObjective",
+          "Framework",
+          "KnowledgePoint",
+          "Competency",
+          "ProgramAlignment",
+          "Resource",
+          "Segment",
+          "RightsRecord",
+          "AssessmentItem",
+          "AssessmentPlan",
+          "AssessmentAdjustment",
+          "Rubric",
+          "RubricCriterion",
+          "Scale",
+          "LearningEvent",
+          "ProcessArtifact",
+          "Submission",
+          "HelpRecord",
+          "Feedback",
+          "GradeDecision",
+          "PeerReview",
+          "ObservationRecord",
+          "CognitiveState",
+          "EvidenceLink",
+          "LearningRecommendation",
+          "MethodRegistration",
+          "MethodApproval",
+          "ApplicationInstance",
+          "CapabilityRegistration",
+          "AccessGrant",
+          "AccessPolicy",
+          "DataClassification"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-008"
+      ]
+    },
+    "object_ref": {
+      "$ref": "common.schema.json#/$defs/ObjectRef",
+      "x-target-types": [
+        "Person",
+        "Organization",
+        "AcademicSession",
+        "Course",
+        "CourseVersion",
+        "Offering",
+        "Enrollment",
+        "EnrollmentRound",
+        "TaskAttempt",
+        "TeachingAssignment",
+        "ProgramVersion",
+        "LearnerGroup",
+        "LearningUnit",
+        "LearningActivity",
+        "LearningObjective",
+        "Framework",
+        "KnowledgePoint",
+        "Competency",
+        "ProgramAlignment",
+        "Resource",
+        "Segment",
+        "RightsRecord",
+        "AssessmentItem",
+        "AssessmentPlan",
+        "AssessmentAdjustment",
+        "Rubric",
+        "RubricCriterion",
+        "Scale",
+        "LearningEvent",
+        "ProcessArtifact",
+        "Submission",
+        "HelpRecord",
+        "Feedback",
+        "GradeDecision",
+        "PeerReview",
+        "ObservationRecord",
+        "CognitiveState",
+        "EvidenceLink",
+        "LearningRecommendation",
+        "MethodRegistration",
+        "MethodApproval",
+        "ApplicationInstance",
+        "CapabilityRegistration",
+        "AccessGrant",
+        "AccessPolicy",
+        "DataClassification"
+      ]
+    },
+    "attempt_ref": {
+      "$ref": "common.schema.json#/$defs/ObjectRef",
+      "properties": {
+        "object_type": {
+          "enum": [
+            "TaskAttempt"
+          ]
+        }
+      },
+      "x-target-types": [
+        "TaskAttempt"
+      ],
+      "x-elements": [
+        "FLD-EVT-015"
+      ]
+    },
+    "teaching_assignment_ref": {
+      "$ref": "common.schema.json#/$defs/ObjectRef",
+      "properties": {
+        "object_type": {
+          "enum": [
+            "TeachingAssignment"
+          ]
+        }
+      },
+      "x-target-types": [
+        "TeachingAssignment"
+      ],
+      "x-elements": [
+        "FLD-EVT-012"
+      ]
+    },
+    "adjustment_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "AssessmentAdjustment"
+            ]
+          }
+        },
+        "x-target-types": [
+          "AssessmentAdjustment"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-013"
+      ]
+    },
+    "group_ref": {
+      "$ref": "common.schema.json#/$defs/ObjectRef",
+      "properties": {
+        "object_type": {
+          "enum": [
+            "LearnerGroup"
+          ]
+        }
+      },
+      "x-target-types": [
+        "LearnerGroup"
+      ],
+      "x-elements": [
+        "FLD-EVT-014"
+      ]
+    },
+    "member_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "Person"
+            ]
+          }
+        },
+        "x-target-types": [
+          "Person"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-014"
+      ]
+    },
+    "artifact_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "ProcessArtifact"
+            ]
+          }
+        },
+        "x-target-types": [
+          "ProcessArtifact"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-016"
+      ]
+    },
+    "entry_evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "properties": {
+          "object_type": {
+            "enum": [
+              "ProcessArtifact"
+            ]
+          }
+        },
+        "x-target-types": [
+          "ProcessArtifact"
+        ]
+      },
+      "x-elements": [
+        "FLD-EVT-017"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "x-elements": [
+        "FLD-EVT-020"
+      ]
+    },
+    "payload_hash": {
+      "$ref": "common.schema.json#/$defs/Sha256",
+      "x-elements": [
+        "FLD-EVT-023"
+      ]
+    },
+    "auth_context": {
+      "$ref": "common.schema.json#/$defs/AuthContext",
+      "x-elements": [
+        "FLD-EVT-022"
+      ]
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "common.schema.json#/$defs/Extensions"
+        }
+      },
+      "additionalProperties": false,
+      "x-assumption": [
+        "H-05"
+      ]
+    }
+  },
+  "required": [
+    "event_type",
+    "event_type_version",
+    "event_class",
+    "schema_version",
+    "profile_id",
+    "profile_version",
+    "source_system",
+    "source_event_id",
+    "actor_ref",
+    "actor_type",
+    "entry_mode",
+    "scope_type",
+    "scope_refs",
+    "object_ref",
+    "occurred_at",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "x-rule-id": "R-EVT-002",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_class": {
+            "enum": [
+              "learner_event",
+              "artifact_event",
+              "staff_event"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope_type": {
+            "const": "offering"
+          }
+        }
+      },
+      "x-hint": "学习者、作品和教学人员事件使用实际 offering 范围。"
+    },
+    {
+      "x-rule-id": "R-EVT-003",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "scope_type": {
+            "const": "offering"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope_refs": {
+            "items": {
+              "properties": {
+                "object_type": {
+                  "const": "Offering"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "offering 范围的 scope_refs 只能引用真实 Offering。"
+    },
+    {
+      "x-rule-id": "R-EVT-004",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "allOf": [
+          {
+            "properties": {
+              "scope_type": {
+                "const": "offering"
+              },
+              "scope_refs": {
+                "maxItems": 1
+              }
+            }
+          },
+          {
+            "required": [
+              "scope_refs"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "required": [
+          "offering_id"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "offering_id"
+          ]
+        }
+      },
+      "x-hint": "只有单开课范围提供 offering_id；多开课或非开课范围必须省略。"
+    },
+    {
+      "x-rule-id": "R-EVT-005",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_class": {
+            "enum": [
+              "learner_event",
+              "artifact_event"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "enrollment_id"
+        ]
+      },
+      "x-hint": "学习者或作品事件须提供本人的 enrollment_id。"
+    },
+    {
+      "x-rule-id": "R-EVT-006",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "allOf": [
+          {
+            "properties": {
+              "scope_type": {
+                "const": "offering"
+              },
+              "event_class": {
+                "enum": [
+                  "staff_event",
+                  "system_event"
+                ]
+              },
+              "subject_refs": {
+                "maxItems": 1
+              }
+            }
+          },
+          {
+            "required": [
+              "subject_refs"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "required": [
+          "enrollment_id"
+        ]
+      },
+      "x-hint": "开课范围涉及单个学习者时补齐其 enrollment_id。"
+    },
+    {
+      "x-rule-id": "R-EVT-007",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "allOf": [
+          {
+            "properties": {
+              "event_class": {
+                "enum": [
+                  "staff_event",
+                  "system_event"
+                ]
+              },
+              "subject_refs": {
+                "minItems": 2
+              }
+            }
+          },
+          {
+            "required": [
+              "subject_refs"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "enrollment_id"
+          ]
+        }
+      },
+      "x-hint": "涉及多个学习者时省略单个 enrollment_id，分别解析各学习者修读。"
+    },
+    {
+      "x-rule-id": "R-EVT-008",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_class": {
+            "enum": [
+              "learner_event",
+              "artifact_event"
+            ]
+          }
+        }
+      },
+      "then": {
+        "if": {
+          "properties": {
+            "entry_mode": {
+              "const": "self"
+            },
+            "actor_type": {
+              "const": "learner"
+            }
+          }
+        },
+        "then": {
+          "not": {
+            "required": [
+              "subject_refs"
+            ]
+          }
+        },
+        "else": {
+          "required": [
+            "subject_refs"
+          ],
+          "properties": {
+            "subject_refs": {
+              "maxItems": 1
+            }
+          }
+        }
+      },
+      "x-hint": "学习者本人self操作省略 subject_refs；代为记录时提供恰好一名学习者。"
+    },
+    {
+      "x-rule-id": "R-EVT-009",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "actor_type": {
+            "const": "staff"
+          },
+          "scope_type": {
+            "const": "offering"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "teaching_assignment_ref"
+        ]
+      },
+      "x-hint": "staff 在开课范围内的事件须提供 TeachingAssignment 引用。"
+    },
+    {
+      "x-rule-id": "R-EVT-010",
+      "x-clause": "7.2.3 表7-1",
+      "dependentRequired": {
+        "group_ref": [
+          "member_refs"
+        ],
+        "member_refs": [
+          "group_ref"
+        ]
+      },
+      "x-hint": "group_ref 和非空 member_refs 必须同时出现。"
+    },
+    {
+      "x-rule-id": "R-EVT-011",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "activity.started",
+              "response.recorded",
+              "submission.saved",
+              "submission.submitted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "attempt_ref"
+        ]
+      },
+      "x-hint": "任务开始、作答或提交事件须提供 attempt_ref。"
+    },
+    {
+      "x-rule-id": "R-EVT-012",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "artifact_refs"
+        ]
+      },
+      "x-hint": "作品事件必须提供至少一个 ProcessArtifact 引用。"
+    },
+    {
+      "x-rule-id": "R-EVT-013",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "entry_mode": {
+            "enum": [
+              "proxy",
+              "substitute",
+              "bulk_import"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "entry_evidence_refs"
+        ]
+      },
+      "x-hint": "代录、替代提交或批量导入须提供原始凭证 entry_evidence_refs。"
+    },
+    {
+      "x-rule-id": "R-EVT-014",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "entry_mode": {
+            "enum": [
+              "proxy",
+              "substitute"
+            ]
+          },
+          "event_type": {
+            "const": "submission.submitted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "attested_at"
+        ]
+      },
+      "x-hint": "代录或替代提交须提供 attested_at，且不晚于源端持久化时间。"
+    },
+    {
+      "x-rule-id": "R-EVT-015",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "submission.submitted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "source_recorded_at"
+        ]
+      },
+      "x-hint": "正式提交必须包含源端可靠持久化时间 source_recorded_at。"
+    },
+    {
+      "x-rule-id": "R-EVT-016",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "entry_mode": {
+            "const": "system_auto"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "actor_type": {
+            "enum": [
+              "system",
+              "rule_engine"
+            ]
+          }
+        }
+      },
+      "x-hint": "system_auto 必须由 system 或 rule_engine 作为主体。"
+    },
+    {
+      "x-rule-id": "R-EVT-017",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "discussion.facilitated"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "teaching_assignment_ref"
+        ]
+      },
+      "x-hint": "讨论引导事件必须提供其授课安排引用。"
+    },
+    {
+      "x-rule-id": "R-EVT-018",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "help.provided",
+              "feedback.published",
+              "grade.proposed",
+              "grade.confirmed",
+              "grade.corrected",
+              "grade.archived",
+              "cognition.updated",
+              "recommendation.issued"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "subject_refs"
+        ]
+      },
+      "x-hint": "涉及学习者的支持、评价或诊断事件须提供 subject_refs。"
+    },
+    {
+      "x-rule-id": "R-EVT-019",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "scope_refs": {
+            "minItems": 2
+          },
+          "scope_type": {
+            "const": "offering"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "多开课范围仅用于合班教学人员事件，其他事件使用实际单开课。"
+    },
+    {
+      "x-rule-id": "R-AI-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "grade.confirmed",
+              "grade.corrected"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "actor_type": {
+            "const": "staff"
+          }
+        }
+      },
+      "x-hint": "grade.confirmed/grade.corrected 的 actor_type 只能是 staff，不能由AI冒充教师。"
+    },
+    {
+      "x-rule-id": "R-AI-002",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.archived"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "actor_type": {
+            "const": "system"
+          }
+        }
+      },
+      "x-hint": "grade.archived 的 actor_type 只能是 system，并以教务回执为依据。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "course.published"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "course_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "enrollment.changed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "system_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "permission.revoked"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "system_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "resource.opened"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "learner_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "media.progressed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "learner_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "activity.started"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "learner_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "discussion.posted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "discussion.facilitated"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "attendance.recorded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "learner_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "guidance.recorded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "response.recorded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "submission.saved"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "submission.submitted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "submission.withdrawn"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "artifact_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "help.requested"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "learner_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "help.provided"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "feedback.published"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.proposed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.confirmed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.corrected"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.archived"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "system_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "cognition.updated"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "system_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "recommendation.issued"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "system_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-001",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "intervention.recorded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "event_class": {
+            "const": "staff_event"
+          }
+        }
+      },
+      "x-hint": "event_class 必须与表7-2中该 event_type 唯一登记类别一致。"
+    },
+    {
+      "x-rule-id": "R-EVT-020",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "scope_type": {
+            "const": "course"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope_refs": {
+            "items": {
+              "properties": {
+                "object_type": {
+                  "const": "Course"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "course/application/authorization 范围分别引用 Course/ApplicationInstance/AccessGrant。"
+    },
+    {
+      "x-rule-id": "R-EVT-020",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "scope_type": {
+            "const": "application"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope_refs": {
+            "items": {
+              "properties": {
+                "object_type": {
+                  "const": "ApplicationInstance"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "course/application/authorization 范围分别引用 Course/ApplicationInstance/AccessGrant。"
+    },
+    {
+      "x-rule-id": "R-EVT-020",
+      "x-clause": "7.2.3 表7-1",
+      "if": {
+        "properties": {
+          "scope_type": {
+            "const": "authorization"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope_refs": {
+            "items": {
+              "properties": {
+                "object_type": {
+                  "const": "AccessGrant"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "course/application/authorization 范围分别引用 Course/ApplicationInstance/AccessGrant。"
+    },
+    {
+      "x-rule-id": "R-EVT-024",
+      "x-clause": "7.2.12 a)",
+      "if": {
+        "properties": {
+          "actor_type": {
+            "enum": [
+              "staff",
+              "learner"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "actor_ref": {
+            "properties": {
+              "object_type": {
+                "const": "Person"
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "staff/learner 主体引用必须指向 Person。"
+    },
+    {
+      "x-rule-id": "R-EVT-025",
+      "x-clause": "7.2.12 a)",
+      "if": {
+        "properties": {
+          "actor_type": {
+            "enum": [
+              "rule_engine",
+              "system"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "actor_ref": {
+            "properties": {
+              "object_type": {
+                "const": "ApplicationInstance"
+              }
+            }
+          }
+        }
+      },
+      "x-hint": "system/rule_engine 主体引用必须指向 ApplicationInstance。"
+    },
+    {
+      "x-rule-id": "R-AI-003",
+      "x-clause": "8.6.6；7.3.4",
+      "x-hint": "grade.confirmed不能采用只代表客户端自身的client_credentials；使用教师会话或用户委托。",
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "grade.confirmed"
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "auth_context": {
+            "not": {
+              "properties": {
+                "access_mode": {
+                  "const": "client_credentials"
+                }
+              },
+              "required": [
+                "access_mode"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "x-rule-id": "R-EVT-000",
+  "x-clause": "7.2.1；表7-1",
+  "x-assumption": [
+    "H-14"
+  ],
+  "x-hint": "补齐公共信封的必填字段，payload 必须出现且为对象。",
+  "x-elements": [
+    "OBJ-029"
+  ]
+}

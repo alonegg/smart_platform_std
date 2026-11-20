@@ -1,0 +1,21 @@
+{
+  "fixture": {
+    "target": "NonVersionedRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1.3"
+    ],
+    "elements": [
+      "OBJ-031"
+    ],
+    "violates": "引用类别与目标注册分类不符",
+    "expected_rule_ids": [
+      "R-REF-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Submission",
+    "object_id": "p"
+  }
+}

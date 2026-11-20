@@ -1,0 +1,25 @@
+{
+  "fixture": {
+    "target": "EmbeddedRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-021"
+    ],
+    "violates": "missing-id",
+    "expected_rule_ids": [
+      "R-REF-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Segment",
+    "owner_ref": {
+      "object_type": "Resource",
+      "object_id": "https://example.edu/resource/1",
+      "version_id": "v1"
+    }
+  }
+}

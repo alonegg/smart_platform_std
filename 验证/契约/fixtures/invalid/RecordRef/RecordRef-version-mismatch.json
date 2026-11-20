@@ -1,0 +1,22 @@
+{
+  "fixture": {
+    "target": "RecordRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-031"
+    ],
+    "violates": "version-mismatch",
+    "expected_rule_ids": [
+      "R-REF-004"
+    ]
+  },
+  "instance": {
+    "object_type": "Submission",
+    "object_id": "https://example.edu/submission/1",
+    "version_id": "v1"
+  }
+}

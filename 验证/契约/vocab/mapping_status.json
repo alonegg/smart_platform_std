@@ -1,0 +1,8 @@
+{
+  "clause": "5.1.5",
+  "values": [
+    "pending",
+    "confirmed",
+    "rejected"
+  ]
+}

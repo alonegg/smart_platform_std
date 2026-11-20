@@ -1,0 +1,17 @@
+{
+  "fixture": {
+    "target": "ObjectRef",
+    "stage": "input",
+    "expect": "valid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Person",
+    "object_id": "https://example.edu/person/1"
+  }
+}

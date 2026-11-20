@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/export-receipt.schema.json",
+  "x-elements": [
+    "FLD-MAN-017"
+  ],
+  "type": "object",
+  "properties": {
+    "receipt_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "package_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "package_type": {
+      "enum": [
+        "teaching",
+        "migration",
+        "archive",
+        "research"
+      ]
+    },
+    "export_task_id": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "manifest_sha256": {
+      "$ref": "common.schema.json#/$defs/Sha256"
+    },
+    "archive_sha256": {
+      "$ref": "common.schema.json#/$defs/Sha256"
+    },
+    "export_scope": {
+      "$ref": "manifest.schema.json#/$defs/ExportScope"
+    },
+    "authorization_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/ObjectRef",
+        "x-target-types": [
+          "AccessGrant"
+        ],
+        "properties": {
+          "object_type": {
+            "enum": [
+              "AccessGrant"
+            ]
+          }
+        }
+      }
+    },
+    "source_instance": {
+      "$ref": "common.schema.json#/$defs/Identifier"
+    },
+    "issued_at": {
+      "$ref": "common.schema.json#/$defs/Timestamp",
+      "x-elements": [
+        "FLD-MAN-007"
+      ]
+    }
+  },
+  "required": [
+    "receipt_id",
+    "package_id",
+    "package_type",
+    "export_task_id",
+    "manifest_sha256",
+    "archive_sha256",
+    "export_scope",
+    "authorization_refs",
+    "source_instance",
+    "issued_at"
+  ],
+  "additionalProperties": false,
+  "x-rule-id": "R-EXR-001",
+  "x-clause": "8.2.8",
+  "x-hint": "填写两类SHA-256、任务/包标识、冻结范围与用途、授权引用及出具服务实例和时间；回执单独交付不入归档。",
+  "x-assumption": [
+    "H-28"
+  ]
+}

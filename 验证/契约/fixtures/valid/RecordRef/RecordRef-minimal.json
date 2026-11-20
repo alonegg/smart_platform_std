@@ -1,0 +1,17 @@
+{
+  "fixture": {
+    "target": "RecordRef",
+    "stage": "input",
+    "expect": "valid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-031"
+    ]
+  },
+  "instance": {
+    "object_type": "Submission",
+    "object_id": "https://example.edu/submission/1"
+  }
+}

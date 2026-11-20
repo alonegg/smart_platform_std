@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/AccessGrant.schema.json",
+  "x-clause": "8.6.4—8.6.6；9.2.1；9.2.4",
+  "x-elements": [
+    "OBJ-044"
+  ],
+  "x-assumption": [
+    "H-17",
+    "H-14"
+  ],
+  "x-rule-id": "R-ACCESSGRANT-001",
+  "x-hint": "补齐 application_ref、client_id、access_mode、audience、scopes、scope_refs、use_purposes、valid_from、valid_until；公共身份、来源、权利与保护字段同样必填，删除未注册核心成员。",
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/IndependentBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "AccessGrant"
+        },
+        "application_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "ApplicationInstance"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "ApplicationInstance"
+              ]
+            }
+          }
+        },
+        "client_id": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "subject_ref": {
+          "$ref": "../common.schema.json#/$defs/ObjectRef",
+          "x-target-types": [
+            "Person"
+          ],
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          }
+        },
+        "access_mode": {
+          "enum": [
+            "client_credentials",
+            "delegated"
+          ]
+        },
+        "audience": {
+          "$ref": "../common.schema.json#/$defs/Identifier"
+        },
+        "scopes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "scope_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/ObjectRef"
+          }
+        },
+        "use_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "课内教学",
+              "校内跨课程复用",
+              "公开传播",
+              "对外平台上线",
+              "科研利用",
+              "模型训练"
+            ]
+          }
+        },
+        "valid_from": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "valid_until": {
+          "$ref": "../common.schema.json#/$defs/Timestamp"
+        },
+        "revocation_status": false,
+        "revoked_at": false,
+        "expired": false
+      },
+      "required": [
+        "application_ref",
+        "client_id",
+        "access_mode",
+        "audience",
+        "scopes",
+        "scope_refs",
+        "use_purposes",
+        "valid_from",
+        "valid_until"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-ACCESSGRANT-002",
+          "x-clause": "9.2.4",
+          "x-hint": "委托授权须注明所代表的人员主体 subject_ref。",
+          "if": {
+            "properties": {
+              "access_mode": {
+                "const": "delegated"
+              }
+            },
+            "required": [
+              "access_mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "subject_ref"
+            ]
+          }
+        },
+        {
+          "x-rule-id": "R-ACCESSGRANT-003",
+          "x-clause": "8.6.6",
+          "x-hint": "客户端自身服务身份不得持有人工确认 scope；改用真实人员的用户委托授权。",
+          "if": {
+            "properties": {
+              "access_mode": {
+                "const": "client_credentials"
+              }
+            },
+            "required": [
+              "access_mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scopes": {
+                "not": {
+                  "contains": {
+                    "enum": [
+                      "grade.confirm",
+                      "course.publish"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,127 @@
+{
+  "fixture": {
+    "target": "CognitiveState",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "10.3 表10-1；10.6.5"
+    ],
+    "elements": [
+      "OBJ-037"
+    ],
+    "violates": "insufficient_evidence-T09-omitted",
+    "expected_rule_ids": [
+      "R-COG-002"
+    ]
+  },
+  "instance": {
+    "object_id": "https://example.edu/cognitivestate/1",
+    "object_type": "CognitiveState",
+    "schema_version": "0.1.0-candidate",
+    "source_system": "https://example.edu/source",
+    "source_id": "synthetic-1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "rights_ref": {
+      "object_type": "RightsRecord",
+      "object_id": "https://example.edu/rightsrecord/1",
+      "version_id": "v1"
+    },
+    "access_policy_ref": {
+      "object_type": "AccessPolicy",
+      "object_id": "https://example.edu/accesspolicy/1",
+      "version_id": "v1"
+    },
+    "classification_ref": {
+      "object_type": "DataClassification",
+      "object_id": "https://example.edu/dataclassification/1",
+      "version_id": "v1"
+    },
+    "version_id": "https://example.edu/cognitivestate/1",
+    "learner_ref": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "enrollment_id": "https://example.edu/enrollment/1",
+    "target_ref": {
+      "object_type": "KnowledgePoint",
+      "object_id": "https://example.edu/knowledgepoint/1",
+      "owner_ref": {
+        "object_type": "Framework",
+        "object_id": "https://example.edu/framework/1",
+        "version_id": "v1"
+      }
+    },
+    "dimension": "conceptual_understanding",
+    "origin_type": "model_inference",
+    "estimate_status": "insufficient_evidence",
+    "uncertainty": null,
+    "evidence_links": [
+      {
+        "object_id": "https://example.edu/evidencelink/1",
+        "object_type": "EvidenceLink",
+        "schema_version": "0.1.0-candidate",
+        "source_system": "https://example.edu/source",
+        "source_id": "synthetic-1",
+        "created_at": "2026-01-01T00:00:00Z",
+        "created_by": {
+          "object_type": "Person",
+          "object_id": "https://example.edu/person/1"
+        },
+        "rights_ref": {
+          "object_type": "RightsRecord",
+          "object_id": "https://example.edu/rightsrecord/1",
+          "version_id": "v1"
+        },
+        "access_policy_ref": {
+          "object_type": "AccessPolicy",
+          "object_id": "https://example.edu/accesspolicy/1",
+          "version_id": "v1"
+        },
+        "classification_ref": {
+          "object_type": "DataClassification",
+          "object_id": "https://example.edu/dataclassification/1",
+          "version_id": "v1"
+        },
+        "owner_ref": {
+          "object_type": "CognitiveState",
+          "object_id": "https://example.edu/cognitivestate/1"
+        },
+        "object_ref": {
+          "object_type": "ProcessArtifact",
+          "object_id": "https://example.edu/processartifact/1"
+        },
+        "role": "inconclusive"
+      }
+    ],
+    "method_ref": {
+      "object_type": "MethodRegistration",
+      "object_id": "https://example.edu/methodregistration/1",
+      "version_id": "v1"
+    },
+    "context": {},
+    "evidence_window": {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-01-02T00:00:00Z"
+    },
+    "as_of": "2026-01-02T00:00:00Z",
+    "valid_until": "2026-02-01T00:00:00Z",
+    "use_purposes": [
+      "课内教学"
+    ],
+    "consequence_level": "formative_support",
+    "missing_reasons": [
+      {
+        "pointer": "/value",
+        "reason": "unknown"
+      },
+      {
+        "pointer": "/uncertainty",
+        "reason": "unknown"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/event-envelope.input.schema.json",
+  "allOf": [
+    {
+      "$ref": "envelope-core.schema.json"
+    },
+    {
+      "x-rule-id": "R-STAGE-001",
+      "x-clause": "7.2.3 表7-1",
+      "properties": {
+        "event_id": false,
+        "received_at": false,
+        "auth_context": false
+      },
+      "x-assumption": [
+        "H-09"
+      ],
+      "x-hint": "input 删除 event_id/received_at/auth_context；stored 补齐这些服务端字段和 payload_hash；exchange 补齐事件ID、接收时间与摘要。"
+    }
+  ],
+  "x-clause": "7.2",
+  "x-elements": [
+    "OBJ-029",
+    "FLD-EVT-001",
+    "FLD-EVT-002",
+    "FLD-EVT-003",
+    "FLD-EVT-004",
+    "FLD-EVT-005",
+    "FLD-EVT-006",
+    "FLD-EVT-007",
+    "FLD-EVT-008",
+    "FLD-EVT-009",
+    "FLD-EVT-010",
+    "FLD-EVT-011",
+    "FLD-EVT-012",
+    "FLD-EVT-013",
+    "FLD-EVT-014",
+    "FLD-EVT-015",
+    "FLD-EVT-016",
+    "FLD-EVT-017",
+    "FLD-EVT-018",
+    "FLD-EVT-019",
+    "FLD-EVT-020",
+    "FLD-EVT-021",
+    "FLD-EVT-022",
+    "FLD-EVT-023"
+  ]
+}

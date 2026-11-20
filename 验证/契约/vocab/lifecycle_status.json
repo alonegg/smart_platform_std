@@ -1,0 +1,9 @@
+{
+  "clause": "5.3.5",
+  "values": [
+    "draft",
+    "published",
+    "withdrawn",
+    "archived"
+  ]
+}

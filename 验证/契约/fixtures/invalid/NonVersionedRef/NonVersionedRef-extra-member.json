@@ -1,0 +1,22 @@
+{
+  "fixture": {
+    "target": "NonVersionedRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-001"
+    ],
+    "violates": "extra-member",
+    "expected_rule_ids": [
+      "R-REF-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Person",
+    "object_id": "https://example.edu/person/1",
+    "as_of": "2026-01-01T00:00:00Z"
+  }
+}

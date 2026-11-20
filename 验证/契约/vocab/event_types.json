@@ -1,0 +1,149 @@
+{
+  "clause": "7.3.1 表7-2；7.3.6",
+  "values": [
+    {
+      "event_type": "course.published",
+      "event_class": "course_event",
+      "status": "first_phase",
+      "meaning": "课程版本已按发布流程生效，携带发布版本与发布人"
+    },
+    {
+      "event_type": "enrollment.changed",
+      "event_class": "system_event",
+      "status": "first_phase",
+      "meaning": "修读名单变更，携带变更类型与生效时间"
+    },
+    {
+      "event_type": "permission.revoked",
+      "event_class": "system_event",
+      "status": "first_phase",
+      "meaning": "授权撤销，携带撤销依据、生效时间与影响范围"
+    },
+    {
+      "event_type": "resource.opened",
+      "event_class": "learner_event",
+      "status": "first_phase",
+      "meaning": "资源版本被打开，携带采集能力声明"
+    },
+    {
+      "event_type": "media.progressed",
+      "event_class": "learner_event",
+      "status": "first_phase",
+      "meaning": "有效播放区间，携带采集能力与缺失说明"
+    },
+    {
+      "event_type": "activity.started",
+      "event_class": "learner_event",
+      "status": "first_phase",
+      "meaning": "学习活动版本开始，开启或关联一次任务尝试（TaskAttempt）"
+    },
+    {
+      "event_type": "discussion.posted",
+      "event_class": "artifact_event",
+      "status": "optional_by_capability",
+      "meaning": "学习者讨论内容以作品保存并被引用；按能力声明的可选事件"
+    },
+    {
+      "event_type": "discussion.facilitated",
+      "event_class": "staff_event",
+      "status": "optional_by_capability",
+      "meaning": "教学人员或 AI 服务发起讨论题、回复、置顶或关闭讨论，须有授课安排依据；按能力声明的可选事件"
+    },
+    {
+      "event_type": "attendance.recorded",
+      "event_class": "learner_event",
+      "status": "first_phase",
+      "meaning": "学习者的一次签到或考勤结果，携带考勤安排、结果及记录方式"
+    },
+    {
+      "event_type": "guidance.recorded",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "教学人员确认的指导记录"
+    },
+    {
+      "event_type": "response.recorded",
+      "event_class": "artifact_event",
+      "status": "first_phase",
+      "meaning": "一次作答结果，关联任务尝试"
+    },
+    {
+      "event_type": "submission.saved",
+      "event_class": "artifact_event",
+      "status": "first_phase",
+      "meaning": "草稿已保存，不构成有效提交"
+    },
+    {
+      "event_type": "submission.submitted",
+      "event_class": "artifact_event",
+      "status": "first_phase",
+      "meaning": "正式提交已在源端可靠保存"
+    },
+    {
+      "event_type": "submission.withdrawn",
+      "event_class": "artifact_event",
+      "status": "first_phase",
+      "meaning": "学习者在考核方案允许时撤回一次有效提交，引用被撤回的提交与作品版本"
+    },
+    {
+      "event_type": "help.requested",
+      "event_class": "learner_event",
+      "status": "first_phase",
+      "meaning": "帮助请求及请求的帮助级别"
+    },
+    {
+      "event_type": "help.provided",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "已提供的帮助、级别及提供方（人工或 AI）"
+    },
+    {
+      "event_type": "feedback.published",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "反馈对适用对象可见"
+    },
+    {
+      "event_type": "grade.proposed",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "评分提议，不构成正式成绩；提议来源区分人工、规则引擎和 AI"
+    },
+    {
+      "event_type": "grade.confirmed",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "授权教师确认评分决定"
+    },
+    {
+      "event_type": "grade.corrected",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "追加更正决定并引用被更正决定"
+    },
+    {
+      "event_type": "grade.archived",
+      "event_class": "system_event",
+      "status": "first_phase",
+      "meaning": "教务系统已接收并回执，对应评分决定的 `registrar_status` 为 accepted（见 7.5.2）"
+    },
+    {
+      "event_type": "cognition.updated",
+      "event_class": "system_event",
+      "status": "first_phase",
+      "meaning": "引用认知状态对象，不记为原始作答事实；教师判断以认知状态的 origin_type 区分（见 10.2.2）"
+    },
+    {
+      "event_type": "recommendation.issued",
+      "event_class": "system_event",
+      "status": "first_phase",
+      "meaning": "引用 LearningRecommendation 对象"
+    },
+    {
+      "event_type": "intervention.recorded",
+      "event_class": "staff_event",
+      "status": "first_phase",
+      "meaning": "记录已实施的教学干预"
+    }
+  ]
+}

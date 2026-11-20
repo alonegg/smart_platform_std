@@ -1,0 +1,70 @@
+{
+  "fixture": {
+    "target": "event",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "7.2",
+      "7.3.1",
+      "7.3.3",
+      "9.5.1",
+      "9.5.6"
+    ],
+    "elements": [
+      "EVT-016"
+    ],
+    "violates": "payload",
+    "expected_rule_ids": [
+      "R-PAYLOAD-001"
+    ]
+  },
+  "instance": {
+    "event_type": "help.provided",
+    "event_type_version": "0.1.0-candidate",
+    "schema_version": "0.1.0-candidate",
+    "event_class": "staff_event",
+    "profile_id": "https://example.edu/profile",
+    "profile_version": "v1",
+    "source_system": "https://example.edu/source",
+    "source_instance": "https://example.edu/app/1",
+    "source_event_id": "source-1",
+    "actor_ref": {
+      "object_type": "Person",
+      "object_id": "https://example.edu/person/1"
+    },
+    "actor_type": "staff",
+    "entry_mode": "self",
+    "scope_type": "offering",
+    "scope_refs": [
+      {
+        "object_type": "Offering",
+        "object_id": "https://example.edu/offering/1"
+      }
+    ],
+    "object_ref": {
+      "object_type": "HelpRecord",
+      "object_id": "https://example.edu/helprecord/1"
+    },
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "level": "合成登记值",
+      "provider_ref": {
+        "object_type": "Person",
+        "object_id": "https://example.edu/person/1"
+      },
+      "unregistered": "合成未注册成员"
+    },
+    "offering_id": "https://example.edu/offering/1",
+    "subject_refs": [
+      {
+        "object_type": "Person",
+        "object_id": "https://example.edu/person/1"
+      }
+    ],
+    "teaching_assignment_ref": {
+      "object_type": "TeachingAssignment",
+      "object_id": "https://example.edu/teachingassignment/1"
+    },
+    "enrollment_id": "https://example.edu/enrollment/1"
+  }
+}

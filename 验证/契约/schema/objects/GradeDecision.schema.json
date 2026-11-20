@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/GradeDecision.schema.json",
+  "x-clause": "7.5",
+  "x-elements": [
+    "OBJ-034"
+  ],
+  "allOf": [
+    {
+      "$ref": "../common.schema.json#/$defs/RecordBase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "const": "GradeDecision"
+        },
+        "decision_status": {
+          "enum": [
+            "proposed",
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "grain": {
+          "enum": [
+            "item",
+            "criterion",
+            "component",
+            "course_total"
+          ]
+        },
+        "proposer_type": {
+          "enum": [
+            "staff",
+            "rule_engine",
+            "ai_service"
+          ],
+          "x-assumption": [
+            "H-13"
+          ]
+        },
+        "decider_type": {
+          "const": "staff",
+          "x-assumption": [
+            "H-13"
+          ]
+        },
+        "decided_by": {
+          "$ref": "../common.schema.json#/$defs/NonVersionedRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "Person"
+              ]
+            }
+          },
+          "x-target-types": [
+            "Person"
+          ]
+        },
+        "handles_proposal_ref": {
+          "$ref": "../common.schema.json#/$defs/RecordRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "GradeDecision"
+              ]
+            }
+          },
+          "x-target-types": [
+            "GradeDecision"
+          ]
+        },
+        "assessment_plan_ref": {
+          "$ref": "../common.schema.json#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "AssessmentPlan"
+              ]
+            }
+          },
+          "x-target-types": [
+            "AssessmentPlan"
+          ]
+        },
+        "calculation_rule_ref": {
+          "$ref": "../common.schema.json#/$defs/IndependentRef",
+          "properties": {
+            "object_type": {
+              "enum": [
+                "MethodRegistration"
+              ]
+            }
+          },
+          "x-target-types": [
+            "MethodRegistration"
+          ]
+        }
+      },
+      "required": [
+        "decision_status",
+        "grain"
+      ],
+      "allOf": [
+        {
+          "x-rule-id": "R-GRADE-002",
+          "x-clause": "7.5.2",
+          "if": {
+            "properties": {
+              "decision_status": {
+                "enum": [
+                  "confirmed",
+                  "rejected"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "handles_proposal_ref",
+              "decided_by",
+              "decider_type"
+            ]
+          },
+          "x-hint": "确认或否决须填写 handles_proposal_ref、decided_by(Person) 与 decider_type=staff。"
+        },
+        {
+          "x-rule-id": "R-GRADE-003",
+          "x-clause": "7.5.2；9.5.2",
+          "if": {
+            "required": [
+              "proposer_type"
+            ],
+            "properties": {
+              "proposer_type": {
+                "enum": [
+                  "ai_service",
+                  "rule_engine"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decision_status": {
+                "const": "proposed"
+              }
+            }
+          },
+          "x-hint": "AI或规则引擎产生的评分只能是 proposed，确认或否决须由教师追加记录。"
+        },
+        {
+          "x-rule-id": "R-GRADE-004",
+          "x-clause": "7.5.3",
+          "if": {
+            "properties": {
+              "grain": {
+                "const": "course_total"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "assessment_plan_ref",
+              "calculation_rule_ref"
+            ]
+          },
+          "x-hint": "course_total 必须引用 assessment_plan_ref 与 calculation_rule_ref 的具体版本。"
+        }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false,
+  "x-rule-id": "R-GRADE-001",
+  "x-assumption": [
+    "H-13",
+    "H-14"
+  ],
+  "x-hint": "填写 decision_status/grain；不要写入派生的 registrar_status。"
+}

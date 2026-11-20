@@ -1,0 +1,22 @@
+{
+  "fixture": {
+    "target": "EmbeddedRef",
+    "stage": "input",
+    "expect": "valid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-021"
+    ]
+  },
+  "instance": {
+    "object_type": "Segment",
+    "object_id": "https://example.edu/segment/1",
+    "owner_ref": {
+      "object_type": "Resource",
+      "object_id": "https://example.edu/resource/1",
+      "version_id": "v1"
+    }
+  }
+}

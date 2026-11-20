@@ -1,0 +1,10 @@
+{
+  "clause": "5.5.5",
+  "values": [
+    "unknown",
+    "not_collected",
+    "not_authorized",
+    "source_unsupported",
+    "not_applicable"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "fixture": {
+    "target": "RecordRef",
+    "stage": "input",
+    "expect": "invalid",
+    "clauses": [
+      "5.1"
+    ],
+    "elements": [
+      "OBJ-031"
+    ],
+    "violates": "missing-id",
+    "expected_rule_ids": [
+      "R-REF-001"
+    ]
+  },
+  "instance": {
+    "object_type": "Submission"
+  }
+}

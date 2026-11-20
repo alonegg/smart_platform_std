@@ -1,0 +1,99 @@
+{
+  "x-clause": "7.6.4",
+  "x-assumption": [
+    "H-11"
+  ],
+  "vectors": [
+    {
+      "name": "basic",
+      "event_json": "{\"payload\":{\"a\":1}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"a\":1}}",
+      "sha256": "e9f918e08f2e4f30e11d2eb19dfebfbd826c2e27b8de252aa104933859441102"
+    },
+    {
+      "name": "key-order",
+      "event_json": "{\"payload\":{\"b\":2,\"a\":1}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"a\":1,\"b\":2}}",
+      "sha256": "2c191b5b9ffeaf82514bb2c54cb8bc4c2532c937043828b4f99c596b01dadd93"
+    },
+    {
+      "name": "Chinese",
+      "event_json": "{\"payload\":{\"说明\":\"合成学员A\"}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"说明\":\"合成学员A\"}}",
+      "sha256": "d5e573a18ae6afd02740efaddd9026d5c9108025cb6643e1b84b757925668d51"
+    },
+    {
+      "name": "NFC",
+      "event_json": "{\"payload\":{\"text\":\"é\"}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"text\":\"é\"}}",
+      "sha256": "51160efc0ecdf648113b6c1a84a60133727fe407985b47eedeab344037d414b1"
+    },
+    {
+      "name": "NFD",
+      "event_json": "{\"payload\":{\"text\":\"é\"}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"text\":\"é\"}}",
+      "sha256": "c3abfab03039b55cfad37e4aff224dddc018aece9fcdf28131954db6645569ae"
+    },
+    {
+      "name": "integer",
+      "event_json": "{\"payload\":{\"n\":1}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"n\":1}}",
+      "sha256": "6d484fdabae3600eb63498cd0ef1277d4afbb8ba1e4ebd238b5aac1d35efa0ea"
+    },
+    {
+      "name": "float",
+      "event_json": "{\"payload\":{\"n\":1.0}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"n\":1.0}}",
+      "sha256": "fc00d07cf16b01045d5662964eb424b8dbb496696a1b9985a239b4e598adcb34"
+    },
+    {
+      "name": "null",
+      "event_json": "{\"payload\":{\"n\":null}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{\"n\":null}}",
+      "sha256": "fe0833f705564e6f00e42a48f1359540125f5fe6ef0c9b5c03b8d5198f532a80"
+    },
+    {
+      "name": "empty-missing",
+      "event_json": "{\"payload\":{}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{}}",
+      "sha256": "f41c00b7fbccb500a1bd30754ee4150563441ae6c2900f5d917c80962428b48a"
+    },
+    {
+      "name": "with-envelope",
+      "event_json": "{\"actor_type\":\"staff\",\"payload\":{}}",
+      "hash_envelope_members": [
+        "actor_type"
+      ],
+      "canonical": "{\"actor_type\":\"staff\",\"payload\":{}}",
+      "sha256": "93bbbc1ddc4a96e4c274f2c82bb7346a7188d5db43e19217f4d618601c60ddea"
+    },
+    {
+      "name": "without-envelope",
+      "event_json": "{\"actor_type\":\"staff\",\"payload\":{}}",
+      "hash_envelope_members": [],
+      "canonical": "{\"payload\":{}}",
+      "sha256": "f41c00b7fbccb500a1bd30754ee4150563441ae6c2900f5d917c80962428b48a"
+    },
+    {
+      "name": "receiver-excluded",
+      "event_json": "{\"event_id\":\"ignored\",\"received_at\":\"ignored\",\"auth_context\":{},\"payload_hash\":\"ignored\",\"payload\":{}}",
+      "hash_envelope_members": [
+        "event_id",
+        "received_at",
+        "auth_context",
+        "payload_hash"
+      ],
+      "canonical": "{\"payload\":{}}",
+      "sha256": "f41c00b7fbccb500a1bd30754ee4150563441ae6c2900f5d917c80962428b48a"
+    }
+  ]
+}

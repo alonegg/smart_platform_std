@@ -1,0 +1,9 @@
+{
+  "clause": "10.3 表10-1",
+  "values": [
+    "observation",
+    "model_inference",
+    "teacher_judgment",
+    "self_report"
+  ]
+}

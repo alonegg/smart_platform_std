@@ -1,0 +1,8 @@
+{
+  "clause": "10.8 表10-2",
+  "values": [
+    "approved",
+    "suspended",
+    "revoked"
+  ]
+}
