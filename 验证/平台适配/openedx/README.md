@@ -2,7 +2,7 @@
 
 本目录服务于“智慧教学-数据模型标准”的平台适配研究，不是标准正文、平台认证或符合性声明；不实施 WP4b 契约转换。
 
-**当前为分阶段交付，尚未完成第2步全部取样。** 已复用运行容器导入两个合成OLX课程run，创建3名合成学员和教师、选退课与cohort；尚无学习活动及最终导出，不能视为完整场景证据。已保存的 `deployment/` 仍仅为部署元数据。
+**当前为分阶段交付，尚未完成最终导出。** 已复用运行容器执行课程、身份、选课、小组及学习评分活动；这些是实际平台中的合成场景，但已保存的 `deployment/` 仍仅为部署元数据，最终证据需由后续样本导出和测试支持。
 
 ## 场景阶段1：课程、身份、选课、小组
 
@@ -14,6 +14,21 @@ python3 -m unittest discover -s . -p 'test_seed.py' -v
 `course-template.xml` 为自写合成OLX，含native video、CAPA数值题与staff-assessment ORA2。脚本生成三秒纯蓝色视频，分别导入 `course-v1:SYNTH+WP4A+run01` 和 `run02`。两者为同主题两个开课，不主张它们构成标准不可变课程版本。每个run选入3名学员与1名教师，学员03退选再选入；教师获得course staff及instructor角色，3名学员加入手动cohort“合成小组01”。仅使用 `wp4asynth01`—`04`、`example.invalid` 邮箱、虚构中文显示名；用户口令不可用，不设置固定口令。
 
 脚本在平台已存在合成用户或课程时拒绝再次执行structure阶段；不清空平台、不改动其他课程、不重建容器。不支持在部分失败后自动覆盖导入或继续，需先定位故障。导入和选课通过Open edX原生management command/API完成；尚未执行浏览器播放、答题或ORA学习者流程，不能从课程中存在block推断这些活动已发生。
+
+## 场景阶段2：学习活动、ORA重试、评分历史
+
+```sh
+bash seed --stage learning
+bash seed --stage revision
+```
+
+learning阶段通过Django Client派发原生 `/event` 和CAPA XBlock handler请求：3名学员各产生play/pause/stop视频事件，数值题先答1再答2，各有incorrect、correct两次 `problem_check`。会话由脚本内的 `force_login` 及平台SafeSessionCookie生成，不使用可登录口令、不跳过平台安全会话中间件。最初未包装SafeSessionCookie的请求失败，未形成成功学习活动；已修正，不提交会话或失败原始日志。
+
+这是脚本化请求，不是浏览器真实解码/观看的证据，三秒时间值为合成事件参数。CAPA请求则实际执行平台作答与判分逻辑，不是直接写成绩表。
+
+ORA通过已导入block的 `submissions_actions.submit` 创建初稿及workflow，再通过原生staff assessment API初评1/3、复评3/3。revision阶段调用平台 `reset_student_attempts(..., delete_module=True)`，由ORA的 `clear_student_state` 取消并孤立旧提交后再通过原生block API重交不同文本；第二份作业获3/3。旧提交与取消记录保留，不把重置后的新记录误称为同一StudentItem的连续attempt_number。当前ORA版本源码有受配置/截止/评审状态限制的学习者重交功能，本场景未启用；**不声称整个Open edX缺少重交能力**，本次采用员工重置这一等效流程。
+
+此外用原生成绩工厂计算持久化成绩，并调用 `PersistentSubsectionGradeOverride.update_or_create_override` 将学员01的subsection覆盖分从2/4改为3.5/4，保留两条历史及教师归属。它是平台分数覆盖历史，不自动等同标准正式更正决定/审批链。learning及revision阶段分别在已有学习状态/分数覆盖时拒绝重复；中途失败后不自动覆盖已有记录。
 
 ## 版本与差异
 
@@ -97,7 +112,7 @@ Key BLOCK_STRUCTURES_SETTINGS 'STORAGE_CLASS' not found in storage settings {'CO
 ## 待完成的第2步内容
 
 1. 已完成：合成OLX课程（视频/CAPA/ORA2）、平台导入两个run、3名学员和教师、选退课、cohort；最终原生导出仍待后续阶段。
-2. 生成实际视频事件、`problem_check`、ORA提交与可行的重试等效流程、评审与改分历史。不能用自造JSON充当平台事件，也不能把submissions底层API的能力推断成ORA学习者界面支持重交。
+2. 已执行：原生视频事件、`problem_check`、ORA提交与员工重置后重交、评审与分数覆盖历史；待最终导出测试。不能把这些脚本化原生API能力推断成全部学习者界面能力。
 3. 实现 `seed` / `export`，保留每个run的原生OLX导出、tracking JSONL、原生表投影，以及目标event-routing-backends生成的xAPI/Caliper；检查配置、丢弃/不支持事件与转换错误。
 4. 新建 `samples/manifest.json`、矩阵编号追溯表、按Issue模板字段记录的可能标准问题及 `test_samples.py`；覆盖合成身份、无敏感字段、SHA256、总体积<20MB、正常/空/错误输入、非覆盖输出及声明范围无遗漏。
 5. 取得上述样本并验证后才提升为“真实平台数据（合成课程/学员）”；当前没有新的实测标准问题结论。

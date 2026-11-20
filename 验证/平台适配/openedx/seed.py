@@ -53,10 +53,14 @@ def structure():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--stage', choices=['structure'], required=True)
+    parser.add_argument('--stage', choices=['structure', 'learning', 'revision'], required=True)
     args = parser.parse_args()
     if args.stage == 'structure':
         structure()
+    elif args.stage == 'learning':
+        run_script('seed_learning.py')
+    else:
+        run_script('seed_revision.py')
 
 
 if __name__ == '__main__':
