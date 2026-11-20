@@ -30,6 +30,9 @@ PROTECTED_DIRS = ("标准", "designs", "archive")
 BLOCKING_PENDING = ("E12", "E13", "E14", "E22", "E23a", "E26")
 # 改写了原句的替换（其余替换必须逐字保留原文）：修订编号 -> 改写后仍须出现的原约束片段。
 REWRITTEN = {
+    "R02": ("独立版本化目标还应包含非空字符串 `version_id`", "随所属版本固定的目标还应包含 `owner_ref`",
+            "指向所属对象具体版本的 ObjectRef", "`object_id` 均取目标在所属对象内的局部标识，不携带目标自身的 `version_id`",
+            "不可变记录目标只需 `object_id`，携带 `version_id` 时应与 `object_id` 相同", "非版本化目标不应携带 `version_id`"),
     "R07": ("随所属 Resource 版本固定（见 5.1.8）", "`start_ms`、`end_ms`", "0 ≤ start_ms < end_ms ≤ 源时长",
             "关联字幕及目标", "按 5.1.3 a) 以 `owner_ref` 指向所属资源版本"),
 }
@@ -246,7 +249,8 @@ def check_content_rules(base: Doc, rev: Doc, ledger) -> None:
     check("不构成决定" in e4 and "仍按表 E.1" in e4, "E.4.1 未声明建议方案不构成决定")
     for pid in BLOCKING_PENDING:
         rows = [line for line in rev.units.get("E.4.1", []) if line.startswith("| ") and pid in line.split("|")[1]]
-        check(len(rows) == 1, f"表 E.3 缺少 {pid} 的建议方案行")
+        check(len(rows) >= 1, f"表 E.3 缺少 {pid} 的可选方案行")
+    check(not re.search(r"推荐|建议方案|起草方", e4), "表 E.3 应中立列出可选方案，不写入推荐意见")
 
 
 def check_issue_coverage(rev: Doc, ledger) -> None:
