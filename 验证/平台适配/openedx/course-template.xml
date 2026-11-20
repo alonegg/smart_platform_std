@@ -1,0 +1,23 @@
+<course org="SYNTH" course="WP4A" url_name="__RUN__" display_name="合成教学取样 __RUN__" start="2020-01-01T00:00:00Z" end="2099-01-01T00:00:00Z">
+  <chapter url_name="chapter" display_name="合成学习活动">
+    <sequential url_name="homework" display_name="合成练习" format="Homework" graded="true">
+      <vertical url_name="unit" display_name="合成单元">
+        <video url_name="video" display_name="三秒合成视频" youtube="" html5_sources='["/static/synthetic.mp4"]'/>
+        <problem url_name="addition" display_name="合成加法" max_attempts="5" rerandomize="never">
+          <numericalresponse answer="2"><label>1 + 1 = ?</label><formulaequationinput/></numericalresponse>
+        </problem>
+        <openassessment url_name="essay">
+          <title>合成开放作业</title>
+          <prompts><prompt><description>请写一句合成学习反思，不使用真实个人信息。</description></prompt></prompts>
+          <rubric>
+            <criterion><name>clarity</name><prompt>表达是否清楚？</prompt>
+              <option points="1"><name>draft</name><explanation>初稿</explanation></option>
+              <option points="3"><name>clear</name><explanation>清楚</explanation></option>
+            </criterion>
+          </rubric>
+          <assessments><assessment name="staff-assessment" required="true"/></assessments>
+        </openassessment>
+      </vertical>
+    </sequential>
+  </chapter>
+</course>

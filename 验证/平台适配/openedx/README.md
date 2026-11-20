@@ -2,7 +2,18 @@
 
 本目录服务于“智慧教学-数据模型标准”的平台适配研究，不是标准正文、平台认证或符合性声明；不实施 WP4b 契约转换。
 
-**本次为中途交接检查点，不能作为第2步全部完成的交付。** 已通过 Tutor local 启动 Open edX、完成数据库迁移并收集容器内版本和镜像元数据。尚未创建合成课程或用户，没有课程导出、学习行为、成绩历史、xAPI/Caliper 样本，不得标为“真实平台数据（合成课程/学员）”。当前证据等级仅为**运行时部署元数据**。
+**当前为分阶段交付，尚未完成第2步全部取样。** 已复用运行容器导入两个合成OLX课程run，创建3名合成学员和教师、选退课与cohort；尚无学习活动及最终导出，不能视为完整场景证据。已保存的 `deployment/` 仍仅为部署元数据。
+
+## 场景阶段1：课程、身份、选课、小组
+
+```sh
+bash seed --stage structure
+python3 -m unittest discover -s . -p 'test_seed.py' -v
+```
+
+`course-template.xml` 为自写合成OLX，含native video、CAPA数值题与staff-assessment ORA2。脚本生成三秒纯蓝色视频，分别导入 `course-v1:SYNTH+WP4A+run01` 和 `run02`。两者为同主题两个开课，不主张它们构成标准不可变课程版本。每个run选入3名学员与1名教师，学员03退选再选入；教师获得course staff及instructor角色，3名学员加入手动cohort“合成小组01”。仅使用 `wp4asynth01`—`04`、`example.invalid` 邮箱、虚构中文显示名；用户口令不可用，不设置固定口令。
+
+脚本在平台已存在合成用户或课程时拒绝再次执行structure阶段；不清空平台、不改动其他课程、不重建容器。不支持在部分失败后自动覆盖导入或继续，需先定位故障。导入和选课通过Open edX原生management command/API完成；尚未执行浏览器播放、答题或ORA学习者流程，不能从课程中存在block推断这些活动已发生。
 
 ## 版本与差异
 
@@ -85,7 +96,7 @@ Key BLOCK_STRUCTURES_SETTINGS 'STORAGE_CLASS' not found in storage settings {'CO
 
 ## 待完成的第2步内容
 
-1. 编写合成OLX课程（视频/CAPA/ORA2），平台导入两个run；创建至少3名学员、教师及选退课/模式变更、cohort或team。
+1. 已完成：合成OLX课程（视频/CAPA/ORA2）、平台导入两个run、3名学员和教师、选退课、cohort；最终原生导出仍待后续阶段。
 2. 生成实际视频事件、`problem_check`、ORA提交与可行的重试等效流程、评审与改分历史。不能用自造JSON充当平台事件，也不能把submissions底层API的能力推断成ORA学习者界面支持重交。
 3. 实现 `seed` / `export`，保留每个run的原生OLX导出、tracking JSONL、原生表投影，以及目标event-routing-backends生成的xAPI/Caliper；检查配置、丢弃/不支持事件与转换错误。
 4. 新建 `samples/manifest.json`、矩阵编号追溯表、按Issue模板字段记录的可能标准问题及 `test_samples.py`；覆盖合成身份、无敏感字段、SHA256、总体积<20MB、正常/空/错误输入、非覆盖输出及声明范围无遗漏。
