@@ -1,0 +1,176 @@
+{
+  "case_id": "T11",
+  "title": "凭证、撤权与假名隔离",
+  "clauses": [
+    "9.2",
+    "8.6.6",
+    "11.5",
+    "9.8.5"
+  ],
+  "elements": [
+    "OBJ-042",
+    "OBJ-044",
+    "EVT-003"
+  ],
+  "profiles": [
+    "P-COM",
+    "P-RES",
+    "P-SUB",
+    "P-GRD",
+    "P-SIM",
+    "P-AI",
+    "P-RSB"
+  ],
+  "bearer": "校级公共服务（凭证、撤权、目录和假名）",
+  "handoff": "凭证/事件 → 撤权通知 → 实例域解析",
+  "observations": [
+    {
+      "id": "T11-expired",
+      "description": "ttl=0 令牌拒绝",
+      "clause": "9.2",
+      "expected": "ttl=0 令牌拒绝"
+    },
+    {
+      "id": "T11-audience",
+      "description": "错误受众拒绝",
+      "clause": "9.2",
+      "expected": "错误受众拒绝"
+    },
+    {
+      "id": "T11-scope",
+      "description": "只读 scope 写事件拒绝",
+      "clause": "9.2",
+      "expected": "只读 scope 写事件拒绝"
+    },
+    {
+      "id": "T11-over-scope",
+      "description": "超授权 scope 签发拒绝",
+      "clause": "9.2",
+      "expected": "超授权 scope 签发拒绝"
+    },
+    {
+      "id": "T11-first-write",
+      "description": "有效令牌首次写入 accepted",
+      "clause": "9.2",
+      "expected": "有效令牌首次写入 accepted"
+    },
+    {
+      "id": "T11-jti",
+      "description": "同 jti 再次写入拒绝",
+      "clause": "9.2",
+      "expected": "同 jti 再次写入拒绝"
+    },
+    {
+      "id": "T11-rotate",
+      "description": "密钥轮换 accepted",
+      "clause": "9.2",
+      "expected": "密钥轮换 accepted"
+    },
+    {
+      "id": "T11-old-key",
+      "description": "旧密钥凭证拒绝",
+      "clause": "9.2",
+      "expected": "旧密钥凭证拒绝"
+    },
+    {
+      "id": "T11-scope-refs",
+      "description": "跨班 scope_refs/offering 拒绝",
+      "clause": "9.2",
+      "expected": "跨班 scope_refs/offering 拒绝"
+    },
+    {
+      "id": "T11-offering",
+      "description": "offering 超出授权拒绝",
+      "clause": "9.2",
+      "expected": "offering 超出授权拒绝"
+    },
+    {
+      "id": "T11-pseudonyms",
+      "description": "同一学习者跨实例假名不同且本实例可解析",
+      "clause": "9.2",
+      "expected": "同一学习者跨实例假名不同且本实例可解析"
+    },
+    {
+      "id": "T11-cross-instance",
+      "description": "跨实例解析拒绝",
+      "clause": "9.2",
+      "expected": "跨实例解析拒绝"
+    },
+    {
+      "id": "T11-subscribe",
+      "description": "撤权通知订阅 accepted",
+      "clause": "9.2",
+      "expected": "撤权通知订阅 accepted"
+    },
+    {
+      "id": "T11-revoke",
+      "description": "撤权 accepted",
+      "clause": "9.2",
+      "expected": "撤权 accepted"
+    },
+    {
+      "id": "T11-revoked-token",
+      "description": "撤权后旧令牌立即拒绝",
+      "clause": "9.2",
+      "expected": "撤权后旧令牌立即拒绝"
+    },
+    {
+      "id": "T11-notification",
+      "description": "对应通知存在、offering 范围正确且 within_limit=true",
+      "clause": "9.2",
+      "expected": "对应通知存在、offering 范围正确且 within_limit=true"
+    },
+    {
+      "id": "T11-suspend",
+      "description": "应用暂停 accepted",
+      "clause": "9.2",
+      "expected": "应用暂停 accepted"
+    },
+    {
+      "id": "T11-suspended-token",
+      "description": "暂停应用不能取令牌",
+      "clause": "9.2",
+      "expected": "暂停应用不能取令牌"
+    },
+    {
+      "id": "T11-suspended-write",
+      "description": "暂停应用不能写事件",
+      "clause": "9.2",
+      "expected": "暂停应用不能写事件"
+    },
+    {
+      "id": "T11-exit",
+      "description": "应用退出 accepted",
+      "clause": "9.2",
+      "expected": "应用退出 accepted"
+    },
+    {
+      "id": "T11-exit-resolve",
+      "description": "退出实例解析拒绝",
+      "clause": "9.2",
+      "expected": "退出实例解析拒绝"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "缓存/预签名链接",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-09"
+    },
+    {
+      "scenario": "未公开答案访问",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-09"
+    },
+    {
+      "scenario": "名单接口",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-09"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-03",
+    "S-09"
+  ]
+}

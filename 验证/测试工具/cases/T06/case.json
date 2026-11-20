@@ -1,0 +1,67 @@
+{
+  "case_id": "T06",
+  "title": "乱序与迟到追加",
+  "clauses": [
+    "7.2.8",
+    "7.6"
+  ],
+  "elements": [
+    "OBJ-029",
+    "FLD-EVT-021"
+  ],
+  "profiles": [
+    "P-SUB",
+    "P-SIM"
+  ],
+  "bearer": "校级公共服务（追加与排序）",
+  "handoff": "POST /events → GET /events 两种排序",
+  "observations": [
+    {
+      "id": "T06-send0",
+      "description": "第一条 accepted",
+      "clause": "7.2.8",
+      "expected": "第一条 accepted"
+    },
+    {
+      "id": "T06-send1",
+      "description": "第二条迟到 accepted",
+      "clause": "7.2.8",
+      "expected": "第二条迟到 accepted"
+    },
+    {
+      "id": "T06-send2",
+      "description": "第三条迟到 accepted",
+      "clause": "7.2.8",
+      "expected": "第三条迟到 accepted"
+    },
+    {
+      "id": "T06-orders",
+      "description": "occurred_at 顺序 3/2/1；received_at 顺序 1/2/3",
+      "clause": "7.2.8",
+      "expected": "occurred_at 顺序 3/2/1；received_at 顺序 1/2/3"
+    },
+    {
+      "id": "T06-append",
+      "description": "三条原始 occurred_at/载荷均保留且 received_at 由服务赋值",
+      "clause": "7.2.8",
+      "expected": "三条原始 occurred_at/载荷均保留且 received_at 由服务赋值"
+    },
+    {
+      "id": "T06-bad-order",
+      "description": "未登记排序拒绝",
+      "clause": "7.2.8",
+      "expected": "未登记排序拒绝"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "迟到事件触发的业务重新计算",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-02"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-02"
+  ]
+}

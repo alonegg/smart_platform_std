@@ -1,0 +1,92 @@
+{
+  "case_id": "T08-P",
+  "title": "服务评分提议边界",
+  "clauses": [
+    "7.5",
+    "9.5"
+  ],
+  "elements": [
+    "OBJ-034",
+    "EVT-018"
+  ],
+  "profiles": [
+    "P-GRD",
+    "P-AI"
+  ],
+  "bearer": "校级公共服务（服务提议受理、权限与视图）",
+  "handoff": "POST /grades/proposals → GET /grades",
+  "observations": [
+    {
+      "id": "T08-P-proposal",
+      "description": "client_credentials 服务提议 accepted",
+      "clause": "7.5",
+      "expected": "client_credentials 服务提议 accepted"
+    },
+    {
+      "id": "T08-P-proposal-view",
+      "description": "正式视图为空；历史保留 method_ref/source_refs",
+      "clause": "7.5",
+      "expected": "正式视图为空；历史保留 method_ref/source_refs"
+    },
+    {
+      "id": "T08-P-service-confirm",
+      "description": "服务身份确认 rejected",
+      "clause": "7.5",
+      "expected": "服务身份确认 rejected"
+    },
+    {
+      "id": "T08-P-confirm-grant",
+      "description": "client_credentials 的 grade.confirm 授权拒绝",
+      "clause": "7.5",
+      "expected": "client_credentials 的 grade.confirm 授权拒绝"
+    },
+    {
+      "id": "T08-P-confirmed-proposal",
+      "description": "decision_status=confirmed 冒充提议拒绝",
+      "clause": "7.5",
+      "expected": "decision_status=confirmed 冒充提议拒绝"
+    },
+    {
+      "id": "T08-P-overwrite",
+      "description": "同 id 覆盖拒绝",
+      "clause": "7.5",
+      "expected": "同 id 覆盖拒绝"
+    },
+    {
+      "id": "T08-P-member1",
+      "description": "小组成员1提议 accepted",
+      "clause": "7.5",
+      "expected": "小组成员1提议 accepted"
+    },
+    {
+      "id": "T08-P-member2",
+      "description": "小组成员2提议 accepted",
+      "clause": "7.5",
+      "expected": "小组成员2提议 accepted"
+    },
+    {
+      "id": "T08-P-snapshot",
+      "description": "分别保存两个成员决定及相同 member_refs 快照",
+      "clause": "7.5",
+      "expected": "分别保存两个成员决定及相同 member_refs 快照"
+    },
+    {
+      "id": "T08-P-missing-member",
+      "description": "小组提议缺 learner_ref 拒绝",
+      "clause": "7.5",
+      "expected": "小组提议缺 learner_ref 拒绝"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "LTI AGS 回传",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-07"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-06",
+    "S-07"
+  ]
+}

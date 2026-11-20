@@ -1,0 +1,42 @@
+{
+  "title": "WP3 首批合成观察子集",
+  "matrix": "验证/平台对标/数据要素对照矩阵.csv",
+  "bad_targets": [
+    "dup-not-deduped", "conflict-overwrite", "service-confirms-grade", "revocation-ineffective",
+    "unapproved-method-allowed", "receiver-fields-writable", "proposal-in-formal-view", "cross-instance-pseudonym"
+  ],
+  "selection_rule": "首批 T01/T05/T06/T07/T08-P/C/A/R/T09/T10/T11/T23/T25 接口与离线观察及交换包实际字节子集；不是全部条款或字段的完整符合性声明。其余用例未实现并跳过。",
+  "element_ids": [
+    "OBJ-029",
+    "FLD-EVT-001",
+    "FLD-EVT-020",
+    "FLD-EVT-022",
+    "FLD-EVT-023",
+    "FLD-MAN-008",
+    "FLD-MAN-009",
+    "OBJ-004",
+    "OBJ-005",
+    "OBJ-006",
+    "OBJ-008",
+    "OBJ-009",
+    "FLD-EVT-021",
+    "EVT-013",
+    "EVT-014",
+    "OBJ-034",
+    "EVT-020",
+    "OBJ-010",
+    "EVT-019",
+    "EVT-018",
+    "EVT-021",
+    "OBJ-037",
+    "OBJ-038",
+    "EVT-022",
+    "OBJ-040",
+    "OBJ-041",
+    "FLD-MTH-010",
+    "FLD-MTH-012",
+    "OBJ-042",
+    "OBJ-044",
+    "EVT-003"
+  ]
+}

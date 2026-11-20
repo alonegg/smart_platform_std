@@ -1,0 +1,22 @@
+{
+  "case_id": "T05",
+  "title": "事件重送、冲突隔离与拒收修复",
+  "clauses": ["7.6", "7.2.8", "8.7"],
+  "elements": ["OBJ-029", "FLD-EVT-001", "FLD-EVT-020", "FLD-EVT-022", "FLD-EVT-023"],
+  "profiles": ["P-SUB", "P-GRD", "P-SIM"],
+  "bearer": "校级公共服务（受理、去重、回执）",
+  "handoff": "POST /events → 回执 → GET /reconciliation",
+  "observations": [
+    {"id": "T05-01", "description": "同事件重送", "clause": "7.6", "expected": "首次 accepted；重送 duplicate（非 accepted），original_receipt_id 指向首次回执"},
+    {"id": "T05-02", "description": "传输与事实分计", "clause": "7.6", "expected": "facts=1，transmissions=2，duplicate=1"},
+    {"id": "T05-03", "description": "冲突隔离", "clause": "7.6", "expected": "同键不同摘要 conflict；冲突列表可见；原事实全部输入内容保持不变"},
+    {"id": "T05-04", "description": "拒收后重验：移除非法 auth_context，保持 source_instance/source_event_id 与业务信封不变；不要求非法字段参与摘要", "clause": "7.2.8", "expected": "带 auth_context 拒收且回执可查询；移除非法字段后同键、相同业务摘要重试 accepted，仅一条修复事实"},
+    {"id": "T05-05", "description": "回执契约", "clause": "8.7", "expected": "所有五个回执均通过 WP1 receipt 校验"}
+  ],
+  "out_of_tool_scope": [
+    {"scenario": "跨协议到达", "reason": "参考服务无 xAPI/Caliper 入口", "assumption": "W3-02"},
+    {"scenario": "重新导入", "reason": "参考服务无交换包导入入口", "assumption": "W3-02"}
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": ["W3-02", "H-11", "H-27", "S-01"]
+}

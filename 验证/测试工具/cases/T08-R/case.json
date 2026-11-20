@@ -1,0 +1,83 @@
+{
+  "case_id": "T08-R",
+  "title": "更正追加与历史保留",
+  "clauses": [
+    "7.5.5"
+  ],
+  "elements": [
+    "OBJ-034",
+    "EVT-021"
+  ],
+  "profiles": [
+    "P-GRD"
+  ],
+  "bearer": "校级公共服务（更正与视图）",
+  "handoff": "归档 → 更正提议 → 确认 → 正式/历史视图",
+  "observations": [
+    {
+      "id": "T08-R-proposal",
+      "description": "提议 accepted",
+      "clause": "7.5.5",
+      "expected": "提议 accepted"
+    },
+    {
+      "id": "T08-R-confirmed",
+      "description": "人员确认 accepted",
+      "clause": "7.5.5",
+      "expected": "人员确认 accepted"
+    },
+    {
+      "id": "T08-R-unarchived",
+      "description": "对未归档决定更正拒绝",
+      "clause": "7.5.5",
+      "expected": "对未归档决定更正拒绝"
+    },
+    {
+      "id": "T08-R-archive",
+      "description": "原决定归档 accepted",
+      "clause": "7.5.5",
+      "expected": "原决定归档 accepted"
+    },
+    {
+      "id": "T08-R-no-basis",
+      "description": "缺 basis 的更正拒绝",
+      "clause": "7.5.5",
+      "expected": "缺 basis 的更正拒绝"
+    },
+    {
+      "id": "T08-R-correction",
+      "description": "对已归档决定追加更正 accepted",
+      "clause": "7.5.5",
+      "expected": "对已归档决定追加更正 accepted"
+    },
+    {
+      "id": "T08-R-corrected",
+      "description": "新更正确认 accepted",
+      "clause": "7.5.5",
+      "expected": "新更正确认 accepted"
+    },
+    {
+      "id": "T08-R-history",
+      "description": "正式视图仅新决定，历史保留原决定及四条提议/确认记录",
+      "clause": "7.5.5",
+      "expected": "正式视图仅新决定，历史保留原决定及四条提议/确认记录"
+    },
+    {
+      "id": "T08-R-overwrite",
+      "description": "旧确认内容同 id 重提拒绝",
+      "clause": "7.5.5",
+      "expected": "旧确认内容同 id 重提拒绝"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "T20 完整判分与全证据复核",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-06"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "S-06"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "case_id": "T25",
+  "title": "接收端专属字段与认证上下文",
+  "clauses": [
+    "7.2.3",
+    "7.2.4",
+    "5.3.3"
+  ],
+  "elements": [
+    "FLD-EVT-001",
+    "FLD-EVT-021",
+    "FLD-EVT-022"
+  ],
+  "profiles": [
+    "P-COM"
+  ],
+  "bearer": "校级公共服务（字段赋值与凭证追溯）",
+  "handoff": "POST /events → GET /receipts → stored 视图",
+  "observations": [
+    {
+      "id": "T25-auth_context",
+      "description": "自填 auth_context 拒收、回执可查询且通过 WP1",
+      "clause": "7.2.3",
+      "expected": "自填 auth_context 拒收、回执可查询且通过 WP1"
+    },
+    {
+      "id": "T25-event_id",
+      "description": "自填 event_id 拒收、回执可查询且通过 WP1",
+      "clause": "7.2.3",
+      "expected": "自填 event_id 拒收、回执可查询且通过 WP1"
+    },
+    {
+      "id": "T25-received_at",
+      "description": "自填 received_at 拒收、回执可查询且通过 WP1",
+      "clause": "7.2.3",
+      "expected": "自填 received_at 拒收、回执可查询且通过 WP1"
+    },
+    {
+      "id": "T25-accepted",
+      "description": "正常事件 accepted",
+      "clause": "7.2.3",
+      "expected": "正常事件 accepted"
+    },
+    {
+      "id": "T25-auth",
+      "description": "auth_context 中 client_id/grant_ref/access_mode/sha256(token)/on_behalf_of_ref 与写入凭证一致",
+      "clause": "7.2.3",
+      "expected": "auth_context 中 client_id/grant_ref/access_mode/sha256(token)/on_behalf_of_ref 与写入凭证一致"
+    },
+    {
+      "id": "T25-stored",
+      "description": "持久化事件通过 WP1 stored 校验",
+      "clause": "7.2.3",
+      "expected": "持久化事件通过 WP1 stored 校验"
+    }
+  ],
+  "out_of_tool_scope": [
+    {
+      "scenario": "真实身份提供方、密钥托管与外部认证证明",
+      "reason": "本工具为合成接口/离线观察，参考服务未提供此端到端能力；不计通过",
+      "assumption": "S-09"
+    }
+  ],
+  "evidence_scope": "合成样例",
+  "assumptions": [
+    "H-09",
+    "S-04",
+    "S-09"
+  ]
+}
