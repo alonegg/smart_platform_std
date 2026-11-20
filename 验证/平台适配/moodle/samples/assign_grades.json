@@ -1,0 +1,57 @@
+[
+    {
+        "id": "1",
+        "assignment": "1",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "grader": "18",
+        "grade": "60.00000",
+        "penalty": "0.00000",
+        "attemptnumber": "0"
+    },
+    {
+        "id": "2",
+        "assignment": "1",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "grader": "18",
+        "grade": "85.00000",
+        "penalty": "0.00000",
+        "attemptnumber": "1"
+    },
+    {
+        "id": "3",
+        "assignment": "2",
+        "userid": "15",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "grader": "18",
+        "grade": "85.00000",
+        "penalty": "0.00000",
+        "attemptnumber": "0"
+    },
+    {
+        "id": "4",
+        "assignment": "2",
+        "userid": "16",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "grader": "18",
+        "grade": "85.00000",
+        "penalty": "0.00000",
+        "attemptnumber": "0"
+    },
+    {
+        "id": "5",
+        "assignment": "2",
+        "userid": "17",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "grader": "18",
+        "grade": "85.00000",
+        "penalty": "0.00000",
+        "attemptnumber": "0"
+    }
+]

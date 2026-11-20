@@ -1,0 +1,28 @@
+name: wp4a-moodle
+services:
+  db:
+    image: ${DB_IMAGE:-mirror.gcr.io/library/postgres:17@sha256:b60e90042aa6b8dbecd58e224b3e36114dbf8ad754465264c2476ad58a86e45c}
+    env_file: .runtime/db.env
+    volumes:
+      - db17:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U moodle]
+      interval: 2s
+      retries: 60
+  web:
+    image: ${PHP_IMAGE:-mirror.gcr.io/moodlehq/moodle-php-apache:8.3@sha256:1db7b6ed013fcb5268095b5e28c410ba9117d38d9b6a324c100c48fcbe69745e}
+    env_file: .runtime/db.env
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
+    ports:
+      - 127.0.0.1:8087:80
+    volumes:
+      - ./.runtime/moodle-2d4bafe8548a6d6c01494c862ec3d9749ba6ea84:/var/www/html
+      - ./:/work
+      - data:/var/moodledata
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  db17:
+  data:

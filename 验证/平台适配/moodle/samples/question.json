@@ -1,0 +1,20 @@
+[
+    {
+        "id": "3",
+        "parent": "0",
+        "name": "合成加法",
+        "questiontext": "1+1=?",
+        "questiontextformat": "1",
+        "generalfeedback": "",
+        "generalfeedbackformat": "1",
+        "defaultmark": "1.0000000",
+        "penalty": "0.0000000",
+        "qtype": "shortanswer",
+        "length": "1",
+        "stamp": "unknownhost+261120020348+WfZGvh",
+        "timecreated": "1795140228",
+        "timemodified": "1795140228",
+        "createdby": "18",
+        "modifiedby": "18"
+    }
+]

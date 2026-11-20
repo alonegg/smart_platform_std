@@ -1,0 +1,50 @@
+[
+    {
+        "id": "4",
+        "questionusageid": "4",
+        "slot": "1",
+        "behaviour": "deferredfeedback",
+        "questionid": "3",
+        "variant": "1",
+        "maxmark": "1.0000000",
+        "minfraction": "0.0000000",
+        "maxfraction": "1.0000000",
+        "flagged": "0",
+        "questionsummary": "1+1=?",
+        "rightanswer": "2",
+        "responsesummary": "2",
+        "timemodified": "1795140228"
+    },
+    {
+        "id": "5",
+        "questionusageid": "5",
+        "slot": "1",
+        "behaviour": "deferredfeedback",
+        "questionid": "3",
+        "variant": "1",
+        "maxmark": "1.0000000",
+        "minfraction": "0.0000000",
+        "maxfraction": "1.0000000",
+        "flagged": "0",
+        "questionsummary": "1+1=?",
+        "rightanswer": "2",
+        "responsesummary": "2",
+        "timemodified": "1795140228"
+    },
+    {
+        "id": "6",
+        "questionusageid": "6",
+        "slot": "1",
+        "behaviour": "deferredfeedback",
+        "questionid": "3",
+        "variant": "1",
+        "maxmark": "1.0000000",
+        "minfraction": "0.0000000",
+        "maxfraction": "1.0000000",
+        "flagged": "0",
+        "questionsummary": "1+1=?",
+        "rightanswer": "2",
+        "responsesummary": "2",
+        "timemodified": "1795140228"
+    }
+]

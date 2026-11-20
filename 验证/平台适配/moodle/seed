@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+mkdir -p .runtime
+ffmpeg -hide_banner -loglevel error -y -f lavfi -i color=c=blue:s=160x120:d=3 -an -c:v libx264 -pix_fmt yuv420p .runtime/synthetic.mp4
+docker compose exec -T web php /work/seed.php

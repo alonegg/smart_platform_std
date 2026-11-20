@@ -1,0 +1,17 @@
+[
+    {
+        "id": "4",
+        "course": "8",
+        "name": "三秒合成视频",
+        "intro": "Test resource 1",
+        "introformat": "0",
+        "tobemigrated": "0",
+        "legacyfiles": "0",
+        "legacyfileslast": null,
+        "display": "0",
+        "displayoptions": "a:1:{s:10:\"printintro\";i:0;}",
+        "filterfiles": "0",
+        "revision": "0",
+        "timemodified": "1795140228"
+    }
+]

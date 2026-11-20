@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_user_group_id": 1,
+    "user_id": 4
+  },
+  {
+    "id": 2,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_user_group_id": 1,
+    "user_id": 5
+  },
+  {
+    "id": 3,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_user_group_id": 1,
+    "user_id": 6
+  },
+  {
+    "id": 4,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "course_user_group_id": 2,
+    "user_id": 4
+  },
+  {
+    "id": 5,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "course_user_group_id": 2,
+    "user_id": 5
+  },
+  {
+    "id": 6,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "course_user_group_id": 2,
+    "user_id": 6
+  }
+]

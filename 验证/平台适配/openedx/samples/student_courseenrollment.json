@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "created": "2026-11-20T02:34:56.347602",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 4
+  },
+  {
+    "id": 2,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "created": "2026-11-20T02:34:56.471790",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 5
+  },
+  {
+    "id": 3,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "created": "2026-11-20T02:34:56.499915",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 6
+  },
+  {
+    "id": 4,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "created": "2026-11-20T02:34:56.521709",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 7
+  },
+  {
+    "id": 5,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "created": "2026-11-20T02:34:56.695703",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 4
+  },
+  {
+    "id": 6,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "created": "2026-11-20T02:34:56.719677",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 5
+  },
+  {
+    "id": 7,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "created": "2026-11-20T02:34:56.743298",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 6
+  },
+  {
+    "id": 8,
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "created": "2026-11-20T02:34:56.769854",
+    "is_active": 1,
+    "mode": "audit",
+    "user_id": 7
+  }
+]

@@ -1,0 +1,825 @@
+{
+  "evidence_level": "真实平台数据（合成课程/学员）",
+  "deployed": true,
+  "source_snapshot_commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+  "platform": {
+    "release": "6.0dev (Build: 20261117)",
+    "version": 2026111700,
+    "php": "8.3.36",
+    "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+    "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+    "evidence_level": "真实平台数据（合成课程/学员）"
+  },
+  "images": {
+    "web": {
+      "name": "mirror.gcr.io/moodlehq/moodle-php-apache:8.3@sha256:1db7b6ed013fcb5268095b5e28c410ba9117d38d9b6a324c100c48fcbe69745e",
+      "id": "sha256:1db7b6ed013fcb5268095b5e28c410ba9117d38d9b6a324c100c48fcbe69745e",
+      "repo_digests": [
+        "mirror.gcr.io/moodlehq/moodle-php-apache@sha256:1db7b6ed013fcb5268095b5e28c410ba9117d38d9b6a324c100c48fcbe69745e"
+      ]
+    },
+    "db": {
+      "name": "mirror.gcr.io/library/postgres:17@sha256:b60e90042aa6b8dbecd58e224b3e36114dbf8ad754465264c2476ad58a86e45c",
+      "id": "sha256:b60e90042aa6b8dbecd58e224b3e36114dbf8ad754465264c2476ad58a86e45c",
+      "repo_digests": [
+        "mirror.gcr.io/library/postgres@sha256:b60e90042aa6b8dbecd58e224b3e36114dbf8ad754465264c2476ad58a86e45c"
+      ]
+    }
+  },
+  "scenario_files": {
+    "two_offerings": [
+      "course.json"
+    ],
+    "learners_and_teacher": [
+      "user.json",
+      "role_assignments.json"
+    ],
+    "enrolment_state_change": [
+      "user_enrolments.json",
+      "logstore_standard_log.json"
+    ],
+    "synthetic_video_resource_views": [
+      "resource.json",
+      "files.json",
+      "logstore_standard_log.json"
+    ],
+    "quiz_attempts_and_grading": [
+      "quiz_attempts.json",
+      "quiz_grades.json",
+      "question_attempt_steps.json"
+    ],
+    "assignment_reopen_resubmit": [
+      "assign_submission.json",
+      "assignsubmission_onlinetext.json"
+    ],
+    "teacher_grade_revision": [
+      "assign_grades.json",
+      "grade_grades.json",
+      "grade_grades_history.json"
+    ],
+    "group_assignment": [
+      "groups.json",
+      "groups_members.json",
+      "groupings.json",
+      "groupings_groups.json",
+      "assign_submission.json"
+    ],
+    "course_backups": [
+      "course-users.mbz",
+      "course-no-users.mbz"
+    ]
+  },
+  "scenario_elements": {
+    "two_offerings": ["OBJ-004", "OBJ-006"],
+    "learners_and_teacher": ["OBJ-001", "OBJ-010"],
+    "enrolment_state_change": ["OBJ-007", "EVT-002"],
+    "synthetic_video_resource_views": ["OBJ-020", "EVT-004"],
+    "quiz_attempts_and_grading": ["OBJ-023", "EVT-011"],
+    "assignment_reopen_resubmit": ["OBJ-009", "EVT-012", "EVT-013"],
+    "teacher_grade_revision": ["EVT-020"],
+    "group_assignment": ["OBJ-012", "FLD-EVT-014"],
+    "course_backups": ["OBJ-029"]
+  },
+  "files": [
+    {
+      "file": "assign.json",
+      "bytes": 2671,
+      "sha256": "6fbe9b712fe5d570581cbb9ba8d1cf7824b0c34e2e83aaac0aa7438e83b2d4d5",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "assign_grades.json",
+      "bytes": 1353,
+      "sha256": "0c00bbf2dd7b5dd783ac99391db148cf8eddf53741abb5cd82fdf990710b0c82",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "teacher_grade_revision"
+      ]
+    },
+    {
+      "file": "assign_plugin_config.json",
+      "bytes": 3178,
+      "sha256": "8a00548d79cf1f6aed49633673897b8006f32991216028bafbb9a736d04f5326",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "assign_submission.json",
+      "bytes": 1758,
+      "sha256": "02b5c30123df97ed0f9ce9726c16965557bc5a7d4044b88c54a833ba5eccadf3",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "assignment_reopen_resubmit",
+        "group_assignment"
+      ]
+    },
+    {
+      "file": "assignsubmission_onlinetext.json",
+      "bytes": 465,
+      "sha256": "524503e8300be6bb39729c95a1811d375843ce923bddf723cf047ba6ff7dde6c",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "assignment_reopen_resubmit"
+      ]
+    },
+    {
+      "file": "context.json",
+      "bytes": 3519,
+      "sha256": "6897ddc278be40b0d47493ae5785f331b9d5438dadfe1a9539ef4dcf1f8d568b",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "course-no-users.mbz",
+      "bytes": 12782,
+      "sha256": "2e746852960342abf57d8a4bf7ec0e16ef41f652256cdd3308772470167fb0a2",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "course_backups"
+      ]
+    },
+    {
+      "file": "course-users.mbz",
+      "bytes": 25623,
+      "sha256": "9fff103722027fdb340d9b2383b3e8867d6a08e6c9d5feb832506f7b4db3f172",
+      "source_command": "docker compose exec -T web php /var/www/html/admin/cli/backup.php --courseshortname=SYNTH-OPEN-01 --destination=<output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "course_backups"
+      ]
+    },
+    {
+      "file": "course.json",
+      "bytes": 3708,
+      "sha256": "b07acdd44475833b58b2092461e6f2ca00a190e71ff822d6b2be9e0b3e9ce192",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "two_offerings"
+      ]
+    },
+    {
+      "file": "course_modules.json",
+      "bytes": 3786,
+      "sha256": "f3b6295b8fbd183ae1c67caa867192c40e8526ed3011a23170846b23aaa4cd44",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "enrol.json",
+      "bytes": 5753,
+      "sha256": "5373ec030677286a4e9f35287f10d93c49c65f4022a2d3ebae88e7220ec819bf",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "export_policy.json",
+      "bytes": 1374,
+      "sha256": "9b9d1f994ddf9b2aceafa5f561341cc07e8c549ea3f99299228d73620a238934",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "files.json",
+      "bytes": 7819,
+      "sha256": "90f05779ac71d7eefcfd30ea55ed1461c84ab42bad6627eda41bca230068572b",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "synthetic_video_resource_views"
+      ]
+    },
+    {
+      "file": "grade_grades.json",
+      "bytes": 8618,
+      "sha256": "5a520d04c0cb9a91ec08d1bb3f6a68a52a6c7eae7238a5e7773e9b058a4e1f13",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "teacher_grade_revision"
+      ]
+    },
+    {
+      "file": "grade_grades_history.json",
+      "bytes": 25796,
+      "sha256": "2173f5dfae42096f84e171ab1cecd5b23e1438f511da7fefcdacfc00dd726a12",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "teacher_grade_revision"
+      ]
+    },
+    {
+      "file": "grade_items.json",
+      "bytes": 3663,
+      "sha256": "3a809005d99f11d9ee53f79ce97feb6d9dcb87a9c0074e7565ef1749fc5ae409",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "grade_items_history.json",
+      "bytes": 15647,
+      "sha256": "d713b0490fbe4be3e89300302f06db7327d68034a3c205fde629e62f6a182916",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "groupings.json",
+      "bytes": 3843,
+      "sha256": "2ac122f2b175f789aa9ac7f0f9eb68a0d0bf157e12d6c99d994b32f5b1aa4470",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "group_assignment"
+      ]
+    },
+    {
+      "file": "groupings_groups.json",
+      "bytes": 120,
+      "sha256": "f594c7e6c8045b4b06ce052fa530404e02794de26b4cb30ef94719454b96cc13",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "group_assignment"
+      ]
+    },
+    {
+      "file": "groups.json",
+      "bytes": 3914,
+      "sha256": "9afb1bda3e6db281153865a5e7114b7aeb76c22a434e5dd77d9a8645286c1a24",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "group_assignment"
+      ]
+    },
+    {
+      "file": "groups_members.json",
+      "bytes": 492,
+      "sha256": "2cf0a30bdb45b601d90412ff0967935dfdcf6f7825173970173579bca3ac70cc",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "group_assignment"
+      ]
+    },
+    {
+      "file": "logstore_standard_log.json",
+      "bytes": 83138,
+      "sha256": "1d412b65e82bb009ddb03c3eec6f58092fbe3748810c22d0aed7684772af911a",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "enrolment_state_change",
+        "synthetic_video_resource_views"
+      ]
+    },
+    {
+      "file": "platform.json",
+      "bytes": 351,
+      "sha256": "6a3bd335b8e62dbfb77f75479300a8caee09a6af04b938369387ad18b73cc6e5",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question.json",
+      "bytes": 531,
+      "sha256": "fc753d6be3617cdd56c30ed12c309397fc582eb4fb33f39acd121ecf6b7fc74b",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_answers.json",
+      "bytes": 217,
+      "sha256": "2fe08bb5325e55dd4bd71d82cd2629af7c4abd4cd13ff8e028bd9aa42312706a",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_attempt_step_data.json",
+      "bytes": 669,
+      "sha256": "9f6d664cd84a1fbc140950feb9b6b0cd1d24730208001ca6e1f9938f2c9ab1f7",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_attempt_steps.json",
+      "bytes": 1914,
+      "sha256": "389f9860955d5071d46cbc2eb708b2b84cf0d5ab5fd1212b9741781bb2a5ae10",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "quiz_attempts_and_grading"
+      ]
+    },
+    {
+      "file": "question_attempts.json",
+      "bytes": 1317,
+      "sha256": "5326e999d6ebb72c43f92940a02c4e6024cc292bea421171761e7be1f3cdedcd",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_bank_entries.json",
+      "bytes": 149,
+      "sha256": "d192418405b5a773f4cc2dbb5aad10f840cfa4982e1cb29e353c1fc14ddf74b3",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_references.json",
+      "bytes": 215,
+      "sha256": "25c058e8c046c811d9f5f1b87b912a6dcdd47aaa547569e95ffab31c335efa0f",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_usages.json",
+      "bytes": 426,
+      "sha256": "e17f23c5b66661fd8f692cc8335b447676f5fe86cdc9d9fc822c34b81a5f6ab9",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "question_versions.json",
+      "bytes": 148,
+      "sha256": "fee470fa3ec4f6e7c3635ee232647b0a197d78e64ff47331d9551773b95f1f3f",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "quiz.json",
+      "bytes": 1403,
+      "sha256": "6bed978baeada6c4e3b2ff1e75e96e7c079a9c520c48e2bcf8982f1ee8b4a65e",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "quiz_attempts.json",
+      "bytes": 1479,
+      "sha256": "b34c3e4ce25b2dd78da4cc7df610b4c926e7e4f0309c82b32cb171bac1b136d4",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "quiz_attempts_and_grading"
+      ]
+    },
+    {
+      "file": "quiz_grades.json",
+      "bytes": 435,
+      "sha256": "8a3826cf383679f4d529a537fbea59f2641b135628af64a29b4813317916a61b",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "quiz_attempts_and_grading"
+      ]
+    },
+    {
+      "file": "quiz_slots.json",
+      "bytes": 227,
+      "sha256": "bef30425737aa70c63c61e28c83ff4658088ddfee3ce3bfe7f4b09941169b5dd",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "resource.json",
+      "bytes": 424,
+      "sha256": "5c8672816916b5d8d7d4b1e80add4b576b8b4772ef65f7a0b19892f8f77a0345",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "synthetic_video_resource_views"
+      ]
+    },
+    {
+      "file": "role.json",
+      "bytes": 1367,
+      "sha256": "d0dd446d7183c1c55f4bfd8981ada8c707c4d37c8ecc3ba985fd2d1bab80b4df",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "supporting_raw_evidence"
+      ]
+    },
+    {
+      "file": "role_assignments.json",
+      "bytes": 1963,
+      "sha256": "f30c75f54a9faef86cef634aa90aed44f9a774a65c57f4a6e7c921faffc1ea7b",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "learners_and_teacher"
+      ]
+    },
+    {
+      "file": "user.json",
+      "bytes": 1615,
+      "sha256": "de6a7a240f0d5956531be873367ece66153d94fea16d6d313fa5203116437660",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "learners_and_teacher"
+      ]
+    },
+    {
+      "file": "user_enrolments.json",
+      "bytes": 2051,
+      "sha256": "eae93f371f06e97391b71cb570424de510b8259475d54f89aa5ce8c9aa1cc059",
+      "source_command": "docker compose exec -T web php /work/export.php <output>",
+      "collected_at": "2026-11-20T02:05:18.642077+00:00",
+      "platform_version": {
+        "release": "6.0dev (Build: 20261117)",
+        "version": 2026111700,
+        "php": "8.3.36",
+        "db": "PostgreSQL 17.12 (Debian 17.12-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "commit": "2d4bafe8548a6d6c01494c862ec3d9749ba6ea84",
+        "evidence_level": "真实平台数据（合成课程/学员）"
+      },
+      "coverage": [
+        "enrolment_state_change"
+      ]
+    }
+  ]
+}

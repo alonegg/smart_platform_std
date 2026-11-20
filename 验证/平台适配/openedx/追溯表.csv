@@ -1,0 +1,18 @@
+要素编号,场景,样本文件,证据边界
+OBJ-004,two_offerings,run01.tar.gz;run02.tar.gz,同主题两个原生课程run；不是标准对象转换
+OBJ-006,two_offerings,run01.tar.gz;run02.tar.gz,两个开课；不冒充不可变课程版本
+OBJ-001,people,auth_user.json;auth_userprofile.json;student_courseaccessrole.json,3名合成学员和教师；身份仅为本平台本地合成账号
+OBJ-010,people,auth_user.json;auth_userprofile.json;student_courseaccessrole.json,每个run分配staff及instructor角色；非校级任教登记
+OBJ-007,enrolment_change,student_courseenrollment.json;student_courseenrollment_history.json;tracking.jsonl,学员03每个run退选后重选；保留原生历史
+EVT-002,enrolment_change,student_courseenrollment.json;student_courseenrollment_history.json;tracking.jsonl,原生activated和deactivated；不推定标准事件语义
+OBJ-020,video_events,run01.tar.gz;tracking.jsonl,三秒合成MP4及原生video block
+EVT-004,video_events,run01.tar.gz;tracking.jsonl,脚本派发播放通知；未验证浏览器打开解码或播放时长；非标准resource.opened
+OBJ-009,capa_checks,courseware_studentmodule.json;courseware_studentmodulehistory.json;tracking.jsonl,每人先错后对两次原生尝试；非统一TaskAttempt对象
+EVT-011,capa_checks,courseware_studentmodule.json;courseware_studentmodulehistory.json;tracking.jsonl,原生problem_check和判分历史；未转换response.recorded
+OBJ-009,ora_reset_resubmit,submissions_submission.json;submissions_studentitem.json;workflow_assessmentworkflowcancellation.json;tracking.jsonl,重置前后两个UUID但attempt_number均为1；保留软删除行
+EVT-013,ora_reset_resubmit,submissions_submission.json;submissions_studentitem.json;workflow_assessmentworkflowcancellation.json;tracking.jsonl,原生提交和员工重置后重交；不推定学校证据库已接收
+EVT-020,assessment_revision,assessment_assessment.json;assessment_assessmentpart.json;submissions_score.json;grades_persistentsubsectiongradeoverride.json;grades_historicalpersistentsubsectiongradeoverride.json,ORA评审及分数覆盖历史；不等同正式更正审批链
+OBJ-012,cohorts,course_groups_courseusergroup.json;course_groups_cohortmembership.json,每个run一个cohort和3名成员；未创建team或团队提交
+FLD-EVT-014,cohorts,course_groups_courseusergroup.json;course_groups_cohortmembership.json,当前成员关系；未实测成员变更时点快照
+OBJ-029,native_event_formats,tracking.jsonl;xapi.jsonl;caliper.jsonl;erb-report.json,运行平台原生日志与固定ERB离线输出；有不支持事件及显式转换错误；非标准LearningEvent
+FLD-EVT-004,native_event_formats,tracking.jsonl;xapi.jsonl;caliper.jsonl;erb-report.json,xAPI和Caliper外部协议不等于学校事件Profile标识版本

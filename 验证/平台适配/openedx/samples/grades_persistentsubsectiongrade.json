@@ -1,0 +1,50 @@
+[
+  {
+    "created": "2026-11-20T02:36:55.723877",
+    "modified": "2026-11-20T02:37:37.425406",
+    "id": 1,
+    "user_id": 4,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "usage_key": "block-v1:SYNTH+WP4A+run01+type@sequential+block@homework",
+    "subtree_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "earned_all": 4.0,
+    "possible_all": 4.0,
+    "earned_graded": 4.0,
+    "possible_graded": 4.0,
+    "visible_blocks_hash": "D5L00rs5xzNo4DG7IBqx8orhuwM=",
+    "first_attempted": "2026-11-20T02:36:53.617288"
+  },
+  {
+    "created": "2026-11-20T02:36:56.053496",
+    "modified": "2026-11-20T02:36:56.138445",
+    "id": 2,
+    "user_id": 5,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "usage_key": "block-v1:SYNTH+WP4A+run01+type@sequential+block@homework",
+    "subtree_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "earned_all": 1.0,
+    "possible_all": 4.0,
+    "earned_graded": 1.0,
+    "possible_graded": 4.0,
+    "visible_blocks_hash": "JEUoL5uukEF4KIiB1kBMGkkZ2eM=",
+    "first_attempted": "2026-11-20T02:36:53.994876"
+  },
+  {
+    "created": "2026-11-20T02:36:56.445896",
+    "modified": "2026-11-20T02:36:56.593361",
+    "id": 3,
+    "user_id": 6,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "usage_key": "block-v1:SYNTH+WP4A+run01+type@sequential+block@homework",
+    "subtree_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "earned_all": 1.0,
+    "possible_all": 4.0,
+    "earned_graded": 1.0,
+    "possible_graded": 4.0,
+    "visible_blocks_hash": "JEUoL5uukEF4KIiB1kBMGkkZ2eM=",
+    "first_attempted": "2026-11-20T02:36:54.377589"
+  }
+]

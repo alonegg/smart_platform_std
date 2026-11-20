@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "scorer_id": "71afc7056406eaffdf539f2f42752772",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "item_id": "block-v1:SYNTH+WP4A+run01+type@openassessment+block@essay",
+    "submission_uuid": "1428eea2-80a1-44e9-80b6-42264e633741",
+    "created_at": "2026-11-20T02:36:54.761868",
+    "grading_completed_at": "2026-11-20T02:36:54.931390",
+    "grading_started_at": null,
+    "cancelled_at": "2026-11-20T02:37:35.144575",
+    "assessment": "2"
+  },
+  {
+    "id": 2,
+    "scorer_id": "71afc7056406eaffdf539f2f42752772",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "item_id": "block-v1:SYNTH+WP4A+run01+type@openassessment+block@essay",
+    "submission_uuid": "dc23f525-cc14-488e-88ef-de449a812045",
+    "created_at": "2026-11-20T02:37:35.264921",
+    "grading_completed_at": "2026-11-20T02:37:35.316916",
+    "grading_started_at": null,
+    "cancelled_at": null,
+    "assessment": "3"
+  }
+]

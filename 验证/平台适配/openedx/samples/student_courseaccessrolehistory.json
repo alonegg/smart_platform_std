@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "created": "2026-11-20T02:34:56.592791",
+    "modified": "2026-11-20T02:34:56.592791",
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "role": "staff",
+    "action_type": "created",
+    "old_values": null,
+    "changed_by_id": null,
+    "user_id": 7
+  },
+  {
+    "id": 2,
+    "created": "2026-11-20T02:34:56.605668",
+    "modified": "2026-11-20T02:34:56.605668",
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "role": "instructor",
+    "action_type": "created",
+    "old_values": null,
+    "changed_by_id": null,
+    "user_id": 7
+  },
+  {
+    "id": 3,
+    "created": "2026-11-20T02:34:56.840461",
+    "modified": "2026-11-20T02:34:56.840461",
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "role": "staff",
+    "action_type": "created",
+    "old_values": null,
+    "changed_by_id": null,
+    "user_id": 7
+  },
+  {
+    "id": 4,
+    "created": "2026-11-20T02:34:56.843244",
+    "modified": "2026-11-20T02:34:56.843244",
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "role": "instructor",
+    "action_type": "created",
+    "old_values": null,
+    "changed_by_id": null,
+    "user_id": 7
+  }
+]

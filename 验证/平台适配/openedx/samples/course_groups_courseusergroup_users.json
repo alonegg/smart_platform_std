@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "courseusergroup_id": 1,
+    "user_id": 4
+  },
+  {
+    "id": 2,
+    "courseusergroup_id": 1,
+    "user_id": 5
+  },
+  {
+    "id": 3,
+    "courseusergroup_id": 1,
+    "user_id": 6
+  },
+  {
+    "id": 4,
+    "courseusergroup_id": 2,
+    "user_id": 4
+  },
+  {
+    "id": 5,
+    "courseusergroup_id": 2,
+    "user_id": 5
+  },
+  {
+    "id": 6,
+    "courseusergroup_id": 2,
+    "user_id": 6
+  }
+]

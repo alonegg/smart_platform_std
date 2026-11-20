@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "module_type": "problem",
+    "module_id": "block-v1:SYNTH+WP4A+run01+type@problem+block@addition",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "state": "{\"correct_map\": {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, \"correct_map_history\": [{\"addition_2_1\": {\"correctness\": \"incorrect\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}], \"student_answers\": {\"addition_2_1\": \"2\"}, \"input_state\": {\"addition_2_1\": {}}, \"seed\": 1, \"score\": {\"raw_earned\": 1, \"raw_possible\": 1}, \"student_answers_history\": [{\"addition_2_1\": \"1\"}, {\"addition_2_1\": \"2\"}], \"attempts\": 2, \"done\": true, \"score_history\": [{\"raw_earned\": 0, \"raw_possible\": 1}, {\"raw_earned\": 1, \"raw_possible\": 1}], \"last_submission_time\": \"2026-11-20T02:36:53Z\"}",
+    "grade": 1.0,
+    "max_grade": 1.0,
+    "done": "na",
+    "created": "2026-11-20T02:36:53.617288",
+    "modified": "2026-11-20T02:36:53.785935",
+    "student_id": 4
+  },
+  {
+    "id": 2,
+    "module_type": "problem",
+    "module_id": "block-v1:SYNTH+WP4A+run01+type@problem+block@addition",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "state": "{\"correct_map\": {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, \"correct_map_history\": [{\"addition_2_1\": {\"correctness\": \"incorrect\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}], \"student_answers\": {\"addition_2_1\": \"2\"}, \"input_state\": {\"addition_2_1\": {}}, \"seed\": 1, \"score\": {\"raw_earned\": 1, \"raw_possible\": 1}, \"student_answers_history\": [{\"addition_2_1\": \"1\"}, {\"addition_2_1\": \"2\"}], \"attempts\": 2, \"done\": true, \"score_history\": [{\"raw_earned\": 0, \"raw_possible\": 1}, {\"raw_earned\": 1, \"raw_possible\": 1}], \"last_submission_time\": \"2026-11-20T02:36:54Z\"}",
+    "grade": 1.0,
+    "max_grade": 1.0,
+    "done": "na",
+    "created": "2026-11-20T02:36:53.994876",
+    "modified": "2026-11-20T02:36:54.133127",
+    "student_id": 5
+  },
+  {
+    "id": 3,
+    "module_type": "problem",
+    "module_id": "block-v1:SYNTH+WP4A+run01+type@problem+block@addition",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "state": "{\"correct_map\": {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, \"correct_map_history\": [{\"addition_2_1\": {\"correctness\": \"incorrect\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}, {\"addition_2_1\": {\"correctness\": \"correct\", \"npoints\": null, \"msg\": \"\", \"hint\": \"\", \"hintmode\": null, \"queuestate\": null, \"answervariable\": null}}], \"student_answers\": {\"addition_2_1\": \"2\"}, \"input_state\": {\"addition_2_1\": {}}, \"seed\": 1, \"score\": {\"raw_earned\": 1, \"raw_possible\": 1}, \"student_answers_history\": [{\"addition_2_1\": \"1\"}, {\"addition_2_1\": \"2\"}], \"attempts\": 2, \"done\": true, \"score_history\": [{\"raw_earned\": 0, \"raw_possible\": 1}, {\"raw_earned\": 1, \"raw_possible\": 1}], \"last_submission_time\": \"2026-11-20T02:36:54Z\"}",
+    "grade": 1.0,
+    "max_grade": 1.0,
+    "done": "na",
+    "created": "2026-11-20T02:36:54.377589",
+    "modified": "2026-11-20T02:36:54.592305",
+    "student_id": 6
+  },
+  {
+    "id": 5,
+    "module_type": "openassessment",
+    "module_id": "block-v1:SYNTH+WP4A+run01+type@openassessment+block@essay",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "state": "{\"submission_uuid\": \"dc23f525-cc14-488e-88ef-de449a812045\"}",
+    "grade": null,
+    "max_grade": null,
+    "done": "na",
+    "created": "2026-11-20T02:37:35.288574",
+    "modified": "2026-11-20T02:37:35.288592",
+    "student_id": 4
+  }
+]

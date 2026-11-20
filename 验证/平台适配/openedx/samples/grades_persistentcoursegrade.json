@@ -1,0 +1,41 @@
+[
+  {
+    "created": "2026-11-20T02:36:55.757508",
+    "modified": "2026-11-20T02:37:37.437814",
+    "id": 1,
+    "user_id": 4,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "grading_policy_hash": "tPgkspKtdi9A/x0AuQan/RYHRHU=",
+    "percent_grade": 0.88,
+    "letter_grade": "Pass",
+    "passed_timestamp": "2026-11-20T02:36:55.771646"
+  },
+  {
+    "created": "2026-11-20T02:36:56.069468",
+    "modified": "2026-11-20T02:36:56.151069",
+    "id": 2,
+    "user_id": 5,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "grading_policy_hash": "tPgkspKtdi9A/x0AuQan/RYHRHU=",
+    "percent_grade": 0.25,
+    "letter_grade": "",
+    "passed_timestamp": null
+  },
+  {
+    "created": "2026-11-20T02:36:56.468572",
+    "modified": "2026-11-20T02:36:56.608661",
+    "id": 3,
+    "user_id": 6,
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "course_edited_timestamp": "2026-11-20T02:34:47.370000",
+    "course_version": "6affb1c7fdb0821ead30065d",
+    "grading_policy_hash": "tPgkspKtdi9A/x0AuQan/RYHRHU=",
+    "percent_grade": 0.25,
+    "letter_grade": "",
+    "passed_timestamp": null
+  }
+]

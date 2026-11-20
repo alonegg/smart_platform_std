@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "uuid": "1428eea280a144e980b642264e633741",
+    "attempt_number": 1,
+    "submitted_at": "2026-11-20T02:36:54.737632",
+    "created_at": "2026-11-20T02:36:54.737637",
+    "raw_answer": "{\"parts\": [{\"text\": \"\\u5408\\u6210\\u521d\\u7a3f\\uff1a\\u6211\\u7528\\u52a0\\u6cd5\\u5b8c\\u6210\\u7ec3\\u4e60\\u3002\"}], \"file_keys\": [], \"files_descriptions\": [], \"files_names\": [], \"files_sizes\": []}",
+    "student_item_id": 1,
+    "status": "D",
+    "team_submission_id": null
+  },
+  {
+    "id": 2,
+    "uuid": "dc23f525cc14488e88efde449a812045",
+    "attempt_number": 1,
+    "submitted_at": "2026-11-20T02:37:35.257955",
+    "created_at": "2026-11-20T02:37:35.257959",
+    "raw_answer": "{\"parts\": [{\"text\": \"\\u5408\\u6210\\u91cd\\u4ea4\\uff1a\\u6211\\u68c0\\u67e5\\u4e86\\u52a0\\u6cd5\\uff0c\\u5e76\\u8865\\u5145\\u8bf4\\u660e\\u3002\"}], \"file_keys\": [], \"files_descriptions\": [], \"files_names\": [], \"files_sizes\": []}",
+    "student_item_id": 1,
+    "status": "A",
+    "team_submission_id": null
+  }
+]

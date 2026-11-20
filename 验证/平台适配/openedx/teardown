@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+if [[ $# -ne 0 ]]; then
+    printf '%s\n' 'Usage: bash teardown (stops Open edX only; preserves all data)' >&2
+    exit 2
+fi
+bash tutor.sh local stop

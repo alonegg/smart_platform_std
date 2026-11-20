@@ -1,0 +1,11 @@
+[
+    {
+        "id": "3",
+        "usingcontextid": "46",
+        "component": "mod_quiz",
+        "questionarea": "slot",
+        "itemid": "3",
+        "questionbankentryid": "3",
+        "version": null
+    }
+]

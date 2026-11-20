@@ -1,0 +1,68 @@
+[
+    {
+        "id": "1",
+        "username": "guest",
+        "firstname": "Guest user",
+        "lastname": " ",
+        "email": "root@localhost",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    },
+    {
+        "id": "2",
+        "username": "syntheticadmin",
+        "firstname": "Admin",
+        "lastname": "User",
+        "email": "admin@example.invalid",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    },
+    {
+        "id": "15",
+        "username": "synthetic01",
+        "firstname": "学员",
+        "lastname": "01",
+        "email": "synthetic01@example.invalid",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    },
+    {
+        "id": "16",
+        "username": "synthetic02",
+        "firstname": "学员",
+        "lastname": "02",
+        "email": "synthetic02@example.invalid",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    },
+    {
+        "id": "17",
+        "username": "synthetic03",
+        "firstname": "学员",
+        "lastname": "03",
+        "email": "synthetic03@example.invalid",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    },
+    {
+        "id": "18",
+        "username": "synthetic04",
+        "firstname": "教师",
+        "lastname": "04",
+        "email": "synthetic04@example.invalid",
+        "auth": "manual",
+        "suspended": "0",
+        "deleted": "0",
+        "idnumber": ""
+    }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 2,
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "role": "instructor",
+    "user_id": 7
+  },
+  {
+    "id": 1,
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run01",
+    "role": "staff",
+    "user_id": 7
+  },
+  {
+    "id": 4,
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "role": "instructor",
+    "user_id": 7
+  },
+  {
+    "id": 3,
+    "org": "SYNTH",
+    "course_id": "course-v1:SYNTH+WP4A+run02",
+    "role": "staff",
+    "user_id": 7
+  }
+]
