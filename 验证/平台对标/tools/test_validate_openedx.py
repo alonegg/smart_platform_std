@@ -1,11 +1,15 @@
 """双平台矩阵校验器的正常、空输入及错误输入测试。"""
 
 from copy import deepcopy
+from contextlib import redirect_stdout
+import csv
+import io
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
-from validate_openedx import read_csv, validate
+from validate_openedx import main, read_csv, validate
 
 
 class MatrixValidationTests(unittest.TestCase):
@@ -46,6 +50,33 @@ class MatrixValidationTests(unittest.TestCase):
         self.assertEqual(paths, {"public/model.php"})
         self.assertEqual(references, 166)
         self.assertEqual(self.check("OpenEdX")[2], 166)
+
+    def test_main_replays_openedx_before_moodle_is_filled(self):
+        categories = ("课程资源", "教学过程与学习证据", "认知诊断", "公共与交换")
+        rows = deepcopy(self.rows)
+        for index, row in enumerate(rows):
+            row["数据类别"] = categories[index % len(categories)]
+            for suffix in ("对应", "状态", "依据"):
+                row["Moodle" + suffix] = ""
+        baseline = deepcopy(rows)
+        for row in baseline:
+            for suffix in ("对应", "状态", "依据"):
+                row["OpenEdX" + suffix] = ""
+        matrix_path = self.root / "matrix.csv"
+        baseline_path = self.root / "baseline.csv"
+        for path, data in ((matrix_path, rows), (baseline_path, baseline)):
+            with path.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=self.headers)
+                writer.writeheader()
+                writer.writerows(data)
+        output = io.StringIO()
+        with patch("sys.argv", ["validate_openedx.py", "--changed-platform", "OpenEdX",
+                                "--matrix", str(matrix_path), "--baseline", str(baseline_path),
+                                "--ref-root", str(self.root)]), redirect_stdout(output):
+            main()
+        self.assertIn("PASS: 166/166 行 OpenEdX 三列已填", output.getvalue())
+        self.assertIn("仅 OpenEdX 三列变化", output.getvalue())
+        self.assertNotIn("行 Moodle 三列已填", output.getvalue())
 
     def test_empty_or_wrong_row_count(self):
         for rows in ([], self.rows[:-1], self.rows + self.rows[:1]):

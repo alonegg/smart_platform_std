@@ -88,7 +88,8 @@ def main():
     baseline = args.baseline or Path.home() / "backup" / f"数据要素对照矩阵.{args.changed_platform}填写前.csv"
     old_headers, old_rows = read_csv(baseline)
     results = {}
-    for platform in PLATFORMS:
+    platforms = PLATFORMS if args.changed_platform == "治理" else PLATFORMS[:PLATFORMS.index(args.changed_platform) + 1]
+    for platform in platforms:
         counts, paths, references = validate(
             headers, rows, old_headers, old_rows, args.ref_root, platform, args.changed_platform)
         results[platform] = counts
