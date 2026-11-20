@@ -1,0 +1,459 @@
+openapi: 3.1.0
+info:
+  title: 智慧教学-数据模型标准 — 合成参考公共服务
+  version: 0.1.0-candidate
+  description: 仅合成样例；HTTP 200 不代表业务接受，检查 status、durability 与阶段。
+servers:
+  - url: http://127.0.0.1:8700
+security:
+  - bearerAuth: []
+paths:
+  /applications:
+    post:
+      operationId: register_application
+      summary: 管理员登记 ApplicationInstance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [application]
+              properties:
+                application:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/ApplicationInstance.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /applications/status:
+    post:
+      operationId: set_application_status
+      summary: 管理员设置目录状态
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [instance, status]
+              properties:
+                instance: {type: string}
+                status: {enum: [active, suspended, revoked]}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /applications/rotate-key:
+    post:
+      operationId: rotate_key
+      summary: 管理员轮换客户端密钥
+      requestBody: {$ref: '#/components/requestBodies/Instance'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grants:
+    post:
+      operationId: issue_grant
+      summary: 管理员签发授权
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [grant]
+              properties:
+                grant:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/AccessGrant.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grants/validate:
+    post:
+      operationId: validate_grant
+      requestBody: {$ref: '#/components/requestBodies/GrantRef'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grants/subscriptions:
+    post:
+      operationId: subscribe
+      summary: 管理员登记撤权订阅
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [instance, grant_ref]
+              properties:
+                instance: {type: string}
+                grant_ref: {$ref: '#/components/schemas/GrantRef'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grants/{id}/revoke:
+    post:
+      operationId: revoke_grant
+      summary: 管理员撤权；id 为百分号编码的完整授权 object_id
+      parameters:
+        - {$ref: '#/components/parameters/Id'}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version_id: {type: string, default: v1}
+                basis: {type: string}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /tokens:
+    post:
+      operationId: issue_token
+      summary: 管理员模拟签发 bearer；每次写请求须新令牌
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [grant_ref]
+              properties:
+                grant_ref: {$ref: '#/components/schemas/GrantRef'}
+                scope: {type: array, items: {type: string}}
+                audience: {type: string}
+                ttl: {type: number, default: 300}
+                access_mode: {enum: [client_credentials, delegated, user_session]}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /events:
+    post:
+      operationId: accept_event
+      summary: 请求体直接是 input 信封，不包裹 event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/event-envelope.input.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Receipt'}
+        '400': {$ref: '#/components/responses/Receipt'}
+    get:
+      operationId: query_events
+      parameters:
+        - {$ref: '#/components/parameters/Instance'}
+        - name: order_by
+          in: query
+          schema: {enum: [occurred_at, received_at], default: occurred_at}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /receipts/{id}:
+    get:
+      operationId: get_receipt
+      parameters:
+        - {$ref: '#/components/parameters/Id'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /reconciliation:
+    get:
+      operationId: reconcile
+      parameters:
+        - {$ref: '#/components/parameters/Instance'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /conflicts:
+    get:
+      operationId: conflicts
+      parameters:
+        - {$ref: '#/components/parameters/Instance'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /notifications:
+    get:
+      operationId: notifications
+      parameters:
+        - {$ref: '#/components/parameters/Instance'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /pseudonyms:
+    post:
+      operationId: pseudonym
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [learner_ref]
+              properties:
+                learner_ref:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/common.schema.json#/$defs/NonVersionedRef
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /pseudonyms/resolve:
+    post:
+      operationId: resolve_pseudonym
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [pseudonym]
+              properties:
+                pseudonym: {type: string}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /teaching-assignments:
+    post:
+      operationId: register_teaching_assignment
+      summary: 管理员登记授课安排
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [assignment]
+              properties:
+                assignment:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/TeachingAssignment.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grades/proposals:
+    post:
+      operationId: propose_grade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision, offering_ref]
+              properties:
+                decision: {$ref: '#/components/schemas/GradeDecision'}
+                offering_ref: {$ref: '#/components/schemas/ObjectRef'}
+                learner_ref: {$ref: '#/components/schemas/ObjectRef'}
+                submission:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/Submission.schema.json
+                method_ref:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/common.schema.json#/$defs/IndependentRef
+                source_refs: {type: array, items: {$ref: '#/components/schemas/ObjectRef'}}
+                supersedes: {$ref: '#/components/schemas/ObjectRef'}
+                basis: {type: string}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grades/confirmations:
+    post:
+      operationId: confirm_grade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision: {$ref: '#/components/schemas/GradeDecision'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grades/registrar-receipts:
+    post:
+      operationId: registrar_receipt
+      summary: 管理员模拟教务回执，不是通用业务 receipt 对象
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision_ref, status, receipt_id]
+              properties:
+                decision_ref: {$ref: '#/components/schemas/ObjectRef'}
+                status: {enum: [accepted, rejected, quarantined]}
+                receipt_id: {type: string}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /grades:
+    get:
+      operationId: grade_view
+      parameters:
+        - {$ref: '#/components/parameters/Instance'}
+        - name: formal
+          in: query
+          schema: {type: boolean, default: true}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /methods:
+    post:
+      operationId: register_method
+      summary: 管理员登记方法
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [method]
+              properties:
+                method:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/MethodRegistration.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /methods/approvals:
+    post:
+      operationId: approve_method
+      summary: 管理员登记候选批准
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approval]
+              properties:
+                approval:
+                  $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/MethodApproval.schema.json
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /methods/status:
+    post:
+      operationId: set_method_status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approval_ref, status]
+              properties:
+                approval_ref: {$ref: '#/components/schemas/ObjectRef'}
+                status: {enum: [approved, suspended, revoked]}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /methods/check:
+    post:
+      operationId: check_method_use
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [method_ref, use_purpose, population, consequence_level]
+              properties:
+                method_ref: {$ref: '#/components/schemas/ObjectRef'}
+                use_purpose: {type: string}
+                population: {type: string}
+                consequence_level: {type: string}
+                at: {type: string, format: date-time}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /methods/history:
+    post:
+      operationId: method_history
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [method_ref]
+              properties:
+                method_ref: {$ref: '#/components/schemas/ObjectRef'}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /ai/admission:
+    post:
+      operationId: admit_ai_output
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [use_purpose]
+              properties:
+                use_purpose: {type: string}
+                mastery_inference: {type: boolean, default: false}
+                method_ref: {$ref: '#/components/schemas/ObjectRef'}
+                population: {type: string}
+                consequence_level: {type: string, default: formative_support}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /audit:
+    get:
+      operationId: audit_log
+      summary: 管理员只读查询审计
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+  /audit/verify:
+    post:
+      operationId: verify
+      summary: 管理员验证审计链
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, maxProperties: 0}
+      responses:
+        '200': {$ref: '#/components/responses/Business'}
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer, bearerFormat: Synthetic-HMAC}
+  parameters:
+    Instance:
+      name: instance
+      in: query
+      required: true
+      schema: {type: string}
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: {type: string}
+  schemas:
+    ObjectRef:
+      $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/common.schema.json#/$defs/ObjectRef
+    GrantRef:
+      $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/common.schema.json#/$defs/IndependentRef
+    GradeDecision:
+      $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/objects/GradeDecision.schema.json
+    Receipt:
+      $ref: https://example.edu/smart-teaching/contracts/0.1.0-candidate/schema/receipt.schema.json
+    BusinessResult:
+      type: object
+      required: [status]
+      properties:
+        status: {enum: [accepted, rejected, duplicate, conflict, quarantined]}
+        reason: {type: string}
+      additionalProperties: true
+  requestBodies:
+    Instance:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [instance]
+            properties:
+              instance: {type: string}
+    GrantRef:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [grant_ref]
+            properties:
+              grant_ref: {$ref: '#/components/schemas/GrantRef'}
+  responses:
+    Business:
+      description: 检查业务 status；accepted 才表示对应操作接受，不表示其他阶段完成。格式错误为 400，未知路由为 404，均返回 JSON rejected 错误体并审计。
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - {$ref: '#/components/schemas/BusinessResult'}
+              - {$ref: '#/components/schemas/Receipt'}
+    Receipt:
+      description: 业务回执；accepted/duplicate/rejected/conflict 必须读取状态及 durability。POST /events 的格式错误也返回可查询 rejected 回执。
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Receipt'}
