@@ -1,0 +1,131 @@
+{
+  "notice": "全部为合成汇总输入；不代表平台已执行；单位与指标CSV一致",
+  "identifiers": {
+    "learner": "learner-syn-001",
+    "course": "course-syn-001",
+    "applications": [
+      "app-syn-a",
+      "app-syn-b"
+    ]
+  },
+  "evidence_level": "未执行",
+  "quantitative": {
+    "grading_seconds": [
+      120,
+      180
+    ],
+    "feedback_seconds": [
+      30,
+      50
+    ],
+    "adopted": [
+      1,
+      0,
+      0,
+      1
+    ],
+    "modified": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "confirmation_seconds": [
+      200,
+      400,
+      300
+    ],
+    "review_tickets": [
+      "review-syn-001",
+      "review-syn-002"
+    ],
+    "correction_tickets": [
+      "correction-syn-001"
+    ],
+    "integration_hours": [
+      8,
+      4,
+      12
+    ],
+    "recovery_seconds": [
+      45,
+      55
+    ],
+    "revocation_seconds": [
+      8,
+      12,
+      20
+    ],
+    "takeover_checks": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "dependency_gaps": [
+      0
+    ],
+    "takeover_seconds": [
+      1800
+    ],
+    "support_steps": [
+      1
+    ],
+    "takeover_retests": [
+      1
+    ],
+    "task_success": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "task_seconds": [
+      180,
+      210,
+      250,
+      300
+    ],
+    "failure_reasons": [
+      "无法定位复核入口"
+    ],
+    "state_answers": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "accessibility_blocks": [
+      1
+    ],
+    "gap_owners": [
+      1,
+      0
+    ],
+    "reentries": [
+      2,
+      1
+    ],
+    "autofill": [
+      1,
+      1,
+      0
+    ],
+    "unexplained_gaps": [
+      0,
+      0,
+      0
+    ],
+    "fault_checks": [
+      1,
+      1,
+      1
+    ],
+    "revocation_checks": [
+      1,
+      1,
+      1
+    ]
+  },
+  "audits": {}
+}
