@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { marked } from "marked";
-import { checkEditionConfig, expected, isR2, sourcePath, sourceCommit } from "./edition.mjs";
+import { checkEditionConfig, expected, edition, isR2, isPublicR2, sourcePath, sourceCommit } from "./edition.mjs";
 export { sourcePath, sourceCommit } from "./edition.mjs";
 
 export const project = fileURLToPath(new URL("../", import.meta.url));
@@ -56,6 +56,7 @@ export function parseSections(markdown) {
         if (paragraphIds.has(id) || headings.some((h) => h.id === id))
           return `<p>${inner}</p>\n`;
         paragraphIds.add(id);
+        if (isPublicR2) return `<p id="${id}" class="clause" data-clause="${number}">${inner}</p>\n`;
         return `<p id="${id}" class="clause" data-clause="${number}">${inner}<a class="clause-comment" href="/comment/?clause=${encodeURIComponent(number)}&amp;section=${key}" aria-label="对 ${number} 提出意见">意见</a></p>\n`;
       };
       const html = marked
@@ -147,7 +148,7 @@ export async function generateContent() {
   });
   const data = {
     title: standardTitle,
-    version: isR2 ? "第2轮修订稿预览" : "征求意见稿",
+    version: isPublicR2 ? "第2轮修订稿" : isR2 ? "第2轮修订稿预览" : "征求意见稿",
     date: "2026-11-10",
     synced: "2026-11-10",
     sourceCommit,
@@ -214,11 +215,17 @@ export async function generateContent() {
     ],
   };
   if (isR2) {
-    data.edition = "r2";
+    data.edition = edition;
     for (const item of data.downloads.filter((item) => item.from.startsWith("维护/"))) {
       item.title = item.title.replace(" · ", " · 第2轮修订稿 · ");
-      item.description = item.type === "MD" ? "与预览站在线全文一致" : "第2轮修订稿，仅供内部核对";
+      if (isPublicR2) {
+        item.description = item.type === "MD" ? "与网站在线全文一致" : "供阅读、批注和评议的第2轮修订稿";
+      } else {
+        item.description = item.type === "MD" ? "与预览站在线全文一致" : "第2轮修订稿，仅供内部核对";
+      }
     }
+  }
+  if (isR2 && !isPublicR2) {
     const comparison = JSON.parse(execFileSync("python3", ["-B", path.join(project, "scripts/comparison.py")], { cwd: root, encoding: "utf8" }));
     const count = (kind) => comparison.filter((row) => row.kind === kind).length;
     if (comparison.length !== expected.units || count("新增") !== 19 || count("修改") !== 8 || count("删除") !== 0)

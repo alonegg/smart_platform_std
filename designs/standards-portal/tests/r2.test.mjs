@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { marked } from "marked";
-import { checkEditionConfig, validateR2Config, isR2, expected } from "../scripts/edition.mjs";
+import { checkEditionConfig, validateR2Config, isR2, isPublicR2, expected } from "../scripts/edition.mjs";
 import { project, root, sourcePath, sourceCommit } from "../scripts/content.mjs";
 import worker from "../server/worker.mjs";
 import { verifyAccess } from "../server/access.mjs";
@@ -31,7 +31,7 @@ test("edition pins exact clause units and tables without relaxing appendix A", a
   assert.equal(expected.units, isR2 ? 805 : 786);
 });
 
-test("only r2 has comparison, noindex and a disabled opinion page", async () => {
+test("only the internal preview has comparison and a disabled opinion page", { skip: isPublicR2 }, async () => {
   const index = await artifact("index.html");
   const comment = await artifact("comment/index.html");
   const sitemap = await artifact("sitemap.xml");
@@ -98,7 +98,7 @@ const env = () => ({
 });
 const request = (url, token, method = "GET") => new Request(`https://r2.example.test${url}`, { method, headers: token ? { "Cf-Access-Jwt-Assertion": token } : {} });
 
-test("Access guards all routes, static files, APIs, errors and missing configuration", async (t) => {
+test("Access guards all routes, static files, APIs, errors and missing configuration", { skip: isPublicR2 }, async (t) => {
   t.mock.method(globalThis, "fetch", async () => Response.json(jwks));
   const paths = ["/", "/compare/", "/compare/index.html", "/read/5/", "/assets/app.js", "/downloads/standard-review.docx", "/robots.txt", "/version.json", "/api/comments", "/admin/"];
   for (const url of paths) {

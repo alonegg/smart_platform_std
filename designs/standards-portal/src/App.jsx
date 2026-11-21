@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, cleanTitle, sourceRepo, reviewHref } from "./shared.jsx";
+import { AppLink, cleanTitle, draftLabel, readOnlyRevision, sourceRepo, reviewHref } from "./shared.jsx";
 import { Home, Architecture } from "./Overview.jsx";
 import { Reader } from "./Reader.jsx";
 import { Profiles, Roadmap, Decisions, Downloads } from "./Topics.jsx";
@@ -45,7 +45,7 @@ export default function App({ initialPath = "/" }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const basePath = path.split("#")[0].split("?")[0];
   const key = basePath.match(/^\/read\/([^/]+)\/?$/)?.[1];
-  const isAdmin = basePath === "/admin/" || basePath === "/admin";
+  const isAdmin = !readOnlyRevision && ["/admin/", "/admin"].includes(basePath);
   const registration = useRegistration(isAdmin || basePath === "/privacy/");
   const section = data.sections.find((s) => s.key === key);
   const navItems = [
@@ -56,8 +56,10 @@ export default function App({ initialPath = "/" }) {
     ["/roadmap/", "实施路线", ArrowRight],
     ["/decisions/", "待决事项", GitBranch],
     ["/downloads/", "资料下载", Download],
-    ["/comment/", "提交意见", MessageSquareText],
-    ["/responses/", "意见处理情况", GitBranch],
+    ...(readOnlyRevision ? [] : [
+      ["/comment/", "提交意见", MessageSquareText],
+      ["/responses/", "意见处理情况", GitBranch],
+    ]),
   ];
   const label =
     section?.title ??
@@ -144,9 +146,9 @@ export default function App({ initialPath = "/" }) {
             </span>
           </AppLink>
           <span className="topbar-divider"></span>
-          <span className="topbar-caption">征求意见稿 · 厂商与专家评议</span>
+          <span className="topbar-caption">{draftLabel} · 厂商与专家评议</span>
           <div className="topbar-actions">
-            <button
+            {!readOnlyRevision && <button
               className="reader-registration-trigger"
               onClick={() => {
                 registration.refresh();
@@ -156,7 +158,7 @@ export default function App({ initialPath = "/" }) {
             >
               <UserRound size={16} />
               <span>{registration.record ? "已登记" : "阅读登记"}</span>
-            </button>
+            </button>}
             <button
               className="search-trigger"
               aria-label="搜索标准"
@@ -171,7 +173,7 @@ export default function App({ initialPath = "/" }) {
               to={reviewHref(section)}
               navigate={navigate}
             >
-              提出意见
+              {readOnlyRevision ? "评议指引" : "提出意见"}
               <MessageSquareText size={14} />
             </AppLink>
             <button
@@ -200,7 +202,7 @@ export default function App({ initialPath = "/" }) {
               <span className="eyebrow">评审材料</span>
               <strong>
                 {data.title}
-                <span>征求意见稿</span>
+                <span>{draftLabel}</span>
               </strong>
             </div>
             <nav className="main-nav" aria-label="导读与专题">
@@ -261,29 +263,29 @@ export default function App({ initialPath = "/" }) {
                   ))}
               </nav>
             </div>
-            <div className="sidebar-bottom">
+            {!readOnlyRevision && <div className="sidebar-bottom">
               <span className="status-dot"></span>意见截止 {deadlineText}{" "}
               <AppLink to="/comment/" navigate={navigate}>
                 提交意见 →
               </AppLink>
               <small>起草单位：{consultation.draftingUnit}</small>
-            </div>
+            </div>}
           </aside>
           <div className={`workspace ${section ? "reading-workspace" : ""}`}>
             <div className="breadcrumb">
               <span>{data.title}</span>
               <ChevronRight size={13} />
               <span>{label}</span>
-              <span className="breadcrumb-right">审阅 · 评议 · 提出意见</span>
+              <span className="breadcrumb-right">{readOnlyRevision ? "公开阅读 · 只读" : "审阅 · 评议 · 提出意见"}</span>
             </div>
             <RegistrationBanner state={registration} />
             <ConsultationStrip navigate={navigate} />
             <main id="main-content" tabIndex={-1}>
-              {basePath === "/privacy/" ? (
+              {!readOnlyRevision && basePath === "/privacy/" ? (
                 <PrivacyPage />
-              ) : basePath === "/comment/" ? (
+              ) : !readOnlyRevision && basePath === "/comment/" ? (
                 <CommentPage navigate={navigate} registration={registration} />
-              ) : basePath === "/responses/" ? (
+              ) : !readOnlyRevision && basePath === "/responses/" ? (
                 <ResponsesPage navigate={navigate} />
               ) : basePath === "/quickstart/" ? (
                 <QuickStart navigate={navigate} />
@@ -319,9 +321,9 @@ export default function App({ initialPath = "/" }) {
               <span>{data.title}</span>
               <span>
                 供应用厂商与标准专家评议
-                <AppLink to="/privacy/" navigate={navigate}>
+                {!readOnlyRevision && <AppLink to="/privacy/" navigate={navigate}>
                   信息处理说明
-                </AppLink>
+                </AppLink>}
                 <a
                   href={`${sourceRepo}/blob/main/NOTICE`}
                   target="_blank"

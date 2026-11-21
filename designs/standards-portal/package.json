@@ -11,6 +11,8 @@
     "preview": "vite preview --host 127.0.0.1 --port 4311",
     "deploy": "npm run build && wrangler deploy",
     "build:r2": "PORTAL_EDITION=r2 npm run build",
+    "build:r2-public": "PORTAL_EDITION=r2-public npm run build",
+    "deploy:r2-public": "npm run build:r2-public && PORTAL_EDITION=r2-public npm test && wrangler deploy -c wrangler.r2-public.json",
     "deploy:r2": "npm run build:r2 && PORTAL_EDITION=r2 npm test && wrangler deploy -c wrangler.r2.jsonc",
     "dev:worker": "wrangler dev --port 4320 --local --persist-to ../../temp/registration-local --infer-origin-from-routes=false"
   },

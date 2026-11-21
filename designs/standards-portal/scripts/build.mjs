@@ -4,12 +4,12 @@ import path from "node:path";
 import { build } from "esbuild";
 import { pathToFileURL } from "node:url";
 import { generateContent, project, root } from "./content.mjs";
-import { isR2 } from "./edition.mjs";
+import { edition, hostname, isR2, isPublicR2 } from "./edition.mjs";
 import { r2Aliases } from "./r2-aliases.mjs";
 const data = await generateContent();
 await writeFile(
   path.join(project, "server/document-info.json"),
-  JSON.stringify({ sourceSha: data.sourceSha256, ...(isR2 ? { edition: "r2" } : {}) }),
+  JSON.stringify({ sourceSha: data.sourceSha256, ...(isR2 ? { edition } : {}) }),
 );
 execFileSync(path.join(project, "node_modules/.bin/vite"), ["build"], {
   cwd: project,
@@ -54,7 +54,7 @@ try {
     "/admin/": "阅读者登记管理",
     "/compare/": "条款对照",
   };
-  for (const route of [...routes, "/admin/", "/404/"]) {
+  for (const route of [...routes, ...(isPublicR2 ? [] : ["/admin/"]), "/404/"]) {
     const section = data.sections.find((s) => route === `/read/${s.key}/`);
     const title = `${section?.title ?? titles[route] ?? "页面未找到"} · ${data.title}`;
     const html = template
@@ -62,7 +62,7 @@ try {
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
       .replace(
         "</head>",
-        `${isR2 ? '<meta name="robots" content="noindex">' : ""}<link rel="canonical" href="https://${isR2 ? "r2.stds.chunlin.ch" : "stds.chunlin.ch"}${route}" /></head>`,
+        `${isR2 ? '<meta name="robots" content="noindex">' : ""}<link rel="canonical" href="https://${hostname}${route}" /></head>`,
       );
     const output =
       route === "/404/"
@@ -73,7 +73,7 @@ try {
   }
   await writeFile(
     path.join(project, "dist/sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>https://${isR2 ? "r2.stds.chunlin.ch" : "stds.chunlin.ch"}${route}</loc></url>`).join("")}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>https://${hostname}${route}</loc></url>`).join("")}</urlset>`,
   );
   await writeFile(
     path.join(project, "dist/robots.txt"),

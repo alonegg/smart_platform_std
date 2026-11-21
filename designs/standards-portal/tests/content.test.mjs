@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import { expected } from "../scripts/edition.mjs";
+import { expected, isPublicR2 } from "../scripts/edition.mjs";
 import {
   root,
   project,
@@ -79,7 +79,7 @@ test("every subsection has a unique stable anchor and complete static page", asy
       html.includes(section.html),
       `static content missing for ${section.key}`,
     );
-    assert.ok(html.includes("征求意见稿"));
+    assert.ok(html.includes(isPublicR2 ? "第2轮修订稿" : "征求意见稿"));
     assert.ok(!/localhost|\/Users\/alone|swufe80@gmail/.test(html));
   }
 });
