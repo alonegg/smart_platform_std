@@ -33,7 +33,7 @@ export const cleanTitle = (title) =>
   title.replace(/^\d+\s+/, "").replace(/^附录 [A-E]（[^）]+）/, "");
 export const sourceRepo = "https://github.com/alonegg/smart_platform_std";
 export const reviewHref = (section) =>
-  readOnlyRevision ? "/read/c/" : section ? `/comment/?section=${section.key}` : "/comment/";
+  readOnlyRevision ? "/read/c/#clause-C-4-2" : section ? `/comment/?section=${section.key}` : "/comment/";
 export const githubIssueHref = (section) => {
   const params = new URLSearchParams({
     template: "review-comment.yml",

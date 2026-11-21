@@ -178,6 +178,14 @@ export function Roadmap({ navigate }) {
   );
 }
 
+function renderInlineCode(text) {
+  return text.split(/(`[^`]+`)/g).map((part, index) =>
+    part.startsWith("`") && part.endsWith("`")
+      ? <code key={index}>{part.slice(1, -1)}</code>
+      : part,
+  );
+}
+
 export function Decisions({ navigate }) {
   const [query, setQuery] = useState("");
   const [stage, setStage] = useState("all");
@@ -213,6 +221,11 @@ export function Decisions({ navigate }) {
           <ArrowUpRight size={18} />
         </AppLink>
       </div>
+      {data.decisionOptions && <p className="small-muted">
+        <AppLink to="/read/e/#clause-E-3" navigate={navigate}>表 E.2 E23 分项</AppLink>
+        {" · "}
+        <AppLink to="/read/e/#clause-E-4" navigate={navigate}>表 E.3 可选方案</AppLink>
+      </p>}
       <div className="decision-tools">
         <label className="filter-input">
           <Search size={17} />
@@ -250,8 +263,17 @@ export function Decisions({ navigate }) {
           <section key={row.code}>
             <div className="decision-number">{row.code}</div>
             <div>
-              <h2>{row.title}</h2>
-              <p>{row.treatment}</p>
+              <h2>{renderInlineCode(row.title)}</h2>
+              <p>{renderInlineCode(row.treatment)}</p>
+              {data.decisionOptions && row.code === "E12" && (
+                <p>E12a 基础模型与线格式、E12b 教学与评分、E12c 授权与内容读取、E12d 交换包与存量适配。</p>
+              )}
+              {data.decisionOptions && row.code === "E23" && (
+                <AppLink to="/read/e/#clause-E-3" navigate={navigate}>查阅表 E.2 分项决定</AppLink>
+              )}
+              {data.decisionOptions?.includes(row.code) && (
+                <AppLink to="/read/e/#clause-E-4" navigate={navigate}>查阅表 E.3 可选方案</AppLink>
+              )}
               <div className="decision-meta">
                 <span>决定主体：{row.owner}</span>
                 <span>{row.stage}</span>

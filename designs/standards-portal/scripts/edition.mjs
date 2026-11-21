@@ -10,10 +10,14 @@ export const expectations = {
   r2: { sections: 19, units: 805, tables: 57, profiles: 9, groups: 32, triggers: 17, pending: 30, phases: 6, matrices: 4, matrixRows: 9, cells: 288, pages: 30 },
 };
 export const expected = isPublicR2 ? { ...expectations.r2, pages: 26 } : expectations[edition];
-export const sourcePath = isR2
+export const sourcePath = isPublicR2
+  ? "维护/第2轮修订稿/公开评议/智慧教学-数据模型标准.md"
+  : isR2
   ? "维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.md"
   : "标准/评审稿/智慧教学-数据模型标准.md";
-export const sourceCommit = isR2
+export const sourceCommit = isPublicR2
+  ? "1a90efaeb12724768666231555c186aae5a8af81"
+  : isR2
   ? "0ebb33034179adde310f4616fba06365f959337e"
   : "904d37a9797a4ad2ab238b5e00946e8a9dcbfdd7";
 

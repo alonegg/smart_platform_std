@@ -71,9 +71,11 @@ export function Reader({ section, navigate }) {
           </button>
           <button onClick={() => window.print()}>打印</button>
         </div>
-        {!readOnlyRevision && <div className="reader-status">
-          征求意见稿 · 将鼠标移到编号条文上，点击右侧“意见”即可针对该条提交意见。
-        </div>}
+        <div className="reader-status">
+          {readOnlyRevision
+            ? "点击编号条文旁的“邮件评议”可带入条款号。"
+            : "征求意见稿 · 将鼠标移到编号条文上，点击右侧“意见”即可针对该条提交意见。"}
+        </div>
         <>
           {section.key === "foreword" && (
             <details className="document-metadata">

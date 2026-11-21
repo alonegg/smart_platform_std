@@ -92,9 +92,10 @@ pdffonts 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.pdf
 
 ## 第2轮修订稿公开阅读站
 
-<https://stdsv2.chunlin.ch> 使用 `npm run deploy:r2-public` 发布。该版本使用上述受控修订稿，
-公开提供阅读、检索和下载，附录 C 提供评议指引。构建不生成内部对照数据或管理页。
+<https://stdsv2.chunlin.ch> 使用 `npm run deploy:r2-public` 发布。该版本使用 `维护/第2轮修订稿/公开评议/` 中单独固定提交的公开评议文稿。
+公开提供阅读、检索、同源 Word/PDF/Markdown 及三份 draft 工程材料。附录 C 和下载页提供邮件评议入口。构建不生成内部对照数据或管理页。
 只读 Worker 仅绑定静态资源，无 D1 或定时任务。Cloudflare Access 的免登录策略仅适用于此域名。
+发布前运行 `python3 -B 维护/第2轮修订稿/公开评议/check_public_review.py` 检查文档、字段表和原子用例。
 发布后应从无登录状态核对正文、附件、检索及已移除的路径。
 
 ## 默认站点发布开关

@@ -1,11 +1,12 @@
 function Table(t)
   if t.colspecs then
-    local total = 0
-    for _, spec in ipairs(t.colspecs) do
-      if spec[2] == 0 then spec[2] = 1 / #t.colspecs end
+    local colspecs, total = t.colspecs, 0
+    for _, spec in ipairs(colspecs) do
+      if not spec[2] or spec[2] == 0 then spec[2] = 1 / #colspecs end
       total = total + spec[2]
     end
-    for _, spec in ipairs(t.colspecs) do spec[2] = spec[2] / total end
+    for _, spec in ipairs(colspecs) do spec[2] = spec[2] / total end
+    t.colspecs = colspecs
   else
     local widths, total = t.widths, 0
     for i, width in ipairs(widths) do

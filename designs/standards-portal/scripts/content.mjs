@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { marked } from "marked";
+import consultation from "../src/consultation.json" with { type: "json" };
 import { checkEditionConfig, expected, edition, isR2, isPublicR2, sourcePath, sourceCommit } from "./edition.mjs";
 export { sourcePath, sourceCommit } from "./edition.mjs";
 
@@ -56,7 +57,11 @@ export function parseSections(markdown) {
         if (paragraphIds.has(id) || headings.some((h) => h.id === id))
           return `<p>${inner}</p>\n`;
         paragraphIds.add(id);
-        if (isPublicR2) return `<p id="${id}" class="clause" data-clause="${number}">${inner}</p>\n`;
+        if (isPublicR2) {
+          const subject = encodeURIComponent(`标准评议 · ${number}`);
+          const href = `mailto:${consultation.contactEmail}?subject=${subject}`;
+          return `<p id="${id}" class="clause" data-clause="${number}">${inner}<a class="clause-comment" href="${href}" aria-label="邮件评议 ${number}">邮件评议</a></p>\n`;
+        }
         return `<p id="${id}" class="clause" data-clause="${number}">${inner}<a class="clause-comment" href="/comment/?clause=${encodeURIComponent(number)}&amp;section=${key}" aria-label="对 ${number} 提出意见">意见</a></p>\n`;
       };
       const html = marked
@@ -114,10 +119,8 @@ export async function generateContent() {
   const triggers = tableRows(appendixA.body, "### A.5 条件适用触发条件").map(
     ([group, condition]) => ({ group, condition }),
   );
-  const pending = tableRows(
-    sections.find((s) => s.key === "e").body,
-    "E.1 下列事项",
-  ).map(([code, title, treatment, owner, clause, stage]) => ({
+  const appendixE = sections.find((s) => s.key === "e");
+  const pending = tableRows(appendixE.body, "E.1 下列事项").map(([code, title, treatment, owner, clause, stage]) => ({
     code,
     title,
     treatment,
@@ -146,11 +149,14 @@ export async function generateContent() {
       .filter((row) => !row.every((cell) => /^[-:]+$/.test(cell)));
     return { columns: rows[0].slice(1), rows: rows.slice(1) };
   });
+  const documentDate = markdown.match(/^\| 日期 \| (\d{4}-\d{2}-\d{2}) \|$/m)?.[1];
+  if (isPublicR2 && (!documentDate || !markdown.includes(`mailto:${consultation.contactEmail}`)))
+    throw new Error("The public draft requires a document date and the configured feedback address.");
   const data = {
     title: standardTitle,
     version: isPublicR2 ? "第2轮修订稿" : isR2 ? "第2轮修订稿预览" : "征求意见稿",
-    date: "2026-11-10",
-    synced: "2026-11-10",
+    date: isPublicR2 ? documentDate : "2026-11-10",
+    synced: isPublicR2 ? documentDate : "2026-11-10",
     sourceCommit,
     frontMatterHtml: marked.parse(
       markdown
@@ -200,7 +206,7 @@ export async function generateContent() {
         title: "评议意见汇总表 · Word",
         description: "多行汇总格式，每行一条意见，填写后发送至编制组",
         file: "review-comments.docx",
-        from: "标准/评审稿/评议意见表.docx",
+        from: isPublicR2 ? path.join(path.dirname(sourcePath), "评议意见表.docx") : "标准/评审稿/评议意见表.docx",
         type: "DOCX",
         current: true,
       },
@@ -208,7 +214,7 @@ export async function generateContent() {
         title: "评议意见汇总表 · Markdown",
         description: "可复制的评议格式",
         file: "review-comments.md",
-        from: "标准/评审稿/评议意见表.md",
+        from: isPublicR2 ? path.join(path.dirname(sourcePath), "评议意见表.md") : "标准/评审稿/评议意见表.md",
         type: "MD",
         current: true,
       },
@@ -216,7 +222,7 @@ export async function generateContent() {
   };
   if (isR2) {
     data.edition = edition;
-    for (const item of data.downloads.filter((item) => item.from.startsWith("维护/"))) {
+    for (const item of data.downloads.filter((item) => item.file.startsWith("standard-review."))) {
       item.title = item.title.replace(" · ", " · 第2轮修订稿 · ");
       if (isPublicR2) {
         item.description = item.type === "MD" ? "与网站在线全文一致" : "供阅读、批注和评议的第2轮修订稿";
@@ -224,6 +230,19 @@ export async function generateContent() {
         item.description = item.type === "MD" ? "与预览站在线全文一致" : "第2轮修订稿，仅供内部核对";
       }
     }
+  }
+  if (isPublicR2) {
+    data.decisionOptions = [...new Set(tableRows(appendixE.body, "### E.4 部分待决事项的可选方案")
+      .flatMap(([codes]) => codes.split("、").map((code) => code.match(/^E\d{2}/)?.[0]))
+      .filter(Boolean))];
+    const directory = path.dirname(sourcePath);
+    const drafts = [
+      ["D2 技术契约与学校决定 · 评议草案", "候选方案、依赖及参考档位", "d2-review-draft.md", "D2-评议方案-draft.md", "MD"],
+      ["候选成员映射 · draft", "中文成员、候选线格式英文名和约束", "wire-fields-draft.csv", "成员映射-draft.csv", "CSV"],
+      ["原子用例与合成夹具 · draft", "按条款给出输入与预期，供联调复核", "atomic-cases-draft.json", "原子用例-draft.json", "JSON"],
+    ];
+    for (const [title, description, file, source, type] of drafts)
+      data.downloads.push({ title, description, file, from: path.join(directory, source), type, current: false });
   }
   if (isR2 && !isPublicR2) {
     const comparison = JSON.parse(execFileSync("python3", ["-B", path.join(project, "scripts/comparison.py")], { cwd: root, encoding: "utf8" }));
@@ -260,6 +279,13 @@ export async function generateContent() {
   await mkdir(path.join(project, "public/downloads"), { recursive: true });
   for (const item of data.downloads) {
     const bytes = await readFile(path.join(root, item.from));
+    if (isPublicR2) {
+      const committed = execFileSync("git", ["show", `${sourceCommit}:${item.from}`], {
+        cwd: root,
+        maxBuffer: 16 * 1024 * 1024,
+      });
+      if (!bytes.equals(committed)) throw new Error(`Download differs from controlled source: ${item.file}`);
+    }
     item.sha256 = digest(bytes);
     item.bytes = bytes.length;
     await copyFile(
@@ -290,6 +316,7 @@ export async function generateContent() {
         sourceCommit,
         sourceSha256: data.sourceSha256,
         documentStatus: data.version,
+        ...(isPublicR2 ? { documentDate } : {}),
         siteCommit: execFileSync("git", ["rev-parse", "HEAD"], {
           cwd: root,
           encoding: "utf8",

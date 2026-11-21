@@ -53,3 +53,24 @@ test("public r2 serves anonymous reads and keeps internal paths and writes close
   assert.equal(write.headers.get("Allow"), "GET, HEAD");
   assert.equal((await reviewWorker.fetch(new Request(origin), env)).status, 503);
 });
+
+test("public review shows the controlled date, decisions and email channel", { skip: !isPublicR2 }, async () => {
+  const home = await readFile(new URL("index.html", dist), "utf8");
+  const decisions = await readFile(new URL("decisions/index.html", dist), "utf8");
+  const appendixC = await readFile(new URL("read/c/index.html", dist), "utf8");
+  const appendixE = await readFile(new URL("read/e/index.html", dist), "utf8");
+  const downloads = await readFile(new URL("downloads/index.html", dist), "utf8");
+  const manifest = JSON.parse(await readFile(new URL("version.json", dist), "utf8"));
+  assert.ok(home.includes(manifest.documentDate.replaceAll("-", "/")));
+  assert.match(decisions, /<code>missing_reasons<\/code>/);
+  assert.match(decisions, /href="\/read\/e\/#clause-E-3"/);
+  assert.match(decisions, /href="\/read\/e\/#clause-E-4"/);
+  assert.match(appendixE, /id="clause-E-4"/);
+  assert.match(appendixC, /id="clause-C-4-2"/);
+  assert.match(appendixC, /mailto:alone@swufe.edu.cn\?subject=/);
+  assert.match(downloads, /mailto:alone@swufe.edu.cn/);
+  for (const file of ["d2-review-draft.md", "wire-fields-draft.csv", "atomic-cases-draft.json"]) {
+    assert.ok(manifest.downloads.some((item) => item.file === file), file);
+    assert.ok(downloads.includes(`href="/downloads/${file}"`), file);
+  }
+});
