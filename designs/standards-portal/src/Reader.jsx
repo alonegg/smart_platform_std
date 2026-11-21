@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, reviewHref } from "./shared.jsx";
+import { AppLink, draftLabel, readOnlyRevision, reviewHref } from "./shared.jsx";
 export function Reader({ section, navigate }) {
   const articleRef = useRef(null);
   const [active, setActive] = useState("");
@@ -36,7 +36,7 @@ export function Reader({ section, navigate }) {
           <span>
             标准全文 / {section.key.match(/^[a-e]$/) ? "附录" : "正文"}
           </span>
-          <span>征求意见稿</span>
+          <span>{draftLabel}</span>
         </div>
         <h1>{section.title}</h1>
         <div className="reader-tools">
@@ -52,7 +52,7 @@ export function Reader({ section, navigate }) {
                   : "拟议条文"}
           </span>
           <AppLink to={reviewHref(section)} navigate={navigate}>
-            提出意见 <MessageSquareText size={13} />
+            {readOnlyRevision ? "评议指引" : "提出意见"} <MessageSquareText size={13} />
           </AppLink>
           <button
             onClick={async () => {
@@ -72,7 +72,9 @@ export function Reader({ section, navigate }) {
           <button onClick={() => window.print()}>打印</button>
         </div>
         <div className="reader-status">
-          征求意见稿 · 将鼠标移到编号条文上，点击右侧“意见”即可针对该条提交意见。
+          {readOnlyRevision
+            ? "点击编号条文旁的“邮件评议”可带入条款号。"
+            : "征求意见稿 · 将鼠标移到编号条文上，点击右侧“意见”即可针对该条提交意见。"}
         </div>
         <>
           {section.key === "foreword" && (

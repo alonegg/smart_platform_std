@@ -1,9 +1,11 @@
 import React from "react";
+import { readOnlyRevision } from "../shared.jsx";
 export { QuickStart } from "../Consultation.jsx";
 export { deadlineText } from "../Consultation.jsx";
 export const useCommentStats = () => null;
 
 export function ConsultationStrip() {
+  if (readOnlyRevision) return null;
   return <div className="consultation-strip" role="note">内部预览：意见提交和阅读登记已停用，不写入数据库。</div>;
 }
 export function CommentPage() {

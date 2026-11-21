@@ -2,6 +2,9 @@ import React from "react";
 import { ArrowDown, ArrowUpRight, Layers3 } from "lucide-react";
 import data from "./generated.json";
 
+export const readOnlyRevision = data.edition === "r2-public";
+export const draftLabel = readOnlyRevision ? data.version : "征求意见稿";
+
 export const routes = [
   "/",
   "/architecture/",
@@ -10,9 +13,7 @@ export const routes = [
   "/decisions/",
   "/downloads/",
   "/quickstart/",
-  "/comment/",
-  "/responses/",
-  "/privacy/",
+  ...(readOnlyRevision ? [] : ["/comment/", "/responses/", "/privacy/"]),
   ...data.sections.map((s) => `/read/${s.key}/`),
 ];
 export const standards = data.sections.filter(
@@ -32,7 +33,7 @@ export const cleanTitle = (title) =>
   title.replace(/^\d+\s+/, "").replace(/^附录 [A-E]（[^）]+）/, "");
 export const sourceRepo = "https://github.com/alonegg/smart_platform_std";
 export const reviewHref = (section) =>
-  section ? `/comment/?section=${section.key}` : "/comment/";
+  readOnlyRevision ? "/read/c/#clause-C-4-2" : section ? `/comment/?section=${section.key}` : "/comment/";
 export const githubIssueHref = (section) => {
   const params = new URLSearchParams({
     template: "review-comment.yml",

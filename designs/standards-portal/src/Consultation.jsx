@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 import consultation from "./consultation.json";
-import { AppLink, cleanTitle, githubIssueHref } from "./shared.jsx";
+import { AppLink, cleanTitle, githubIssueHref, readOnlyRevision, reviewHref } from "./shared.jsx";
 import { registrationApi } from "./registration.jsx";
 
 const zhDate = (value) =>
@@ -662,10 +662,10 @@ export function QuickStart({ navigate }) {
         <strong>建议阅读顺序</strong>
         <p>
           第 4 章总则（文件体系、Profile 与符合性表述）→ 第 5 章公共数据模型 → 上表 M 组所在章节 → 第 12
-          章与附录 A.6 验证用例。发现无法实现或无法无损映射的要求，请直接按条款提交意见。
+          章与附录 A.6 验证用例。发现无法实现或无法无损映射的要求，请按条款提出意见。
         </p>
-        <AppLink className="text-link" to="/comment/" navigate={navigate}>
-          提交意见 <ArrowRight size={15} />
+        <AppLink className="text-link" to={reviewHref()} navigate={navigate}>
+          {readOnlyRevision ? "评议指引" : "提交意见"} <ArrowRight size={15} />
         </AppLink>
         <AppLink className="text-link" to="/profiles/" navigate={navigate}>
           查看完整适用矩阵 <ArrowUpRight size={15} />

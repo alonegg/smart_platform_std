@@ -266,6 +266,8 @@ async function adminApi(request, env, url) {
 }
 
 export async function handleRequest(request, env) {
+  if (documentInfo.edition === "r2-public")
+    return json({ error: "此版本需要使用只读 Worker。" }, 503);
   const url = new URL(request.url);
   const preview = documentInfo.edition === "r2" || env.PORTAL_EDITION === "r2";
   if (preview && env.REQUIRE_ACCESS !== "true")

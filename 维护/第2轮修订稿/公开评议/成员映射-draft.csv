@@ -1,0 +1,29 @@
+状态,条款,正文中文成员,候选线格式英文名,候选类型,约束或说明
+draft,5.1.3 a),所属对象引用,owner_ref,ObjectRef,随所属版本固定的对象指向指定版本
+draft,5.1.3 a),父不可变记录引用,record_ref,RecordRef,仅在获准跨记录引用方案内使用
+draft,5.1.3 a),嵌入对象局部标识,local_id,string,建议二元结构中的候选名；现有 ObjectRef 以 object_id 承载局部标识
+draft,5.5.5,缺失原因,missing_reasons,object,注明未取得或未检查原因；结构待冻结
+draft,6.2.7,文件类表示判别,representation_type,string,显式判别候选；待确定词表及适用性
+draft,6.3.2,学校许可代码,license_code,string,成员名及命名空间待冻结；仍须验证许可
+draft,6.4.1,定位类型,locator_type,string,现有候选；类型和定位成员互斥
+draft,6.4.1,起始时间,start_ms,integer,时间定位候选；单位毫秒
+draft,6.4.1,结束时间,end_ms,integer,时间定位候选；超过权威源时长拒收
+draft,6.4.1,权威源时长,source_duration_ms,integer,现有 Segment 候选可携带；工程方案评估改为按资源版本权威解析
+draft,6.6.10,个人考核调整引用,adjustment_refs,array,元素引用 AssessmentAdjustment，结合 7.2.12 核对适用性
+draft,7.5.10,评分决定状态,decision_status,string,已有候选；区分提议和确认
+draft,7.5.7,教务归档状态,registrar_status,string,派生状态；不写入 GradeDecision 记录本体
+draft,7.5.11,关联评分决定,grade_decision_ref,RecordRef,引用指定决定；未解析不得表示业务完成
+draft,7.2.12 a),操作者类型,actor_type,string,现有候选；区分人员与 AI 或系统
+draft,7.2.12,进入方式,entry_mode,string,现有候选；结合 entry_evidence_refs 校验
+draft,8.2.5,清单对象项,objects,array,嵌入对象列示规则待决定
+draft,8.2.5,导出范围,export_scope,object,嵌套结构待冻结
+draft,8.2.5,权利摘要,rights_summary,object,嵌套结构待冻结
+draft,8.2.9,实际携带内容,content_inclusions,object,与交付内容和隐私边界核对
+draft,8.2.8 a),导出回执标识,receipt_id,string,包外回执候选标识
+draft,8.2.8 a),清单摘要,manifest_sha256,string,包外回执独立核对清单实际字节；候选名
+draft,8.2.8 a),归档摘要,archive_sha256,string,包外回执独立核对归档实际字节；候选名
+draft,9.2.9,访问授权上下文,auth_context,object,区分人员和服务；具体绑定成员待冻结
+draft,10.6.5,证据链接列表,evidence_links,array 或 null,未审查与已查无结果必须区分
+draft,10.6.5,估计状态,estimate_status,string,unknown 和 insufficient_evidence 分别表达
+draft,10.8.4,方法引用,method_ref,ObjectRef,仅按正文规定适用；原始自我报告与教师判断分开
+draft,10.11.4,替代的原记录,supersedes,RecordRef,复核改变记录内容时追加并引用原记录

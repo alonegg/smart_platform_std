@@ -1,0 +1,17 @@
+{
+  "name": "smart-platform-stds-r2",
+  "account_id": "8937d4abe2c393f4227393a216b3c647",
+  "compatibility_date": "2026-11-07",
+  "workers_dev": false,
+  "preview_urls": false,
+  "main": "server/r2-public.mjs",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "routes": [{ "pattern": "stdsv2.chunlin.ch", "custom_domain": true }],
+  "observability": { "enabled": false }
+}

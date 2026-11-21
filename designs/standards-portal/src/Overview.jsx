@@ -16,6 +16,8 @@ import {
   standards,
   subtitles,
   cleanTitle,
+  draftLabel,
+  readOnlyRevision,
   roleGuides,
 } from "./shared.jsx";
 export function Home({ navigate }) {
@@ -24,10 +26,10 @@ export function Home({ navigate }) {
     <div data-screen-label="标准总览" className="home page-enter">
       <div className="edition-strip">
         <span className="status-dot"></span>
-        <span>征求意见稿</span>
+        <span>{draftLabel}</span>
         <span className="edition-divider"></span>
         <span>面向厂商与专家评议</span>
-        <span className="edition-date">{data.date.replaceAll("-", "/")}</span>
+        <span className="edition-date">{readOnlyRevision ? "文稿日期 " : ""}{data.date.replaceAll("-", "/")}</span>
         <AppLink to="/read/c/" navigate={navigate}>
           评议指引 <ArrowUpRight size={14} />
         </AppLink>
@@ -69,7 +71,9 @@ export function Home({ navigate }) {
       <div className="document-scope">
         <CircleHelp size={17} />
         <p>
-          本文为征求意见稿。欢迎就适用范围、技术语义、实现可行性和验证条件提出具体意见；条文中的“应”表示拟议要求。
+          {readOnlyRevision
+            ? "修订稿供公开阅读与评议。审定发布前，条文中的“应”表示拟议要求。"
+            : "本文为征求意见稿。欢迎就适用范围、技术语义、实现可行性和验证条件提出具体意见；条文中的“应”表示拟议要求。"}
         </p>
         <AppLink to="/read/1/#clause-1-4" navigate={navigate}>
           文件性质 <ArrowUpRight size={14} />
