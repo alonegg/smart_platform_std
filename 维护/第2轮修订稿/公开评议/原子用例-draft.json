@@ -1,0 +1,1197 @@
+{
+  "status": "draft",
+  "source": "12.3.6 a)–m)",
+  "scope": "synthetic test inputs and expected outcomes; no platform execution evidence",
+  "cases": [
+    {
+      "id": "F01",
+      "clause": "12.3.6 a)",
+      "parent_tests": [
+        "T01"
+      ],
+      "title": "旧提交解析原版本",
+      "input": {
+        "course_versions": [
+          "v1",
+          "v2"
+        ],
+        "submission_version": "v1",
+        "resolve": [
+          "course",
+          "plan",
+          "rubric",
+          "question"
+        ]
+      },
+      "expect": {
+        "resolved": [
+          "v1",
+          "v1",
+          "v1",
+          "v1"
+        ]
+      }
+    },
+    {
+      "id": "F02",
+      "clause": "12.3.6 a)",
+      "parent_tests": [
+        "T01"
+      ],
+      "title": "改指新版本",
+      "input": {
+        "submission_version": "v1",
+        "resolved": "v2"
+      },
+      "expect": {
+        "verdict": "failed"
+      }
+    },
+    {
+      "id": "F03",
+      "clause": "12.3.6 a)",
+      "parent_tests": [
+        "T01"
+      ],
+      "title": "补考与重修轮次",
+      "input": {
+        "synthetic_rules": [
+          "沿用原修读",
+          "另建修读"
+        ],
+        "rounds": [
+          "initial",
+          "makeup",
+          "retake"
+        ],
+        "prior_round_refs": [
+          null,
+          "initial",
+          "makeup"
+        ],
+        "attempts_per_round": 2
+      },
+      "expect": {
+        "check_each_rule": true,
+        "round_count": 3,
+        "attempts_are_rounds": false
+      }
+    },
+    {
+      "id": "F04",
+      "clause": "12.3.6 a)",
+      "parent_tests": [
+        "T01"
+      ],
+      "title": "任务重试误作修读轮次",
+      "input": {
+        "attempts": 2,
+        "observed_rounds": 2
+      },
+      "expect": {
+        "verdict": "failed"
+      }
+    },
+    {
+      "id": "F05",
+      "clause": "12.3.6 b)",
+      "parent_tests": [
+        "T01",
+        "T07"
+      ],
+      "title": "重置和软删除尝试",
+      "input": {
+        "platform_attempts": [
+          {
+            "identity": "a1",
+            "counter": 1,
+            "soft_deleted": true
+          },
+          {
+            "identity": "a2",
+            "counter": 1,
+            "reset": true
+          }
+        ]
+      },
+      "expect": {
+        "task_attempt_ids": [
+          "a1",
+          "a2"
+        ],
+        "reset_preserved": true
+      }
+    },
+    {
+      "id": "F06",
+      "clause": "12.3.6 b)",
+      "parent_tests": [
+        "T01",
+        "T07"
+      ],
+      "title": "按默认查询或计数丢尝试",
+      "input": {
+        "expected_ids": [
+          "a1",
+          "a2"
+        ],
+        "variants": [
+          [
+            "a2"
+          ],
+          [
+            "merged"
+          ]
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F07",
+      "clause": "12.3.6 c)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "成员变动与历史快照",
+      "input": {
+        "before": [
+          "s1",
+          "s2"
+        ],
+        "after": [
+          "s1",
+          "s3"
+        ],
+        "steps": [
+          "store_group_submission",
+          "form_event_after_membership_change"
+        ]
+      },
+      "expect": {
+        "submission_members": [
+          "s1",
+          "s2"
+        ],
+        "next_members": [
+          "s1",
+          "s3"
+        ],
+        "assessed_members": [
+          "s1",
+          "s2"
+        ]
+      }
+    },
+    {
+      "id": "F08",
+      "clause": "12.3.6 c)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "非法小组快照",
+      "input": {
+        "one_change_each": [
+          "missing_group_ref",
+          "missing_snapshot",
+          "empty_snapshot",
+          "submitter_absent",
+          "replaced_with_current_members"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F09",
+      "clause": "12.3.6 c)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "计分互评保护",
+      "input": {
+        "forms": [
+          "object",
+          "event"
+        ],
+        "views": [
+          "assigned_teacher",
+          "reviewed_student",
+          "learner_authorized_export"
+        ]
+      },
+      "expect": {
+        "reviewer_identity_visible": [
+          true,
+          false,
+          false
+        ],
+        "reconstruction_from_last_two": "failed"
+      }
+    },
+    {
+      "id": "F10",
+      "clause": "12.3.6 d)",
+      "parent_tests": [
+        "T07",
+        "T11",
+        "T25"
+      ],
+      "title": "合法进入方式及阶段",
+      "input": {
+        "modes": [
+          "self",
+          "proxy",
+          "substitute",
+          "bulk_import",
+          "system_auto"
+        ],
+        "forms": [
+          "input",
+          "stored"
+        ],
+        "evidence_when_required": true
+      },
+      "expect": {
+        "complete_envelope_each": true,
+        "check_assignment_boundary": true
+      }
+    },
+    {
+      "id": "F11",
+      "clause": "12.3.6 d)",
+      "parent_tests": [
+        "T07",
+        "T25"
+      ],
+      "title": "非法进入方式",
+      "input": {
+        "one_change_each": [
+          "missing_required_entry_evidence",
+          "proxy_as_self",
+          "ai_as_system_auto"
+        ]
+      },
+      "expect": {
+        "receipt_each": "rejected"
+      }
+    },
+    {
+      "id": "F12",
+      "clause": "12.3.6 d)",
+      "parent_tests": [
+        "T11",
+        "T25"
+      ],
+      "title": "三类撤权范围",
+      "input": {
+        "scopes": [
+          "application",
+          "offering",
+          "cross_offering_object"
+        ],
+        "fields": [
+          "scope_type",
+          "scope_refs",
+          "offering_id"
+        ]
+      },
+      "expect": {
+        "scope_preserved_each": true,
+        "access_after_effective_revocation": false
+      }
+    },
+    {
+      "id": "F13",
+      "clause": "12.3.6 d)",
+      "parent_tests": [
+        "T11",
+        "T25"
+      ],
+      "title": "撤权被缩窄或未传递",
+      "input": {
+        "one_change_each": [
+          "application_to_one_offering",
+          "cross_offering_to_one_offering",
+          "downstream_still_allows"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F14",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "以确认分选择最高分",
+      "input": {
+        "rule": "highest_confirmed",
+        "confirmed": {
+          "s1": 80,
+          "s2": 75
+        },
+        "proposed": {
+          "s2": 99
+        }
+      },
+      "expect": {
+        "selected": "s1"
+      }
+    },
+    {
+      "id": "F15",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "教师指定选择",
+      "input": {
+        "rule": "authorized_teacher_selection",
+        "confirmed": {
+          "s1": 80,
+          "s2": 75
+        },
+        "authorized_selection": "s2"
+      },
+      "expect": {
+        "selected": "s2"
+      }
+    },
+    {
+      "id": "F16",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07"
+      ],
+      "title": "撤回及重交",
+      "input": {
+        "synthetic_branches": [
+          "allowed_in_window",
+          "forbidden",
+          "out_of_window"
+        ],
+        "withdrawal": "s1",
+        "resubmit_after_allowed": "s3"
+      },
+      "expect": {
+        "allowed": [
+          true,
+          false,
+          false
+        ],
+        "eligible_after_valid_resubmission": [
+          "s3"
+        ],
+        "original_for_reconciliation": true
+      }
+    },
+    {
+      "id": "F17",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T20"
+      ],
+      "title": "对账集合与重试计数",
+      "input": {
+        "events": [
+          "s1_stored_then_withdrawn",
+          "s2_stored_not_selected",
+          "s3_quarantined",
+          "s4_rejected",
+          "s5_pending_delivery"
+        ],
+        "retry_requests": [
+          "s1",
+          "s1"
+        ]
+      },
+      "expect": {
+        "expected": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5"
+        ],
+        "stored": [
+          "s1",
+          "s2"
+        ],
+        "quarantined": [
+          "s3"
+        ],
+        "rejected": [
+          "s4"
+        ],
+        "pending": [
+          "s5"
+        ],
+        "retry_requests": 2,
+        "unexplained_gaps": 0
+      }
+    },
+    {
+      "id": "F18",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07"
+      ],
+      "title": "修订考核方案后的历史复核",
+      "input": {
+        "original_plan": "p1",
+        "changed_plan": "p2",
+        "history_at": "p1"
+      },
+      "expect": {
+        "review_plan": "p1"
+      }
+    },
+    {
+      "id": "F19",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "个人调整的判定与对账",
+      "input": {
+        "documented_adjustment_types": true,
+        "course_deadline": "12:00Z",
+        "approved_personal_deadline": "13:00Z",
+        "durable_submission_time": "12:30Z",
+        "submitted": "s1"
+      },
+      "expect": {
+        "late": false,
+        "missing": false,
+        "expected_set_includes": "s1",
+        "check_effect_for_each_registered_adjustment": true
+      }
+    },
+    {
+      "id": "F20",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T08"
+      ],
+      "title": "追加更正或撤销个人调整",
+      "input": {
+        "adjustment": "a1",
+        "variants": [
+          {
+            "operation": "append",
+            "prior": "a1"
+          },
+          {
+            "operation": "mutate"
+          },
+          {
+            "operation": "delete"
+          }
+        ]
+      },
+      "expect": {
+        "outcomes": [
+          "traceable",
+          "failed",
+          "failed"
+        ]
+      }
+    },
+    {
+      "id": "F21",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T07",
+        "T20"
+      ],
+      "title": "依赖故障与续传",
+      "input": {
+        "each_submission_stage_in": "表 8-4",
+        "fault": "school_service_unavailable",
+        "recover": true
+      },
+      "expect": {
+        "observe_each": [
+          "events",
+          "receipts",
+          "student_visible_state"
+        ],
+        "final_explained": true,
+        "missing_acknowledged_submission": false
+      }
+    },
+    {
+      "id": "F22",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T08",
+        "T20"
+      ],
+      "title": "AI 提议至教务确认",
+      "input": {
+        "steps": [
+          "ai_propose",
+          "teacher_confirm_with_user_delegation",
+          "submit_for_archive",
+          "receive_ack_for_v1"
+        ],
+        "confirmed_grade": 82,
+        "official_grade": 82
+      },
+      "expect": {
+        "decision_status": [
+          "proposed",
+          "confirmed",
+          "confirmed",
+          "confirmed"
+        ],
+        "registrar_status": [
+          null,
+          "not_sent",
+          "sent",
+          "accepted"
+        ],
+        "platform_value": [
+          null,
+          82,
+          82,
+          82
+        ],
+        "official_value": [
+          null,
+          null,
+          null,
+          82
+        ],
+        "difference": [
+          null,
+          null,
+          null,
+          0
+        ]
+      }
+    },
+    {
+      "id": "F23",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T08",
+        "T20"
+      ],
+      "title": "更正后旧教务回执迟到",
+      "input": {
+        "archived": {
+          "version": "v1",
+          "value": 82
+        },
+        "corrected": {
+          "version": "v2",
+          "value": 85
+        },
+        "late_receipt_for": "v1"
+      },
+      "expect": {
+        "decision_status": "confirmed",
+        "supersedes": "v1",
+        "v2_registrar_status": "not_sent",
+        "official_value": 82,
+        "platform_value": 85,
+        "difference": 3,
+        "late_receipt_advances_v2": false
+      }
+    },
+    {
+      "id": "F24",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T08",
+        "T20"
+      ],
+      "title": "无权确认或归档",
+      "input": {
+        "one_change_each": [
+          "service_credential_confirms",
+          "delegated_person_differs_from_actor",
+          "ai_archives",
+          "old_receipt_advances_correction"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F25",
+      "clause": "12.3.6 e)",
+      "parent_tests": [
+        "T08",
+        "T20"
+      ],
+      "title": "确认反馈和获准即时帮助分别发事件",
+      "input": {
+        "variants": [
+          "human_confirmed_ai_feedback",
+          "immediate_help_satisfying_9_5_6"
+        ]
+      },
+      "expect": {
+        "events": [
+          "feedback.published",
+          "help.provided"
+        ]
+      }
+    },
+    {
+      "id": "F26",
+      "clause": "12.3.6 f)",
+      "parent_tests": [
+        "T08-R"
+      ],
+      "title": "原生改分缺失决定链",
+      "input": {
+        "native_grade_changed": true,
+        "decision_chain": false
+      },
+      "expect": {
+        "emit_grade_corrected": false
+      }
+    },
+    {
+      "id": "F27",
+      "clause": "12.3.6 g)",
+      "parent_tests": [
+        "T01",
+        "T11"
+      ],
+      "title": "仅有修读更新通知",
+      "input": {
+        "update_notice": true,
+        "prior_state": null,
+        "new_state": null
+      },
+      "expect": {
+        "history_state_missing": true
+      }
+    },
+    {
+      "id": "F28",
+      "clause": "12.3.6 g)",
+      "parent_tests": [
+        "T01",
+        "T11"
+      ],
+      "title": "误从通知推定修读顺序",
+      "input": {
+        "one_change_each": [
+          "notice_count",
+          "current_state",
+          "other_platform_history"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F29",
+      "clause": "12.3.6 h)",
+      "parent_tests": [
+        "T02"
+      ],
+      "title": "各类型定位按登记验证",
+      "input": {
+        "same_resource_version": "r1",
+        "locators": [
+          "media_time",
+          "slides_page",
+          "pdf_page",
+          "text_paragraph",
+          "image_region"
+        ]
+      },
+      "expect": {
+        "validate_each": true
+      }
+    },
+    {
+      "id": "F30",
+      "clause": "12.3.6 h)",
+      "parent_tests": [
+        "T02"
+      ],
+      "title": "无效定位组合",
+      "input": {
+        "one_change_each": [
+          "missing_endpoint",
+          "reversed",
+          "over_authoritative_duration",
+          "non_time_with_only_time",
+          "mixed_fields"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F31",
+      "clause": "12.3.6 i)",
+      "parent_tests": [
+        "T02",
+        "T14"
+      ],
+      "title": "教学包与迁移包的范围和定位",
+      "input": {
+        "frozen_scope": "x",
+        "package_types": [
+          "teaching",
+          "migration"
+        ],
+        "embedded_id": "local-1"
+      },
+      "expect": {
+        "verify_embedded_location": true,
+        "verify_content_inclusions": true
+      }
+    },
+    {
+      "id": "F32",
+      "clause": "12.3.6 i)",
+      "parent_tests": [
+        "T02",
+        "T14"
+      ],
+      "title": "迁移包确定性和包外回执",
+      "input": {
+        "task": "frozen-1",
+        "runs": 2,
+        "receipt_scope": [
+          "manifest",
+          "archive"
+        ],
+        "receipt_location": "outside_archive"
+      },
+      "expect": {
+        "identical_archive_bytes": true,
+        "identical_sha256": true,
+        "verify_both_digests_by_receipt_id": true
+      }
+    },
+    {
+      "id": "F33",
+      "clause": "12.3.6 i)",
+      "parent_tests": [
+        "T02",
+        "T14"
+      ],
+      "title": "不实包声明",
+      "input": {
+        "one_change_each": [
+          "mismatched_digest",
+          "receipt_inside_zip",
+          "teaching_claims_absent_history"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F34",
+      "clause": "12.3.6 j)",
+      "parent_tests": [
+        "T02",
+        "T12-T"
+      ],
+      "title": "贡献者与 RightsRecord 投影",
+      "input": {
+        "expected": [
+          "c1"
+        ],
+        "variants": [
+          [
+            "c1"
+          ],
+          [
+            "c2"
+          ]
+        ]
+      },
+      "expect": {
+        "outcomes": [
+          "pass",
+          "structured_rejection"
+        ]
+      }
+    },
+    {
+      "id": "F35",
+      "clause": "12.3.6 j)",
+      "parent_tests": [
+        "T12-T",
+        "T12-O"
+      ],
+      "title": "排除受限部分并保留有效引用",
+      "input": {
+        "ranges": [
+          "page",
+          "time",
+          "file"
+        ],
+        "safely_separable": true
+      },
+      "expect": {
+        "exclude_exact_parts": true,
+        "record_exclusions": true,
+        "preserve_refs_and_attribution": true
+      }
+    },
+    {
+      "id": "F36",
+      "clause": "12.3.6 j)",
+      "parent_tests": [
+        "T12-T",
+        "T12-O"
+      ],
+      "title": "不可安全切分",
+      "input": {
+        "safely_separable": false
+      },
+      "expect": {
+        "resource_export": "blocked",
+        "archive_usable_claim": false
+      }
+    },
+    {
+      "id": "F37",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09",
+        "T10"
+      ],
+      "title": "审查并区分四种证据角色",
+      "input": {
+        "reviewed_roles": [
+          "supports",
+          "refutes",
+          "inconclusive",
+          "limits"
+        ]
+      },
+      "expect": {
+        "roles_preserved": true
+      }
+    },
+    {
+      "id": "F38",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09"
+      ],
+      "title": "未审查证据混入",
+      "input": {
+        "reviewed": false,
+        "include_item": true
+      },
+      "expect": {
+        "verdict": "failed"
+      }
+    },
+    {
+      "id": "F39",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09"
+      ],
+      "title": "证据未审查",
+      "input": {
+        "evidence_links": null,
+        "missing_reason": "not_reviewed"
+      },
+      "expect": {
+        "estimate_status": "unknown",
+        "definite_mastery": false
+      }
+    },
+    {
+      "id": "F40",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09"
+      ],
+      "title": "已核查无可用证据",
+      "input": {
+        "evidence_links": []
+      },
+      "expect": {
+        "estimate_status": "unknown",
+        "definite_mastery": false
+      }
+    },
+    {
+      "id": "F41",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09"
+      ],
+      "title": "已审查但证据不足",
+      "input": {
+        "evidence_links": [
+          {
+            "role": "inconclusive"
+          }
+        ]
+      },
+      "expect": {
+        "estimate_status": "insufficient_evidence",
+        "definite_mastery": false
+      }
+    },
+    {
+      "id": "F42",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09"
+      ],
+      "title": "不一致的估计状态和值",
+      "input": {
+        "one_change_each": [
+          "empty_with_definite_value",
+          "insufficient_with_definite_value",
+          "unknown_with_reviewed_links"
+        ]
+      },
+      "expect": {
+        "verdict_each": "failed"
+      }
+    },
+    {
+      "id": "F43",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09",
+        "T10"
+      ],
+      "title": "方法引用适用性",
+      "input": {
+        "record_kinds": [
+          "raw_self_report",
+          "teacher_judgment",
+          "model_inference"
+        ]
+      },
+      "expect": {
+        "method_requirement": [
+          "optional",
+          "procedure_ref",
+          "method_ref"
+        ]
+      }
+    },
+    {
+      "id": "F44",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09",
+        "T10"
+      ],
+      "title": "有效期组合与获准历史查阅",
+      "input": {
+        "record_valid_and_approval_valid": [
+          [
+            true,
+            false
+          ],
+          [
+            false,
+            true
+          ]
+        ],
+        "history_authorized_and_retained": true
+      },
+      "expect": {
+        "allow_current_each": false,
+        "allow_historical_each": true,
+        "history_labels": [
+          "record_validity",
+          "approval_status",
+          "limited_use"
+        ]
+      }
+    },
+    {
+      "id": "F45",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09",
+        "T10"
+      ],
+      "title": "复核维持与复核更正",
+      "input": {
+        "branches": [
+          "unchanged",
+          "changed"
+        ],
+        "original": "c1"
+      },
+      "expect": {
+        "actions": [
+          "append_review_status",
+          "append_supersedes_c1"
+        ]
+      }
+    },
+    {
+      "id": "F46",
+      "clause": "12.3.6 k)",
+      "parent_tests": [
+        "T09",
+        "T10"
+      ],
+      "title": "人工复核不能恢复暂停方法",
+      "input": {
+        "reviewed": true,
+        "approval": "suspended"
+      },
+      "expect": {
+        "allow_current_use": false
+      }
+    },
+    {
+      "id": "F47",
+      "clause": "12.3.6 l)",
+      "parent_tests": [
+        "T10"
+      ],
+      "title": "不同用途的人群和后果界限",
+      "input": {
+        "approvals": 2,
+        "dimensions": [
+          "course",
+          "population",
+          "consequence"
+        ],
+        "tests": [
+          "all_conditions_met",
+          "out_of_scope",
+          "higher_consequence"
+        ]
+      },
+      "expect": {
+        "allow": [
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "id": "F48",
+      "clause": "12.3.6 l)",
+      "parent_tests": [
+        "T10"
+      ],
+      "title": "批准暂停撤回的离线证明",
+      "input": {
+        "proof_states": [
+          "valid_verifiable",
+          "expired",
+          "unverifiable",
+          "known_suspended",
+          "known_withdrawn"
+        ]
+      },
+      "expect": {
+        "allow": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "append_approval_version_on_change": true
+      }
+    },
+    {
+      "id": "F49",
+      "clause": "12.3.6 l)",
+      "parent_tests": [
+        "T10"
+      ],
+      "title": "通知、失联和重连后的检查",
+      "input": {
+        "points": [
+          "gateway",
+          "reader"
+        ],
+        "notification_variants": [
+          "arrived",
+          "disconnected",
+          "reconnected"
+        ],
+        "new_use": true
+      },
+      "expect": {
+        "observe_each_point": true,
+        "verify_proof_when_disconnected": true,
+        "recheck_authority_on_reconnect": true
+      }
+    },
+    {
+      "id": "F50",
+      "clause": "12.3.6 m)",
+      "parent_tests": [
+        "T08-P",
+        "T11"
+      ],
+      "title": "只核验当前令牌的绑定授权",
+      "input": {
+        "token_bound_grant": "a1",
+        "grants": {
+          "a1": [
+            "r1@v1"
+          ],
+          "a2": [
+            "r2@v2"
+          ]
+        },
+        "target": "r2@v2",
+        "both_grants_active": true
+      },
+      "expect": {
+        "allow": false
+      }
+    },
+    {
+      "id": "F51",
+      "clause": "12.3.6 m)",
+      "parent_tests": [
+        "T08-P",
+        "T11"
+      ],
+      "title": "当前令牌覆盖目标及用途",
+      "input": {
+        "token_bound_grant": "a2",
+        "target": "r2@v2",
+        "purpose_matches": true
+      },
+      "expect": {
+        "allow": true,
+        "returned_ref": "r2@v2"
+      }
+    }
+  ]
+}
