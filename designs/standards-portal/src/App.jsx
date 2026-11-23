@@ -43,6 +43,7 @@ export default function App({ initialPath = "/" }) {
   const [path, setPath] = useState(initialPath);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchReady, setSearchReady] = useState(false);
   const basePath = path.split("#")[0].split("?")[0];
   const key = basePath.match(/^\/read\/([^/]+)\/?$/)?.[1];
   const isAdmin = !readOnlyRevision && ["/admin/", "/admin"].includes(basePath);
@@ -110,6 +111,7 @@ export default function App({ initialPath = "/" }) {
     };
     window.addEventListener("popstate", onPop);
     document.addEventListener("keydown", onKey);
+    setSearchReady(true);
     return () => {
       window.removeEventListener("popstate", onPop);
       document.removeEventListener("keydown", onKey);
@@ -162,6 +164,7 @@ export default function App({ initialPath = "/" }) {
             <button
               className="search-trigger"
               aria-label="搜索标准"
+              disabled={!searchReady}
               onClick={() => setSearchOpen(true)}
             >
               <Search size={16} />
