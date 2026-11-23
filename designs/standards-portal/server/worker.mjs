@@ -7,6 +7,7 @@ import {
   publicCommentApi,
 } from "./comments.mjs";
 import { publicationPausedResponse } from "./publication.mjs";
+import { servePublicDraft } from "./r2-public.mjs";
 
 const cookieName = (request) =>
   new URL(request.url).protocol === "https:"
@@ -286,6 +287,8 @@ export async function handleRequest(request, env) {
     );
   if (env.PUBLICATION_PAUSED === "true")
     return publicationPausedResponse(request);
+  if (documentInfo.primarySite && (url.pathname === "/v2" || url.pathname.startsWith("/v2/")))
+    return servePublicDraft(request, env.ASSETS, url.pathname.slice("/v2".length) || "/");
   if (url.pathname.startsWith("/admin/api/comments"))
     return adminCommentApi(request, env, url);
   if (url.pathname.startsWith("/admin/api/"))

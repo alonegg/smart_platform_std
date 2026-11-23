@@ -4,7 +4,13 @@ export const edition = process.env.PORTAL_EDITION ?? "review";
 if (!["review", "r2", "r2-public"].includes(edition)) throw new Error(`Unknown PORTAL_EDITION: ${edition}`);
 export const isR2 = edition !== "review";
 export const isPublicR2 = edition === "r2-public";
-export const hostname = isPublicR2 ? "stdsv2.chunlin.ch" : isR2 ? "r2.stds.chunlin.ch" : "stds.chunlin.ch";
+export const isPrimary = process.env.PORTAL_PRIMARY === "true";
+if (isPrimary && edition === "r2") throw new Error("The primary site requires a public revision.");
+export const basePath = isPrimary && isPublicR2 ? "/v2/" : "/";
+const standaloneR2Host = "stdsv2.chunlin.ch";
+export const hostname = isPrimary || !isR2
+  ? "stds.chunlin.ch"
+  : isPublicR2 ? standaloneR2Host : "r2.stds.chunlin.ch";
 export const expectations = {
   review: { sections: 19, units: 786, tables: 56, profiles: 9, groups: 32, triggers: 17, pending: 30, phases: 6, matrices: 4, matrixRows: 9, cells: 288, pages: 29 },
   r2: { sections: 19, units: 805, tables: 57, profiles: 9, groups: 32, triggers: 17, pending: 30, phases: 6, matrices: 4, matrixRows: 9, cells: 288, pages: 30 },
@@ -32,7 +38,7 @@ export async function checkEditionConfig() {
     const config = JSON.parse(await readFile(new URL("../wrangler.r2-public.json", import.meta.url), "utf8"));
     const [route] = config.routes ?? [];
     if (config.main !== "server/r2-public.mjs" || config.assets?.run_worker_first !== true ||
-        config.routes?.length !== 1 || route?.pattern !== hostname || route.custom_domain !== true ||
+        config.routes?.length !== 1 || route?.pattern !== standaloneR2Host || route.custom_domain !== true ||
         config.workers_dev !== false || config.preview_urls !== false || config.d1_databases?.length)
       throw new Error("Public r2 requires the read-only Worker and its isolated custom domain.");
     return;

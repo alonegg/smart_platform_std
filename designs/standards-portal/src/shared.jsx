@@ -67,10 +67,18 @@ export const roleGuides = [
   },
 ];
 
+const basePath = import.meta.env.BASE_URL;
+export const siteHref = (route) =>
+  route.startsWith("/") && !route.startsWith("//")
+    ? `${basePath}${route.slice(1)}`
+    : route;
+export const appPath = (pathname) =>
+  pathname.startsWith(basePath) ? `/${pathname.slice(basePath.length)}` : pathname;
+
 export function AppLink({ to, navigate, children, className = "", ...props }) {
   return (
     <a
-      href={to}
+      href={siteHref(to)}
       className={className}
       {...props}
       onClick={(event) => {

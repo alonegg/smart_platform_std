@@ -2,7 +2,7 @@ import React from "react";
 import { Download } from "lucide-react";
 import data from "../generated.json";
 import consultation from "../consultation.json";
-import { readOnlyRevision } from "../shared.jsx";
+import { readOnlyRevision, siteHref } from "../shared.jsx";
 export { Profiles, Roadmap, Decisions } from "../Topics.jsx";
 
 export function Downloads() {
@@ -16,7 +16,7 @@ export function Downloads() {
       评议意见汇总表填妥后可发送至 <a href={`mailto:${consultation.contactEmail}`}>{consultation.contactEmail}</a>。
       标注 draft 的附件供工程评议。
     </p>}
-    <div className="download-list">{data.downloads.map((file) => <a href={`/downloads/${file.file}`} download key={file.file}>
+    <div className="download-list">{data.downloads.map((file) => <a href={siteHref(`/downloads/${file.file}`)} download key={file.file}>
       <span className={file.current ? "file-type current" : "file-type"}>{file.type}</span>
       <div><h2>{file.title}</h2><p>{file.description}</p><small>{(file.bytes / 1024).toFixed(1)} KB</small></div>
       <Download size={21} />

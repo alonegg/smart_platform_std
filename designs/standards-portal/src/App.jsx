@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import data from "./generated.json";
 
-import { AppLink, cleanTitle, draftLabel, readOnlyRevision, sourceRepo, reviewHref } from "./shared.jsx";
+import { AppLink, appPath, cleanTitle, draftLabel, readOnlyRevision, siteHref, sourceRepo, reviewHref } from "./shared.jsx";
 import { Home, Architecture } from "./Overview.jsx";
 import { Reader } from "./Reader.jsx";
 import { Profiles, Roadmap, Decisions, Downloads } from "./Topics.jsx";
@@ -43,6 +43,7 @@ export default function App({ initialPath = "/" }) {
   const [path, setPath] = useState(initialPath);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchReady, setSearchReady] = useState(false);
   const basePath = path.split("#")[0].split("?")[0];
   const key = basePath.match(/^\/read\/([^/]+)\/?$/)?.[1];
   const isAdmin = !readOnlyRevision && ["/admin/", "/admin"].includes(basePath);
@@ -71,7 +72,7 @@ export default function App({ initialPath = "/" }) {
         : "页面未找到");
   const navigate = (target) => {
     const next = target.split("#")[0].split("?")[0];
-    history.pushState(null, "", target);
+    history.pushState(null, "", siteHref(target));
     setPath(target);
     setMobileMenu(false);
     if (next !== basePath) window.scrollTo({ top: 0 });
@@ -87,7 +88,7 @@ export default function App({ initialPath = "/" }) {
   };
   useEffect(() => {
     const onPop = () => {
-      setPath(location.pathname + location.search + location.hash);
+      setPath(appPath(location.pathname) + location.search + location.hash);
       setMobileMenu(false);
     };
     const onKey = (e) => {
@@ -110,6 +111,7 @@ export default function App({ initialPath = "/" }) {
     };
     window.addEventListener("popstate", onPop);
     document.addEventListener("keydown", onKey);
+    setSearchReady(true);
     return () => {
       window.removeEventListener("popstate", onPop);
       document.removeEventListener("keydown", onKey);
@@ -162,6 +164,7 @@ export default function App({ initialPath = "/" }) {
             <button
               className="search-trigger"
               aria-label="搜索标准"
+              disabled={!searchReady}
               onClick={() => setSearchOpen(true)}
             >
               <Search size={16} />
@@ -272,6 +275,13 @@ export default function App({ initialPath = "/" }) {
             </div>}
           </aside>
           <div className={`workspace ${section ? "reading-workspace" : ""}`}>
+            {data.primarySite && (
+              <nav className="edition-switch" aria-label="选择文稿版本">
+                <span className="edition-switch-label">文稿版本</span>
+                <a href="/" aria-current={readOnlyRevision ? undefined : "true"}>第 1 轮征求意见稿</a>
+                <a href="/v2/" aria-current={readOnlyRevision ? "true" : undefined}>第 2 轮修订稿</a>
+              </nav>
+            )}
             <div className="breadcrumb">
               <span>{data.title}</span>
               <ChevronRight size={13} />
