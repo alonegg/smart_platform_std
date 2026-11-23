@@ -90,6 +90,16 @@ pdffonts 维护/第2轮修订稿/智慧教学-数据模型标准-修订稿.pdf
 重新生成后应核对正文和 57 张表的完整性、中文字体及分页，而不仅检查文件是否存在。
 若本机不能生成并验证 PDF，必须显式从 r2 下载清单移除 PDF 并说明原因，不得回退到默认版 PDF。
 
+## 主站版本入口
+
+<https://stds.chunlin.ch> 的版本选择栏提供第 1 轮征求意见稿和第 2 轮修订稿。
+第 1 轮继续使用根路径、原有深链接、意见、登记及管理功能。第 2 轮位于 `/v2/`，
+其正文、检索和下载使用独立的公开评议稿。第二版仅提供阅读与邮件评议。
+
+从门户目录运行 `npm run build:primary` 会构建并组装两个版本。运行 `npm run deploy`
+会构建并部署主站。两个版本通过同一 Worker 版本一起发布，`/v2/` 保留只读路由。
+版本入口不包含条文差异、编制过程或历次意见采纳记录。
+
 ## 第2轮修订稿公开阅读站
 
 <https://stdsv2.chunlin.ch> 使用 `npm run deploy:r2-public` 发布。该版本使用 `维护/第2轮修订稿/公开评议/` 中单独固定提交的公开评议文稿。
@@ -172,7 +182,7 @@ pdffonts 标准/评审稿/智慧教学-数据模型标准.pdf | grep NotoSerifCJ
 凭据通过环境或 Wrangler 身份提供；不写入代码。
 
 ```bash
-npm run build
+npm run build:primary
 npm exec -- wrangler d1 migrations apply smart-platform-stds-readers --remote
 npm exec -- wrangler deploy --dry-run
 npm exec -- wrangler deploy

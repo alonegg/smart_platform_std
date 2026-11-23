@@ -4,12 +4,17 @@ import path from "node:path";
 import { build } from "esbuild";
 import { pathToFileURL } from "node:url";
 import { generateContent, project, root } from "./content.mjs";
-import { edition, hostname, isR2, isPublicR2 } from "./edition.mjs";
+import { basePath, edition, hostname, isPrimary, isR2, isPublicR2 } from "./edition.mjs";
 import { r2Aliases } from "./r2-aliases.mjs";
 const data = await generateContent();
+const pageUrl = (route) => `https://${hostname}${basePath}${route.slice(1)}`;
 await writeFile(
   path.join(project, "server/document-info.json"),
-  JSON.stringify({ sourceSha: data.sourceSha256, ...(isR2 ? { edition } : {}) }),
+  JSON.stringify({
+    sourceSha: data.sourceSha256,
+    ...(isR2 ? { edition } : {}),
+    ...(isPrimary && !isR2 ? { primarySite: true } : {}),
+  }),
 );
 execFileSync(path.join(project, "node_modules/.bin/vite"), ["build"], {
   cwd: project,
@@ -24,7 +29,10 @@ try {
     platform: "node",
     format: "cjs",
     outfile: path.join(scratch, "render.cjs"),
-    define: { "process.env.NODE_ENV": '"production"' },
+    define: {
+      "process.env.NODE_ENV": '"production"',
+      "import.meta.env.BASE_URL": JSON.stringify(basePath),
+    },
     ...(isR2 ? {
       loader: { ".css": "empty" },
       plugins: [{ name: "r2-edition", setup(build) {
@@ -62,7 +70,7 @@ try {
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
       .replace(
         "</head>",
-        `${isR2 ? '<meta name="robots" content="noindex">' : ""}<link rel="canonical" href="https://${hostname}${route}" /></head>`,
+        `${isR2 ? '<meta name="robots" content="noindex">' : ""}<link rel="canonical" href="${pageUrl(route)}" /></head>`,
       );
     const output =
       route === "/404/"
@@ -73,7 +81,7 @@ try {
   }
   await writeFile(
     path.join(project, "dist/sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>https://${hostname}${route}</loc></url>`).join("")}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${pageUrl(route)}</loc></url>`).join("")}</urlset>`,
   );
   await writeFile(
     path.join(project, "dist/robots.txt"),

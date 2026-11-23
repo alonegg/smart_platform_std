@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Search, X } from "lucide-react";
 import data from "./generated.json";
+import { appPath, siteHref } from "./shared.jsx";
 
 export function SearchDialog({ onClose, navigate }) {
   const [query, setQuery] = useState("");
@@ -123,10 +124,10 @@ export function SearchDialog({ onClose, navigate }) {
               {results.map((r, i) => (
                 <a
                   key={`${r.section.key}-${i}`}
-                  href={`/read/${r.section.key}/${r.anchor ? `#${r.anchor}` : ""}`}
+                  href={siteHref(`/read/${r.section.key}/${r.anchor ? `#${r.anchor}` : ""}`)}
                   onClick={(e) => {
                     e.preventDefault();
-                    navigate(e.currentTarget.getAttribute("href"));
+                    navigate(appPath(e.currentTarget.getAttribute("href")));
                     onClose();
                   }}
                 >

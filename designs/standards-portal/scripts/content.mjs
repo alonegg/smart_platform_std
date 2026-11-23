@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { marked } from "marked";
 import consultation from "../src/consultation.json" with { type: "json" };
-import { checkEditionConfig, expected, edition, isR2, isPublicR2, sourcePath, sourceCommit } from "./edition.mjs";
+import { checkEditionConfig, expected, edition, isPrimary, isR2, isPublicR2, sourcePath, sourceCommit } from "./edition.mjs";
 export { sourcePath, sourceCommit } from "./edition.mjs";
 
 export const project = fileURLToPath(new URL("../", import.meta.url));
@@ -154,6 +154,7 @@ export async function generateContent() {
     throw new Error("The public draft requires a document date and the configured feedback address.");
   const data = {
     title: standardTitle,
+    ...(isPrimary ? { primarySite: true } : {}),
     version: isPublicR2 ? "第2轮修订稿" : isR2 ? "第2轮修订稿预览" : "征求意见稿",
     date: isPublicR2 ? documentDate : "2026-11-10",
     synced: isPublicR2 ? documentDate : "2026-11-10",
